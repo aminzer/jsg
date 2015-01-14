@@ -24,15 +24,15 @@ var MathUtility =  {
     },
 
     /**
-     * return true if (x,y) in in circle
+     * return true if point (x,y) is in circle
+     * @param x
+     * @param y
      * @param circleX
      * @param circleY
      * @param circleRadius
-     * @param x
-     * @param y
      * @returns {boolean}
      */
-    isInCircle: function(circleX, circleY, circleRadius, x, y) {
+    isInCircle: function(x, y, circleX, circleY, circleRadius) {
         return (circleX-x)*(circleX-x) + (circleY-y) * (circleY-y) <= circleRadius * circleRadius;
     }
 };

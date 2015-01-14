@@ -75,7 +75,7 @@ function Player(opts, init) {
     };
 
     self.getObjectType = function() {
-        return "player";
+        return OBJECT_TYPE_UNIT;
     };
 
     return self;

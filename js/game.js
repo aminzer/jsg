@@ -57,12 +57,13 @@ function Game(opts) {
     // event handlers
     function handleTick(event) {
 
-        // change physical parameters
+        // 1. controlling objects (player and AI)
         _player.aimAt(cursorX, cursorY);
         _ai.resolve();
 
+        // 2. recounting logical parameters of Game Model Objects (uncontrolled)
         for (var i = 0; i < _dynamicObjects.length; i++) {
-            if (_dynamicObjects[i].move() == false){     // lifeTime ended
+            if (_dynamicObjects[i].move() == false) {     // lifeTime ended
                 _dynamicObjects[i].destroyShapes();
                 _dynamicObjects.splice(i, 1);
                 i--;  // because of splice
@@ -77,7 +78,7 @@ function Game(opts) {
 
         handleTargetHits();
 
-        // updating object's shapes on stage
+        // 3. updating shapes related to Game Model Objects
         for (i = 0; i < _dynamicObjects.length; i++) {
             _dynamicObjects[i].updateShapes();
         }
@@ -85,7 +86,7 @@ function Game(opts) {
             _bullets[i].updateShapes();
         }
 
-        // redraw
+        // 4. updating stage
         _stage.update();
     }
 
@@ -98,11 +99,11 @@ function Game(opts) {
         pressedKeys[e.keyCode] = true;
         setPlayersDirection();
 
-        if (e.keyCode === 17) {
+        if (e.keyCode === LOG_BUTTON) {
             console.log("objects/bullets " + _dynamicObjects.length + "/" + _bullets.length);
         }
 
-        if (e.keyCode === 79) {
+        if (e.keyCode === FIX_WEAPON_BUTTON) {
             _player.getWeapon().fix();
         }
     }
@@ -131,11 +132,11 @@ function Game(opts) {
         for (var j = 0; j < _dynamicObjects.length; j++) {
             for (var i = 0; i < _bullets.length; i++) {
                 if (MathUtility.isInCircle(
+                    _bullets[i].getX(),
+                    _bullets[i].getY(),
                     _dynamicObjects[j].getX(),
                     _dynamicObjects[j].getY(),
-                    _dynamicObjects[j].getRadius(),
-                    _bullets[i].getX(),
-                    _bullets[i].getY()
+                    _dynamicObjects[j].getRadius()
                 )) {
                     _dynamicObjects[j].takeDamage(_bullets[i].getDamage());     // unit takes damage
                     destroyBullet(i);
@@ -151,7 +152,7 @@ function Game(opts) {
         }
     }
 
-    // extra
+    // TODO move in Player
     function setPlayersDirection() {
         var dx = 0,
             dy = 0;
@@ -159,19 +160,15 @@ function Game(opts) {
         if (pressedKeys[RIGHT_BUTTON]) {
             dx++;
         }
-
         if (pressedKeys[LEFT_BUTTON]) {
             dx--;
         }
-
         if (pressedKeys[DOWN_BUTTON]) {
             dy++;
         }
-
         if (pressedKeys[UP_BUTTON]) {
             dy--;
         }
-
         if (dx == 0 && dy == 0) {
             _player.stopMoving();
             return;

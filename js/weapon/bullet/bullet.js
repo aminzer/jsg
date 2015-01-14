@@ -27,10 +27,6 @@ function Bullet(opts, init) {
 
     self.destroy = function() {};   // executed before bullet's death
 
-    self.getObjectType = function() {
-        return "bullet";
-    };
-
     self.setDamage = function(damage) {
         _damage = damage;
     };

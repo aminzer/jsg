@@ -15,7 +15,7 @@ function Unit(opts, init) {
 
     self.init = function() {
         var shape = new createjs.Shape();
-        shape.graphics.beginFill("#199EE0").drawCircle(0,0,20);
+        shape.graphics.beginFill("#199EE0").drawCircle(0, 0, 20);
         self.addShape(shape);
 
         shape = new createjs.Shape();
@@ -109,7 +109,7 @@ function Unit(opts, init) {
     };
 
     self.getObjectType = function() {
-        return "unit";
+        return OBJECT_TYPE_UNIT | OBJECT_TYPE_ENEMY;
     };
 
     self.setDynamicObjects = function(dynamicObjects) {

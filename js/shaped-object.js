@@ -24,11 +24,11 @@ function ShapedObject(opts) {
     };
 
     /**
-     * get type of current object (like bullet, unit etc)
+     * get type of current object (see config.js)
      * @returns {string}
      */
     self.getObjectType = function() {
-        return "shaped_object";
+        return 0;
     };
 
     /**
