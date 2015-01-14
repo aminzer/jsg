@@ -85,8 +85,6 @@ function Game(opts) {
             _bullets[i].updateShapes();
         }
 
-
-
         // redraw
         _stage.update();
     }

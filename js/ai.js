@@ -4,6 +4,8 @@ function AI(opts) {
     var _dynamicObjects = opts.dynamicObjects;
     var _target = opts.target;
 
+
+
     self.resolve = function() {
         for (var i = 0; i < _dynamicObjects.length; i++) {
             if (_dynamicObjects[i] !== _target) {   // all enemies
