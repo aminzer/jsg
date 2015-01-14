@@ -1,6 +1,7 @@
 function AutomaticWeapon(opts, init) {
     var self = Weapon(opts, false);
 
+    // TODO change to rate of fire
     var _shootingDelay = AUTOMATIC_WEAPON_SHOOTING_DELAY;    // delay between two bullets
     var _shootingTimer = null;                               // shoots every _shootingDelay ms
 

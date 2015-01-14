@@ -106,6 +106,10 @@ function Game(opts) {
         if (e.keyCode === FIX_WEAPON_BUTTON) {
             _player.getWeapon().fix();
         }
+
+        if (e.keyCode === 16) {
+            handleMouseDown(e);
+        }
     }
 
     function handleKeyUp(e) {
@@ -114,6 +118,21 @@ function Game(opts) {
     }
 
     function handleMouseDown(e) {
+        // TODO remove auto blocking
+        /*for (var i = 0; i < _dynamicObjects.length; i++) {
+            if ((_dynamicObjects[i].getObjectType() & OBJECT_TYPE_ENEMY)) {
+                if (MathUtility.isRayPassThroughCircle(
+                        _player.getWeapon().getX(),
+                        _player.getWeapon().getY(),
+                        _player.getWeapon().getAngle(),
+                        _dynamicObjects[i].getX(),
+                        _dynamicObjects[i].getY(),
+                        _dynamicObjects[i].getRadius()
+                )) {
+                    return;
+                }
+            }
+        }*/
         _player.startShooting();
     }
 

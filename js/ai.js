@@ -11,9 +11,9 @@ function AI(opts) {
 
     self.resolve = function() {
         for (var i = 0; i < _dynamicObjects.length; i++) {
-            if (_dynamicObjects[i].getObjectType() & OBJECT_TYPE_ENEMY) {   // all enemies
+            if (_dynamicObjects[i].getObjectType() & OBJECT_TYPE_ENEMY) {
                 _dynamicObjects[i].aimAt(_target.getX(), _target.getY());
-                if (_changeAction == true) {
+                /*if (_changeAction == true) {
                     if (random() > 0.3) {
                         _dynamicObjects[i].stopShooting();
                         _dynamicObjects[i].startMoving(MathUtility.getLinesAngle(
@@ -26,7 +26,7 @@ function AI(opts) {
                         _dynamicObjects[i].stopMoving();
                         _dynamicObjects[i].startShooting();
                     }
-                }
+                }*/
             }
         }
         _changeAction = false;
