@@ -109,12 +109,22 @@ var MathUtility = {
         if (MathUtility.getDistance(x, y, circleX, circleY) == 0) {
             return true;
         }
+        angle = this.normalizeAngle(angle);
+
         // TODO !! fix (from right like -174.41898218162044+-15.827344220736308 178.2138438281347)
-        var basicAngle = this.getLinesAngle(x, y, circleX, circleY);     // between ray's start and circle center
+        var basicAngle = this.normalizeAngle( this.getLinesAngle(x, y, circleX, circleY) );     // between ray's start and circle center
         var deltaAngle = this.radToDeg(Math.asin(circleRadius / MathUtility.getDistance(x, y, circleX, circleY)));
 
-        console.log(this.normalizeAngle(basicAngle) + "+-" + deltaAngle + " "  + this.normalizeAngle(angle));
+        console.log(basicAngle + "+-" + deltaAngle + " "  + angle);
 
-        return Math.abs(this.normalizeAngle(angle) - this.normalizeAngle(basicAngle)) <= deltaAngle;
+        // critical angle (~ -180 or ~ 180)
+        if (this.normalizeAngle(basicAngle) - deltaAngle <= -180 && angle > 0) {
+            return Math.abs(angle - basicAngle - 360) <= deltaAngle;
+        }
+        //if (this.normalizeAngle(basicAngle) + deltaAngle > 180) {
+        //    return Math.abs(angle - basicAngle + 360) <= deltaAngle;
+        //}
+
+        return Math.abs(angle - basicAngle) <= deltaAngle;
     }
 };
