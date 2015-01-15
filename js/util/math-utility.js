@@ -111,19 +111,16 @@ var MathUtility = {
         }
         angle = this.normalizeAngle(angle);
 
-        // TODO !! fix (from right like -174.41898218162044+-15.827344220736308 178.2138438281347)
         var basicAngle = this.normalizeAngle( this.getLinesAngle(x, y, circleX, circleY) );     // between ray's start and circle center
         var deltaAngle = this.radToDeg(Math.asin(circleRadius / MathUtility.getDistance(x, y, circleX, circleY)));
 
-        console.log(basicAngle + "+-" + deltaAngle + " "  + angle);
-
-        // critical angle (~ -180 or ~ 180)
-        if (this.normalizeAngle(basicAngle) - deltaAngle <= -180 && angle > 0) {
+        // some magic
+        if (this.normalizeAngle(basicAngle) - deltaAngle <= -180 && angle > 0) {    // critical angle near -180
             return Math.abs(angle - basicAngle - 360) <= deltaAngle;
         }
-        //if (this.normalizeAngle(basicAngle) + deltaAngle > 180) {
-        //    return Math.abs(angle - basicAngle + 360) <= deltaAngle;
-        //}
+        if (this.normalizeAngle(basicAngle) + deltaAngle > 180 && angle < 0) {      // critical angle near 180
+            return Math.abs(angle - basicAngle + 360) <= deltaAngle;
+        }
 
         return Math.abs(angle - basicAngle) <= deltaAngle;
     }
