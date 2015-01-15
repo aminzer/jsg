@@ -2,7 +2,42 @@
  * supporting tool that provides functions to work with angles, directions, etc
  * @returns {Object}
  */
-var MathUtility =  {
+var MathUtility = {
+
+    /**
+     * converts angle in degrees to angle in radians
+     * @param degreeAngle
+     * @returns {number}
+     */
+    degToRad: function(degreeAngle) {
+        return Math.PI / 180 * degreeAngle;
+    },
+
+    /**
+     * converts angle in radians to angle in degrees
+     * @param radianAngle
+     * @returns {number}
+     */
+    radToDeg: function(radianAngle) {
+        return 180 / Math.PI * radianAngle;
+    },
+
+    /**
+     * set angle (deg) to range (-180, 180] (period = 360)
+     * @param degreeAngle
+     * @returns {number}
+     */
+    normalizeAngle: function(degreeAngle) {
+        while (degreeAngle > 180) {
+            degreeAngle -= 360;
+        }
+
+        while (degreeAngle <= -180) {
+            degreeAngle += 360;
+        }
+
+        return degreeAngle;
+    },
 
     /**
      * get distance between two points
@@ -30,10 +65,10 @@ var MathUtility =  {
         }
 
         if (x0 < x1) {
-            return 180 / Math.PI * Math.asin( (y1 - y0) / this.getDistance(x0, y0, x1, y1) );
+            return this.radToDeg(Math.asin( (y1 - y0) / this.getDistance(x0, y0, x1, y1) ));
         }
 
-        return 180 - 180 / Math.PI * Math.asin( (y1 - y0) / this.getDistance(x0, y0, x1, y1) );
+        return this.radToDeg(Math.PI - Math.asin( (y1 - y0) / this.getDistance(x0, y0, x1, y1) ));
     },
 
     /**
@@ -64,18 +99,22 @@ var MathUtility =  {
      * return true if ray(x,y,angle) pass through circle(circleX,circleY,circleRadius)
      * @param x - ray start
      * @param y - ray start
-     * @param angle - ray angle
+     * @param angle - ray angle (deg)
      * @param circleX
      * @param circleY
      * @param circleRadius
      * @returns {boolean}
      */
     isRayPassThroughCircle : function(x, y, angle, circleX, circleY, circleRadius) {
-        // TODO !! find mistake
+        if (MathUtility.getDistance(x, y, circleX, circleY) == 0) {
+            return true;
+        }
+        // TODO !! fix (from right like -174.41898218162044+-15.827344220736308 178.2138438281347)
         var basicAngle = this.getLinesAngle(x, y, circleX, circleY);     // between ray's start and circle center
-        // TODO check zero distance
-        var deltaAngle = Math.acos(circleRadius / MathUtility.getDistance(x, y, circleX, circleY));
+        var deltaAngle = this.radToDeg(Math.asin(circleRadius / MathUtility.getDistance(x, y, circleX, circleY)));
 
-        return Math.abs(angle - basicAngle) <= deltaAngle;
+        console.log(this.normalizeAngle(basicAngle) + "+-" + deltaAngle + " "  + this.normalizeAngle(angle));
+
+        return Math.abs(this.normalizeAngle(angle) - this.normalizeAngle(basicAngle)) <= deltaAngle;
     }
 };

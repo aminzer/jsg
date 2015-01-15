@@ -119,7 +119,7 @@ function Game(opts) {
 
     function handleMouseDown(e) {
         // TODO remove auto blocking
-        /*for (var i = 0; i < _dynamicObjects.length; i++) {
+        for (var i = 0; i < _dynamicObjects.length; i++) {
             if ((_dynamicObjects[i].getObjectType() & OBJECT_TYPE_ENEMY)) {
                 if (MathUtility.isRayPassThroughCircle(
                         _player.getWeapon().getX(),
@@ -132,7 +132,7 @@ function Game(opts) {
                     return;
                 }
             }
-        }*/
+        }
         _player.startShooting();
     }
 
