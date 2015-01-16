@@ -12,28 +12,25 @@ function AI(opts) {
     self.resolve = function() {
         for (var i = 0; i < _dynamicObjects.length; i++) {
             if (_dynamicObjects[i].getObjectType() & OBJECT_TYPE_ENEMY) {
-                _dynamicObjects[i].aimAt(_target.getX(), _target.getY());
-                if (_changeAction == true) {
-                    if (random() > 1) {
+                _dynamicObjects[i].aimAt(_target.getX(), _target.getY());   // aim at target
+
+                if (!canShoot(_dynamicObjects[i])) {    // prevent friendly fire
+                    _dynamicObjects[i].stopShooting();
+                }
+
+                if (_changeAction == true) {    // random behaviour
+                    if (random() > 0.5) {
                         _dynamicObjects[i].stopShooting();
                         _dynamicObjects[i].startMoving(MathUtility.getLinesAngle(
                             _dynamicObjects[i].getX(),
                             _dynamicObjects[i].getY(),
                             _target.getX(),
                             _target.getY()
-                        ) /*+ random() * 90 - 45*/);    // TODO add moving error
+                        ) + random() * 90 - 45);
                     } else {
                         _dynamicObjects[i].stopMoving();
-                        _dynamicObjects[i].startShooting();
-                    }
-                }
-
-                //  TODO !! check shots
-                for (var k = 0; k < _dynamicObjects.length; k++) {
-                    if (_dynamicObjects[k].getObjectType() & OBJECT_TYPE_ENEMY) {
-                        if (isOnFiringLine(_dynamicObjects[i], _dynamicObjects[k])) {
-                            _dynamicObjects[i].stopShooting();
-                            console.log(111);
+                        if (canShoot(_dynamicObjects[i])) {
+                            _dynamicObjects[i].startShooting();
                         }
                     }
                 }
@@ -41,6 +38,15 @@ function AI(opts) {
         }
         _changeAction = false;
     };
+
+    function canShoot(shooter) {        // check all friends on firing lines
+        for (var k = 0; k < _dynamicObjects.length; k++) {
+            if ((_dynamicObjects[k].getObjectType() & OBJECT_TYPE_ENEMY) && isOnFiringLine(shooter, _dynamicObjects[k])) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     function isOnFiringLine(shooter, target) {
         return MathUtility.isRayPassThroughCircle(

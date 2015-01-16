@@ -29,12 +29,12 @@ function Game(opts) {
         });
         _dynamicObjects.push(_player);
 
-        for (var i = 0; i < 2; i++) {
+        for (var i = 0; i < 5; i++) {
             _dynamicObjects.push(Unit({
                 stage: _stage,
                 dynamicObjects: _dynamicObjects,
                 bullets: _bullets,
-                x: 800,
+                x: 1200,
                 y: 100 + i * 50
             }));
         }
