@@ -156,7 +156,6 @@ function Game(opts) {
         }
     }
 
-    // TODO move in Player
     function setPlayersDirection() {
         var dx = 0,
             dy = 0;

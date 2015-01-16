@@ -4,6 +4,7 @@ function Unit(opts, init) {
     var _dynamicObjects = opts.dynamicObjects;
     var _bullets = opts.bullets;
 
+    // TODO add max hp
     var _hp = opts.hp || UNIT_HP;
     var _radius = opts.radius || UNIT_RADIUS;          // body area = circle (for handling hits)
 

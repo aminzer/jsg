@@ -1,9 +1,8 @@
 function AutomaticWeapon(opts, init) {
     var self = Weapon(opts, false);
 
-    // TODO change to rate of fire
-    var _shootingDelay = AUTOMATIC_WEAPON_SHOOTING_DELAY;    // delay between two bullets
-    var _shootingTimer = null;                               // shoots every _shootingDelay ms
+    var _rateOfFire = AUTOMATIC_WEAPON_RATE_OF_FIRE;        // shots per minute
+    var _shootingTimer = null;                              // shoots every 60000 / _rateOfFire ms
 
     self.init = function() {
         var body = new createjs.Shape();
@@ -23,7 +22,7 @@ function AutomaticWeapon(opts, init) {
             self.shoot();
             _shootingTimer = setInterval(function() {
                 self.shoot();
-            }, _shootingDelay);
+            }, 60000 / _rateOfFire);
         }
     };
 
@@ -33,12 +32,12 @@ function AutomaticWeapon(opts, init) {
         _shootingTimer = null;
     };
 
-    self.setShootingDelay = function(delay) {
-        _shootingDelay = delay;
+    self.setRateOfFire = function(rateOfFire) {
+        _rateOfFire = rateOfFire;
     };
 
-    self.getShootingDelay = function() {
-        return _shootingDelay;
+    self.getRateOfFire = function() {
+        return _rateOfFire;
     };
 
     return self;

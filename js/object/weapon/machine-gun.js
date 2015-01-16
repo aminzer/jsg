@@ -1,7 +1,7 @@
 function MachineGun(opts, init) {
     var self = AutomaticWeapon(opts, false);
 
-    self.setShootingDelay(MACHINE_GUN_SHOOTING_DELAY);
+    self.setRateOfFire(MACHINE_GUN_RATE_OF_FIRE);
     self.setMaxSector(MACHINE_GUN_MAX_SECTOR);
     self.setFrontLength(MACHINE_GUN_FRONT_LENGTH);
     self.setHardness(MACHINE_GUN_HARDNESS);
