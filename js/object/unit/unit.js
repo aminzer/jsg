@@ -80,6 +80,7 @@ function Unit(opts, init) {
 
     self.takeDamage = function(damage) {
         _hp -= damage;
+        console.log("damage = " + damage);
     };
 
     self.isAlive = function() {

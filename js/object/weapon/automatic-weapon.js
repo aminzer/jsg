@@ -18,6 +18,7 @@ function AutomaticWeapon(opts, init) {
     }
 
     self.startShooting = function() {
+        console.log("start");
         if (_shootingTimer == null) {
             self.shoot();
             _shootingTimer = setInterval(function() {
@@ -27,6 +28,7 @@ function AutomaticWeapon(opts, init) {
     };
 
     self.stopShooting = function() {
+        console.log("finish");
         clearInterval(_shootingTimer);
         _shootingTimer = null;
     };

@@ -29,7 +29,7 @@ function Game(opts) {
         });
         _dynamicObjects.push(_player);
 
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 2; i++) {
             _dynamicObjects.push(Unit({
                 stage: _stage,
                 dynamicObjects: _dynamicObjects,
@@ -118,21 +118,6 @@ function Game(opts) {
     }
 
     function handleMouseDown(e) {
-        // TODO remove auto blocking
-        for (var i = 0; i < _dynamicObjects.length; i++) {
-            if ((_dynamicObjects[i].getObjectType() & OBJECT_TYPE_ENEMY)) {
-                if (MathUtility.isRayPassThroughCircle(
-                        _player.getWeapon().getX(),
-                        _player.getWeapon().getY(),
-                        _player.getWeapon().getAngle(),
-                        _dynamicObjects[i].getX(),
-                        _dynamicObjects[i].getY(),
-                        _dynamicObjects[i].getRadius()
-                )) {
-                    return;
-                }
-            }
-        }
         _player.startShooting();
     }
 
