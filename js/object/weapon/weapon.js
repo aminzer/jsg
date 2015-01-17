@@ -75,7 +75,7 @@ function Weapon(opts, init) {
 
     // @Override
     self.p_destroyShapes = self.destroyShapes;    // save parents function
-    self.destroyShapes = function() {            // destroy own shapes and start destroying of children
+    self.destroyShapes = function() {             // destroy own shapes and start destroying of children
         self.p_destroyShapes();
         self.stopShooting();
     };

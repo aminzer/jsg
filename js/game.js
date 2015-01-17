@@ -30,7 +30,7 @@ function Game(opts) {
         _dynamicObjects.push(_player);
 
         for (var i = 0; i < 5; i++) {
-            _dynamicObjects.push(FootSoldier({
+            _dynamicObjects.push(MachineGunner({
                 stage: _stage,
                 dynamicObjects: _dynamicObjects,
                 bullets: _bullets,

@@ -13,6 +13,7 @@ function Unit(opts, init) {
     var _speed = opts.speed || UNIT_SPEED;
 
     var _weapon;
+    var _weaponConstructor = opts.weapon || AutomaticWeapon;
     var _weaponOffsetY = UNIT_WEAPON_OFFSET_Y;     // offset between weapon's and unit's centers
 
     self.startMoving = function(newAngle) {
@@ -80,6 +81,10 @@ function Unit(opts, init) {
         _weapon.destroyShapes();
     };
 
+    self.getObjectType = function() {
+        return OBJECT_TYPE_UNIT | OBJECT_TYPE_ENEMY;
+    };
+
     self.setWeapon = function(weapon) {
         _weapon = weapon;
     };
@@ -88,8 +93,12 @@ function Unit(opts, init) {
         return _weapon;
     };
 
-    self.getObjectType = function() {
-        return OBJECT_TYPE_UNIT | OBJECT_TYPE_ENEMY;
+    self.setWeaponConstructor = function(weaponConstructor) {
+        _weaponConstructor = weaponConstructor;
+    };
+
+    self.getWeaponConstructor = function() {
+        return _weaponConstructor;
     };
 
     self.setDynamicObjects = function(dynamicObjects) {
