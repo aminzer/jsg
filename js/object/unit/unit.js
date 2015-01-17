@@ -15,29 +15,6 @@ function Unit(opts, init) {
     var _weapon;
     var _weaponOffsetY = UNIT_WEAPON_OFFSET_Y;     // offset between weapon's and unit's centers
 
-    self.init = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill("#199EE0").drawCircle(0, 0, 20);
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#559').drawRect(0, 0, 10, 38);
-        shape.regX = 5;
-        shape.regY = 19;
-        self.addShape(shape);
-
-        _weapon = AutomaticWeapon({
-            stage: self.getStage(),
-            bullets: _bullets,
-            x: opts.x,
-            y: opts.y + _weaponOffsetY
-        });
-    };
-
-    if (init !== false) {
-        self.init();
-    }
-
     self.startMoving = function(newAngle) {
         _movingAngle = newAngle;
     };
