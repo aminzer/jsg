@@ -4,6 +4,8 @@ function AutomaticWeapon(opts, init) {
     var _rateOfFire = AUTOMATIC_WEAPON_RATE_OF_FIRE;        // shots per minute
     var _shootingTimer = null;                              // shoots every 60000 / _rateOfFire ms
 
+    self.setShootingDelay(60000 / _rateOfFire);
+
     self.init = function() {
         var body = new createjs.Shape();
         body.graphics.beginFill('#8F3232').drawRect(0, 0, self.getFrontLength() + 15, 5);
@@ -17,17 +19,20 @@ function AutomaticWeapon(opts, init) {
     }
 
     self.startShooting = function() {
-        console.log("start");
-        if (_shootingTimer == null) {
+        if (self.isShootingAllowed() && _shootingTimer == null) {
             self.shoot();
-            _shootingTimer = setInterval(function() {
+            _shootingTimer = setInterval(function () {
                 self.shoot();
             }, 60000 / _rateOfFire);
+
+            self.forbidShoot();
+            setTimeout(function() {
+                self.allowShoot();
+            }, self.getShootingDelay());
         }
     };
 
     self.stopShooting = function() {
-        console.log("finish");
         clearInterval(_shootingTimer);
         _shootingTimer = null;
     };

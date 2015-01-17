@@ -3,13 +3,16 @@ function Weapon(opts, init) {
 
     var _globalBullets = opts.bullets;
 
-    var _frontLength = WEAPON_FRONT_LENGTH;          // influence on bullets start coordinates
+    var _frontLength = WEAPON_FRONT_LENGTH;      // influence on bullets start coordinates
 
-    var _hardness = WEAPON_HARDNESS;            // max number of bullets to reduce the accuracy
-    var _state = _hardness;         // current number
-    var _maxSector = WEAPON_MAX_SECTOR;            // if accuracy = 0, bullets will be in this sector (degrees)
+    var _hardness = WEAPON_HARDNESS;             // max number of bullets to reduce the accuracy
+    var _state = _hardness;                      // current number of bullets to reduce the accuracy
+    var _maxSector = WEAPON_MAX_SECTOR;          // if accuracy = 0, bullets will be in this sector (degrees)
 
     var _bulletConstructor = Bullet;
+
+    var _shootingDelay = WEAPON_SHOOTING_DELAY;  // min time interval between 2 shots
+    var _canShoot = true;
 
     self.init = function() {
         var body = new createjs.Shape();
@@ -32,15 +35,33 @@ function Weapon(opts, init) {
             angle: self.getAngle() + (1 - self.getAccuracy()) * (_maxSector * random() - _maxSector / 2)
         }));
 
-        // TODO harm weapon
-    //    self.harmWeapon();
+        self.harmWeapon();
     };
 
     self.startShooting = function() {
-        self.shoot();       // single shot
+        if (self.isShootingAllowed()) {
+            self.shoot();       // single shot
+
+            self.forbidShoot();
+            setTimeout(function() {
+                self.allowShoot();
+            }, _shootingDelay);
+        }
     };
 
     self.stopShooting = function() {};
+
+    self.allowShoot = function() {
+        _canShoot = true;
+    };
+
+    self.forbidShoot = function() {
+        _canShoot = false;
+    };
+
+    self.isShootingAllowed = function() {
+        return _canShoot;
+    };
 
     self.fix = function() {
         _state = _hardness;
@@ -90,6 +111,14 @@ function Weapon(opts, init) {
 
     self.setBulletConstructor = function(bulletConstructor) {
         _bulletConstructor = bulletConstructor;
+    };
+
+    self.setShootingDelay = function(shootingDelay) {
+        _shootingDelay = shootingDelay;
+    };
+
+    self.getShootingDelay = function() {
+        return _shootingDelay;
     };
 
     return self;

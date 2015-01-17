@@ -4,6 +4,7 @@ function RocketLauncher(opts, init) {
     self.setMaxSector(ROCKET_LAUNCHER_MAX_SECTOR);
     self.setFrontLength(ROCKET_LAUNCHER_FRONT_LENGTH);
     self.setHardness(ROCKET_LAUNCHER_HARDNESS);
+    self.setShootingDelay(ROCKET_LAUNCHER_SHOOTING_DELAY);
     self.setBulletConstructor(opts.bulletConstructor || ExplosiveRocket);
 
     self.init = function() {
