@@ -7,6 +7,7 @@ function Game(opts) {
     var _dynamicObjects = [];   // units etc
     var _bullets = [];          // harm elements (like bullets)
     var _ai = null;             // artificial intellect
+    var _enemyFactory = null;    // generating enemies
 
     var pressedKeys = {};   // array with key codes of pressed buttons
     var cursorX = 0;
@@ -61,6 +62,13 @@ function Game(opts) {
             dynamicObjects: _dynamicObjects,
             target: _player
         });
+
+        // TODO stop on pause
+        _enemyFactory = EnemyFactory({
+            stage: _stage,
+            dynamicObjects: _dynamicObjects,
+            bullets: _bullets
+        }).startGenerating();
 
         // set handlers
         document.addEventListener("mousemove", handleMouseMove);
