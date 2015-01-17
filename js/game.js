@@ -46,6 +46,15 @@ function Game(opts) {
                     y: 100 + i * 50
                 }));
             }
+            if (i % 3 == 2) {
+                _dynamicObjects.push(GuyWithPanzerschreck({
+                    stage: _stage,
+                    dynamicObjects: _dynamicObjects,
+                    bullets: _bullets,
+                    x: 1200,
+                    y: 300 + i * 50
+                }));
+            }
         }
 
         _ai = new AI({
