@@ -5,7 +5,7 @@ function MachineGun(opts, init) {
     self.setMaxSector(MACHINE_GUN_MAX_SECTOR);
     self.setFrontLength(MACHINE_GUN_FRONT_LENGTH);
     self.setHardness(MACHINE_GUN_HARDNESS);
-    self.setBulletConstructor(MachineGunBullet);
+    self.setBulletConstructor(opts.bulletConstructor || MachineGunBullet);
 
     self.init = function() {
         var shape = new createjs.Shape();

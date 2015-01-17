@@ -57,11 +57,16 @@ function Game(opts) {
     // event handlers
     function handleTick(event) {
 
-        // 1. controlling objects (player and AI)
+        // 1. check if ticker isn't paused
+        if (createjs.Ticker.paused == true) {
+            return;
+        }
+
+        // 2. controlling objects (player and AI)
         _player.aimAt(cursorX, cursorY);
         _ai.resolve();
 
-        // 2. recounting logical parameters of Game Model Objects (uncontrolled)
+        // 3. recounting logical parameters of Game Model Objects (uncontrolled)
         for (var i = 0; i < _dynamicObjects.length; i++) {
             if (_dynamicObjects[i].move() == false) {     // lifeTime ended
                 _dynamicObjects[i].destroyShapes();
@@ -78,7 +83,7 @@ function Game(opts) {
 
         handleTargetHits();
 
-        // 3. updating shapes related to Game Model Objects
+        // 4. updating shapes related to Game Model Objects
         for (i = 0; i < _dynamicObjects.length; i++) {
             _dynamicObjects[i].updateShapes();
         }
@@ -86,7 +91,7 @@ function Game(opts) {
             _bullets[i].updateShapes();
         }
 
-        // 4. updating stage
+        // 5. updating stage (redraw)
         _stage.update();
     }
 
@@ -107,8 +112,8 @@ function Game(opts) {
             _player.getWeapon().fix();
         }
 
-        if (e.keyCode === 16) {
-            handleMouseDown(e);
+        if (e.keyCode === PAUSE_BUTTON) {
+            createjs.Ticker.paused = !createjs.Ticker.paused;
         }
     }
 

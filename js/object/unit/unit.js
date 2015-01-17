@@ -6,6 +6,7 @@ function Unit(opts, init) {
 
     // TODO add max hp
     var _hp = opts.hp || UNIT_HP;
+    var _maxHp = opts.hp || UNIT_HP;
     var _radius = opts.radius || UNIT_RADIUS;          // body area = circle (for handling hits)
 
     var _movingAngle = NO_MOVEMENT;     // angle in which unit move (degrees)
@@ -140,6 +141,14 @@ function Unit(opts, init) {
 
     self.getRadius = function() {
         return _radius;
+    };
+
+    self.setMaxHp = function(maxHp) {
+        _hp = _maxHp = maxHp;
+    };
+
+    self.getHp = function() {
+        return _hp;
     };
 
     return self;

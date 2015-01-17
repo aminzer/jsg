@@ -4,7 +4,7 @@ function RocketLauncher(opts, init) {
     self.setMaxSector(ROCKET_LAUNCHER_MAX_SECTOR);
     self.setFrontLength(ROCKET_LAUNCHER_FRONT_LENGTH);
     self.setHardness(ROCKET_LAUNCHER_HARDNESS);
-    self.setBulletConstructor(ExplosiveRocket);
+    self.setBulletConstructor(opts.bulletConstructor || ExplosiveRocket);
 
     self.init = function() {
         var shape = new createjs.Shape();
