@@ -35,7 +35,7 @@ function Weapon(opts, init) {
             angle: self.getAngle() + (1 - self.getAccuracy()) * (_maxSector * random() - _maxSector / 2)
         }));
 
-        self.harmWeapon();
+      //  self.harmWeapon();
     };
 
     self.startShooting = function() {
