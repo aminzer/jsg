@@ -5,11 +5,11 @@ function FootSoldier(opts, init) {
 
     self.init = function() {
         var shape = new createjs.Shape();
-        shape.graphics.beginFill("#199EE0").drawCircle(0, 0, 20);
+        shape.graphics.beginFill("#559").drawCircle(0, 0, 20);
         self.addShape(shape);
 
         shape = new createjs.Shape();
-        shape.graphics.beginFill('#559').drawRect(0, 0, 10, 38);
+        shape.graphics.beginFill('#199EE0').drawRect(0, 0, 10, 38);
         shape.regX = 5;
         shape.regY = 19;
         self.addShape(shape);
