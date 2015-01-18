@@ -6,7 +6,7 @@ function EnemyFactory(opts) {
     var _bullets = opts.bullets;
 
     var _enemyConstructors = [
-        FootSoldier, MachineGunner, GuyWithPanzerschreck
+        Recruit, FootSoldier, MachineGunner, GuyWithPanzerschreck
     ];
 
     var _creationTimer = null;

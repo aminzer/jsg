@@ -24,7 +24,7 @@ var EXPLOSIVE_ROCKET_FRACTION_LIFETIME = 10;
 
 // ================== weapons ===================
 var WEAPON_FRONT_LENGTH = 30;
-var WEAPON_HARDNESS = 100;
+var WEAPON_HARDNESS = 500;
 var WEAPON_MAX_SECTOR = 20;
 var WEAPON_SHOOTING_DELAY = 300;
 

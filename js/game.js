@@ -30,15 +30,24 @@ function Game(opts) {
         });
         _dynamicObjects.push(_player);
 
-        for (var i = 0; i < 5; i++) {
-            _dynamicObjects.push(FootSoldier({
+        for (var i = 0; i < 6; i++) {
+            _dynamicObjects.push(Recruit({
                 stage: _stage,
                 dynamicObjects: _dynamicObjects,
                 bullets: _bullets,
-                x: 1200,
+                x: 1100,
                 y: 100 + i * 50
             }));
-            if (i % 2 == 1) {
+            if (i % 2 == 0) {
+                _dynamicObjects.push(FootSoldier({
+                    stage: _stage,
+                    dynamicObjects: _dynamicObjects,
+                    bullets: _bullets,
+                    x: 1200,
+                    y: 100 + i * 50
+                }));
+            }
+            if (i % 3 == 1) {
                 _dynamicObjects.push(MachineGunner({
                     stage: _stage,
                     dynamicObjects: _dynamicObjects,
@@ -47,13 +56,13 @@ function Game(opts) {
                     y: 100 + i * 50
                 }));
             }
-            if (i % 3 == 2) {
+            if (i % 4 == 2) {
                 _dynamicObjects.push(GuyWithPanzerschreck({
                     stage: _stage,
                     dynamicObjects: _dynamicObjects,
                     bullets: _bullets,
                     x: 1200,
-                    y: 300 + i * 50
+                    y: 300 + i * 70
                 }));
             }
         }
@@ -64,11 +73,11 @@ function Game(opts) {
         });
 
         // TODO stop on pause
-        _enemyFactory = EnemyFactory({
+      /*  _enemyFactory = EnemyFactory({
             stage: _stage,
             dynamicObjects: _dynamicObjects,
             bullets: _bullets
-        }).startGenerating();
+        }).startGenerating();*/
 
         // set handlers
         document.addEventListener("mousemove", handleMouseMove);
