@@ -13,7 +13,7 @@ function Unit(opts, init) {
     var _speed = opts.speed || UNIT_SPEED;
 
     var _weapon;
-    var _weaponConstructor = opts.weapon || AutomaticWeapon;
+    var _weaponConstructor = opts.weapon || GrandfathersGun;
     var _weaponOffsetY = UNIT_WEAPON_OFFSET_Y;     // offset between weapon's and unit's centers
 
     self.startMoving = function(newAngle) {
