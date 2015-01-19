@@ -51,8 +51,8 @@
 
         function resizeCanvas() {      // full screen
             var canvas = document.getElementById("canvas");
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            CANVAS_WIDTH = canvas.width = window.innerWidth;
+            CANVAS_HEIGHT = canvas.height = window.innerHeight;
         }
 
         function init() {
@@ -60,9 +60,7 @@
 
             window.onresize = resizeCanvas;
 
-            Game({
-                'canvasId': 'canvas'
-            });
+            Game();
         }
 
     </script>

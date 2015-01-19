@@ -5,14 +5,26 @@ function EnemyFactory(opts) {
     var _dynamicObjects = opts.dynamicObjects;
     var _bullets = opts.bullets;
 
+    var _delay = 2000;      // between generating
+
     var _enemyConstructors = [
-        Recruit, FootSoldier, MachineGunner, GuyWithPanzerschreck
+        {constructor: Recruit, weight: 10},
+        {constructor: FootSoldier, weight: 5},
+        {constructor: MachineGunner, weight: 2},
+        {constructor: GuyWithPanzerschreck, weight: 1}
     ];
+    _enemyConstructors.getFullWeight = function() {
+        var weight = 0;
+        for (var i = 0; i < this.length; i++) {
+            weight += this[i].weight;
+        }
+        return weight;
+    };
 
     var _creationTimer = null;
 
     self.startGenerating = function() {
-        _creationTimer = setInterval(generate, 1000);
+        _creationTimer = setInterval(generate, _delay);
     };
 
     self.stopGenerating = function() {
@@ -20,14 +32,25 @@ function EnemyFactory(opts) {
     };
 
     function generate() {
-        var constructorIndex = Math.floor(random() * _enemyConstructors.length);
-        _dynamicObjects.push(_enemyConstructors[constructorIndex]({
+        _dynamicObjects.push(_enemyConstructors[getNextIndex()].constructor({
             stage: _stage,
             dynamicObjects: _dynamicObjects,
             bullets: _bullets,
-            x: 1200 + random() * 300,
-            y: 100 + random() * 600
+            x: CANVAS_WIDTH * (random() / 2 + 0.5),
+            y: CANVAS_HEIGHT * (random() / 2 + 0.5)
         }));
+    }
+
+    function getNextIndex() {
+        var border = random() * _enemyConstructors.getFullWeight();
+        var x = 0;
+        for (var i = 0; i < _enemyConstructors.length; i++) {
+            if (x <= border && x + _enemyConstructors[i].weight > border) {
+                return i;
+            }
+            x += _enemyConstructors[i].weight;
+        }
+        return _enemyConstructors.length - 1;
     }
 
     return self;

@@ -1,4 +1,4 @@
-function Game(opts) {
+function Game() {
     var self = {};
 
     var _stage = null;
@@ -16,7 +16,7 @@ function Game(opts) {
     init();
 
     function init() {
-        _stage = new createjs.Stage(opts.canvasId || "canvas");
+        _stage = new createjs.Stage("canvas");
         createjs.Ticker.setFPS(FPS);
 
         _player = Player({
@@ -73,11 +73,11 @@ function Game(opts) {
         });
 
         // TODO stop on pause
-      /*  _enemyFactory = EnemyFactory({
+        _enemyFactory = EnemyFactory({
             stage: _stage,
             dynamicObjects: _dynamicObjects,
             bullets: _bullets
-        }).startGenerating();*/
+        }).startGenerating();
 
         // set handlers
         document.addEventListener("mousemove", handleMouseMove);

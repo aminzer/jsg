@@ -12,7 +12,11 @@ var PAUSE_BUTTON = 80;        // P
 // =======================================================================
 
 // =============================== private ===============================
+var CANVAS_WIDTH = 0;
+var CANVAS_HEIGHT = 0;
+
 var NO_MOVEMENT = 'NO_MOVEMENT';
+
 var OBJECT_TYPE_UNIT = parseInt("0001", 2);
 var OBJECT_TYPE_ENEMY = parseInt("0010", 2);
 
