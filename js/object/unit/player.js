@@ -21,14 +21,14 @@ function Player(opts, init) {
          shape.graphics.beginFill('#559').arc(-20, 5, 50, -1, 0);
          self.addShape(shape);*/
 
-        _weaponArsenal.push(Weapon({
+        _weaponArsenal.push(GrandfathersGun({
             stage: self.getStage(),
             bullets: self.getBullets(),
             x: opts.x,
             y: opts.y + self.getWeaponOffsetY()
         }));
 
-        _weaponArsenal.push(AutomaticWeapon({
+        _weaponArsenal.push(AutomaticGun({
             stage: self.getStage(),
             bullets: self.getBullets(),
             x: opts.x,

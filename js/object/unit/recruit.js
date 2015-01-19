@@ -1,7 +1,7 @@
 function Recruit(opts, init) {
     var self = Unit(opts, true);
 
-    self.setWeaponConstructor(opts.weapon || Weapon);
+    self.setWeaponConstructor(opts.weapon || GrandfathersGun);
 
     self.init = function() {
         var shape = new createjs.Shape();

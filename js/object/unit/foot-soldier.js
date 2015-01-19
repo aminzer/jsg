@@ -1,7 +1,7 @@
 function FootSoldier(opts, init) {
     var self = Unit(opts, true);
 
-    self.setWeaponConstructor(opts.weapon || AutomaticWeapon);
+    self.setWeaponConstructor(opts.weapon || AutomaticGun);
 
     self.init = function() {
         var shape = new createjs.Shape();

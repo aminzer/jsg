@@ -1,5 +1,5 @@
 function RocketLauncher(opts, init) {
-    var self = Weapon(opts, false);
+    var self = Weapon(opts);
 
     self.setMaxSector(ROCKET_LAUNCHER_MAX_SECTOR);
     self.setFrontLength(ROCKET_LAUNCHER_FRONT_LENGTH);

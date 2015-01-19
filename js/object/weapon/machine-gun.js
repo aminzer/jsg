@@ -1,5 +1,5 @@
 function MachineGun(opts, init) {
-    var self = AutomaticWeapon(opts, false);
+    var self = AutomaticWeapon(opts);
 
     self.setRateOfFire(MACHINE_GUN_RATE_OF_FIRE);
     self.setMaxSector(MACHINE_GUN_MAX_SECTOR);
