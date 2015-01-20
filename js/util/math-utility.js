@@ -123,5 +123,17 @@ var MathUtility = {
         }
 
         return Math.abs(angle - basicAngle) <= deltaAngle;
+    },
+
+    /**
+     * get angle of ray after reflection from barrier
+     * @param rayAngle (deg)
+     * @param barrierAngle (deg)
+     * @returns angle (deg)
+     */
+    getReflectAngle: function(rayAngle, barrierAngle) {
+        // TODO fix
+
+
     }
 };
