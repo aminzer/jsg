@@ -113,6 +113,7 @@ function Game() {
 
         if (e.keyCode === PAUSE_BUTTON) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
+            _levelResolver.toggleGenerating();
         }
     }
 

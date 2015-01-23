@@ -19,7 +19,6 @@ function LevelResolver(opts) {
             }));
         }
 
-        // TODO stop on pause
         if (level.enemyFactory) {
             _enemyFactory = level.enemyFactory.constructor({
                 stage: _stage,
@@ -27,6 +26,22 @@ function LevelResolver(opts) {
                 bullets: _bullets,
                 generatingDelay: level.enemyFactory.generatingDelay
             });
+            _enemyFactory.startGenerating();
+        }
+    };
+
+    self.startGenerating = function() {
+        _enemyFactory && _enemyFactory.startGenerating();
+    };
+
+    self.stopGenerating = function() {
+        _enemyFactory && _enemyFactory.stopGenerating();
+    };
+
+    self.toggleGenerating = function() {
+        if (_enemyFactory.isGenerating()) {
+            _enemyFactory.stopGenerating()
+        } else {
             _enemyFactory.startGenerating();
         }
     };

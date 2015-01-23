@@ -29,6 +29,11 @@ function EnemyFactory(opts) {
 
     self.stopGenerating = function() {
         clearInterval(_creationTimer);
+        _creationTimer = null;
+    };
+
+    self.isGenerating = function() {
+        return _creationTimer !== null;
     };
 
     function generate() {
