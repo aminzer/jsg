@@ -5,7 +5,7 @@ function EnemyFactory(opts) {
     var _dynamicObjects = opts.dynamicObjects;
     var _bullets = opts.bullets;
 
-    var _delay = 2000;      // between generating
+    var _generatingDelay = opts.generatingDelay || 2000;      // between enemy generating
 
     var _enemyConstructors = [
         {constructor: Recruit, weight: 10},
@@ -24,7 +24,7 @@ function EnemyFactory(opts) {
     var _creationTimer = null;
 
     self.startGenerating = function() {
-        _creationTimer = setInterval(generate, _delay);
+        _creationTimer = setInterval(generate, _generatingDelay);
     };
 
     self.stopGenerating = function() {
