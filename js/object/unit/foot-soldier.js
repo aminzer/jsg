@@ -1,7 +1,7 @@
 function FootSoldier(opts, draw) {
     var self = Unit(opts);
 
-    self.setWeaponConstructor(opts.weapon || AutomaticGun);
+    self.setWeaponConstructor(AutomaticGun);
 
     self.draw = function() {
         var shape = new createjs.Shape();
@@ -16,9 +16,7 @@ function FootSoldier(opts, draw) {
 
         self.setWeapon(self.getWeaponConstructor()({
             stage: self.getStage(),
-            bullets: self.getBullets(),
-            x: opts.x,
-            y: opts.y + self.getWeaponOffsetY
+            bullets: self.getBullets()
         }));
     };
 

@@ -23,30 +23,22 @@ function Player(opts, draw) {
 
         _weaponArsenal.push(GrandfathersGun({
             stage: self.getStage(),
-            bullets: self.getBullets(),
-            x: opts.x,
-            y: opts.y + self.getWeaponOffsetY()
+            bullets: self.getBullets()
         }));
 
         _weaponArsenal.push(AutomaticGun({
             stage: self.getStage(),
-            bullets: self.getBullets(),
-            x: opts.x,
-            y: opts.y + self.getWeaponOffsetY()
+            bullets: self.getBullets()
         }, false));
 
         _weaponArsenal.push(MachineGun({
             stage: self.getStage(),
-            bullets: self.getBullets(),
-            x: opts.x,
-            y: opts.y + self.getWeaponOffsetY()
+            bullets: self.getBullets()
         }, false));
 
         _weaponArsenal.push(RocketLauncher({
             stage: self.getStage(),
-            bullets: self.getBullets(),
-            x: opts.x,
-            y: opts.y + self.getWeaponOffsetY()
+            bullets: self.getBullets()
         }, false));
 
         self.setWeapon(_weaponArsenal[_weaponIndex]);

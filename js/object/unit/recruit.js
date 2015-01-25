@@ -1,7 +1,7 @@
 function Recruit(opts, draw) {
     var self = Unit(opts);
 
-    self.setWeaponConstructor(opts.weapon || GrandfathersGun);
+    self.setWeaponConstructor(GrandfathersGun);
 
     self.draw = function() {
         var shape = new createjs.Shape();
@@ -16,9 +16,7 @@ function Recruit(opts, draw) {
 
         self.setWeapon(self.getWeaponConstructor()({
             stage: self.getStage(),
-            bullets: self.getBullets(),
-            x: opts.x,
-            y: opts.y + self.getWeaponOffsetY
+            bullets: self.getBullets()
         }));
     };
 

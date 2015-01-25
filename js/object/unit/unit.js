@@ -12,9 +12,8 @@ function Unit(opts) {
     var _movingAngle = NO_MOVEMENT;     // angle in which unit move (degrees)
     var _speed = opts.speed || UNIT_SPEED;
 
-    var _weapon;
+    var _weapon = null;
     var _weaponConstructor = opts.weapon || GrandfathersGun;
-    var _weaponOffsetY = UNIT_WEAPON_OFFSET_Y;     // offset between weapon's and unit's centers
 
     self.startMoving = function(newAngle) {
         _movingAngle = newAngle;
@@ -34,16 +33,7 @@ function Unit(opts) {
 
     self.aimAt = function(targetX, targetY) {
         self.setAngle(MathUtility.getLinesAngle(self.getX(), self.getY(), targetX, targetY));
-
-        _weapon.setAngle(MathUtility.getLinesAngle(
-            self.getX() - _weaponOffsetY*sin_d(self.getAngle()),
-            self.getY() + _weaponOffsetY*cos_d(self.getAngle()),
-            targetX,
-            targetY
-        ));
-
-        _weapon.setX(self.getX() - _weaponOffsetY * sin_d(self.getAngle()));
-        _weapon.setY(self.getY() + _weaponOffsetY * cos_d(self.getAngle()));
+        _weapon.aimAt(targetX, targetY, self.getX(), self.getY(), self.getAngle());
     };
 
     self.shoot = function() {
@@ -111,14 +101,6 @@ function Unit(opts) {
 
     self.getBullets = function() {
         return _bullets;
-    };
-
-    self.setWeaponOffsetY = function(offset) {
-        _weaponOffsetY = offset;
-    };
-
-    self.getWeaponOffsetY = function() {
-        return _weaponOffsetY;
     };
 
     self.setRadius = function(radius) {

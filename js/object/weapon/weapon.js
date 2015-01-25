@@ -4,6 +4,7 @@ function Weapon(opts) {
     var _globalBullets = opts.bullets;
 
     var _frontLength = WEAPON_FRONT_LENGTH;      // influence on bullets start coordinates
+    var _weaponOffsetY = opts.weaponOffsetY || UNIT_WEAPON_OFFSET_Y;   // offset between weapon's and unit's centers
 
     var _hardness = WEAPON_HARDNESS;             // max number of bullets to reduce the accuracy
     var _state = _hardness;                      // current number of bullets to reduce the accuracy
@@ -61,6 +62,18 @@ function Weapon(opts) {
         }
     };
 
+    self.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
+        self.setAngle(MathUtility.getLinesAngle(
+            unitX - _weaponOffsetY*sin_d(unitAngle),
+            unitY + _weaponOffsetY*cos_d(unitAngle),
+            targetX,
+            targetY
+        ));
+
+        self.setX(unitX - _weaponOffsetY * sin_d(unitAngle));
+        self.setY(unitY + _weaponOffsetY * cos_d(unitAngle));
+    };
+
     // @Override
     self.p_destroyShapes = self.destroyShapes;    // save parents function
     self.destroyShapes = function() {             // destroy own shapes and start destroying of children
@@ -107,6 +120,14 @@ function Weapon(opts) {
 
     self.getShootingDelay = function() {
         return _shootingDelay;
+    };
+
+    self.setWeaponOffsetY = function(offset) {
+        _weaponOffsetY = offset;
+    };
+
+    self.getWeaponOffsetY = function() {
+        return _weaponOffsetY;
     };
 
     return self;

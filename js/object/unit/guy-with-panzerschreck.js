@@ -1,7 +1,7 @@
 function GuyWithPanzerschreck(opts, draw) {
     var self = Unit(opts);
 
-    self.setWeaponConstructor(opts.weapon || RocketLauncher);
+    self.setWeaponConstructor(RocketLauncher);
 
     self.draw = function() {
         var shape = new createjs.Shape();
@@ -16,9 +16,7 @@ function GuyWithPanzerschreck(opts, draw) {
 
         self.setWeapon(self.getWeaponConstructor()({
             stage: self.getStage(),
-            bullets: self.getBullets(),
-            x: opts.x,
-            y: opts.y + self.getWeaponOffsetY
+            bullets: self.getBullets()
         }));
     };
 

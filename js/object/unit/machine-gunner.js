@@ -1,7 +1,7 @@
 function MachineGunner(opts, draw) {
     var self = Unit(opts);
 
-    self.setWeaponConstructor(opts.weapon || MachineGun);
+    self.setWeaponConstructor(MachineGun);
 
     self.draw = function() {
         var shape = new createjs.Shape();
@@ -16,9 +16,7 @@ function MachineGunner(opts, draw) {
 
         self.setWeapon(self.getWeaponConstructor()({
             stage: self.getStage(),
-            bullets: self.getBullets(),
-            x: opts.x,
-            y: opts.y + self.getWeaponOffsetY
+            bullets: self.getBullets()
         }));
     };
 
