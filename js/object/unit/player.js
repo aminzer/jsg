@@ -45,7 +45,8 @@ function Player(opts, draw) {
             stage: self.getStage(),
             bullets: self.getBullets(),
             weaponConstructors: [MachineGun, MachineGun],
-            weaponOffsetsY: [15, -15]
+            weaponOffsetsY: [15, -15],
+            weaponOffsetsX: [0, 0]
         }, false));
 
         self.setWeapon(_weaponArsenal[_weaponIndex]);

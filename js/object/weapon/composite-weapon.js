@@ -2,15 +2,16 @@ function CompositeWeapon(opts, draw) {
     var self = AutomaticWeapon(opts);
 
     var _weapons = [];
-    initWeapons(opts.weaponConstructors, opts.weaponOffsetsY);
+    initWeapons(opts.weaponConstructors, opts.weaponOffsetsY, opts.weaponOffsetsX);
 
-    function initWeapons(weaponConstructors, weaponOffsetsY) {
+    function initWeapons(weaponConstructors, weaponOffsetsY, weaponOffsetsX) {
         _weapons = [];
         for (var i = 0; i < weaponConstructors.length; i++) {
             _weapons.push(weaponConstructors[i]({
                 stage: opts.stage,
                 bullets: opts.bullets,
-                weaponOffsetY: weaponOffsetsY[i]
+                weaponOffsetY: weaponOffsetsY[i],
+                weaponOffsetX: weaponOffsetsX[i]
             }, draw));
         }
     }
