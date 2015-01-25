@@ -41,6 +41,13 @@ function Player(opts, draw) {
             bullets: self.getBullets()
         }, false));
 
+        _weaponArsenal.push(CompositeWeapon({
+            stage: self.getStage(),
+            bullets: self.getBullets(),
+            weaponConstructors: [MachineGun, MachineGun],
+            weaponOffsetsY: [15, -15]
+        }, false));
+
         self.setWeapon(_weaponArsenal[_weaponIndex]);
     };
 

@@ -36,7 +36,7 @@ function Game() {
             bullets: _bullets
         });
 
-        _levelResolver.resolve(TEST_LEVEL);
+    //    _levelResolver.resolve(TEST_LEVEL);
 
         _ai = new AI({
             dynamicObjects: _dynamicObjects,
