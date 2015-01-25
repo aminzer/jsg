@@ -1,9 +1,9 @@
-function MachineGunner(opts, init) {
-    var self = Unit(opts, true);
+function MachineGunner(opts, draw) {
+    var self = Unit(opts);
 
     self.setWeaponConstructor(opts.weapon || MachineGun);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill("#E08A19").drawCircle(0, 0, 20);
         self.addShape(shape);
@@ -22,8 +22,8 @@ function MachineGunner(opts, init) {
         }));
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;

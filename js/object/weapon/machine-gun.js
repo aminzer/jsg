@@ -1,4 +1,4 @@
-function MachineGun(opts, init) {
+function MachineGun(opts, draw) {
     var self = AutomaticWeapon(opts);
 
     self.setRateOfFire(MACHINE_GUN_RATE_OF_FIRE);
@@ -7,7 +7,7 @@ function MachineGun(opts, init) {
     self.setHardness(MACHINE_GUN_HARDNESS);
     self.setBulletConstructor(opts.bulletConstructor || MachineGunBullet);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill('#8A8A8A').drawRect(0, 0, self.getFrontLength() + 20, 4);
         shape.regX = 20;
@@ -33,8 +33,8 @@ function MachineGun(opts, init) {
         self.addShape(shape);
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;

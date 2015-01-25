@@ -1,4 +1,4 @@
-function Unit(opts, init) {
+function Unit(opts) {
     var self = ShapedObject(opts);
 
     var _dynamicObjects = opts.dynamicObjects;

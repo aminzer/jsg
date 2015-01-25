@@ -1,7 +1,7 @@
-function AutomaticGun(opts, init) {
+function AutomaticGun(opts, draw) {
     var self = AutomaticWeapon(opts);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill('#555').drawRect(0, 0, self.getFrontLength() + 15, 5);
         shape.regX = 15;
@@ -21,8 +21,8 @@ function AutomaticGun(opts, init) {
         self.addShape(shape);
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;

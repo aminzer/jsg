@@ -1,11 +1,11 @@
-function Rocket(opts, init) {
+function Rocket(opts, draw) {
     var self = Bullet(opts, false);
 
     self.setDamage(ROCKET_DAMAGE);
     self.setSpeed(ROCKET_START_SPEED);
     self.setLifeTime(ROCKET_LIFETIME);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill('#999').drawRect(0, 0, 40, 6);
         shape.regX = 40;
@@ -37,8 +37,8 @@ function Rocket(opts, init) {
         self.addShape(shape);
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     self.move = function() {

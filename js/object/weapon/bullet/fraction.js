@@ -1,7 +1,7 @@
-function Fraction(opts, init) {
+function Fraction(opts, draw) {
     var self = Bullet(opts, false);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill('#f00').drawRect(0, 0, 3, 3);
         shape.regX = 1.5;
@@ -9,8 +9,8 @@ function Fraction(opts, init) {
         self.addShape(shape);
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;

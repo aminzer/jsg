@@ -1,9 +1,9 @@
-function GuyWithPanzerschreck(opts, init) {
-    var self = Unit(opts, true);
+function GuyWithPanzerschreck(opts, draw) {
+    var self = Unit(opts);
 
     self.setWeaponConstructor(opts.weapon || RocketLauncher);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill("#8D91E3").drawCircle(0, 0, 20);
         self.addShape(shape);
@@ -22,8 +22,8 @@ function GuyWithPanzerschreck(opts, init) {
         }));
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;

@@ -1,9 +1,9 @@
-function FootSoldier(opts, init) {
-    var self = Unit(opts, true);
+function FootSoldier(opts, draw) {
+    var self = Unit(opts);
 
     self.setWeaponConstructor(opts.weapon || AutomaticGun);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill("#559").drawCircle(0, 0, 20);
         self.addShape(shape);
@@ -22,8 +22,8 @@ function FootSoldier(opts, init) {
         }));
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;

@@ -1,4 +1,4 @@
-function Bullet(opts, init) {
+function Bullet(opts, draw) {
     var self = ShapedObject(opts);
 
     var _damage = opts.damage || BULLET_DAMAGE;
@@ -7,14 +7,14 @@ function Bullet(opts, init) {
 
     var _globalBullets = opts.bullets;
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill('black').drawCircle(0, 0, 2);
         self.addShape(shape);
     };
 
-    if (init !== false) {       // constructor's call from child
-        self.init();
+    if (draw !== false) {       // constructor's call from child
+        self.draw();
     }
 
     self.move = function() {

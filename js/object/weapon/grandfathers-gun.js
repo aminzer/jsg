@@ -1,7 +1,7 @@
-function GrandfathersGun(opts, init) {
+function GrandfathersGun(opts, draw) {
     var self = new Weapon(opts);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill('#444').drawRect(0, 0, self.getFrontLength() + 15, 5);
         shape.regX = 15;
@@ -15,8 +15,8 @@ function GrandfathersGun(opts, init) {
         self.addShape(shape);
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;

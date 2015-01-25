@@ -1,4 +1,4 @@
-function ExplosiveBullet(opts, init) {
+function ExplosiveBullet(opts, draw) {
     var self = Bullet(opts, false);
 
     var _explosionCount = opts.explosionCount || (opts.explosionCount === 0 ? 0 : 2);
@@ -8,14 +8,14 @@ function ExplosiveBullet(opts, init) {
     self.setSpeed(15);
     self.setLifeTime(20);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill('black').drawCircle(0, 0, 2);
         self.addShape(shape);
     };
 
-    if (init !== false) {       // constructor's call from child
-        self.init();
+    if (draw !== false) {       // constructor's call from child
+        self.draw();
     }
 
     self.destroy = function() {

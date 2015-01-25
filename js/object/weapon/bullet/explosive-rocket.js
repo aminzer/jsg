@@ -1,12 +1,12 @@
-function ExplosiveRocket(opts, init) {
+function ExplosiveRocket(opts, draw) {
     var self = Rocket(opts, false);
 
     self.setDamage(EXPLOSIVE_ROCKET_DAMAGE);
     self.setSpeed(EXPLOSIVE_ROCKET_START_SPEED);
     self.setLifeTime(EXPLOSIVE_ROCKET_LIFETIME);
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     self.destroy = function() {

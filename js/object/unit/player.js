@@ -1,10 +1,10 @@
-function Player(opts, init) {
+function Player(opts, draw) {
     var self = Unit(opts, false);
 
     var _weaponArsenal = [];
     var _weaponIndex = 0;
 
-    self.init = function() {
+    self.draw = function() {
         self.setDynamicObjects(opts.dynamicObjects);
 
         var shape = new createjs.Shape();
@@ -52,8 +52,8 @@ function Player(opts, init) {
         self.setWeapon(_weaponArsenal[_weaponIndex]);
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     self.changeWeapon = function(direction) {    // mouse wheel forward(1) or backward (-1)
@@ -71,7 +71,7 @@ function Player(opts, init) {
         }
 
         self.setWeapon(_weaponArsenal[_weaponIndex]);
-        self.getWeapon().init();           // draw on stage
+        self.getWeapon().draw();           // draw on stage
     };
 
     self.getObjectType = function() {

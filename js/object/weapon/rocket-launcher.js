@@ -1,4 +1,4 @@
-function RocketLauncher(opts, init) {
+function RocketLauncher(opts, draw) {
     var self = Weapon(opts);
 
     self.setMaxSector(ROCKET_LAUNCHER_MAX_SECTOR);
@@ -7,7 +7,7 @@ function RocketLauncher(opts, init) {
     self.setShootingDelay(ROCKET_LAUNCHER_SHOOTING_DELAY);
     self.setBulletConstructor(opts.bulletConstructor || ExplosiveRocket);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill('#244482').drawRect(0, 0, self.getFrontLength() + 30, 8);
         shape.regX = 30;
@@ -27,8 +27,8 @@ function RocketLauncher(opts, init) {
         self.addShape(shape);
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;

@@ -1,9 +1,9 @@
-function Recruit(opts, init) {
-    var self = Unit(opts, true);
+function Recruit(opts, draw) {
+    var self = Unit(opts);
 
     self.setWeaponConstructor(opts.weapon || GrandfathersGun);
 
-    self.init = function() {
+    self.draw = function() {
         var shape = new createjs.Shape();
         shape.graphics.beginFill("#199EE0").drawCircle(0, 0, 20);
         self.addShape(shape);
@@ -22,8 +22,8 @@ function Recruit(opts, init) {
         }));
     };
 
-    if (init !== false) {
-        self.init();
+    if (draw !== false) {
+        self.draw();
     }
 
     return self;
