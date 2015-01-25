@@ -5,7 +5,7 @@ function Weapon(opts) {
 
     var _frontLength = WEAPON_FRONT_LENGTH;      // influence on bullets start coordinates
     var _weaponOffsetY = opts.weaponOffsetY || UNIT_WEAPON_OFFSET_Y;   // offset between weapon's and unit's centers
-    var _weaponOffsetX = opts.weaponOffsetX || 20;
+    var _weaponOffsetX = opts.weaponOffsetX || 0;
 
     var _hardness = WEAPON_HARDNESS;             // max number of bullets to reduce the accuracy
     var _state = _hardness;                      // current number of bullets to reduce the accuracy
