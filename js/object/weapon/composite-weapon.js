@@ -2,15 +2,15 @@ function CompositeWeapon(opts, draw) {
     var self = AutomaticWeapon(opts);
 
     var _weapons = [];
-    initWeapons();
+    initWeapons(opts.weaponConstructors, opts.weaponOffsetsY);
 
-    function initWeapons() {
+    function initWeapons(weaponConstructors, weaponOffsetsY) {
         _weapons = [];
-        for (var i = 0; i < opts.weaponConstructors.length; i++) {
-            _weapons.push(opts.weaponConstructors[i]({
+        for (var i = 0; i < weaponConstructors.length; i++) {
+            _weapons.push(weaponConstructors[i]({
                 stage: opts.stage,
                 bullets: opts.bullets,
-                weaponOffsetY: opts.weaponOffsetsY[i]
+                weaponOffsetY: weaponOffsetsY[i]
             }, draw));
         }
     }
@@ -28,14 +28,14 @@ function CompositeWeapon(opts, draw) {
     self.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
         for (var i = 0; i < _weapons.length; i++) {
             _weapons[i].setAngle(MathUtility.getLinesAngle(
-                unitX - _weapons[i].getWeaponOffsetY() * sin_d(unitAngle),
-                unitY + _weapons[i].getWeaponOffsetY() * cos_d(unitAngle),
+                unitX - _weapons[i].getWeaponOffsetY() * sin_d(unitAngle) + _weapons[i].getWeaponOffsetX() * cos_d(unitAngle),
+                unitY + _weapons[i].getWeaponOffsetY() * cos_d(unitAngle) + _weapons[i].getWeaponOffsetX() * sin_d(unitAngle),
                 targetX,
                 targetY
             ));
 
-            _weapons[i].setX(unitX - _weapons[i].getWeaponOffsetY() * sin_d(unitAngle));
-            _weapons[i].setY(unitY + _weapons[i].getWeaponOffsetY() * cos_d(unitAngle));
+            _weapons[i].setX(unitX - _weapons[i].getWeaponOffsetY() * sin_d(unitAngle) + _weapons[i].getWeaponOffsetX() * cos_d(unitAngle));
+            _weapons[i].setY(unitY + _weapons[i].getWeaponOffsetY() * cos_d(unitAngle) + _weapons[i].getWeaponOffsetX() * sin_d(unitAngle));
         }
     };
 

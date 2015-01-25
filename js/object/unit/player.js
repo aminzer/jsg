@@ -18,8 +18,8 @@ function Player(opts, draw) {
         self.addShape(shape);
 
         /*shape = new createjs.Shape();
-         shape.graphics.beginFill('#559').arc(-20, 5, 50, -1, 0);
-         self.addShape(shape);*/
+        shape.graphics.beginFill('#559').arc(-43, 0, 70, -0.4, 0.4);
+        self.addShape(shape);*/
 
         _weaponArsenal.push(GrandfathersGun({
             stage: self.getStage(),

@@ -5,6 +5,7 @@ function Weapon(opts) {
 
     var _frontLength = WEAPON_FRONT_LENGTH;      // influence on bullets start coordinates
     var _weaponOffsetY = opts.weaponOffsetY || UNIT_WEAPON_OFFSET_Y;   // offset between weapon's and unit's centers
+    var _weaponOffsetX = opts.weaponOffsetX || 20;
 
     var _hardness = WEAPON_HARDNESS;             // max number of bullets to reduce the accuracy
     var _state = _hardness;                      // current number of bullets to reduce the accuracy
@@ -64,14 +65,14 @@ function Weapon(opts) {
 
     self.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
         self.setAngle(MathUtility.getLinesAngle(
-            unitX - _weaponOffsetY*sin_d(unitAngle),
-            unitY + _weaponOffsetY*cos_d(unitAngle),
+            unitX - _weaponOffsetY*sin_d(unitAngle) + _weaponOffsetX*cos_d(unitAngle),
+            unitY + _weaponOffsetY*cos_d(unitAngle) + _weaponOffsetX*sin_d(unitAngle),
             targetX,
             targetY
         ));
 
-        self.setX(unitX - _weaponOffsetY * sin_d(unitAngle));
-        self.setY(unitY + _weaponOffsetY * cos_d(unitAngle));
+        self.setX(unitX - _weaponOffsetY * sin_d(unitAngle) + _weaponOffsetX*cos_d(unitAngle));
+        self.setY(unitY + _weaponOffsetY * cos_d(unitAngle) + _weaponOffsetX*sin_d(unitAngle));
     };
 
     // @Override
@@ -128,6 +129,14 @@ function Weapon(opts) {
 
     self.getWeaponOffsetY = function() {
         return _weaponOffsetY;
+    };
+
+    self.setWeaponOffsetX = function(offset) {
+        _weaponOffsetX = offset;
+    };
+
+    self.getWeaponOffsetX = function() {
+        return _weaponOffsetX;
     };
 
     return self;
