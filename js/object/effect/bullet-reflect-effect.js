@@ -14,11 +14,13 @@ function BulletReflectEffect(opts, draw) {
         self.draw();
     }
 
-    self.makeEffect = function() {
-        for (var i = 0; i < _bullets.length; i++) {
-            var bullet = _bullets[i];
-            if (MathUtility.isInCircle(bullet.getX(), bullet.getY(), self.getX(), self.getY(), _radius)) {
-                bullet.setAngle(bullet.getAngle() + 3);
+    self.makeInfluence = function() {
+        if (self.haveInfluence()) {
+            for (var i = 0; i < _bullets.length; i++) {
+                var bullet = _bullets[i];
+                if (MathUtility.isInCircle(bullet.getX(), bullet.getY(), self.getX(), self.getY(), _radius)) {
+                    bullet.setAngle(bullet.getAngle() + 3);
+                }
             }
         }
     };

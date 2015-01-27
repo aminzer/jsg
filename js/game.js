@@ -49,7 +49,8 @@ function Game() {
             stage: _stage,
             bullets: _bullets,
             x: 400,
-            y: 100
+            y: 150,
+            on: true
         });
         _effects.push(tempEffect);
 
@@ -90,7 +91,7 @@ function Game() {
             }
         }
         for (i = 0; i < _effects.length; i++) {
-            _effects[i].makeEffect();
+            _effects[i].makeInfluence();
         }
 
         handleTargetHits();
