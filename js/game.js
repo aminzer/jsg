@@ -6,6 +6,8 @@ function Game() {
     var _player = null;
     var _dynamicObjects = [];   // units etc
     var _bullets = [];          // harm elements (like bullets)
+    var _effects = [];          // different physical effects
+
     var _ai = null;             // artificial intellect
     var _levelResolver = null;
 
@@ -43,6 +45,14 @@ function Game() {
             target: _player
         });
 
+        var tempEffect = BulletReflectEffect({
+            stage: _stage,
+            bullets: _bullets,
+            x: 400,
+            y: 100
+        });
+        _effects.push(tempEffect);
+
         // set handlers
         document.addEventListener("mousemove", handleMouseMove);
         document.addEventListener("keydown", handleKeyDown);
@@ -78,6 +88,9 @@ function Game() {
                 destroyBullet(i);
                 i--;  // because of splice
             }
+        }
+        for (i = 0; i < _effects.length; i++) {
+            _effects[i].makeEffect();
         }
 
         handleTargetHits();
