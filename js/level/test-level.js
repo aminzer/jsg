@@ -2,24 +2,24 @@ var TEST_LEVEL = {
     enemies: [
         {
             constructor: Recruit,
-            x: 1000,
-            y: 100
+            x: 70,
+            y: 10
         }, {
             constructor: Recruit,
-            x: 1000,
-            y: 200
+            x: 70,
+            y: 20
         }, {
             constructor: FootSoldier,
-            x: 1100,
-            y: 150
+            x: 75,
+            y: 30
         }, {
             constructor: MachineGunner,
-            x: 1100,
-            y: 250
+            x: 70,
+            y: 40
         }, {
             constructor: GuyWithPanzerschreck,
-            x: 1100,
-            y: 350
+            x: 80,
+            y: 55
         }
     ],
     enemyFactory: {
