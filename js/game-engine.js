@@ -46,8 +46,8 @@ function GameEngine() {
         var tempEffect = BulletReflectEffect({
             stage: _stage,
             bullets: _bullets,
-            x: 50,
-            y: 100,
+            x: 400,
+            y: 150,
             on: true
         });
         _effects.push(tempEffect);

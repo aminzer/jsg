@@ -6,7 +6,7 @@ function BulletReflectEffect(opts, draw) {
 
     self.draw = function() {
         var shape = new createjs.Shape();
-        shape.graphics.beginFill("rgba(0,50,255,0.5)").drawCircle(self.getX(), self.getY(), _radius);
+        shape.graphics.beginFill("rgba(0,50,255,0.5)").drawCircle(0, 0, _radius);
         self.addShape(shape);
     };
 
@@ -24,6 +24,15 @@ function BulletReflectEffect(opts, draw) {
             }
         }
     };
+
+   /* self.updateShapes = function() {
+        var shapes = self.getShapes();
+        for (var i = 0; i < shapes.length; i++) {
+            shapes[i].x = self.getX();
+            shapes[i].y = self.getY();
+            shapes[i].rotation = self.getAngle();
+        }
+    };*/
 
     return self;
 }

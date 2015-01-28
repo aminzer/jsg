@@ -16,14 +16,6 @@ function ShapedObject(opts) {
     var _shapes = [];
 
     /**
-     * get drawing stage of current object
-     * @returns {createjs.Stage}
-     */
-    self.getStage = function() {
-        return _stage;
-    };
-
-    /**
      * get type of current object (see config.js)
      * @returns {string}
      */
@@ -74,6 +66,22 @@ function ShapedObject(opts) {
             _stage.removeChild(_shapes[i]);
         }
         _shapes = [];
+    };
+
+    /**
+     * get drawing stage of current object
+     * @returns {createjs.Stage}
+     */
+    self.getStage = function() {
+        return _stage;
+    };
+
+    /**
+     * get all createjs shapes of current object
+     * @returns {Array} all Createjs shapes
+     */
+    self.getShapes = function() {
+        return _shapes;
     };
 
     return self;
