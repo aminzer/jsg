@@ -19,20 +19,12 @@ function BulletReflectEffect(opts, draw) {
             for (var i = 0; i < _bullets.length; i++) {
                 var bullet = _bullets[i];
                 if (MathUtility.isInCircle(bullet.getX(), bullet.getY(), self.getX(), self.getY(), _radius)) {
-                    bullet.setAngle(bullet.getAngle() + 3);
+                    bullet.setAngle(180 + bullet.getAngle());
+                    bullet.move();
                 }
             }
         }
     };
-
-   /* self.updateShapes = function() {
-        var shapes = self.getShapes();
-        for (var i = 0; i < shapes.length; i++) {
-            shapes[i].x = self.getX();
-            shapes[i].y = self.getY();
-            shapes[i].rotation = self.getAngle();
-        }
-    };*/
 
     return self;
 }
