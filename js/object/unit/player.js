@@ -5,7 +5,6 @@ function Player(opts, draw) {
     var _weaponIndex = 0;
 
     self.draw = function() {
-        self.setDynamicObjects(opts.dynamicObjects);
 
         var shape = new createjs.Shape();
         shape.graphics.beginFill("#73B500").drawCircle(0,0,20);

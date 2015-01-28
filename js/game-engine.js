@@ -4,7 +4,7 @@ function GameEngine() {
     var _stage = null;
 
     var _player = null;
-    var _dynamicObjects = [];   // units etc
+    var _units = [];            // units and player
     var _bullets = [];          // harm elements (like bullets)
     var _effects = [];          // different physical effects
 
@@ -21,25 +21,24 @@ function GameEngine() {
 
         _player = Player({
             stage: _stage,
-            dynamicObjects: _dynamicObjects,
             bullets: _bullets,
             x: 100,
             y: 100,
             hp: PLAYER_HP,
             speed: PLAYER_SPEED
         });
-        _dynamicObjects.push(_player);
+        _units.push(_player);
 
         _levelResolver = LevelResolver({
             stage: _stage,
-            dynamicObjects: _dynamicObjects,
+            units: _units,
             bullets: _bullets
         });
 
-    //    _levelResolver.resolve(TEST_LEVEL);
+     //   _levelResolver.resolve(TEST_LEVEL);
 
         _ai = new AI({
-            dynamicObjects: _dynamicObjects,
+            units: _units,
             target: _player
         });
 
@@ -75,10 +74,10 @@ function GameEngine() {
         _ai.resolve();
 
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
-        for (var i = 0; i < _dynamicObjects.length; i++) {
-            if (_dynamicObjects[i].move() == false) {     // lifeTime ended
-                _dynamicObjects[i].destroyShapes();
-                _dynamicObjects.splice(i, 1);
+        for (var i = 0; i < _units.length; i++) {
+            if (_units[i].move() == false) {     // lifeTime ended
+                _units[i].destroyShapes();
+                _units.splice(i, 1);
                 i--;  // because of splice
             }
         }
@@ -95,8 +94,8 @@ function GameEngine() {
         handleTargetHits();
 
         // 4. updating shapes related to Game Model Objects
-        for (i = 0; i < _dynamicObjects.length; i++) {
-            _dynamicObjects[i].updateShapes();
+        for (i = 0; i < _units.length; i++) {
+            _units[i].updateShapes();
         }
         for (i = 0; i < _bullets.length; i++) {
             _bullets[i].updateShapes();
@@ -119,7 +118,7 @@ function GameEngine() {
         setPlayersDirection();
 
         if (e.keyCode === LOG_BUTTON) {
-            console.log("objects/bullets " + _dynamicObjects.length + "/" + _bullets.length);
+            console.log("objects/bullets " + _units.length + "/" + _bullets.length);
         }
 
         if (e.keyCode === FIX_WEAPON_BUTTON) {
@@ -161,24 +160,24 @@ function GameEngine() {
     }
 
     function handleTargetHits() {
-        for (var j = 0; j < _dynamicObjects.length; j++) {
+        for (var j = 0; j < _units.length; j++) {
             for (var i = 0; i < _bullets.length; i++) {
                 if (MathUtility.isInCircle(
                     _bullets[i].getX(),
                     _bullets[i].getY(),
-                    _dynamicObjects[j].getX(),
-                    _dynamicObjects[j].getY(),
-                    _dynamicObjects[j].getRadius()
+                    _units[j].getX(),
+                    _units[j].getY(),
+                    _units[j].getRadius()
                 )) {
-                    _dynamicObjects[j].takeDamage(_bullets[i].getDamage());     // unit takes damage
+                    _units[j].takeDamage(_bullets[i].getDamage());     // unit takes damage
                     destroyBullet(i);
                     i--;  // because of splice
                 }
             }
 
-            if (_dynamicObjects[j].isAlive() == false) {        // unit is dead
-                _dynamicObjects[j].destroyShapes();
-                _dynamicObjects.splice(j, 1);
+            if (_units[j].isAlive() == false) {        // unit is dead
+                _units[j].destroyShapes();
+                _units.splice(j, 1);
                 j--;  // because of splice
             }
         }

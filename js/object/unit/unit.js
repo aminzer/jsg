@@ -1,7 +1,6 @@
 function Unit(opts) {
     var self = ShapedObject(opts);
 
-    var _dynamicObjects = opts.dynamicObjects;
     var _bullets = opts.bullets;
 
     // TODO add max hp
@@ -89,14 +88,6 @@ function Unit(opts) {
 
     self.getWeaponConstructor = function() {
         return _weaponConstructor;
-    };
-
-    self.setDynamicObjects = function(dynamicObjects) {
-        _dynamicObjects = dynamicObjects;
-    };
-
-    self.getDynamicObjects = function() {
-        return _dynamicObjects;
     };
 
     self.getBullets = function() {

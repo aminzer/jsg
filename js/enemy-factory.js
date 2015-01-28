@@ -2,7 +2,7 @@ function EnemyFactory(opts) {
     var self = {};
 
     var _stage = opts.stage;
-    var _dynamicObjects = opts.dynamicObjects;
+    var _units = opts.units;
     var _bullets = opts.bullets;
 
     var _generatingDelay = opts.generatingDelay || 2000;      // between enemy generating
@@ -37,9 +37,9 @@ function EnemyFactory(opts) {
     };
 
     function generate() {
-        _dynamicObjects.push(_enemyConstructors[getNextIndex()].constructor({
+        _units.push(_enemyConstructors[getNextIndex()].constructor({
             stage: _stage,
-            dynamicObjects: _dynamicObjects,
+            units: _units,
             bullets: _bullets,
             x: CANVAS_WIDTH * (random() / 2 + 0.5),
             y: CANVAS_HEIGHT * (random() / 2 + 0.5)
