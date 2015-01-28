@@ -12,7 +12,6 @@ function Unit(opts) {
     var _speed = opts.speed || UNIT_SPEED;
 
     var _weapon = null;
-    var _weaponConstructor = opts.weapon || GrandfathersGun;
 
     self.startMoving = function(newAngle) {
         _movingAngle = newAngle;
@@ -80,14 +79,6 @@ function Unit(opts) {
 
     self.getWeapon = function() {
         return _weapon;
-    };
-
-    self.setWeaponConstructor = function(weaponConstructor) {
-        _weaponConstructor = weaponConstructor;
-    };
-
-    self.getWeaponConstructor = function() {
-        return _weaponConstructor;
     };
 
     self.getBullets = function() {

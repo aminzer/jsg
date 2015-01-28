@@ -1,7 +1,10 @@
 function Recruit(opts, draw) {
     var self = Unit(opts);
 
-    self.setWeaponConstructor(GrandfathersGun);
+    self.setWeapon(GrandfathersGun({
+        stage: self.getStage(),
+        bullets: self.getBullets()
+    }));
 
     self.draw = function() {
         var shape = new createjs.Shape();
@@ -13,11 +16,6 @@ function Recruit(opts, draw) {
         shape.regX = 5;
         shape.regY = 19;
         self.addShape(shape);
-
-        self.setWeapon(self.getWeaponConstructor()({
-            stage: self.getStage(),
-            bullets: self.getBullets()
-        }));
     };
 
     if (draw !== false) {

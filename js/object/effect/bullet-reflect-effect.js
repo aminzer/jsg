@@ -6,7 +6,7 @@ function BulletReflectEffect(opts, draw) {
 
     self.draw = function() {
         var shape = new createjs.Shape();
-        shape.graphics.beginFill("rgba(0,50,255,0.5)").drawCircle(0, 0, _radius);
+        shape.graphics.beginFill("rgba(0,50,255,0.1)").drawCircle(0, 0, _radius);
         self.addShape(shape);
     };
 
@@ -22,10 +22,10 @@ function BulletReflectEffect(opts, draw) {
                     bullet.setAngle(180 + bullet.getAngle());
                     bullet.move();
 
-                   /* var normalAngle = MathUtility.getLinesAngle(bullet.getX(), bullet.getY(), self.getX(), self.getY());
+                   /* var normalAngle = MathUtility.getLinesAngle(self.getX(), self.getY(), bullet.getX(), bullet.getY());
                     console.log(normalAngle);
 
-                    bullet.setAngle(-(180 - (bullet.getAngle() - normalAngle)));
+                    bullet.setAngle(bullet.getAngle()+(normalAngle - 180 + bullet.getAngle()));
                     bullet.move();*/
                 }
             }

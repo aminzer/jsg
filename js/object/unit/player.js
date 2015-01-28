@@ -3,7 +3,7 @@ function Player(opts, draw) {
 
     var _weaponArsenal = [];
     var _weaponIndex = 0;
-
+console.log(arguments.callee.caller);
     self.draw = function() {
 
         var shape = new createjs.Shape();
