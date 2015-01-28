@@ -2,23 +2,9 @@ function AutomaticGun(opts, draw) {
     var self = AutomaticWeapon(opts);
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill('#555').drawRect(0, 0, self.getFrontLength() + 15, 5);
-        shape.regX = 15;
-        shape.regY = 2.5;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#691C1C').drawRect(0, 0, 10, 5);
-        shape.regX = -7;
-        shape.regY = 0;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#ddd').drawRect(0, 0, self.getFrontLength(), 2);
-        shape.regX = 10;
-        shape.regY = 1;
-        self.addShape(shape);
+        Painter.rectangle(self, self.getFrontLength() + 15, 5, 15, 2.5, "#555");
+        Painter.rectangle(self, 10, 5, -7, 0, "#691C1C");
+        Painter.rectangle(self, self.getFrontLength(), 2, 10, 1, "#ddd");
     };
 
     if (draw !== false) {

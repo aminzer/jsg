@@ -4,18 +4,13 @@ function MachineGunner(opts, draw) {
     self.setWeapon(MachineGun({
         stage: self.getStage(),
         bullets: self.getBullets()
-    }));
+    }, false));
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill("#E08A19").drawCircle(0, 0, 20);
-        self.addShape(shape);
+        Painter.circle(self, UNIT_RADIUS, "#E08A19");
+        Painter.rectangle(self, 10, 38, 5, 19, "#7A4D11");
 
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#7A4D11').drawRect(0, 0, 10, 38);
-        shape.regX = 5;
-        shape.regY = 19;
-        self.addShape(shape);
+        self.getWeapon().draw();
     };
 
     if (draw !== false) {

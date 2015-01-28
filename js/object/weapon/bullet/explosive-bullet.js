@@ -9,9 +9,7 @@ function ExplosiveBullet(opts, draw) {
     self.setLifeTime(20);
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill('black').drawCircle(0, 0, 2);
-        self.addShape(shape);
+        Painter.circle(self, 2, "#000");
     };
 
     if (draw !== false) {       // constructor's call from child

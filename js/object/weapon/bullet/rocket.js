@@ -6,35 +6,11 @@ function Rocket(opts, draw) {
     self.setLifeTime(ROCKET_LIFETIME);
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill('#999').drawRect(0, 0, 40, 6);
-        shape.regX = 40;
-        shape.regY = 3;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#333').drawRoundRect(0, 0, 20, 8, 3);
-        shape.regX = 20;
-        shape.regY = 4;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#f00').drawRect(0, 0, 2, 8);
-        shape.regX = 40;
-        shape.regY = 4;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#f00').drawRect(0, 0, 2, 8);
-        shape.regX = 6;
-        shape.regY = 4;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#f00').drawRect(0, 0, 2, 8);
-        shape.regX = 13;
-        shape.regY = 4;
-        self.addShape(shape);
+        Painter.rectangle(self, 40, 6, 40, 3, "#999");
+        Painter.roundRectangle(self, 20, 8, 20, 4, 3, "#333");
+        Painter.rectangle(self, 2, 8, 40, 4, "#f00");
+        Painter.rectangle(self, 2, 8, 6, 4, "#f00");
+        Painter.rectangle(self, 2, 8, 13, 4, "#f00");
     };
 
     if (draw !== false) {

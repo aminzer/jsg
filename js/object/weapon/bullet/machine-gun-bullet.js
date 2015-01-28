@@ -6,13 +6,8 @@ function MachineGunBullet(opts, draw) {
     self.setLifeTime(MACHINE_GUN_BULLET_LIFETIME);
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill('#000').drawCircle(0, 0, 2);
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#600').drawCircle(0, 0, 1);
-        self.addShape(shape);
+        Painter.circle(self, 2, "#000");
+        Painter.circle(self, 1, "#600");
     };
 
     if (draw !== false) {

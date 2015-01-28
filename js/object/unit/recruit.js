@@ -4,18 +4,13 @@ function Recruit(opts, draw) {
     self.setWeapon(GrandfathersGun({
         stage: self.getStage(),
         bullets: self.getBullets()
-    }));
+    }, false));
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill("#199EE0").drawCircle(0, 0, 20);
-        self.addShape(shape);
+        Painter.circle(self, UNIT_RADIUS, "#199EE0");
+        Painter.rectangle(self, 10, 38, 5, 19, "#559");
 
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#559').drawRect(0, 0, 10, 38);
-        shape.regX = 5;
-        shape.regY = 19;
-        self.addShape(shape);
+        self.getWeapon().draw();
     };
 
     if (draw !== false) {

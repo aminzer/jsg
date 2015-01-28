@@ -8,29 +8,10 @@ function MachineGun(opts, draw) {
     self.setBulletConstructor(opts.bulletConstructor || MachineGunBullet);
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill('#8A8A8A').drawRect(0, 0, self.getFrontLength() + 20, 4);
-        shape.regX = 20;
-        shape.regY = 2;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#444').drawRect(0, 0, 20, 10);
-        shape.regX = 10;
-        shape.regY = 4;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#444').drawRect(0, 0, 7, 8);
-        shape.regX = 20;
-        shape.regY = 4;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#222').drawRect(0, 0, 10, 4);
-        shape.regX = -30;
-        shape.regY = 2;
-        self.addShape(shape);
+        Painter.rectangle(self, self.getFrontLength() + 20, 4, 20, 2, "#8A8A8A");
+        Painter.rectangle(self, 20, 10, 10, 4, "#444");
+        Painter.rectangle(self, 7, 8, 20, 4, "#444");
+        Painter.rectangle(self, 10, 4, -30, 2, "#222");
     };
 
     if (draw !== false) {

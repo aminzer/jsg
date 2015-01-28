@@ -4,18 +4,13 @@ function GuyWithPanzerschreck(opts, draw) {
     self.setWeapon(RocketLauncher({
         stage: self.getStage(),
         bullets: self.getBullets()
-    }));
+    }, false));
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill("#8D91E3").drawCircle(0, 0, 20);
-        self.addShape(shape);
+        Painter.circle(self, UNIT_RADIUS, "#8D91E3");
+        Painter.rectangle(self, 10, 38, 5, 19, "#34378A");
 
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#34378A').drawRect(0, 0, 10, 38);
-        shape.regX = 5;
-        shape.regY = 19;
-        self.addShape(shape);
+        self.getWeapon().draw();
     };
 
     if (draw !== false) {

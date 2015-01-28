@@ -8,23 +8,9 @@ function RocketLauncher(opts, draw) {
     self.setBulletConstructor(opts.bulletConstructor || ExplosiveRocket);
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill('#244482').drawRect(0, 0, self.getFrontLength() + 30, 8);
-        shape.regX = 30;
-        shape.regY = 4;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#bbb').drawRect(21, 0, 8, 10);
-        shape.regX = 0;
-        shape.regY = 5;
-        self.addShape(shape);
-
-        shape = new createjs.Shape();
-        shape.graphics.beginFill('#999').drawRect(-27, 0, 12, 4);
-        shape.regX = 0;
-        shape.regY = 2;
-        self.addShape(shape);
+        Painter.rectangle(self, self.getFrontLength() + 30, 8, 30, 4, "#244482");
+        Painter.offsetRectangle(self, 21, 0, 8, 10, 0, 5, "#bbb");
+        Painter.offsetRectangle(self, -27, 0, 12, 4, 0, 2, "#999");
     };
 
     if (draw !== false) {
