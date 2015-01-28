@@ -1,4 +1,4 @@
-function Game() {
+function GameEngine() {
     var self = {};
 
     var _stage = null;
@@ -15,9 +15,7 @@ function Game() {
     var cursorX = 0;
     var cursorY = 0;
 
-    init();
-
-    function init() {
+    self.start = function() {
         _stage = new createjs.Stage("canvas");
         createjs.Ticker.setFPS(FPS);
 
@@ -48,8 +46,8 @@ function Game() {
         var tempEffect = BulletReflectEffect({
             stage: _stage,
             bullets: _bullets,
-            x: 400,
-            y: 150,
+            x: 50,
+            y: 100,
             on: true
         });
         _effects.push(tempEffect);
@@ -62,7 +60,7 @@ function Game() {
         document.addEventListener("mouseup", handleMouseUp);
         document.addEventListener("wheel", handleMouseWheel);
         createjs.Ticker.addEventListener("tick", handleTick);
-    }
+    };
 
     // event handlers
     function handleTick(event) {
@@ -103,6 +101,9 @@ function Game() {
         for (i = 0; i < _bullets.length; i++) {
             _bullets[i].updateShapes();
         }
+        for (i = 0; i < _effects.length; i++) {
+            _effects[i].updateShapes();
+        }
 
         // 5. updating stage (redraw)
         _stage.update();
@@ -129,11 +130,19 @@ function Game() {
             createjs.Ticker.paused = !createjs.Ticker.paused;
             _levelResolver.toggleGenerating();
         }
+
+        if (e.keyCode === 16) {
+            handleMouseDown();
+        }
     }
 
     function handleKeyUp(e) {
         pressedKeys[e.keyCode] = false;
         setPlayersDirection();
+
+        if (e.keyCode === 16) {
+            handleMouseUp();
+        }
     }
 
     function handleMouseDown(e) {

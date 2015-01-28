@@ -45,7 +45,7 @@
     <script src="js/level-resolver.js"></script>
     <script src="js/enemy-factory.js"></script>
     <script src="js/ai.js"></script>
-    <script src="js/game.js"></script>
+    <script src="js/game-engine.js"></script>
 
     <script src="js/level/test-level.js"></script>
 </head>
@@ -67,7 +67,7 @@
 
             window.onresize = resizeCanvas;
 
-            Game();
+            GameEngine().start();
         }
 
     </script>
