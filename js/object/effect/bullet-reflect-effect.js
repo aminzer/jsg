@@ -17,14 +17,9 @@ function BulletReflectEffect(opts, draw) {
             for (var i = 0; i < _bullets.length; i++) {
                 var bullet = _bullets[i];
                 if (MathUtility.isInCircle(bullet.getX(), bullet.getY(), self.getX(), self.getY(), _radius)) {
-                    bullet.setAngle(180 + bullet.getAngle());
+                    var normalAngle = MathUtility.getLinesAngle(bullet.getX(), bullet.getY(), self.getX(), self.getY());
+                    bullet.setAngle(180 - bullet.getAngle() + 2 * normalAngle);
                     bullet.move();
-
-                   /* var normalAngle = MathUtility.getLinesAngle(self.getX(), self.getY(), bullet.getX(), bullet.getY());
-                    console.log(normalAngle);
-
-                    bullet.setAngle(bullet.getAngle()+(normalAngle - 180 + bullet.getAngle()));
-                    bullet.move();*/
                 }
             }
         }
