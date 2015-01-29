@@ -5,9 +5,7 @@ function BulletReflectEffect(opts, draw) {
     var _bullets = opts.bullets;
 
     self.draw = function() {
-        var shape = new createjs.Shape();
-        shape.graphics.beginFill("rgba(0,50,255,0.1)").drawCircle(0, 0, _radius);
-        self.addShape(shape);
+        Painter.circle(self, _radius, "rgba(0,50,255,0.1)");
     };
 
     if (draw !== false) {
