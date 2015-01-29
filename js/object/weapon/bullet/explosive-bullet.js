@@ -1,6 +1,7 @@
 function ExplosiveBullet(opts, draw) {
     var self = Bullet(opts, false);
 
+    // tip: count === 0 or count === undefined
     var _explosionCount = opts.explosionCount || (opts.explosionCount === 0 ? 0 : 2);
     var _childCount = opts.childCount || 3;
     var _sector = opts.sector || 10;
