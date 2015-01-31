@@ -21,10 +21,6 @@ function GameEngine() {
         _stage = new createjs.Stage("canvas");
         createjs.Ticker.setFPS(FPS);
 
-        _cursor = Cursor({
-            stage: _stage
-        });
-
         _player = Player({
             stage: _stage,
             bullets: _bullets,
@@ -41,7 +37,7 @@ function GameEngine() {
             bullets: _bullets
         });
 
-       // _levelResolver.resolve(TEST_LEVEL());
+        _levelResolver.resolve(TEST_LEVEL());
 
         _ai = new AI({
             units: _units,
@@ -56,6 +52,10 @@ function GameEngine() {
             on: true
         });
         _effects.push(tempEffect);
+
+        _cursor = Cursor({
+            stage: _stage
+        });
 
         // set handlers
         document.addEventListener("mousemove", handleMouseMove);
