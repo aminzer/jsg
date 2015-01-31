@@ -15,9 +15,15 @@ function GameEngine() {
     var cursorX = 0;
     var cursorY = 0;
 
+    var _cursor = null;
+
     self.start = function() {
         _stage = new createjs.Stage("canvas");
         createjs.Ticker.setFPS(FPS);
+
+        _cursor = Cursor({
+            stage: _stage
+        });
 
         _player = Player({
             stage: _stage,
@@ -35,7 +41,7 @@ function GameEngine() {
             bullets: _bullets
         });
 
-        _levelResolver.resolve(TEST_LEVEL());
+       // _levelResolver.resolve(TEST_LEVEL());
 
         _ai = new AI({
             units: _units,
@@ -70,7 +76,7 @@ function GameEngine() {
         }
 
         // 2. controlling objects (player and AI)
-        _player.aimAt(cursorX, cursorY);
+        _player.aimAt(_cursor.getX(), _cursor.getY());
         _ai.resolve();
 
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
@@ -103,14 +109,11 @@ function GameEngine() {
         for (i = 0; i < _effects.length; i++) {
             _effects[i].updateShapes();
         }
+        _cursor.updateShapes();
+        console.log(_cursor.getX());
 
         // 5. updating stage (redraw)
         _stage.update();
-    }
-
-    function handleMouseMove(e) {
-        cursorX = e.clientX;
-        cursorY = e.clientY;
     }
 
     function handleKeyDown(e) {
@@ -142,6 +145,11 @@ function GameEngine() {
         if (e.keyCode === 16) {
             handleMouseUp();
         }
+    }
+
+    function handleMouseMove(e) {
+        _cursor.setX(e.clientX);
+        _cursor.setY(e.clientY);
     }
 
     function handleMouseDown(e) {
