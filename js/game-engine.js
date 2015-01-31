@@ -21,6 +21,10 @@ function GameEngine() {
         _stage = new createjs.Stage("canvas");
         createjs.Ticker.setFPS(FPS);
 
+        _cursor = Cursor({
+            stage: _stage
+        });
+
         _player = Player({
             stage: _stage,
             bullets: _bullets,
@@ -52,10 +56,6 @@ function GameEngine() {
             on: true
         });
         _effects.push(tempEffect);
-
-        _cursor = Cursor({
-            stage: _stage
-        });
 
         // set handlers
         document.addEventListener("mousemove", handleMouseMove);
@@ -109,7 +109,6 @@ function GameEngine() {
         for (i = 0; i < _effects.length; i++) {
             _effects[i].updateShapes();
         }
-        _cursor.updateShapes();
 
         // 5. updating stage (redraw)
         _stage.update();
