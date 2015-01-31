@@ -7,19 +7,12 @@ function EnemyFactory(opts) {
 
     var _generatingDelay = opts.generatingDelay || 2000;      // between enemy generating
 
-    var _enemyConstructors = [
-        {constructor: Recruit, weight: 10},
-        {constructor: FootSoldier, weight: 5},
-        {constructor: MachineGunner, weight: 2},
-        {constructor: GuyWithPanzerschreck, weight: 1}
-    ];
-    _enemyConstructors.getFullWeight = function() {
-        var weight = 0;
-        for (var i = 0; i < this.length; i++) {
-            weight += this[i].weight;
-        }
-        return weight;
-    };
+    var _enemyConstructors = new RandomAccessArray([
+        {element: Recruit, weight: 10},
+        {element: FootSoldier, weight: 5},
+        {element: MachineGunner, weight: 2},
+        {element: GuyWithPanzerschreck, weight: 1}
+    ]);
 
     var _creationTimer = null;
 
@@ -37,25 +30,13 @@ function EnemyFactory(opts) {
     };
 
     function generate() {
-        _units.push(_enemyConstructors[getNextIndex()].constructor({
+        _units.push(_enemyConstructors.get()({
             stage: _stage,
             units: _units,
             bullets: _bullets,
             x: CANVAS_WIDTH * (random() / 2 + 0.5),
             y: CANVAS_HEIGHT * (random() / 2 + 0.5)
         }));
-    }
-
-    function getNextIndex() {
-        var border = random() * _enemyConstructors.getFullWeight();
-        var x = 0;
-        for (var i = 0; i < _enemyConstructors.length; i++) {
-            if (x <= border && x + _enemyConstructors[i].weight > border) {
-                return i;
-            }
-            x += _enemyConstructors[i].weight;
-        }
-        return _enemyConstructors.length - 1;
     }
 
     return self;

@@ -10,6 +10,8 @@
     <script src="lib/createjs-2014.12.12.min.js"></script>
 
     <script src="js/util/math-utility.js"></script>
+    <script src="js/util/painter.js"></script>
+    <script src="js/util/random-access-array.js"></script>
 
     <script src="js/config/config.js"></script>
     <script src="js/config/physics-config.js"></script>
@@ -42,7 +44,6 @@
     <script src="js/object/effect/effect.js"></script>
     <script src="js/object/effect/bullet-reflect-effect.js"></script>
 
-    <script src="js/util/painter.js"></script>
     <script src="js/level-resolver.js"></script>
     <script src="js/enemy-factory.js"></script>
     <script src="js/ai.js"></script>
@@ -65,7 +66,6 @@
 
         function init() {
             resizeCanvas();
-
             window.onresize = resizeCanvas;
 
             GameEngine().start();
