@@ -5,6 +5,8 @@ function Cursor(opts, draw) {
         var bitmap = new createjs.Bitmap("./img/cursor.png");
         bitmap.regX = 6;
         bitmap.regY = 6;
+        bitmap.skewX = 20;
+        bitmap.skewY = 20;
         self.addShape(bitmap);
     };
 

@@ -110,7 +110,6 @@ function GameEngine() {
             _effects[i].updateShapes();
         }
         _cursor.updateShapes();
-        console.log(_cursor.getX());
 
         // 5. updating stage (redraw)
         _stage.update();
