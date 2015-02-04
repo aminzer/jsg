@@ -12,8 +12,6 @@ function GameEngine() {
     var _levelResolver = null;
 
     var pressedKeys = {};   // array with key codes of pressed buttons
-    var cursorX = 0;
-    var cursorY = 0;
 
     var _cursor = null;
 
@@ -41,7 +39,7 @@ function GameEngine() {
             bullets: _bullets
         });
 
-       // _levelResolver.resolve(TEST_LEVEL());
+        _levelResolver.resolve(TEST_LEVEL());
 
         _ai = new AI({
             units: _units,
