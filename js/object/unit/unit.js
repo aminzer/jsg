@@ -97,11 +97,19 @@ function Unit(opts) {
         return _radius;
     };
 
+    self.setHp = function(hp) {
+        _hp = hp;
+    };
+
+    self.getHp = function() {
+        return _hp;
+    };
+
     self.setMaxHp = function(maxHp) {
         _hp = _maxHp = maxHp;
     };
 
-    self.getHp = function() {
+    self.getMaxHp = function() {
         return _hp;
     };
 
