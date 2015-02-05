@@ -166,13 +166,7 @@ function GameEngine() {
     function handleTargetHits() {
         for (var j = 0; j < _units.length; j++) {
             for (var i = 0; i < _bullets.length; i++) {
-                if (MathUtility.isInCircle(
-                    _bullets[i].getX(),
-                    _bullets[i].getY(),
-                    _units[j].getX(),
-                    _units[j].getY(),
-                    _units[j].getRadius()
-                )) {
+                if (_units[j].isPointInside(_bullets[i].getX(), _bullets[i].getY())) {
                     _units[j].takeDamage(_bullets[i].getDamage());     // unit takes damage
                     destroyBullet(i);
                     i--;  // because of splice

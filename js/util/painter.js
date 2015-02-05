@@ -1,36 +1,36 @@
 var Painter = {
 
-    offsetCircle: function(object, x, y, radius, color) {
+    offsetCircle: function(shapedObject, x, y, radius, color) {
         var shape = new createjs.Shape();
         shape.graphics.beginFill(color).drawCircle(x, y, radius);
-        object.addShape(shape);
+        shapedObject.addShape(shape);
     },
 
-    circle: function(object, radius, color) {
-        this.offsetCircle(object, 0, 0, radius, color);
+    circle: function(shapedObject, radius, color) {
+        this.offsetCircle(shapedObject, 0, 0, radius, color);
     },
 
-    offsetRectangle: function(object, x, y, width, height, regX, regY, color) {
+    offsetRectangle: function(shapedObject, x, y, width, height, regX, regY, color) {
         var shape = new createjs.Shape();
         shape.graphics.beginFill(color).drawRect(x, y, width, height);
         shape.regX = regX;
         shape.regY = regY;
-        object.addShape(shape);
+        shapedObject.addShape(shape);
     },
 
-    rectangle: function(object, width, height, regX, regY, color) {
-        this.offsetRectangle(object, 0, 0, width, height, regX, regY, color);
+    rectangle: function(shapedObject, width, height, regX, regY, color) {
+        this.offsetRectangle(shapedObject, 0, 0, width, height, regX, regY, color);
     },
 
-    offsetRoundRectangle: function(object, x, y, width, height, regX, regY, radius, color) {
+    offsetRoundRectangle: function(shapedObject, x, y, width, height, regX, regY, radius, color) {
         var shape = new createjs.Shape();
         shape.graphics.beginFill(color).drawRoundRect(x, y, width, height, radius);
         shape.regX = regX;
         shape.regY = regY;
-        object.addShape(shape);
+        shapedObject.addShape(shape);
     },
 
-    roundRectangle: function(object, width, height, regX, regY, radius, color) {
-        this.offsetRoundRectangle(object, 0, 0, width, height, regX, regY, radius, color);
+    roundRectangle: function(shapedObject, width, height, regX, regY, radius, color) {
+        this.offsetRoundRectangle(shapedObject, 0, 0, width, height, regX, regY, radius, color);
     }
 };

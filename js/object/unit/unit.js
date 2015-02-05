@@ -55,6 +55,10 @@ function Unit(opts) {
         return _hp > 0;
     };
 
+    self.isPointInside = function(pointX, pointY) {
+        return MathUtility.isInCircle(pointX, pointY, self.getX(), self.getY(), self.getRadius());
+    };
+
     // @Override
     self.p_updateShapes = self.updateShapes;    // save parents function
     self.updateShapes = function() {            // update own shapes and start updating of children
