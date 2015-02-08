@@ -1,5 +1,7 @@
-function GameEngine() {
+function GameEngine(opts) {
     var self = {};
+
+    var _canvas = document.getElementById("canvas");
 
     var _stage = null;
 
@@ -56,7 +58,7 @@ function GameEngine() {
         _effects.push(tempEffect);
 
         // set handlers
-        document.addEventListener("mousemove", handleMouseMove);
+        _canvas.addEventListener("mousemove", handleMouseMove);
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
         document.addEventListener("mousedown", handleMouseDown);
@@ -144,8 +146,8 @@ function GameEngine() {
     }
 
     function handleMouseMove(e) {
-        _cursor.setX(e.clientX);
-        _cursor.setY(e.clientY);
+        _cursor.setX(e.clientX - _canvas.offsetLeft);
+        _cursor.setY(e.clientY - _canvas.offsetTop);
     }
 
     function handleMouseDown(e) {

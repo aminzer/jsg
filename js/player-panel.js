@@ -1,14 +1,15 @@
 function PlayerPanel(opts) {
-    var self = new {};
+    var self = {};
 
-    var _player = opts.player;
-    
-    self.getHp = function() {
-        return _player.getHp();
-    };
+    var _panel = $("#player-panel");
 
-    self.getMaxHp = function() {
-        return _player.getHp();
+    var _hpPanel = _panel.find(".hp-panel");
+    var _hp = _hpPanel.find(".hp");
+
+    self.initHandlers = function() {
+        $(document).bind('player_take_damage', function(e, hp, maxHp) {
+            _hp.css({"width": 100 * hp / maxHp + "%"});
+        });
     };
 
     return self;

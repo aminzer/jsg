@@ -17,6 +17,13 @@ function Player(opts, draw) {
         self.draw();
     }
 
+    // @Override
+    self.p_takeDamage = self.takeDamage;
+    self.takeDamage = function(damage) {
+        self.p_takeDamage(damage);
+        $(document).trigger('player_take_damage', [self.getHp(), self.getMaxHp()]);
+    };
+
     self.changeWeapon = function(direction) {    // mouse wheel forward(1) or backward (-1)
         self.getWeapon().destroyShapes();        // erase from stage
 

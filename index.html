@@ -50,11 +50,18 @@
     <script src="js/enemy-factory.js"></script>
     <script src="js/ai.js"></script>
     <script src="js/game-engine.js"></script>
+    <script src="js/player-panel.js"></script>
 
     <script src="js/level/test-level.js"></script>
 </head>
 
 <body onload="init();">
+
+    <div id="player-panel">
+        <div class="hp-panel">
+            <div class="hp"></div>
+        </div>
+    </div>
 
     <canvas id="canvas" height="600" width="1000"></canvas>
 
@@ -63,7 +70,9 @@
         function resizeCanvas() {      // full screen
             var canvas = document.getElementById("canvas");
             CANVAS_WIDTH = canvas.width = window.innerWidth;
-            CANVAS_HEIGHT = canvas.height = window.innerHeight;
+            CANVAS_HEIGHT = canvas.height = window.innerHeight - parseInt(
+                    getComputedStyle(document.getElementById("player-panel"), '').height
+            );
         }
 
         function init() {
@@ -71,6 +80,7 @@
             window.onresize = resizeCanvas;
 
             GameEngine().start();
+            PlayerPanel().initHandlers();
         }
 
     </script>

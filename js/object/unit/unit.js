@@ -110,7 +110,7 @@ function Unit(opts) {
     };
 
     self.getMaxHp = function() {
-        return _hp;
+        return _maxHp;
     };
 
     return self;
