@@ -21,7 +21,7 @@ function Player(opts, draw) {
     self.p_takeDamage = self.takeDamage;
     self.takeDamage = function(damage) {
         self.p_takeDamage(damage);
-        $(document).trigger('player_take_damage', [self.getHp(), self.getMaxHp()]);
+        $(document).trigger('player_hp_change', [self.getHp(), self.getMaxHp()]);
     };
 
     self.changeWeapon = function(direction) {    // mouse wheel forward(1) or backward (-1)

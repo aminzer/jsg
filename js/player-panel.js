@@ -7,7 +7,7 @@ function PlayerPanel(opts) {
     var _hp = _hpPanel.find(".hp");
 
     self.initHandlers = function() {
-        $(document).bind('player_take_damage', function(e, hp, maxHp) {
+        $(document).bind('player_hp_change', function(e, hp, maxHp) {
             _hp.css({"width": 100 * hp / maxHp + "%"});
         });
     };
