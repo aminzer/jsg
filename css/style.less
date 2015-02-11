@@ -1,5 +1,7 @@
 body {
-  @player-panel-height: 10px;
+  @hp-panel-height: 10px;
+  @kills-panel-size: 1px;
+  @player-panel-height: @hp-panel-height;
 
   margin: 0;
   padding: 0;
@@ -10,26 +12,30 @@ body {
   }
 
   #player-panel {
-    @hp-panel-height: 10px;
-
     position: absolute;
     top: 0;
     left: 0;
     height: @player-panel-height;
     width: 100%;
     background-color: #fff;
-    outline: 1px solid #aaa;
 
     .hp-panel {
       height: @hp-panel-height;
       width: 100%;
-
+      outline: 1px solid #aaa;
 
       .hp {
         height: @hp-panel-height;
         width: 100%;
         background-color: #b03823;
       }
+    }
+
+    .kills-panel {
+      height: @kills-panel-size;
+      width: @kills-panel-size;
+      padding-left: 10px;
+      font-size: 20px;
     }
   }
 
