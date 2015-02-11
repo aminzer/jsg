@@ -39,6 +39,14 @@ function AI(opts) {
         _changeAction = false;
     };
 
+    self.stop = function() {
+        clearInterval(_changeActionTimer);
+        for (var i = 0; i < _units.length; i++) {
+            _units[i].stopShooting();
+            _units[i].stopMoving();
+        }
+    };
+
     function canShoot(shooter) {        // check all friends on firing lines
         for (var k = 0; k < _units.length; k++) {
             if ((_units[k].getObjectType() & OBJECT_TYPE_ENEMY) && isOnFiringLine(shooter, _units[k])) {

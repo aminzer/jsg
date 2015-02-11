@@ -43,7 +43,7 @@ function Player(opts, draw) {
     };
 
     self.getObjectType = function() {
-        return OBJECT_TYPE_UNIT;
+        return OBJECT_TYPE_UNIT | OBJECT_TYPE_PLAYER;
     };
 
     function initArsenal() {

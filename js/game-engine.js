@@ -59,11 +59,11 @@ function GameEngine(opts) {
 
         // set handlers
         _canvas.addEventListener("mousemove", handleMouseMove);
+        _canvas.addEventListener("mousedown", handleMouseDown);
+        _canvas.addEventListener("mouseup", handleMouseUp);
+        _canvas.addEventListener("wheel", handleMouseWheel);
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
-        document.addEventListener("mousedown", handleMouseDown);
-        document.addEventListener("mouseup", handleMouseUp);
-        document.addEventListener("wheel", handleMouseWheel);
         createjs.Ticker.addEventListener("tick", handleTick);
     };
 
@@ -175,7 +175,14 @@ function GameEngine(opts) {
                 }
             }
 
-            if (_units[j].isAlive() == false) {        // unit is dead
+            if (_units[j].isAlive() === false) {        // unit is dead
+                if (_units[j].getObjectType() & OBJECT_TYPE_ENEMY) {
+                    $(document).trigger("enemy_died");
+                } else if (_units[j].getObjectType() & OBJECT_TYPE_PLAYER) {
+                    console.log("player is dead");
+                    _ai.stop();
+                    _levelResolver.stopGenerating();
+                }
                 _units[j].destroyShapes();
                 _units.splice(j, 1);
                 j--;  // because of splice

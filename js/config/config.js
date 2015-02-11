@@ -18,7 +18,8 @@ var CANVAS_HEIGHT = 0;
 var NO_MOVEMENT = 'NO_MOVEMENT';
 
 var OBJECT_TYPE_UNIT = parseInt("0001", 2);
-var OBJECT_TYPE_ENEMY = parseInt("0010", 2);
+var OBJECT_TYPE_PLAYER = parseInt("0010", 2);
+var OBJECT_TYPE_ENEMY = parseInt("0100", 2);
 
 var PI = Math.PI;
 var sin = Math.sin;
