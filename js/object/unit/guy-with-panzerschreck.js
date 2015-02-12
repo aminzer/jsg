@@ -8,7 +8,7 @@ function GuyWithPanzerschreck(opts, draw) {
 
     self.draw = function() {
         Painter.circle(self, UNIT_RADIUS, "#8D91E3");
-        Painter.rectangle(self, 10, 38, 5, 19, "#34378A");
+        Painter.rectangle(self, 10, 2 * (UNIT_RADIUS - 1), 5, UNIT_RADIUS - 1, "#34378A");
 
         self.getWeapon().draw();
     };
