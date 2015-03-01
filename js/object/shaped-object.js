@@ -6,14 +6,14 @@ function ShapedObject(opts) {
      * @type {createjs.Stage}
      * @private
      */
-    var _stage = opts.stage;
+    self._stage = opts.stage;
 
     /**
      * all CreateJS shapes attached to current object (fixed position, not weapons, etc)
      * @type {Array}
      * @private
      */
-    var _shapes = [];
+    self._shapes = [];
 
     /**
      * get type of current object (see config.js)
@@ -30,12 +30,12 @@ function ShapedObject(opts) {
     self.addShape = function(shape) {
         if (shape instanceof Array) {
             for (var i = 0; i < shape.length; i++) {
-                _shapes.push(shape[i]);
-                _stage.addChild(shape[i]);
+                self._shapes.push(shape[i]);
+                self._stage.addChild(shape[i]);
             }
         } else {
-            _shapes.push(shape);
-            _stage.addChild(shape);
+            self._shapes.push(shape);
+            self._stage.addChild(shape);
         }
     };
 
@@ -43,10 +43,10 @@ function ShapedObject(opts) {
      * update all graphical shapes on stage
      */
     self.updateShapes = function() {
-        for (var i = 0; i < _shapes.length; i++) {
-            _shapes[i].x = self.getX();
-            _shapes[i].y = self.getY();
-            _shapes[i].rotation = self.getAngle();
+        for (var i = 0; i < self._shapes.length; i++) {
+            self._shapes[i].x = self.x;
+            self._shapes[i].y = self.y;
+            self._shapes[i].rotation = self.angle;
         }
     };
 
@@ -62,26 +62,10 @@ function ShapedObject(opts) {
      * remove all shapes from stage
      */
     self.destroyShapes = function() {
-        for (var i = 0; i < _shapes.length; i++) {
-            _stage.removeChild(_shapes[i]);
+        for (var i = 0; i < self._shapes.length; i++) {
+            self._stage.removeChild(self._shapes[i]);
         }
-        _shapes = [];
-    };
-
-    /**
-     * get drawing stage of current object
-     * @returns {createjs.Stage}
-     */
-    self.getStage = function() {
-        return _stage;
-    };
-
-    /**
-     * get all createjs shapes of current object
-     * @returns {Array} all Createjs shapes
-     */
-    self.getShapes = function() {
-        return _shapes;
+        self._shapes = [];
     };
 
     return self;

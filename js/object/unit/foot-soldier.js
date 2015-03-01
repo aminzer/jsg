@@ -1,16 +1,16 @@
 function FootSoldier(opts, draw) {
     var self = Unit(opts);
 
-    self.setWeapon(AutomaticGun({
-        stage: self.getStage(),
-        bullets: self.getBullets()
-    }, false));
+    self._weapon = AutomaticGun({
+        stage: self._stage,
+        bullets: self._bullets
+    }, false);
 
     self.draw = function() {
-        Painter.circle(self, UNIT_RADIUS, "#559");
-        Painter.rectangle(self, 10, 2 * (UNIT_RADIUS - 1), 5, UNIT_RADIUS - 1, "#199EE0");
+        Painter.circle(self, self._radius, "#559");
+        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#199EE0");
 
-        self.getWeapon().draw();
+        self._weapon.draw();
     };
 
     if (draw !== false) {

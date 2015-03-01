@@ -1,16 +1,16 @@
 function Recruit(opts, draw) {
     var self = Unit(opts);
 
-    self.setWeapon(GrandfathersGun({
-        stage: self.getStage(),
-        bullets: self.getBullets()
-    }, false));
+    self._weapon = GrandfathersGun({
+        stage: self._stage,
+        bullets: self._bullets
+    }, false);
 
     self.draw = function() {
-        Painter.circle(self, UNIT_RADIUS, "#199EE0");
-        Painter.rectangle(self, 10, 2 * (UNIT_RADIUS - 1), 5, UNIT_RADIUS - 1, "#559");
+        Painter.circle(self, self._radius, "#199EE0");
+        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#559");
 
-        self.getWeapon().draw();
+        self._weapon.draw();
     };
 
     if (draw !== false) {

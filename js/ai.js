@@ -12,7 +12,7 @@ function AI(opts) {
     self.resolve = function() {
         for (var i = 0; i < _units.length; i++) {
             if (_units[i].getObjectType() & OBJECT_TYPE_ENEMY) {
-                _units[i].aimAt(_target.getX(), _target.getY());   // aim at target
+                _units[i].aimAt(_target.x, _target.y);   // aim at target
 
                 if (!canShoot(_units[i])) {    // prevent friendly fire
                     _units[i].stopShooting();
@@ -22,10 +22,10 @@ function AI(opts) {
                     if (random() > 0.5) {
                         _units[i].stopShooting();
                         _units[i].startMoving(MathUtility.getLinesAngle(
-                            _units[i].getX(),
-                            _units[i].getY(),
-                            _target.getX(),
-                            _target.getY()
+                            _units[i].x,
+                            _units[i].y,
+                            _target.x,
+                            _target.y
                         ) + random() * 90 - 45);
                     } else {
                         _units[i].stopMoving();
@@ -58,12 +58,12 @@ function AI(opts) {
 
     function isOnFiringLine(shooter, target) {
         return MathUtility.isRayPassThroughCircle(
-            shooter.getWeapon().getX(),
-            shooter.getWeapon().getY(),
-            shooter.getWeapon().getAngle(),
-            target.getX(),
-            target.getY(),
-            target.getRadius()
+            shooter._weapon.x,
+            shooter._weapon.y,
+            shooter._weapon.angle,
+            target.x,
+            target.y,
+            target._radius
         );
     }
 

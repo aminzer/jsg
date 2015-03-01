@@ -1,11 +1,11 @@
 function Bullet(opts, draw) {
     var self = ShapedObject(opts);
 
-    var _damage = opts.damage || BULLET_DAMAGE;
-    var _speed = opts.speed || BULLET_SPEED;
-    var _lifeTime = opts.lifeTime || BULLET_LIFETIME;    // depends on FPS
+    self._damage = opts.damage || BULLET_DAMAGE;
+    self._speed = opts.speed || BULLET_SPEED;
+    self._lifeTime = opts.lifeTime || BULLET_LIFETIME;    // depends on FPS
 
-    var _globalBullets = opts.bullets;
+    self._bullets = opts.bullets;       // reference to global bullet array
 
     self.draw = function() {
         Painter.circle(self, 2, "#000");
@@ -16,42 +16,14 @@ function Bullet(opts, draw) {
     }
 
     self.move = function() {
-        self.moveX(_speed * cos_d(self.getAngle()));
-        self.moveY(_speed * sin_d(self.getAngle()));
-        _lifeTime--;
+        self.moveX(self._speed * cos_d(self.angle));
+        self.moveY(self._speed * sin_d(self.angle));
+        self._lifeTime--;
 
-        return _lifeTime > 0;
+        return self._lifeTime > 0;
     };
 
     self.destroy = function() {};   // executed before bullet's death
-
-    self.setDamage = function(damage) {
-        _damage = damage;
-    };
-
-    self.getDamage = function() {
-        return _damage;
-    };
-
-    self.setSpeed = function(speed) {
-        _speed = speed;
-    };
-
-    self.getSpeed = function() {
-        return _speed;
-    };
-
-    self.setLifeTime = function(lifeTime) {
-        _lifeTime = lifeTime;
-    };
-
-    self.getLifetime = function() {
-        return _lifeTime;
-    };
-
-    self.getGlobalBullets = function() {
-        return _globalBullets;
-    };
 
     return self;
 }

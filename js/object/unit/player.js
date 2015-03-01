@@ -1,5 +1,5 @@
 function Player(opts, draw) {
-    var self = Unit(opts, false);
+    var self = Unit(opts);
 
     var _weaponArsenal = [];
     var _weaponIndex = 0;
@@ -7,10 +7,10 @@ function Player(opts, draw) {
     initArsenal();
 
     self.draw = function() {
-        Painter.circle(self, UNIT_RADIUS, "#73B500");
-        Painter.rectangle(self, 10, 2 * (UNIT_RADIUS - 1), 5, UNIT_RADIUS - 1, "#345200");
+        Painter.circle(self, self._radius, "#73B500");
+        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#345200");
 
-        self.getWeapon().draw();
+        self._weapon.draw();
     };
 
     if (draw !== false) {
@@ -21,11 +21,11 @@ function Player(opts, draw) {
     self.p_takeDamage = self.takeDamage;
     self.takeDamage = function(damage) {
         self.p_takeDamage(damage);
-        $(document).trigger('player_hp_change', [self.getHp(), self.getMaxHp()]);
+        $(document).trigger('player_hp_change', [self._hp, self._maxHp]);
     };
 
     self.changeWeapon = function(direction) {    // mouse wheel forward(1) or backward (-1)
-        self.getWeapon().destroyShapes();        // erase from stage
+        self._weapon.destroyShapes();
 
         direction = direction ? direction : 1;   // default value
         _weaponIndex += direction;
@@ -38,8 +38,8 @@ function Player(opts, draw) {
             _weaponIndex = 0;
         }
 
-        self.setWeapon(_weaponArsenal[_weaponIndex]);
-        self.getWeapon().draw();           // draw on stage
+        self._weapon = _weaponArsenal[_weaponIndex];
+        self._weapon.draw();
     };
 
     self.getObjectType = function() {
@@ -48,34 +48,34 @@ function Player(opts, draw) {
 
     function initArsenal() {
         _weaponArsenal.push(GrandfathersGun({
-            stage: self.getStage(),
-            bullets: self.getBullets()
+            stage: self._stage,
+            bullets: self._bullets
         }, false));
 
         _weaponArsenal.push(AutomaticGun({
-            stage: self.getStage(),
-            bullets: self.getBullets()
+            stage: self._stage,
+            bullets: self._bullets
         }, false));
 
         _weaponArsenal.push(MachineGun({
-            stage: self.getStage(),
-            bullets: self.getBullets()
+            stage: self._stage,
+            bullets: self._bullets
         }, false));
 
         _weaponArsenal.push(RocketLauncher({
-            stage: self.getStage(),
-            bullets: self.getBullets()
+            stage: self._stage,
+            bullets: self._bullets
         }, false));
 
         _weaponArsenal.push(CompositeWeapon({
-            stage: self.getStage(),
-            bullets: self.getBullets(),
+            stage: self._stage,
+            bullets: self._bullets,
             weaponConstructors: [MachineGun, MachineGun],
             weaponOffsetsY: [15, -15],
             weaponOffsetsX: [0, 0]
         }, false));
 
-        self.setWeapon(_weaponArsenal[_weaponIndex]);
+        self._weapon = _weaponArsenal[_weaponIndex];
     }
 
     return self;

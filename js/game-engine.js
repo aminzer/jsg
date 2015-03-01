@@ -3,7 +3,7 @@ function GameEngine(opts) {
 
     var _canvas = document.getElementById("canvas");
 
-    var _stage = null;
+    var _stage = new createjs.Stage("canvas");
 
     var _player = null;
     var _units = [];            // units and player
@@ -13,12 +13,11 @@ function GameEngine(opts) {
     var _ai = null;             // artificial intellect
     var _levelResolver = null;
 
-    var pressedKeys = {};   // array with key codes of pressed buttons
+    var _pressedKeys = {};   // array with key codes of pressed buttons
 
     var _cursor = null;
 
     self.start = function() {
-        _stage = new createjs.Stage("canvas");
         createjs.Ticker.setFPS(FPS);
 
         _cursor = Cursor({
@@ -77,7 +76,7 @@ function GameEngine(opts) {
         }
 
         // 2. controlling objects (player and AI)
-        _player.aimAt(_cursor.getX(), _cursor.getY());
+        _player.aimAt(_cursor.x, _cursor.y);
         _ai.resolve();
 
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
@@ -116,7 +115,7 @@ function GameEngine(opts) {
     }
 
     function handleKeyDown(e) {
-        pressedKeys[e.keyCode] = true;
+        _pressedKeys[e.keyCode] = true;
         setPlayersDirection();
 
         if (e.keyCode === LOG_BUTTON) {
@@ -124,7 +123,7 @@ function GameEngine(opts) {
         }
 
         if (e.keyCode === FIX_WEAPON_BUTTON) {
-            _player.getWeapon().fix();
+            _player._weapon.fix();
         }
 
         if (e.keyCode === PAUSE_BUTTON) {
@@ -138,7 +137,7 @@ function GameEngine(opts) {
     }
 
     function handleKeyUp(e) {
-        pressedKeys[e.keyCode] = false;
+        _pressedKeys[e.keyCode] = false;
         setPlayersDirection();
 
         if (e.keyCode === 16) {
@@ -147,8 +146,8 @@ function GameEngine(opts) {
     }
 
     function handleMouseMove(e) {
-        _cursor.setX(e.clientX - _canvas.offsetLeft);
-        _cursor.setY(e.clientY - _canvas.offsetTop);
+        _cursor.x = e.clientX - _canvas.offsetLeft;
+        _cursor.y = e.clientY - _canvas.offsetTop;
     }
 
     function handleMouseDown(e) {
@@ -173,8 +172,8 @@ function GameEngine(opts) {
     function handleTargetHits() {
         for (var j = 0; j < _units.length; j++) {
             for (var i = 0; i < _bullets.length; i++) {
-                if (_units[j].isPointInside(_bullets[i].getX(), _bullets[i].getY())) {
-                    _units[j].takeDamage(_bullets[i].getDamage());     // unit takes damage
+                if (_units[j].isPointInside(_bullets[i].x, _bullets[i].y)) {
+                    _units[j].takeDamage(_bullets[i]._damage);     // unit takes damage
                     destroyBullet(i);
                     i--;  // because of splice
                 }
@@ -199,16 +198,16 @@ function GameEngine(opts) {
         var dx = 0,
             dy = 0;
 
-        if (pressedKeys[RIGHT_BUTTON]) {
+        if (_pressedKeys[RIGHT_BUTTON]) {
             dx++;
         }
-        if (pressedKeys[LEFT_BUTTON]) {
+        if (_pressedKeys[LEFT_BUTTON]) {
             dx--;
         }
-        if (pressedKeys[DOWN_BUTTON]) {
+        if (_pressedKeys[DOWN_BUTTON]) {
             dy++;
         }
-        if (pressedKeys[UP_BUTTON]) {
+        if (_pressedKeys[UP_BUTTON]) {
             dy--;
         }
         if (dx == 0 && dy == 0) {

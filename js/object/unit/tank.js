@@ -5,10 +5,10 @@ function Tank(opts, draw) {
 
     self.setMaxHp(TANK_HP);
 
-    self.setWeapon(TankGun({
-        stage: self.getStage(),
-        bullets: self.getBullets()
-    }, false));
+    self._weapon = TankGun({
+        stage: self._stage,
+        bullets: self._bullets
+    }, false);
 
     self.draw = function() {
         Painter.roundRectangle(self, 150, 80, 75, 40, 5, "#474924");
@@ -25,7 +25,7 @@ function Tank(opts, draw) {
         Painter.offsetRectangle(self, 85, -10, 10, 4, 5, 2, "#8B4D40");
         Painter.offsetRectangle(self, 85, -20, 10, 4, 5, 2, "#8B4D40");
 
-        self.getWeapon().draw();
+        self._weapon.draw();
     };
 
     if (draw !== false) {
@@ -33,10 +33,10 @@ function Tank(opts, draw) {
     }
 
     self.aimAt = function(targetX, targetY) {
-        if (self.getMovingAngle() != NO_MOVEMENT) {
-            self.setAngle(self.getMovingAngle());
+        if (self._movingAngle != NO_MOVEMENT) {
+            self.angle = self._movingAngle;
         }
-        self.getWeapon().aimAt(targetX, targetY, self.getX(), self.getY(), self.getAngle());
+        self._weapon.aimAt(targetX, targetY, self.x, self.y, self.angle);
     };
 
     self.startMoving = function(angle) {
@@ -44,21 +44,21 @@ function Tank(opts, draw) {
             return;
         }
 
-        var old = self.getAngle();
+        var old = self.angle;
 
         _timer = setInterval(function() {
-            if (self.getMovingAngle() == NO_MOVEMENT) {
+            if (self._movingAngle == NO_MOVEMENT) {
                 clearInterval(_timer);
                 _timer = null;
             }
             var sign = (angle - old > 0) ? 1 : -1;
-            sign = (Math.abs(angle - self.getAngle()) < 10) ? 0 : sign;
+            sign = (Math.abs(angle - self.angle) < 10) ? 0 : sign;
             if (sign == 0) {
                 clearInterval(_timer);
                 _timer = null;
             }
             //console.log(self.getAngle());
-            self.setMovingAngle(self.getAngle() + sign);
+            self._movingAngle = self.angle + sign;
         }, 20);
 
     };

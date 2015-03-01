@@ -1,36 +1,28 @@
 function AutomaticWeapon(opts) {
     var self = Weapon(opts);
 
-    var _rateOfFire = AUTOMATIC_WEAPON_RATE_OF_FIRE;        // shots per minute
-    var _shootingTimer = null;                              // shoots every 60000 / _rateOfFire ms
+    self._rateOfFire = AUTOMATIC_WEAPON_RATE_OF_FIRE;        // shots per minute
+    self._shootingDelay = 60000 / self._rateOfFire;
 
-    self.setShootingDelay(60000 / _rateOfFire);
+    var _shootingTimer = null;                              // shoots every 60000 / self._rateOfFire ms
 
     self.startShooting = function() {
-        if (self.isShootingAllowed() && _shootingTimer == null) {
+        if (self._isShootingAllowed() && _shootingTimer == null) {
             self.shoot();
             _shootingTimer = setInterval(function () {
                 self.shoot();
-            }, 60000 / _rateOfFire);
+            }, 60000 / self._rateOfFire);
 
-            self.forbidShoot();
+            self._forbidShoot();        // to forbid shoot faster than rateOfFire (fast clicking)
             setTimeout(function() {
-                self.allowShoot();
-            }, self.getShootingDelay());
+                self._allowShoot();
+            }, self._shootingDelay);
         }
     };
 
     self.stopShooting = function() {
         clearInterval(_shootingTimer);
         _shootingTimer = null;
-    };
-
-    self.setRateOfFire = function(rateOfFire) {
-        _rateOfFire = rateOfFire;
-    };
-
-    self.getRateOfFire = function() {
-        return _rateOfFire;
     };
 
     return self;
