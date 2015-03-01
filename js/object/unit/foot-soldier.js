@@ -8,7 +8,7 @@ function FootSoldier(opts, draw) {
 
     self.draw = function() {
         Painter.circle(self, UNIT_RADIUS, "#559");
-        Painter.rectangle(self, 10, 38, 5, 19, "#199EE0");
+        Painter.rectangle(self, 10, 2 * (UNIT_RADIUS - 1), 5, UNIT_RADIUS - 1, "#199EE0");
 
         self.getWeapon().draw();
     };
