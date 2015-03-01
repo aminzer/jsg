@@ -112,5 +112,13 @@ function Unit(opts) {
         return _maxHp;
     };
 
+    self.setMovingAngle = function(movingAngle) {
+        _movingAngle = movingAngle;
+    };
+
+    self.getMovingAngle = function() {
+        return _movingAngle;
+    };
+
     return self;
 }

@@ -33,12 +33,14 @@
     <script src="js/object/weapon/automatic-gun.js"></script>
     <script src="js/object/weapon/machine-gun.js"></script>
     <script src="js/object/weapon/rocket-launcher.js"></script>
+    <script src="js/object/weapon/tank-gun.js"></script>
 
     <script src="js/object/unit/unit.js"></script>
     <script src="js/object/unit/recruit.js"></script>
     <script src="js/object/unit/foot-soldier.js"></script>
     <script src="js/object/unit/machine-gunner.js"></script>
     <script src="js/object/unit/guy-with-panzerschreck.js"></script>
+    <script src="js/object/unit/tank.js"></script>
     <script src="js/object/unit/player.js"></script>
 
     <script src="js/object/effect/effect.js"></script>
@@ -57,34 +59,34 @@
 
 <body onload="init();">
 
-    <div id="player-panel">
-        <div class="hp-panel">
-            <div class="hp"></div>
-        </div>
-        <div class="kills-panel">0</div>
+<div id="player-panel">
+    <div class="hp-panel">
+        <div class="hp"></div>
     </div>
+    <div class="kills-panel">0</div>
+</div>
 
-    <canvas id="canvas" height="600" width="1000"></canvas>
+<canvas id="canvas" height="600" width="1000"></canvas>
 
-    <script>
+<script>
 
-        function resizeCanvas() {      // full screen
-            var canvas = document.getElementById("canvas");
-            CANVAS_WIDTH = canvas.width = window.innerWidth;
-            CANVAS_HEIGHT = canvas.height = window.innerHeight - parseInt(
-                    getComputedStyle(document.getElementById("player-panel"), '').height
-            );
-        }
+    function resizeCanvas() {      // full screen
+        var canvas = document.getElementById("canvas");
+        CANVAS_WIDTH = canvas.width = window.innerWidth;
+        CANVAS_HEIGHT = canvas.height = window.innerHeight - parseInt(
+                getComputedStyle(document.getElementById("player-panel"), '').height
+        );
+    }
 
-        function init() {
-            resizeCanvas();
-            window.onresize = resizeCanvas;
+    function init() {
+        resizeCanvas();
+        window.onresize = resizeCanvas;
 
-            GameEngine().start();
-            PlayerPanel().initHandlers();
-        }
+        GameEngine().start();
+        PlayerPanel().initHandlers();
+    }
 
-    </script>
+</script>
 
 </body>
 </html>

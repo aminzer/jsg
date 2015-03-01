@@ -39,9 +39,16 @@ var ROCKET_LAUNCHER_FRONT_LENGTH = 30;
 var ROCKET_LAUNCHER_HARDNESS = 1000;
 var ROCKET_LAUNCHER_MAX_SECTOR = 30;
 var ROCKET_LAUNCHER_SHOOTING_DELAY = 1000;
+
+var TANK_GUN_FRONT_LENGTH = 100;
+var TANK_GUN_HARDNESS = 1000;
+var TANK_GUN_MAX_SECTOR = 5;
+var TANK_GUN_SHOOTING_DELAY = 1500;
 // ==============================================
 
 // ================== units =====================
+var ENEMY_FACTORY_DEFAULT_GENERATING_DELAY = 2000;
+
 var UNIT_HP = 10;
 var UNIT_RADIUS = 20;
 var UNIT_SPEED = 1;
@@ -49,4 +56,6 @@ var UNIT_WEAPON_OFFSET_Y = 15;
 
 var PLAYER_HP = 10;
 var PLAYER_SPEED = 3;
+
+var TANK_HP = 300;
 // ==============================================

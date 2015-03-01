@@ -14,7 +14,8 @@ function LevelResolver(opts) {
                 stage: _stage,
                 bullets: _bullets,
                 x: enemies[i].x * CANVAS_WIDTH / 100,
-                y: enemies[i].y * CANVAS_HEIGHT / 100
+                y: enemies[i].y * CANVAS_HEIGHT / 100,
+                angle: enemies[i].angle
             }));
         }
 

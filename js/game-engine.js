@@ -62,6 +62,7 @@ function GameEngine(opts) {
         _canvas.addEventListener("mousedown", handleMouseDown);
         _canvas.addEventListener("mouseup", handleMouseUp);
         _canvas.addEventListener("wheel", handleMouseWheel);
+        _canvas.oncontextmenu = handleRightButtonClick;
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
         createjs.Ticker.addEventListener("tick", handleTick);
@@ -162,6 +163,10 @@ function GameEngine(opts) {
         var direction = e.deltaY > 0 ? 1 : -1;
         _player.changeWeapon(direction);
 
+        return false;
+    }
+
+    function handleRightButtonClick(e) {
         return false;
     }
 

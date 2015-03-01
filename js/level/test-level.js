@@ -21,6 +21,11 @@ function TEST_LEVEL() {
                 constructor: GuyWithPanzerschreck,
                 x: 80,
                 y: 55
+            }, {
+                constructor: Tank,
+                x: 50,
+                y: 55,
+                angle: -90
             }
         ],
         enemyFactory: {
