@@ -11,6 +11,8 @@ function Unit(opts) {
 
     self._weapon = null;
 
+    self._unitType = opts.unitType || (UNIT_TYPE_ENEMY);
+
     self._bullets = opts.bullets;
 
     self.startMoving = function(newAngle) {
@@ -73,7 +75,7 @@ function Unit(opts) {
     };
 
     self.getObjectType = function() {
-        return OBJECT_TYPE_UNIT | OBJECT_TYPE_ENEMY;
+        return self._unitType;
     };
 
     self.setMaxHp = function(maxHp) {

@@ -59,34 +59,34 @@
 
 <body onload="init();">
 
-<div id="player-panel">
-    <div class="hp-panel">
-        <div class="hp"></div>
+    <div id="player-panel">
+        <div class="hp-panel">
+            <div class="hp"></div>
+        </div>
+        <div class="kills-panel">0</div>
     </div>
-    <div class="kills-panel">0</div>
-</div>
 
-<canvas id="canvas" height="600" width="1000"></canvas>
+    <canvas id="canvas" height="600" width="1000"></canvas>
 
-<script>
+    <script>
 
-    function resizeCanvas() {      // full screen
-        var canvas = document.getElementById("canvas");
-        CANVAS_WIDTH = canvas.width = window.innerWidth;
-        CANVAS_HEIGHT = canvas.height = window.innerHeight - parseInt(
-                getComputedStyle(document.getElementById("player-panel"), '').height
-        );
-    }
+        function resizeCanvas() {      // full screen
+            var canvas = document.getElementById("canvas");
+            CANVAS_WIDTH = canvas.width = window.innerWidth;
+            CANVAS_HEIGHT = canvas.height = window.innerHeight - parseInt(
+                    getComputedStyle(document.getElementById("player-panel"), '').height
+            );
+        }
 
-    function init() {
-        resizeCanvas();
-        window.onresize = resizeCanvas;
+        function init() {
+            resizeCanvas();
+            window.onresize = resizeCanvas;
 
-        GameEngine().start();
-        PlayerPanel().initHandlers();
-    }
+            GameEngine().start();
+            PlayerPanel().initHandlers();
+        }
 
-</script>
+    </script>
 
 </body>
 </html>

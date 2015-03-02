@@ -24,13 +24,19 @@ function GameEngine(opts) {
             stage: _stage
         });
 
-        _player = Player({
+        //_player = Player({
+        //    stage: _stage,
+        //    bullets: _bullets,
+        //    x: 100,
+        //    y: 100
+        //});
+        _player = Tank({
             stage: _stage,
             bullets: _bullets,
             x: 100,
             y: 100,
-            hp: PLAYER_HP,
-            speed: PLAYER_SPEED
+            speed: PLAYER_SPEED,
+            unitType: UNIT_TYPE_PLAYER
         });
         _units.push(_player);
 
@@ -176,13 +182,16 @@ function GameEngine(opts) {
                     _units[j].takeDamage(_bullets[i]._damage);     // unit takes damage
                     destroyBullet(i);
                     i--;  // because of splice
+                    if (_units[j] === _player) {
+                        $(document).trigger('player_hp_change', [_player._hp, _player._maxHp]);
+                    }
                 }
             }
 
             if (_units[j].isAlive() === false) {        // unit is dead
-                if (_units[j].getObjectType() & OBJECT_TYPE_ENEMY) {
+                if (_units[j].getObjectType() & UNIT_TYPE_ENEMY) {
                     $(document).trigger("enemy_died");
-                } else if (_units[j].getObjectType() & OBJECT_TYPE_PLAYER) {
+                } else if (_units[j].getObjectType() & UNIT_TYPE_PLAYER) {
                     console.log("player is dead");
                     _ai.stop();
                     _levelResolver.stopGenerating();

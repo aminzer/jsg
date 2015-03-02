@@ -1,6 +1,10 @@
 function Player(opts, draw) {
     var self = Unit(opts);
 
+    self._unitType = UNIT_TYPE_PLAYER;
+    self._speed = opts.speed || PLAYER_SPEED;
+    self.setMaxHp(opts.hp || PLAYER_HP);
+
     var _weaponArsenal = [];
     var _weaponIndex = 0;
 
@@ -16,13 +20,6 @@ function Player(opts, draw) {
     if (draw !== false) {
         self.draw();
     }
-
-    // @Override
-    self.p_takeDamage = self.takeDamage;
-    self.takeDamage = function(damage) {
-        self.p_takeDamage(damage);
-        $(document).trigger('player_hp_change', [self._hp, self._maxHp]);
-    };
 
     self.changeWeapon = function(direction) {    // mouse wheel forward(1) or backward (-1)
         self._weapon.destroyShapes();
@@ -40,10 +37,6 @@ function Player(opts, draw) {
 
         self._weapon = _weaponArsenal[_weaponIndex];
         self._weapon.draw();
-    };
-
-    self.getObjectType = function() {
-        return OBJECT_TYPE_UNIT | OBJECT_TYPE_PLAYER;
     };
 
     function initArsenal() {

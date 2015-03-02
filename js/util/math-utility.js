@@ -40,6 +40,41 @@ var MathUtility = {
     },
 
     /**
+     * get absolute difference between 2 angles (deg)
+     * angles order isn't important
+     * @param angle1
+     * @param angle2
+     * @returns {number} number in range [0, 180)
+     */
+    absoluteAngleDifference: function(angle1, angle2) {
+        var delta = angle1 - angle2;
+
+        while (delta < 0) {
+            delta += 360;
+        }
+
+        while (delta >= 360) {
+            delta -= 360;
+        }
+
+        if (delta >= 180) {
+            delta = 360 - delta;
+        }
+
+        return delta;
+    },
+
+    /**
+     * true if faster to move in clockwise direction from startAngle to finishAngle than counterclockwise
+     * @param startAngle
+     * @param finishAngle
+     * @returns {boolean}
+     */
+    isClockwiseDirection: function(startAngle, finishAngle) {
+        return this.normalizeAngle(finishAngle - startAngle) > 0;
+    },
+
+    /**
      * get distance between two points
      * @param x0 - first abscissa
      * @param y0 - last ordinate
@@ -106,13 +141,13 @@ var MathUtility = {
      * @returns {boolean}
      */
     isRayPassThroughCircle : function(x, y, angle, circleX, circleY, circleRadius) {
-        if (MathUtility.getDistance(x, y, circleX, circleY) == 0) {
+        if (this.getDistance(x, y, circleX, circleY) == 0) {
             return true;
         }
         angle = this.normalizeAngle(angle);
 
         var basicAngle = this.normalizeAngle( this.getLinesAngle(x, y, circleX, circleY) );     // between ray's start and circle center
-        var deltaAngle = this.radToDeg(Math.asin(circleRadius / MathUtility.getDistance(x, y, circleX, circleY)));
+        var deltaAngle = this.radToDeg(Math.asin(circleRadius / this.getDistance(x, y, circleX, circleY)));
 
         // some magic
         if (this.normalizeAngle(basicAngle) - deltaAngle <= -180 && angle > 0) {    // critical angle near -180
@@ -132,8 +167,6 @@ var MathUtility = {
      * @returns angle (deg)
      */
     getReflectAngle: function(rayAngle, barrierAngle) {
-        // TODO fix
-
-
+        // TODO implement
     }
 };

@@ -11,7 +11,7 @@ function AI(opts) {
 
     self.resolve = function() {
         for (var i = 0; i < _units.length; i++) {
-            if (_units[i].getObjectType() & OBJECT_TYPE_ENEMY) {
+            if (_units[i].getObjectType() & UNIT_TYPE_ENEMY) {
                 _units[i].aimAt(_target.x, _target.y);   // aim at target
 
                 if (!canShoot(_units[i])) {    // prevent friendly fire
@@ -49,7 +49,7 @@ function AI(opts) {
 
     function canShoot(shooter) {        // check all friends on firing lines
         for (var k = 0; k < _units.length; k++) {
-            if ((_units[k].getObjectType() & OBJECT_TYPE_ENEMY) && isOnFiringLine(shooter, _units[k])) {
+            if ((_units[k].getObjectType() & UNIT_TYPE_ENEMY) && isOnFiringLine(shooter, _units[k])) {
                 return false;
             }
         }

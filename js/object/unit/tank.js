@@ -1,7 +1,13 @@
 function Tank(opts, draw) {
     var self = Unit(opts);
 
-    var _timer = null;
+    var _turnTimer = null;
+    var _neededDirection;
+    var _turnError = 10;
+
+    var _tracksTimer = null;
+    var _tracksShapes = [];
+    var _tracksOffset = 10;
 
     self.setMaxHp(TANK_HP);
 
@@ -15,6 +21,8 @@ function Tank(opts, draw) {
 
         Painter.offsetRoundRectangle(self, 0, 52, 140, 20, 70, 10, 5, "#444");
         Painter.offsetRoundRectangle(self, 0, -52, 140, 20, 70, 10, 5, "#444");
+
+        _drawTracks();
 
         Painter.offsetRoundRectangle(self, -45, 20, 40, 20, 25, 10, 3, "#402511");
         Painter.offsetRoundRectangle(self, -45, -20, 40, 20, 25, 10, 3, "#402511");
@@ -33,35 +41,63 @@ function Tank(opts, draw) {
     }
 
     self.aimAt = function(targetX, targetY) {
-        if (self._movingAngle != NO_MOVEMENT) {
+        if (self._movingAngle !== NO_MOVEMENT) {
             self.angle = self._movingAngle;
         }
         self._weapon.aimAt(targetX, targetY, self.x, self.y, self.angle);
     };
 
     self.startMoving = function(angle) {
-        if (_timer != null) {
+        if (_tracksTimer == null) {
+            _tracksTimer = setInterval(_moveTracks, 200);
+        }
+
+        _neededDirection = angle;
+
+        if (MathUtility.absoluteAngleDifference(self.angle, _neededDirection) < _turnError) {  // if tank already directed right
+            if (self._movingAngle == NO_MOVEMENT) {
+                self._movingAngle = self.angle;
+            }
             return;
         }
 
-        var old = self.angle;
+        if (_turnTimer == null) {
+            self._movingAngle = self.angle;
+            _turnTimer = setInterval(function() {
+                var sign = MathUtility.isClockwiseDirection(self.angle, _neededDirection) ? 1 : -1;
+                self._movingAngle += self._speed / 1.5 * sign;
 
-        _timer = setInterval(function() {
-            if (self._movingAngle == NO_MOVEMENT) {
-                clearInterval(_timer);
-                _timer = null;
-            }
-            var sign = (angle - old > 0) ? 1 : -1;
-            sign = (Math.abs(angle - self.angle) < 10) ? 0 : sign;
-            if (sign == 0) {
-                clearInterval(_timer);
-                _timer = null;
-            }
-            //console.log(self.getAngle());
-            self._movingAngle = self.angle + sign;
-        }, 20);
-
+                if (MathUtility.absoluteAngleDifference(self.angle, _neededDirection) < _turnError) {   // if tank finished turning
+                    clearInterval(_turnTimer);
+                    _turnTimer = null;
+                }
+            }, 20);
+        }
     };
+
+    self.stopMoving = function() {
+        self._movingAngle = NO_MOVEMENT;
+        clearInterval(_turnTimer);
+        _turnTimer = null;
+        clearInterval(_tracksTimer);
+        _tracksTimer = null;
+    };
+
+  //  self.startShooting = function() {};
+
+    function _drawTracks() {
+        for (var i = 0; i < 7; i++) {
+            _tracksShapes.push(Painter.offsetRectangle(self, 10 + 20 * i, 52, 10, 20, 70, 10, "#555"));
+            _tracksShapes.push(Painter.offsetRectangle(self, 10 + 20 * i, -52, 10, 20, 70, 10, "#555"));
+        }
+    }
+
+    function _moveTracks() {
+        for (var i = 0; i < _tracksShapes.length; i++) {
+            _tracksShapes[i].regX += _tracksOffset;
+        }
+        _tracksOffset *= -1;
+    }
 
     return self;
 }
