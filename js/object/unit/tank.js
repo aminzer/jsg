@@ -1,6 +1,8 @@
 function Tank(opts, draw) {
     var self = Unit(opts);
 
+    self._unitForm = UNIT_FORM_RECTANGLE;
+
     var _turnTimer = null;
     var _neededDirection;
     var _turnError = 10;
@@ -10,6 +12,12 @@ function Tank(opts, draw) {
     var _tracksOffset = 10;
 
     self.setMaxHp(TANK_HP);
+
+    self.isPointInside = function(pointX, pointY) {
+        // TODO: maybe should define height and width and use it here and in draw()
+        // NOTE: 62 = 40 (tank height) + 20 (tracks height) + 2 (tracks offset)
+        return ((pointX >= self.x - 75) && (pointX <= self.x + 75)) && ((pointY >= self.y - 62) && (pointY <= self.y + 62));
+    };
 
     self._weapon = TankGun({
         stage: self._stage,

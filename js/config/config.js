@@ -20,6 +20,9 @@ var NO_MOVEMENT = 'NO_MOVEMENT';
 var UNIT_TYPE_PLAYER = parseInt("0001", 2);
 var UNIT_TYPE_ENEMY = parseInt("0010", 2);
 
+var UNIT_FORM_CIRCLE = parseInt("0001", 2);
+var UNIT_FORM_RECTANGLE = parseInt("0010", 2);
+
 var PI = Math.PI;
 var sin = Math.sin;
 var cos = Math.cos;
