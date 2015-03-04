@@ -30,7 +30,7 @@ function GameEngine(opts) {
         //    x: 100,
         //    y: 100
         //});
-        _player = Tank({
+        _player = Player({
             stage: _stage,
             bullets: _bullets,
             x: 100,

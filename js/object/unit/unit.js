@@ -13,8 +13,6 @@ function Unit(opts) {
 
     self._unitType = opts.unitType || (UNIT_TYPE_ENEMY);
 
-    self._unitForm = opts.unitForm || (UNIT_FORM_CIRCLE);
-
     self._bullets = opts.bullets;
 
     self.startMoving = function(newAngle) {

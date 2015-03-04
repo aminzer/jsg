@@ -1,8 +1,6 @@
 function Tank(opts, draw) {
     var self = Unit(opts);
 
-    self._unitForm = UNIT_FORM_RECTANGLE;
-
     var _turnTimer = null;
     var _neededDirection;
     var _turnError = 10;
