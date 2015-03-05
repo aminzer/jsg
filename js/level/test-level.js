@@ -26,6 +26,18 @@ function TEST_LEVEL() {
                 x: 50,
                 y: 55,
                 angle: -90
+            }, {
+                constructor: Wall,
+                x: 20,
+                y: 40
+            }, {
+                constructor: Wall,
+                x: 20,
+                y: 45
+            }, {
+                constructor: Wall,
+                x: 20,
+                y: 50
             }
         ],
         enemyFactory: {

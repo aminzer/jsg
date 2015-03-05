@@ -57,4 +57,6 @@ var PLAYER_HP = 10;
 var PLAYER_SPEED = 3;
 
 var TANK_HP = 300;
+
+var WALL_HP = 1000;
 // ==============================================

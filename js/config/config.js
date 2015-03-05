@@ -19,6 +19,7 @@ var NO_MOVEMENT = 'NO_MOVEMENT';
 
 var UNIT_TYPE_PLAYER = parseInt("0001", 2);
 var UNIT_TYPE_ENEMY = parseInt("0010", 2);
+var UNIT_TYPE_NEUTRAL = parseInt("0011", 2);
 
 var PI = Math.PI;
 var sin = Math.sin;
