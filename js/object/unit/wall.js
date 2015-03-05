@@ -24,14 +24,17 @@ function Wall(opts, draw) {
         self.draw();
     }
 
-    self.aimAt = function(targetX, targetY) {
-    };
+    self.shoot = function() {};
 
-    self.startMoving = function(angle) {
-    };
+    self.startShooting = function() {};
 
-    self.stopMoving = function() {
-    };
+    self.stopShooting = function() {};
+
+    self.aimAt = function(targetX, targetY) {};
+
+    self.startMoving = function(angle) {};
+
+    self.stopMoving = function() {};
 
     return self;
 }
