@@ -24,25 +24,18 @@ function GameEngine(opts) {
             stage: _stage
         });
 
-        //_player = Player({
-        //    stage: _stage,
-        //    bullets: _bullets,
-        //    x: 100,
-        //    y: 100
-        //});
         _player = Player({
             stage: _stage,
             bullets: _bullets,
             x: 100,
-            y: 100,
-            speed: PLAYER_SPEED,
-            unitType: UNIT_TYPE_PLAYER
+            y: 100
         });
         _units.push(_player);
 
         _levelResolver = LevelResolver({
             stage: _stage,
             units: _units,
+            effects: _effects,
             bullets: _bullets
         });
 
@@ -52,15 +45,6 @@ function GameEngine(opts) {
             units: _units,
             target: _player
         });
-
-        //var tempEffect = BulletReflectEffect({
-        //    stage: _stage,
-        //    bullets: _bullets,
-        //    x: 400,
-        //    y: 150,
-        //    on: true
-        //});
-        //_effects.push(tempEffect);
 
         // set handlers
         _canvas.addEventListener("mousemove", handleMouseMove);

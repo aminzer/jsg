@@ -25,7 +25,7 @@ function TEST_LEVEL() {
                 constructor: Tank,
                 x: 50,
                 y: 55,
-                angle: -60
+                angle: -90
             }, {
                 constructor: Wall,
                 x: 20,
@@ -40,9 +40,19 @@ function TEST_LEVEL() {
                 y: 50
             }
         ],
+
+        effects: [
+            {
+                constructor: BulletReflectEffect,
+                x: 40,
+                y: 20,
+                on: true
+            }
+        ],
+
         enemyFactory: {
             constructor: EnemyFactory,
-            generatingDelay: 5000000
+            generatingDelay: 5000
         }
     };
 }
