@@ -1,6 +1,9 @@
 function Tank(opts, draw) {
     var self = Unit(opts);
 
+    self._width = 150;
+    self._height = 124;
+
     var _turnTimer = null;
     var _neededDirection;
     var _turnError = 10;
@@ -12,9 +15,9 @@ function Tank(opts, draw) {
     self.setMaxHp(TANK_HP);
 
     self.isPointInside = function(pointX, pointY) {
-        // TODO: maybe should define height and width and use it here and in draw()
-        // NOTE: 62 = 40 (tank height) + 20 (tracks height) + 2 (tracks offset)
-        return ((pointX >= self.x - 75) && (pointX <= self.x + 75)) && ((pointY >= self.y - 62) && (pointY <= self.y + 62));
+        var relativeX = (pointX - self.x) * cos_d(self.angle) + (pointY - self.y) * sin_d(self.angle);
+        var relativeY = -(pointX - self.x) * sin_d(self.angle) + (pointY - self.y) * cos_d(self.angle);
+        return (Math.abs(relativeX) <= self._width / 2) && (Math.abs(relativeY) <= self._height / 2);
     };
 
     self._weapon = TankGun({
@@ -23,21 +26,21 @@ function Tank(opts, draw) {
     }, false);
 
     self.draw = function() {
-        Painter.roundRectangle(self, 150, 80, 75, 40, 5, "#474924");
+        Painter.roundRectangle(self, self._width, self._height - 44, self._width / 2, self._height / 2 - 22, 5, "#474924");
 
-        Painter.offsetRoundRectangle(self, 0, 52, 140, 20, 70, 10, 5, "#444");
-        Painter.offsetRoundRectangle(self, 0, -52, 140, 20, 70, 10, 5, "#444");
+        Painter.offsetRoundRectangle(self, 0, self._height / 2 - 10, self._width - 10, 20, self._width / 2 - 5, 10, 5, "#444");
+        Painter.offsetRoundRectangle(self, 0, -(self._height / 2 - 10), self._width - 10, 20, self._width / 2 - 5, 10, 5, "#444");
 
         _drawTracks();
 
-        Painter.offsetRoundRectangle(self, -45, 20, 40, 20, 25, 10, 3, "#402511");
-        Painter.offsetRoundRectangle(self, -45, -20, 40, 20, 25, 10, 3, "#402511");
+        Painter.offsetRoundRectangle(self, 30 - self._width / 2, 20, 40, 20, 25, 10, 3, "#402511");
+        Painter.offsetRoundRectangle(self, 30 - self._width / 2, -20, 40, 20, 25, 10, 3, "#402511");
 
-        Painter.offsetRectangle(self, 80, 0, 6, 70, 3, 35, "#8B4D40");
-        Painter.offsetRectangle(self, 85, 20, 10, 4, 5, 2, "#8B4D40");
-        Painter.offsetRectangle(self, 85, 10, 10, 4, 5, 2, "#8B4D40");
-        Painter.offsetRectangle(self, 85, -10, 10, 4, 5, 2, "#8B4D40");
-        Painter.offsetRectangle(self, 85, -20, 10, 4, 5, 2, "#8B4D40");
+        Painter.offsetRectangle(self, self._width / 2 + 5, -self._height / 2 + 62, 6, self._height - 54, 3, 35, "#8B4D40");
+        Painter.offsetRectangle(self, self._width / 2 + 10, 20, 10, 4, 5, 2, "#8B4D40");
+        Painter.offsetRectangle(self, self._width / 2 + 10, 10, 10, 4, 5, 2, "#8B4D40");
+        Painter.offsetRectangle(self, self._width / 2 + 10, -10, 10, 4, 5, 2, "#8B4D40");
+        Painter.offsetRectangle(self, self._width / 2 + 10, -20, 10, 4, 5, 2, "#8B4D40");
 
         self._weapon.draw();
     };
@@ -93,8 +96,8 @@ function Tank(opts, draw) {
 
     function _drawTracks() {
         for (var i = 0; i < 7; i++) {
-            _tracksShapes.push(Painter.offsetRectangle(self, 10 + 20 * i, 52, 10, 20, 70, 10, "#555"));
-            _tracksShapes.push(Painter.offsetRectangle(self, 10 + 20 * i, -52, 10, 20, 70, 10, "#555"));
+            _tracksShapes.push(Painter.offsetRectangle(self, 10 + 20 * i, self._height / 2 - 10, 10, 20, self._width / 2 - 5, 10, "#555"));
+            _tracksShapes.push(Painter.offsetRectangle(self, 10 + 20 * i, -(self._height / 2 - 10), 10, 20, self._width / 2 - 5, 10, "#555"));
         }
     }
 

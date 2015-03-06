@@ -53,14 +53,14 @@ function GameEngine(opts) {
             target: _player
         });
 
-        var tempEffect = BulletReflectEffect({
-            stage: _stage,
-            bullets: _bullets,
-            x: 400,
-            y: 150,
-            on: true
-        });
-        _effects.push(tempEffect);
+        //var tempEffect = BulletReflectEffect({
+        //    stage: _stage,
+        //    bullets: _bullets,
+        //    x: 400,
+        //    y: 150,
+        //    on: true
+        //});
+        //_effects.push(tempEffect);
 
         // set handlers
         _canvas.addEventListener("mousemove", handleMouseMove);

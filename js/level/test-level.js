@@ -25,7 +25,7 @@ function TEST_LEVEL() {
                 constructor: Tank,
                 x: 50,
                 y: 55,
-                angle: -90
+                angle: -60
             }, {
                 constructor: Wall,
                 x: 20,
@@ -42,7 +42,7 @@ function TEST_LEVEL() {
         ],
         enemyFactory: {
             constructor: EnemyFactory,
-            generatingDelay: 5000
+            generatingDelay: 5000000
         }
     };
 }
