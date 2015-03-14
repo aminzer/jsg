@@ -39,7 +39,7 @@ function GameEngine(opts) {
             bullets: _bullets
         });
 
-        _levelResolver.resolve(TEST_LEVEL());
+     //   _levelResolver.resolve(TEST_LEVEL());
 
         _ai = new AI({
             units: _units,
@@ -119,6 +119,10 @@ function GameEngine(opts) {
         if (e.keyCode === PAUSE_BUTTON) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
             _levelResolver.toggleGenerating();
+        }
+
+        if (e.keyCode >= 49 && e.keyCode <= 57) {
+            _player.setWeapon(e.keyCode - 49);
         }
 
         if (e.keyCode === 16) {

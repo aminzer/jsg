@@ -21,11 +21,10 @@ function Player(opts, draw) {
         self.draw();
     }
 
-    self.changeWeapon = function(direction) {    // mouse wheel forward(1) or backward (-1)
+    self.setWeapon = function(index) {
         self._weapon.destroyShapes();
 
-        direction = direction ? direction : 1;   // default value
-        _weaponIndex += direction;
+        _weaponIndex = index;
 
         if (_weaponIndex < 0) {
             _weaponIndex = _weaponArsenal.length - 1;
@@ -37,6 +36,10 @@ function Player(opts, draw) {
 
         self._weapon = _weaponArsenal[_weaponIndex];
         self._weapon.draw();
+    };
+
+    self.changeWeapon = function(direction) {    // mouse wheel forward(1) or backward (-1)
+        self.setWeapon(_weaponIndex + (direction ? direction : 1));
     };
 
     function initArsenal() {
