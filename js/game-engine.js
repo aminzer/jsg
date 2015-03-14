@@ -39,7 +39,7 @@ function GameEngine(opts) {
             bullets: _bullets
         });
 
-     //   _levelResolver.resolve(TEST_LEVEL());
+        _levelResolver.resolve(TEST_LEVEL());
 
         _ai = new AI({
             units: _units,
