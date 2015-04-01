@@ -55,6 +55,7 @@ function GameEngine(opts) {
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
         createjs.Ticker.addEventListener("tick", handleTick);
+        $(document).bind("player_dead", handlePlayersDeath);
     };
 
     // event handlers
@@ -180,15 +181,18 @@ function GameEngine(opts) {
                 if (_units[j].getObjectType() & UNIT_TYPE_ENEMY) {
                     $(document).trigger("enemy_died");
                 } else if (_units[j].getObjectType() & UNIT_TYPE_PLAYER) {
-                    console.log("player is dead");
-                    _ai.stop();
-                    _levelResolver.stopGenerating();
+                    $(document).trigger("player_dead");
                 }
                 _units[j].destroyShapes();
                 _units.splice(j, 1);
                 j--;  // because of splice
             }
         }
+    }
+
+    function handlePlayersDeath(e) {
+        alert("it's over");
+        location.reload();
     }
 
     function setPlayersDirection() {
