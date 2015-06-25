@@ -9,27 +9,31 @@ function LevelResolver(opts) {
     var _enemyFactory = null;
 
     self.resolve = function(level) {
-        var enemies = level.enemies;
-        for (var i = 0; i < enemies.length; i++) {
-            _units.push(enemies[i].constructor({
-                stage: _stage,
-                bullets: _bullets,
-                x: enemies[i].x * CANVAS_WIDTH / 100,
-                y: enemies[i].y * CANVAS_HEIGHT / 100,
-                angle: enemies[i].angle
-            }));
+        if (level.enemies) {
+            var enemies = level.enemies;
+            for (var i = 0; i < enemies.length; i++) {
+                _units.push(enemies[i].constructor({
+                    stage: _stage,
+                    bullets: _bullets,
+                    x: enemies[i].x * CANVAS_WIDTH / 100,
+                    y: enemies[i].y * CANVAS_HEIGHT / 100,
+                    angle: enemies[i].angle
+                }));
+            }
         }
 
-        var effects = level.effects;
-        for (i = 0; i < effects.length; i++) {
-            _effects.push(effects[i].constructor({
-                stage: _stage,
-                bullets: _bullets,
-                x: effects[i].x * CANVAS_WIDTH / 100,
-                y: effects[i].y * CANVAS_HEIGHT / 100,
-                angle: effects[i].angle,
-                on: effects[i].on
-            }));
+        if (level.effects) {
+            var effects = level.effects;
+            for (i = 0; i < effects.length; i++) {
+                _effects.push(effects[i].constructor({
+                    stage: _stage,
+                    bullets: _bullets,
+                    x: effects[i].x * CANVAS_WIDTH / 100,
+                    y: effects[i].y * CANVAS_HEIGHT / 100,
+                    angle: effects[i].angle,
+                    on: effects[i].on
+                }));
+            }
         }
 
         if (level.enemyFactory) {
