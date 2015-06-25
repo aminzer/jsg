@@ -51,13 +51,5 @@ function LevelResolver(opts) {
         _enemyFactory && _enemyFactory.stopGenerating();
     };
 
-    self.toggleGenerating = function() {
-        if (_enemyFactory.isGenerating()) {
-            _enemyFactory.stopGenerating()
-        } else {
-            _enemyFactory.startGenerating();
-        }
-    };
-
     return self;
 }

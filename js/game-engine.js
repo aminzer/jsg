@@ -1,6 +1,10 @@
 function GameEngine(opts) {
     var self = {};
 
+    var _gameState = {
+        running: true
+    };
+
     var _canvas = document.getElementById("canvas");
 
     var _stage = new createjs.Stage("canvas");
@@ -17,7 +21,9 @@ function GameEngine(opts) {
 
     var _cursor = null;
 
-    self.start = function() {
+    init();
+
+    function init() {
         createjs.Ticker.setFPS(FPS);
 
         _cursor = Cursor({
@@ -54,8 +60,22 @@ function GameEngine(opts) {
         _canvas.oncontextmenu = handleRightButtonClick;
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
-        createjs.Ticker.addEventListener("tick", handleTick);
+
         $(document).bind("player_dead", handlePlayersDeath);
+    }
+
+    self.start = function() {
+        createjs.Ticker.addEventListener("tick", handleTick);
+    };
+
+    self.pause = function() {
+        createjs.Ticker.paused = false;
+        _levelResolver.stopGenerating();
+    };
+
+    self.resume = function() {
+        createjs.Ticker.paused = !createjs.Ticker.paused;
+        _levelResolver.startGenerating();
     };
 
     // event handlers
@@ -118,8 +138,11 @@ function GameEngine(opts) {
         }
 
         if (e.keyCode === PAUSE_BUTTON) {
-            createjs.Ticker.paused = !createjs.Ticker.paused;
-            _levelResolver.toggleGenerating();
+            if (_gameState.running) {
+                pauseGame();
+            } else {
+                resumeGame();
+            }
         }
 
         if (e.keyCode >= 49 && e.keyCode <= 57) {
@@ -228,6 +251,22 @@ function GameEngine(opts) {
         _bullets[index].destroy();          // last action
         _bullets[index].destroyShapes();    // erase from stage
         _bullets.splice(index, 1);          // delete from _bullets array
+    }
+
+    function pauseGame() {
+        if (_gameState.running) {
+            createjs.Ticker.paused = !createjs.Ticker.paused;
+            _levelResolver.stopGenerating();
+            _gameState.running = false;
+        }
+    }
+
+    function resumeGame() {
+        if (!_gameState.running) {
+            createjs.Ticker.paused = !createjs.Ticker.paused;
+            _levelResolver.startGenerating();
+            _gameState.running = true;
+        }
     }
 
     return self;

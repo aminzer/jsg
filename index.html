@@ -84,7 +84,9 @@
             resizeCanvas();
             window.onresize = resizeCanvas;
 
-            GameEngine().start();
+            var gameEngine = GameEngine();
+            gameEngine.start();
+
             PlayerPanel().initHandlers();
         }
 
