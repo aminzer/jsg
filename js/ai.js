@@ -49,7 +49,7 @@ function AI(opts) {
 
     function canShoot(shooter) {        // check all friends on firing lines
         for (var k = 0; k < _units.length; k++) {
-            if ((_units[k].getObjectType() & UNIT_TYPE_ENEMY) && isOnFiringLine(shooter, _units[k])) {
+            if (!_units[k] == _target && (_units[k].getObjectType() & UNIT_TYPE_ENEMY) && isOnFiringLine(shooter, _units[k])) {
                 return false;
             }
         }

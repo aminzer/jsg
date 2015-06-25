@@ -45,7 +45,8 @@ function GameEngine(opts) {
             bullets: _bullets
         });
 
-        _levelResolver.resolve(TEST_LEVEL());
+       // _levelResolver.resolve(TEST_LEVEL());
+        _levelResolver.resolve(SIMPLE_LEVEL());
 
         _ai = new AI({
             units: _units,
@@ -60,7 +61,6 @@ function GameEngine(opts) {
         _canvas.oncontextmenu = handleRightButtonClick;
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
-
         $(document).bind("player_dead", handlePlayersDeath);
     }
 
