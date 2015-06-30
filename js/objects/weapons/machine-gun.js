@@ -5,7 +5,7 @@ function MachineGun(opts, draw) {
     self._maxSector = MACHINE_GUN_MAX_SECTOR;
     self._frontLength = MACHINE_GUN_FRONT_LENGTH;
     self.setHardness(MACHINE_GUN_HARDNESS);
-    self._bulletConstructor = opts.bulletConstructor || MachineGunBullet;
+    self._charger._bulletConstructor = opts.bulletConstructor || MachineGunBullet;
 
     self.draw = function() {
         Painter.rectangle(self, self._frontLength + 20, 4, 20, 2, "#8A8A8A");

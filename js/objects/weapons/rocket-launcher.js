@@ -5,7 +5,7 @@ function RocketLauncher(opts, draw) {
     self._frontLength = ROCKET_LAUNCHER_FRONT_LENGTH;
     self.setHardness(ROCKET_LAUNCHER_HARDNESS);
     self._shootingDelay = ROCKET_LAUNCHER_SHOOTING_DELAY;
-    self._bulletConstructor = opts.bulletConstructor || ExplosiveRocket;
+    self._charger._bulletConstructor = opts.bulletConstructor || ExplosiveRocket;
 
     self.draw = function() {
         Painter.rectangle(self, self._frontLength + 30, 8, 30, 4, "#244482");

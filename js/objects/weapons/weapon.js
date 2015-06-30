@@ -10,19 +10,21 @@ function Weapon(opts) {
     self._maxSector = WEAPON_MAX_SECTOR;          // if accuracy = 0, bullets will be in this sector (degrees)
 
     self._bullets = opts.bullets;           // reference to global bullet array
-    self._bulletConstructor = Bullet;
 
     self._shootingDelay = WEAPON_SHOOTING_DELAY;  // min time interval between 2 shots
     self._canShoot = true;
 
+    self._charger = opts.charger || Charger(opts);
+
     self.shoot = function() {
-        self._bullets.push(self._bulletConstructor({
-            stage: self._stage,
-            bullets: self._bullets,
-            x: self.x + self._frontLength * cos_d(self.angle),
-            y: self.y + self._frontLength * sin_d(self.angle),
-            angle: self.angle + (1 - self._getAccuracy()) * (self._maxSector * random() - self._maxSector / 2)
-        }));
+        if (self._charger.isEmpty()) return;
+
+        var bullet = self._charger.getBullet();
+        bullet.x = self.x + self._frontLength * cos_d(self.angle);
+        bullet.y = self.y + self._frontLength * sin_d(self.angle);
+        bullet.angle = self.angle + (1 - self._getAccuracy()) * (self._maxSector * random() - self._maxSector / 2);
+        bullet._bullets = self._bullets;
+        self._bullets.push(bullet);
 
         self._harmWeapon();
     };

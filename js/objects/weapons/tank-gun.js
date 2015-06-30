@@ -5,7 +5,7 @@ function TankGun(opts, draw) {
     self._frontLength = TANK_GUN_FRONT_LENGTH;
     self._hardness = TANK_GUN_HARDNESS;
     self._shootingDelay = TANK_GUN_SHOOTING_DELAY;
-    self._bulletConstructor = opts.bulletConstructor || ExplosiveRocket;
+    self._charger._bulletConstructor = opts.bulletConstructor || ExplosiveRocket;
     self._weaponOffsetY = 1;
     self._weaponOffsetX = 20;
 
