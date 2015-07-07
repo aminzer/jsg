@@ -202,9 +202,9 @@ function GameEngine(opts) {
             }
 
             if (_units[j].isAlive() === false) {        // unit is dead
-                if (_units[j].getObjectType() & UNIT_TYPE_ENEMY) {
+                if (_units[j].getObjectType() & UNIT_TYPE.ENEMY) {
                     $(document).trigger("enemy_died");
-                } else if (_units[j].getObjectType() & UNIT_TYPE_PLAYER) {
+                } else if (_units[j].getObjectType() & UNIT_TYPE.PLAYER) {
                     $(document).trigger("player_dead");
                 }
                 _units[j].destroyShapes();

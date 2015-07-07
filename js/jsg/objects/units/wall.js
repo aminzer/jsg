@@ -7,7 +7,7 @@ function Wall(opts, draw) {
         bullets: self._bullets
     }, false);
 
-    self._unitType = opts.unitType || (UNIT_TYPE_NEUTRAL);
+    self._unitType = opts.unitType || (UNIT_TYPE.NEUTRAL);
 
     self.setMaxHp(WALL_HP);
 

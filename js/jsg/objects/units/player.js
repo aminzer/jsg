@@ -1,7 +1,7 @@
 function Player(opts, draw) {
     var self = Unit(opts);
 
-    self._unitType = UNIT_TYPE_PLAYER;
+    self._unitType = UNIT_TYPE.PLAYER;
     self._speed = opts.speed || PLAYER_SPEED;
     self.setMaxHp(opts.hp || PLAYER_HP);
 

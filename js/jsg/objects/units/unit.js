@@ -11,7 +11,7 @@ function Unit(opts) {
 
     self._weapon = null;
 
-    self._unitType = opts.unitType || (UNIT_TYPE_ENEMY);
+    self._unitType = opts.unitType || (UNIT_TYPE.ENEMY);
 
     self._bullets = opts.bullets;
 
