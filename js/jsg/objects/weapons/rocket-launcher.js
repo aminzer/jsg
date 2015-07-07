@@ -1,10 +1,10 @@
 function RocketLauncher(opts, draw) {
     var self = Weapon(opts);
 
-    self._maxSector = ROCKET_LAUNCHER_MAX_SECTOR;
-    self._frontLength = ROCKET_LAUNCHER_FRONT_LENGTH;
-    self.setHardness(ROCKET_LAUNCHER_HARDNESS);
-    self._shootingDelay = ROCKET_LAUNCHER_SHOOTING_DELAY;
+    self._maxSector = WEAPON.ROCKET_LAUNCHER.MAX_SECTOR;
+    self._frontLength = WEAPON.ROCKET_LAUNCHER.FRONT_LENGTH;
+    self.setHardness(WEAPON.ROCKET_LAUNCHER.HARDNESS);
+    self._shootingDelay = WEAPON.ROCKET_LAUNCHER.SHOOTING_DELAY;
     self._charger._bulletConstructor = opts.bulletConstructor || ExplosiveRocket;
 
     self.draw = function() {

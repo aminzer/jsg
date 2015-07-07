@@ -1,62 +1,94 @@
-// ================== bullets ==================
-var BULLET_DAMAGE = 1;
-var BULLET_SPEED = 9;
-var BULLET_LIFETIME = 50;
+var PLAYER = {
+    HP: 10,
+    SPEED: 3
+};
 
-var MACHINE_GUN_BULLET_DAMAGE = 2;
-var MACHINE_GUN_BULLET_SPEED = 12;
-var MACHINE_GUN_BULLET_LIFETIME = 50;
+var UNIT = {
 
-var ROCKET_DAMAGE = 10;
-var ROCKET_START_SPEED = 2;
-var ROCKET_LIFETIME = 100;
-var ROCKET_ACCELERATION = 0.3;
-var ROCKET_START_ACCELERATION_LIFETIME = 70;
-var ROCKET_END_ACCELERATION_LIFETIME = 30;
+    DEFAULT: {
+        HP: 10,
+        RADIUS: 20,
+        SPEED: 1
+    },
 
-var EXPLOSIVE_ROCKET_DAMAGE = 10;
-var EXPLOSIVE_ROCKET_START_SPEED = 2;
-var EXPLOSIVE_ROCKET_LIFETIME = 100;
-var EXPLOSIVE_ROCKET_FRACTION_COUNT = 60;
-var EXPLOSIVE_ROCKET_FRACTION_DAMAGE = 2;
-var EXPLOSIVE_ROCKET_FRACTION_LIFETIME = 10;
-// ==============================================
+    TANK: {
+        HP: 300
+    },
 
-// ================== weapons ===================
-var WEAPON_FRONT_LENGTH = 30;
-var WEAPON_HARDNESS = 500;
-var WEAPON_MAX_SECTOR = 20;
-var WEAPON_SHOOTING_DELAY = 300;
+    WALL: {
+        HP: 1000
+    }
+};
 
-var AUTOMATIC_WEAPON_RATE_OF_FIRE = 300;
+var BULLET = {
 
-var MACHINE_GUN_FRONT_LENGTH = 35;
-var MACHINE_GUN_HARDNESS = 5000;
-var MACHINE_GUN_MAX_SECTOR = 30;
-var MACHINE_GUN_RATE_OF_FIRE = 850;
+    DEFAULT: {
+        DAMAGE: 1,
+        SPEED: 9,
+        LIFETIME: 50
+    },
 
-var ROCKET_LAUNCHER_FRONT_LENGTH = 30;
-var ROCKET_LAUNCHER_HARDNESS = 1000;
-var ROCKET_LAUNCHER_MAX_SECTOR = 30;
-var ROCKET_LAUNCHER_SHOOTING_DELAY = 1000;
+    MACHINE_GUN: {
+        DAMAGE: 2,
+        SPEED: 12,
+        LIFETIME: 50
+    },
 
-var TANK_GUN_FRONT_LENGTH = 100;
-var TANK_GUN_HARDNESS = 1000;
-var TANK_GUN_MAX_SECTOR = 5;
-var TANK_GUN_SHOOTING_DELAY = 1500;
-// ==============================================
+    ROCKET: {
+        DAMAGE: 10,
+        START_SPEED: 2,
+        LIFETIME: 100,
+        ACCELERATION: 0.3,
+        START_ACCELERATION_LIFETIME: 70,
+        END_ACCELERATION_LIFETIME: 30
+    },
 
-// ================== units =====================
-var ENEMY_FACTORY_DEFAULT_GENERATING_DELAY = 2000;
+    EXPLOSIVE_ROCKET: {
+        DAMAGE: 10,
+        START_SPEED: 2,
+        LIFETIME: 100,
+        FRACTION_COUNT: 60,
+        FRACTION_DAMAGE: 2,
+        FRACTION_LIFETIME: 10
+    }
+};
 
-var UNIT_HP = 10;
-var UNIT_RADIUS = 20;
-var UNIT_SPEED = 1;
+var WEAPON = {
 
-var PLAYER_HP = 10;
-var PLAYER_SPEED = 3;
+    DEFAULT: {
+        FRONT_LENGTH: 30,
+        HARDNESS: 500,
+        MAX_SECTOR: 20,
+        SHOOTING_DELAY: 300,
+        AUTOMATIC: {
+            RATE_OF_FIRE: 300
+        }
+    },
 
-var TANK_HP = 300;
+    MACHINE_GUN: {
+        FRONT_LENGTH: 35,
+        HARDNESS: 5000,
+        MAX_SECTOR: 30,
+        RATE_OF_FIRE: 850
+    },
 
-var WALL_HP = 1000;
-// ==============================================
+    ROCKET_LAUNCHER: {
+        FRONT_LENGTH: 30,
+        HARDNESS: 1000,
+        MAX_SECTOR: 30,
+        SHOOTING_DELAY: 1000
+    },
+
+    TANK_GUN: {
+        FRONT_LENGTH: 100,
+        HARDNESS: 1000,
+        MAX_SECTOR: 5,
+        SHOOTING_DELAY: 1500
+    }
+};
+
+var ENEMY_FACTORY = {
+    DEFAULT: {
+        GENERATING_DELAY: 2000
+    }
+};

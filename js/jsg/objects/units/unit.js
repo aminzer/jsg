@@ -1,13 +1,13 @@
 function Unit(opts) {
     var self = ShapedObject(opts);
 
-    self._maxHp = opts.maxHp || UNIT_HP;
+    self._maxHp = opts.maxHp || UNIT.DEFAULT.HP;
     self._hp = self._maxHp;
 
-    self._radius = opts.radius || UNIT_RADIUS;          // body area = circle (for handling hits)
+    self._radius = opts.radius || UNIT.DEFAULT.RADIUS;          // body area = circle (for handling hits)
 
     self._movingAngle = NO_MOVEMENT;             // angle in which unit move (deg)
-    self._speed = opts.speed || UNIT_SPEED;
+    self._speed = opts.speed || UNIT.DEFAULT.SPEED;
 
     self._weapon = null;
 

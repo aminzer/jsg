@@ -12,7 +12,7 @@ function Tank(opts, draw) {
     var _tracksShapes = [];
     var _tracksOffset = 10;
 
-    self.setMaxHp(TANK_HP);
+    self.setMaxHp(UNIT.TANK.HP);
 
     self.isPointInside = function(pointX, pointY) {
         var relativeX = (pointX - self.x) * cos_d(self.angle) + (pointY - self.y) * sin_d(self.angle);

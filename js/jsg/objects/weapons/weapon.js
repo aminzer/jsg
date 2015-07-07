@@ -1,17 +1,17 @@
 function Weapon(opts) {
     var self = ShapedObject(opts);
     
-    self._frontLength = WEAPON_FRONT_LENGTH;                       // influence on bullets start coordinates
-    self._weaponOffsetY = opts.weaponOffsetY || UNIT_RADIUS - 5;   // offset between weapon's and unit's centers
+    self._frontLength = WEAPON.DEFAULT.FRONT_LENGTH;                       // influence on bullets start coordinates
+    self._weaponOffsetY = opts.weaponOffsetY || UNIT.DEFAULT.RADIUS - 5;   // offset between weapon's and unit's centers
     self._weaponOffsetX = opts.weaponOffsetX || 0;
 
-    self._hardness = WEAPON_HARDNESS;             // max number of bullets to reduce the accuracy
+    self._hardness = WEAPON.DEFAULT.HARDNESS;             // max number of bullets to reduce the accuracy
     self._state = self._hardness;                 // current number of bullets to reduce the accuracy
-    self._maxSector = WEAPON_MAX_SECTOR;          // if accuracy = 0, bullets will be in this sector (degrees)
+    self._maxSector = WEAPON.DEFAULT.MAX_SECTOR;          // if accuracy = 0, bullets will be in this sector (degrees)
 
     self._bullets = opts.bullets;           // reference to global bullet array
 
-    self._shootingDelay = WEAPON_SHOOTING_DELAY;  // min time interval between 2 shots
+    self._shootingDelay = WEAPON.DEFAULT.SHOOTING_DELAY;  // min time interval between 2 shots
     self._canShoot = true;
 
     self._charger = opts.charger || Charger(opts);

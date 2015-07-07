@@ -1,7 +1,7 @@
 function AutomaticWeapon(opts) {
     var self = Weapon(opts);
 
-    self._rateOfFire = AUTOMATIC_WEAPON_RATE_OF_FIRE;        // shots per minute
+    self._rateOfFire = WEAPON.DEFAULT.AUTOMATIC.RATE_OF_FIRE;        // shots per minute
     self._shootingDelay = 60000 / self._rateOfFire;
 
     var _shootingTimer = null;                              // shoots every 60000 / self._rateOfFire ms

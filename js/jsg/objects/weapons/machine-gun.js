@@ -1,10 +1,10 @@
 function MachineGun(opts, draw) {
     var self = AutomaticWeapon(opts);
 
-    self._rateOfFire = MACHINE_GUN_RATE_OF_FIRE;
-    self._maxSector = MACHINE_GUN_MAX_SECTOR;
-    self._frontLength = MACHINE_GUN_FRONT_LENGTH;
-    self.setHardness(MACHINE_GUN_HARDNESS);
+    self._rateOfFire = WEAPON.MACHINE_GUN.RATE_OF_FIRE;
+    self._maxSector = WEAPON.MACHINE_GUN.MAX_SECTOR;
+    self._frontLength = WEAPON.MACHINE_GUN.FRONT_LENGTH;
+    self.setHardness(WEAPON.MACHINE_GUN.HARDNESS);
     self._charger._bulletConstructor = opts.bulletConstructor || MachineGunBullet;
 
     self.draw = function() {

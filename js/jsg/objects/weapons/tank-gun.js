@@ -1,10 +1,10 @@
 function TankGun(opts, draw) {
     var self = Weapon(opts);
 
-    self._maxSector = TANK_GUN_MAX_SECTOR;
-    self._frontLength = TANK_GUN_FRONT_LENGTH;
-    self._hardness = TANK_GUN_HARDNESS;
-    self._shootingDelay = TANK_GUN_SHOOTING_DELAY;
+    self._maxSector = WEAPON.TANK_GUN.MAX_SECTOR;
+    self._frontLength = WEAPON.TANK_GUN.FRONT_LENGTH;
+    self.setHardness(WEAPON.TANK_GUN.HARDNESS);
+    self._shootingDelay = WEAPON.TANK_GUN.SHOOTING_DELAY;
     self._charger._bulletConstructor = opts.bulletConstructor || ExplosiveRocket;
     self._weaponOffsetY = 1;
     self._weaponOffsetX = 20;

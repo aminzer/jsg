@@ -5,7 +5,7 @@ function EnemyFactory(opts) {
     var _units = opts.units;
     var _bullets = opts.bullets;
 
-    var _generatingDelay = opts.generatingDelay || ENEMY_FACTORY_DEFAULT_GENERATING_DELAY;
+    var _generatingDelay = opts.generatingDelay || ENEMY_FACTORY.DEFAULT.GENERATING_DELAY;
 
     var _enemyConstructors = new RandomAccessArray([
         {element: Recruit, weight: 10},

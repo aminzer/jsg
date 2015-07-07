@@ -1,9 +1,9 @@
 function Rocket(opts, draw) {
     var self = Bullet(opts, false);
 
-    self._damage = ROCKET_DAMAGE;
-    self._speed = ROCKET_START_SPEED;
-    self._lifeTime = ROCKET_LIFETIME;
+    self._damage = BULLET.ROCKET.DAMAGE;
+    self._speed = BULLET.ROCKET.START_SPEED;
+    self._lifeTime = BULLET.ROCKET.LIFETIME;
 
     self.draw = function() {
         Painter.rectangle(self, 40, 6, 40, 3, "#999");
@@ -22,8 +22,8 @@ function Rocket(opts, draw) {
         self.moveY(self._speed * sin_d(self.angle));
         self._lifeTime = self._lifeTime - 1;
 
-        if (self._lifeTime < ROCKET_START_ACCELERATION_LIFETIME && self._lifeTime > ROCKET_END_ACCELERATION_LIFETIME) {
-            self._speed = self._speed + ROCKET_ACCELERATION;
+        if (self._lifeTime < BULLET.ROCKET.START_ACCELERATION_LIFETIME && self._lifeTime > BULLET.ROCKET.END_ACCELERATION_LIFETIME) {
+            self._speed = self._speed + BULLET.ROCKET.ACCELERATION;
         }
 
         return self._lifeTime > 0;

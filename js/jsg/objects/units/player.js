@@ -2,8 +2,8 @@ function Player(opts, draw) {
     var self = Unit(opts);
 
     self._unitType = UNIT_TYPE.PLAYER;
-    self._speed = opts.speed || PLAYER_SPEED;
-    self.setMaxHp(opts.hp || PLAYER_HP);
+    self._speed = opts.speed || PLAYER.SPEED;
+    self.setMaxHp(opts.hp || PLAYER.HP);
 
     var _weaponArsenal = [];
     var _weaponIndex = 0;

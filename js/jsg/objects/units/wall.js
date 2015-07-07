@@ -9,7 +9,7 @@ function Wall(opts, draw) {
 
     self._unitType = opts.unitType || (UNIT_TYPE.NEUTRAL);
 
-    self.setMaxHp(WALL_HP);
+    self.setMaxHp(UNIT.WALL.HP);
 
     self.isPointInside = function(pointX, pointY) {
         // TODO: maybe should define height and width and use it here and in draw()

@@ -1,9 +1,9 @@
 function Bullet(opts, draw) {
     var self = ShapedObject(opts);
 
-    self._damage = opts.damage || BULLET_DAMAGE;
-    self._speed = opts.speed || BULLET_SPEED;
-    self._lifeTime = opts.lifeTime || BULLET_LIFETIME;    // depends on FPS
+    self._damage = opts.damage || BULLET.DEFAULT.DAMAGE;
+    self._speed = opts.speed || BULLET.DEFAULT.SPEED;
+    self._lifeTime = opts.lifeTime || BULLET.DEFAULT.LIFETIME;    // depends on FPS
 
     self._bullets = opts.bullets;       // reference to global bullet array
 
