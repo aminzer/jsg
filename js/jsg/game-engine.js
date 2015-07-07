@@ -69,7 +69,7 @@ function GameEngine(opts) {
     };
 
     self.pause = function() {
-        createjs.Ticker.paused = false;
+        createjs.Ticker.paused = !createjs.Ticker.paused;
         _levelResolver.stopGenerating();
     };
 
@@ -89,6 +89,7 @@ function GameEngine(opts) {
         // 2. controlling objects (player and AI)
         _player.aimAt(_cursor.x, _cursor.y);
         _ai.resolve();
+
 
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
         for (var i = 0; i < _units.length; i++) {
