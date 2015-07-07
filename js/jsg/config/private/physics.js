@@ -15,6 +15,11 @@ var UNIT = {
         HP: 300
     },
 
+    DESTROYER: {
+        HP: 150,
+        RADIUS: 30
+    },
+
     WALL: {
         HP: 1000
     }

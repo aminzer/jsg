@@ -13,6 +13,10 @@ function SIMPLE_LEVEL() {
                 constructor: FootSoldier,
                 x: 65,
                 y: 30
+            }, {
+                constructor: Destroyer,
+                x: 65,
+                y: 70
             }
         ]
     };
