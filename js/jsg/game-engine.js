@@ -46,7 +46,7 @@ function GameEngine(opts) {
         });
 
        // _levelResolver.resolve(TEST_LEVEL());
-       _levelResolver.resolve(SIMPLE_LEVEL());
+        _levelResolver.resolve(SIMPLE_LEVEL());
 
         _ai = new AI({
             units: _units,
