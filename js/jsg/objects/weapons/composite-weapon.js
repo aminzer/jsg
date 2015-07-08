@@ -58,6 +58,12 @@ function CompositeWeapon(opts, draw) {
         }
     };
 
+    self.fix = function() {
+        _weapons.forEach(function(weapon) {
+            weapon.fix();
+        });
+    };
+
     self.updateShapes = function() {
         for (var i = 0; i < _weapons.length; i++) {
             _weapons[i].updateShapes();
