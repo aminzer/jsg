@@ -1,7 +1,13 @@
-var UP_BUTTON = KEY.W;
-var DOWN_BUTTON = KEY.S;
-var LEFT_BUTTON = KEY.A;
-var RIGHT_BUTTON = KEY.D;
-var FIX_WEAPON_BUTTON = KEY.O;
-var LOG_BUTTON = KEY.CTRL;
-var PAUSE_BUTTON = KEY.P;
+var CONTROLS = {
+
+    MOVE: {
+        UP: KEY.W,
+        DOWN: KEY.S,
+        LEFT: KEY.A,
+        RIGHT: KEY.D
+    },
+
+    PAUSE: KEY.P,
+    FIX_WEAPON: KEY.O,
+    LOG: KEY.CTRL
+};
