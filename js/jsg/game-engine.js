@@ -130,15 +130,15 @@ function GameEngine(opts) {
         _pressedKeys[e.keyCode] = true;
         setPlayersDirection();
 
-        if (e.keyCode === LOG_BUTTON) {
+        if (e.keyCode === CONTROLS.LOG) {
             console.log("objects/bullets " + _units.length + "/" + _bullets.length);
         }
 
-        if (e.keyCode === FIX_WEAPON_BUTTON) {
+        if (e.keyCode === CONTROLS.FIX_WEAPON) {
             _player._weapon.fix();
         }
 
-        if (e.keyCode === PAUSE_BUTTON) {
+        if (e.keyCode === CONTROLS.PAUSE) {
             if (_gameState.running) {
                 pauseGame();
             } else {
@@ -219,16 +219,16 @@ function GameEngine(opts) {
         var dx = 0,
             dy = 0;
 
-        if (_pressedKeys[RIGHT_BUTTON]) {
+        if (_pressedKeys[CONTROLS.MOVE.RIGHT]) {
             dx++;
         }
-        if (_pressedKeys[LEFT_BUTTON]) {
+        if (_pressedKeys[CONTROLS.MOVE.LEFT]) {
             dx--;
         }
-        if (_pressedKeys[DOWN_BUTTON]) {
+        if (_pressedKeys[CONTROLS.MOVE.DOWN]) {
             dy++;
         }
-        if (_pressedKeys[UP_BUTTON]) {
+        if (_pressedKeys[CONTROLS.MOVE.UP]) {
             dy--;
         }
         if (dx == 0 && dy == 0) {

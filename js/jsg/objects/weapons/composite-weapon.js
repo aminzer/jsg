@@ -5,7 +5,6 @@ function CompositeWeapon(opts, draw) {
     initWeapons(opts.weaponConstructors, opts.weaponOffsetsY, opts.weaponOffsetsX);
 
     function initWeapons(weaponConstructors, weaponOffsetsY, weaponOffsetsX) {
-        _weapons = [];
         weaponConstructors.forEach(function(weaponConstructor, i) {
             _weapons.push(weaponConstructor({
                 stage: opts.stage,
