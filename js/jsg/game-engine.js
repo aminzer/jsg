@@ -146,12 +146,8 @@ function GameEngine(opts) {
             }
         }
 
-        if (e.keyCode >= 49 && e.keyCode <= 57) {
-            _player.setWeapon(e.keyCode - 49);
-        }
-
-        if (e.keyCode === 16) {
-            handleMouseDown();
+        if (e.keyCode >= KEY.NUM_1 && e.keyCode <= KEY.NUM_9) {
+            _player.setWeapon(e.keyCode - KEY.NUM_1);
         }
     }
 
