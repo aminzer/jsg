@@ -1,4 +1,30 @@
-function Tank(opts, draw) {
+function Tank(opts, render) {
+    opts = opts || {};
+    
+    SquareUnit.call(this, opts);
+
+    this.setLength(80);
+    this.setWidth(10);
+    this.setWeapon(new GrandfathersGun({}, false));
+    
+    if (render !== false) {
+        this.render();
+    }
+}
+
+Tank.prototype = Object.create(SquareUnit.prototype);
+
+Tank.prototype.render = function() {
+    Painter.roundRectangle(this, this.getLength(), this.getWidth(), this.getLength() / 2, this.getLength() / 2, 5, "#474924");
+
+    if (this.getWeapon() != null) {
+        this.getWeapon().render();
+    }
+};
+
+
+
+function Tank1(opts, draw) {
     var self = Unit(opts);
 
     self._width = 150;
@@ -94,12 +120,7 @@ function Tank(opts, draw) {
 
   //  self.startShooting = function() {};
 
-    function _drawTracks() {
-        for (var i = 0; i < 7; i++) {
-            _tracksShapes.push(Painter.offsetRectangle(self, 10 + 20 * i, self._height / 2 - 10, 10, 20, self._width / 2 - 5, 10, "#555"));
-            _tracksShapes.push(Painter.offsetRectangle(self, 10 + 20 * i, -(self._height / 2 - 10), 10, 20, self._width / 2 - 5, 10, "#555"));
-        }
-    }
+
 
     function _moveTracks() {
         for (var i = 0; i < _tracksShapes.length; i++) {
