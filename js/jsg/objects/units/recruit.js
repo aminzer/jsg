@@ -1,21 +1,20 @@
-function Recruit(opts, draw) {
-    var self = Unit(opts);
+function Recruit(opts, render) {
+    Unit.call(this, opts);
 
-    self._weapon = GrandfathersGun({
-        stage: self._stage,
-        bullets: self._bullets
-    }, false);
+    this.setWeapon(new GrandfathersGun({}, false));
 
-    self.draw = function() {
-        Painter.circle(self, self._radius, "#199EE0");
-        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#559");
-
-        self._weapon.draw();
-    };
-
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+Recruit.prototype = Object.create(Unit.prototype);
+
+Recruit.prototype.render = function() {
+    Painter.circle(this, this.getRadius(), "#199EE0");
+    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#559");
+
+    if (this.getWeapon() != null) {
+        this.getWeapon().render();
+    }
+};

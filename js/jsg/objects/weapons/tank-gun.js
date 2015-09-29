@@ -1,23 +1,25 @@
-function TankGun(opts, draw) {
-    var self = Weapon(opts);
+function TankGun(opts, render) {
+    opts = opts || {};
 
-    self._maxSector = WEAPON.TANK_GUN.MAX_SECTOR;
-    self._frontLength = WEAPON.TANK_GUN.FRONT_LENGTH;
-    self.setHardness(WEAPON.TANK_GUN.HARDNESS);
-    self._shootingDelay = WEAPON.TANK_GUN.SHOOTING_DELAY;
-    self._charger._bulletConstructor = opts.bulletConstructor || ExplosiveRocket;
-    self._weaponOffsetY = 1;
-    self._weaponOffsetX = 20;
+    Weapon.call(this, opts);
 
-    self.draw = function() {
-        Painter.rectangle(self, self._frontLength + 30, 14, 30, 7, "#381D11");
-        Painter.roundRectangle(self, 70, 50, 35, 25, 15, "#27130D");
-        Painter.offsetRoundRectangle(self, self._frontLength, 0, 10, 16, 5, 8, 2, "#21100F");
-    };
+    this.setMaxSector(WEAPON.TANK_GUN.MAX_SECTOR);
+    this.setFrontLength(WEAPON.TANK_GUN.FRONT_LENGTH);
+    this.setHardness(WEAPON.TANK_GUN.HARDNESS);
+    this.setShootingDelay(WEAPON.TANK_GUN.SHOOTING_DELAY);
+    this.getCharger().setBulletConstructor(opts.bulletConstructor || ExplosiveRocket);
+    this.setOffsetY(1);
+    this.setOffsetX(20);
 
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+TankGun.prototype = Object.create(Weapon.prototype);
+
+TankGun.prototype.render = function() {
+    Painter.rectangle(this, this.getFrontLength() + 30, 14, 30, 7, "#381D11");
+    Painter.roundRectangle(this, 70, 50, 35, 25, 15, "#27130D");
+    Painter.offsetRoundRectangle(this, this.getFrontLength(), 0, 10, 16, 5, 8, 2, "#21100F");
+};

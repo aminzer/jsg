@@ -1,29 +1,61 @@
-function Bullet(opts, draw) {
-    var self = ShapedObject(opts);
+function Bullet(opts, render) {
+    opts = opts || {};
 
-    self._damage = opts.damage || BULLET.DEFAULT.DAMAGE;
-    self._speed = opts.speed || BULLET.DEFAULT.SPEED;
-    self._lifeTime = opts.lifeTime || BULLET.DEFAULT.LIFETIME;    // depends on FPS
+    MovingObject.call(this, opts);
 
-    self._bullets = opts.bullets;       // reference to global bullet array
+    this._damage = opts.damage || BULLET.DEFAULT.DAMAGE;
+    this._lifetime = opts.lifetime || BULLET.DEFAULT.LIFETIME;    // depends on FPS
 
-    self.draw = function() {
-        Painter.circle(self, 2, "#000");
-    };
+    this.setSpeed(opts.speed || BULLET.DEFAULT.SPEED);
+    applyAngle.call(this, opts);
+    this.startMoving();
 
-    if (draw !== false) {       // constructor's call from child
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
 
-    self.move = function() {
-        self.moveX(self._speed * cos_d(self.angle));
-        self.moveY(self._speed * sin_d(self.angle));
-        self._lifeTime--;
-
-        return self._lifeTime > 0;
-    };
-
-    self.destroy = function() {};   // executed before bullet's death
-
-    return self;
+    function applyAngle(opts) {
+        var angle = opts.angle || opts.movementAngle;
+        this._angle = this._movementAngle = angle;
+    }
 }
+
+Bullet.prototype = Object.create(MovingObject.prototype);
+
+Bullet.prototype.render = function() {
+    Painter.circle(this, 2, "#000");
+};
+
+Bullet.prototype.parent_move = Bullet.prototype.move;
+Bullet.prototype.move = function() {
+    Bullet.prototype.parent_move.call(this);
+    return --this._lifetime > 0;
+};
+
+Bullet.prototype.destroy = function() { };
+
+Bullet.prototype.getDamage = function() {
+    return this._damage;
+};
+
+Bullet.prototype.setDamage = function(damage) {
+    this._damage = damage;
+};
+
+Bullet.prototype.setAngle = function(angle) {
+    this._angle = this._movementAngle = angle;
+};
+
+Bullet.prototype.setMovementAngle = Bullet.prototype.setAngle;
+
+Bullet.prototype.getLifetime = function() {
+    return this._lifetime;
+};
+
+Bullet.prototype.setLifetime = function(lifetime) {
+    this._lifetime = lifetime;
+};
+
+Bullet.prototype.reduceLifetime = function () {
+    this._lifetime--;
+};

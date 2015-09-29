@@ -1,86 +1,106 @@
 function Unit(opts) {
-    var self = ShapedObject(opts);
+    opts = opts || {};
 
-    self._maxHp = opts.maxHp || UNIT.DEFAULT.HP;
-    self._hp = self._maxHp;
+    MovingObject.call(this, opts);
+    
+    this._maxHp = opts.maxHp || UNIT.DEFAULT.HP;
+    this._hp = opts.hp || this._maxHp;
 
-    self._radius = opts.radius || UNIT.DEFAULT.RADIUS;          // body area = circle (for handling hits)
+    this._radius = opts.radius || UNIT.DEFAULT.RADIUS;          // body area = circle (for handling hits)
 
-    self._movingAngle = NO_MOVEMENT;             // angle in which unit move (deg)
-    self._speed = opts.speed || UNIT.DEFAULT.SPEED;
+    this._weapon = null;
 
-    self._weapon = null;
-
-    self._unitType = opts.unitType || (UNIT_TYPE.ENEMY);
-
-    self._bullets = opts.bullets;
-
-    self.startMoving = function(newAngle) {
-        self._movingAngle = newAngle;
-    };
-
-    self.stopMoving = function() {
-        self._movingAngle = NO_MOVEMENT;
-    };
-
-    self.move = function() {
-        if (self._movingAngle !== NO_MOVEMENT) {
-            self.moveX(self._speed * cos_d(self._movingAngle));
-            self.moveY(self._speed * sin_d(self._movingAngle));
-        }
-        return true;
-    };
-
-    self.aimAt = function(targetX, targetY) {
-        self.angle = MathUtility.getLinesAngle(self.x, self.y, targetX, targetY);
-        self._weapon.aimAt(targetX, targetY, self.x, self.y, self.angle);
-    };
-
-    self.shoot = function() {
-        self._weapon.shoot();
-    };
-
-    self.startShooting = function() {
-        self._weapon.startShooting();
-    };
-
-    self.stopShooting = function() {
-        self._weapon.stopShooting();
-    };
-
-    self.takeDamage = function(damage) {
-        self._hp -= damage;
-    };
-
-    self.isAlive = function() {
-        return self._hp > 0;
-    };
-
-    self.isPointInside = function(pointX, pointY) {
-        return MathUtility.isInCircle(pointX, pointY, self.x, self.y, self._radius);
-    };
-
-    // @Override
-    self.p_updateShapes = self.updateShapes;    // save parents function
-    self.updateShapes = function() {            // update own shapes and start updating of children
-        self.p_updateShapes();
-        self._weapon.updateShapes();
-    };
-
-    // @Override
-    self.p_destroyShapes = self.destroyShapes;    // save parents function
-    self.destroyShapes = function() {            // destroy own shapes and start destroying of children
-        self.p_destroyShapes();
-        self._weapon.destroyShapes();
-    };
-
-    self.getObjectType = function() {
-        return self._unitType;
-    };
-
-    self.setMaxHp = function(maxHp) {
-        self._maxHp = self._hp = maxHp;
-    };
-
-    return self;
+    this.setObjectType(OBJECT_TYPE.ENEMY);
 }
+
+Unit.prototype = Object.create(MovingObject.prototype);
+
+Unit.prototype.hasWeapon = function() {
+    return this._weapon != null;
+};
+
+Unit.prototype.aimAt = function(targetX, targetY) {
+    this.setAngle( MathUtility.getLinesAngle(this._x, this._y, targetX, targetY) );
+    if (this.hasWeapon()) {
+        this._weapon.aimAt(targetX, targetY, this._x, this._y, this._angle);
+    }
+};
+
+Unit.prototype.shoot = function() {
+    if (this.hasWeapon()) {
+        this._weapon.shoot();
+    }
+};
+
+Unit.prototype.startShooting = function() {
+    if (this.hasWeapon()) {
+        this._weapon.startShooting();
+    }
+};
+
+Unit.prototype.stopShooting = function() {
+    if (this.hasWeapon()) {
+        this._weapon.stopShooting();
+    }};
+
+Unit.prototype.takeDamage = function(damage) {
+    this._hp -= damage;
+};
+
+Unit.prototype.isAlive = function() {
+    return this._hp > 0;
+};
+
+Unit.prototype.isPointInside = function(pointX, pointY) {
+    return MathUtility.isInCircle(pointX, pointY, this._x, this._y, this._radius);
+};
+
+// @Override
+Unit.prototype.parent_updateShapes = Unit.prototype.updateShapes;
+Unit.prototype.updateShapes = function() {
+    Unit.prototype.parent_updateShapes.call(this);
+    if (this.hasWeapon()) {
+        this._weapon.updateShapes();
+    }
+};
+
+// @Override
+Unit.prototype.parent_destroyShapes = Unit.prototype.destroyShapes;
+Unit.prototype.destroyShapes = function() {
+    Unit.prototype.parent_destroyShapes.call(this);
+    if (this.hasWeapon()) {
+        this._weapon.destroyShapes();
+    }
+};
+
+Unit.prototype.getMaxHp = function() {
+    return this._maxHp;
+};
+
+Unit.prototype.setMaxHp = function(maxHp) {
+    this._maxHp = this._hp = maxHp;
+};
+
+Unit.prototype.getHp = function() {
+    return this._hp;
+};
+
+Unit.prototype.setHp = function(hp) {
+    this._hp = hp;
+};
+
+Unit.prototype.getWeapon = function() {
+    return this._weapon;
+};
+
+Unit.prototype.setWeapon = function(weapon) {
+    this._weapon = weapon;
+};
+
+Unit.prototype.getRadius = function() {
+    return this._radius;
+};
+
+Unit.prototype.setRadius = function(radius) {
+    this._radius = radius;
+};

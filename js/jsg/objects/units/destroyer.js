@@ -8,8 +8,8 @@ function Destroyer(opts, draw) {
         stage: self._stage,
         bullets: self._bullets,
         weaponConstructors: [MachineGun, MachineGun, RocketLauncher],
-        weaponOffsetsY: [-22, -9, 19],
-        weaponOffsetsX: [-1, 2, 0]
+        offsetsY: [-22, -9, 19],
+        offsetsX: [-1, 2, 0]
     }, false);
 
     self.draw = function() {

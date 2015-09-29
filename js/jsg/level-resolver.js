@@ -1,59 +1,51 @@
 function LevelResolver(opts) {
-    var self = {};
+    opts = opts || {};
 
-    var _stage = opts.stage;
-    var _units = opts.units;
-    var _effects = opts.effects;
-    var _bullets = opts.bullets;
+    this._stage = gctx.getStage();
+    this._units = gctx.getUnits();
+    this._effects = gctx.getEffects();
+    this._bullets = gctx.getBullets();
 
-    var _enemyFactory = null;
-
-    self.resolve = function(level) {
-        if (level.enemies) {
-            var enemies = level.enemies;
-            for (var i = 0; i < enemies.length; i++) {
-                _units.push(enemies[i].constructor({
-                    stage: _stage,
-                    bullets: _bullets,
-                    x: enemies[i].x * CANVAS_WIDTH / 100,
-                    y: enemies[i].y * CANVAS_HEIGHT / 100,
-                    angle: enemies[i].angle
-                }));
-            }
-        }
-
-        if (level.effects) {
-            var effects = level.effects;
-            for (i = 0; i < effects.length; i++) {
-                _effects.push(effects[i].constructor({
-                    stage: _stage,
-                    bullets: _bullets,
-                    x: effects[i].x * CANVAS_WIDTH / 100,
-                    y: effects[i].y * CANVAS_HEIGHT / 100,
-                    angle: effects[i].angle,
-                    on: effects[i].on
-                }));
-            }
-        }
-
-        if (level.enemyFactory) {
-            _enemyFactory = level.enemyFactory.constructor({
-                stage: _stage,
-                units: _units,
-                bullets: _bullets,
-                generatingDelay: level.enemyFactory.generatingDelay
-            });
-            _enemyFactory.startGenerating();
-        }
-    };
-
-    self.startGenerating = function() {
-        _enemyFactory && _enemyFactory.startGenerating();
-    };
-
-    self.stopGenerating = function() {
-        _enemyFactory && _enemyFactory.stopGenerating();
-    };
-
-    return self;
+    this._enemyFactory = null;
 }
+
+LevelResolver.prototype.resolve = function (level) {
+    if (level.enemies) {
+        for (var i = 0; i < level.enemies.length; i++) {
+            var enemyDefinition = level.enemies[i];
+            this._units.push(new enemyDefinition.constructor({
+                x: enemyDefinition.x * CANVAS_WIDTH / 100,
+                y: enemyDefinition.y * CANVAS_HEIGHT / 100,
+                angle: enemyDefinition.angle
+            }));
+        }
+    }
+
+    if (level.effects) {
+        for (i = 0; i < level.effects.length; i++) {
+            var effectDefinition = level.effects[i];
+            this._effects.push(new effectDefinition.constructor({
+                x: effectDefinition.x * CANVAS_WIDTH / 100,
+                y: effectDefinition.y * CANVAS_HEIGHT / 100,
+                angle: effectDefinition.angle,
+                on: effectDefinition.on
+            }));
+        }
+    }
+
+    if (level.enemyFactory) {
+        var enemyFactoryDefinition = level.enemyFactory;
+        this._enemyFactory = new enemyFactoryDefinition.constructor({
+            generatingDelay: enemyFactoryDefinition.generatingDelay
+        });
+        this._enemyFactory.startGenerating();
+    }
+};
+
+LevelResolver.prototype.startGenerating = function() {
+    this._enemyFactory && this._enemyFactory.startGenerating();
+};
+
+LevelResolver.prototype.stopGenerating = function() {
+    this._enemyFactory && this._enemyFactory.stopGenerating();
+};

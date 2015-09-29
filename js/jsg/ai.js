@@ -1,55 +1,51 @@
 function AI(opts) {
-    var self = {};
+    opts = opts || {};
 
-    var _units = opts.units;
-    var _target = opts.target;
+    this._units = gctx.getUnits();
+    this._target = opts.target || gctx.getPlayer();
 
-    var _changeAction = true;
-    var _changeActionTimer = setInterval(function () {
-        _changeAction = true;
+    this._changeAction = true;
+
+    var self = this;
+    this._changeActionTimer = setInterval(function () {
+        self._changeAction = true;
     }, 700);
+}
 
-    self.resolve = function() {
-        for (var i = 0; i < _units.length; i++) {
-            if (_units[i].getObjectType() & UNIT_TYPE.ENEMY) {
-                _units[i].aimAt(_target.x, _target.y);   // aim at target
+AI.prototype.resolve = function() {
+    for (var i = 0; i < this._units.length; i++) {
+        var ownUnit = this._units[i];
+        if (ownUnit.getObjectType() == OBJECT_TYPE.ENEMY) {
+            ownUnit.aimAt(this._target.getX(), this._target.getY());   // aim at target
 
-                if (!canShoot(_units[i])) {    // prevent friendly fire
-                    _units[i].stopShooting();
-                }
+            if (!canShoot.call(this, ownUnit)) {    // prevent friendly fire
+                ownUnit.stopShooting();
+            }
 
-                if (_changeAction == true) {    // random behaviour
-                    if (random() > 0.5) {
-                        _units[i].stopShooting();
-                        _units[i].startMoving(MathUtility.getLinesAngle(
-                            _units[i].x,
-                            _units[i].y,
-                            _target.x,
-                            _target.y
+            if (this._changeAction == true) {    // random behaviour
+                if (random() > 0.5) {
+                    ownUnit.stopShooting();
+                    ownUnit.startMoving(MathUtility.getLinesAngle(
+                            ownUnit.getX(),
+                            ownUnit.getY(),
+                            this._target.getX(),
+                            this._target.getY()
                         ) + random() * 90 - 45);
-                    } else {
-                        _units[i].stopMoving();
-                        if (canShoot(_units[i])) {
-                            _units[i].startShooting();
-                        }
+                } else {
+                    ownUnit.stopMoving();
+                    if (canShoot.call(this, ownUnit)) {
+                        ownUnit.startShooting();
                     }
                 }
             }
         }
-        _changeAction = false;
-    };
-
-    self.stop = function() {
-        clearInterval(_changeActionTimer);
-        for (var i = 0; i < _units.length; i++) {
-            _units[i].stopShooting();
-            _units[i].stopMoving();
-        }
-    };
+    }
+    this._changeAction = false;
 
     function canShoot(shooter) {        // check all friends on firing lines
-        for (var k = 0; k < _units.length; k++) {
-            if (!_units[k] == _target && (_units[k].getObjectType() & UNIT_TYPE.ENEMY) && isOnFiringLine(shooter, _units[k])) {
+        for (var k = 0; k < this._units.length; k++) {
+            var ownUnit = this._units[i];
+            if (!ownUnit == this._target && (ownUnit.getObjectType() == OBJECT_TYPE.ENEMY) && isOnFiringLine.call(this, shooter, ownUnit)) {
                 return false;
             }
         }
@@ -66,6 +62,4 @@ function AI(opts) {
             target._radius
         );
     }
-
-    return self;
-}
+};

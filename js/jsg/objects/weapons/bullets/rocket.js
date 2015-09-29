@@ -1,33 +1,35 @@
-function Rocket(opts, draw) {
-    var self = Bullet(opts, false);
+function Rocket(opts, render) {
+    opts = opts || {};
 
-    self._damage = BULLET.ROCKET.DAMAGE;
-    self._speed = BULLET.ROCKET.START_SPEED;
-    self._lifeTime = BULLET.ROCKET.LIFETIME;
+    Bullet.call(this, opts, false);
+        
+    this.setDamage(opts.damage || BULLET.ROCKET.DAMAGE);
+    this.setSpeed(opts.speed || BULLET.ROCKET.START_SPEED);
+    this.setLifetime(opts.lifetime || BULLET.ROCKET.LIFETIME);
+    
+    if (render !== false) {
+        this.render();
+    }
+}
 
-    self.draw = function() {
-        Painter.rectangle(self, 40, 6, 40, 3, "#999");
-        Painter.roundRectangle(self, 20, 8, 20, 4, 3, "#333");
-        Painter.rectangle(self, 2, 8, 40, 4, "#f00");
-        Painter.rectangle(self, 2, 8, 6, 4, "#f00");
-        Painter.rectangle(self, 2, 8, 13, 4, "#f00");
-    };
+Rocket.prototype = Object.create(Bullet.prototype);
 
-    if (draw !== false) {
-        self.draw();
+Rocket.prototype.render = function() {
+    Painter.rectangle(this, 40, 6, 40, 3, "#999");
+    Painter.roundRectangle(this, 20, 8, 20, 4, 3, "#333");
+    Painter.rectangle(this, 2, 8, 40, 4, "#f00");
+    Painter.rectangle(this, 2, 8, 6, 4, "#f00");
+    Painter.rectangle(this, 2, 8, 13, 4, "#f00");
+};
+
+Rocket.prototype.move = function() {
+    this.moveX(this.getSpeed() * cos_d(this.getAngle()));
+    this.moveY(this.getSpeed() * sin_d(this.getAngle()));
+    this.reduceLifetime();
+
+    if (this.getLifetime() < BULLET.ROCKET.START_ACCELERATION_LIFETIME && this.getLifetime() > BULLET.ROCKET.END_ACCELERATION_LIFETIME) {
+        this.increaseSpeed(BULLET.ROCKET.ACCELERATION);
     }
 
-    self.move = function() {
-        self.moveX(self._speed * cos_d(self.angle));
-        self.moveY(self._speed * sin_d(self.angle));
-        self._lifeTime = self._lifeTime - 1;
-
-        if (self._lifeTime < BULLET.ROCKET.START_ACCELERATION_LIFETIME && self._lifeTime > BULLET.ROCKET.END_ACCELERATION_LIFETIME) {
-            self._speed = self._speed + BULLET.ROCKET.ACCELERATION;
-        }
-
-        return self._lifeTime > 0;
-    };
-
-    return self;
-}
+    return this.getLifetime() > 0;
+};

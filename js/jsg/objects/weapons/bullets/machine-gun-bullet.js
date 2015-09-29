@@ -1,18 +1,20 @@
-function MachineGunBullet(opts, draw) {
-    var self = Bullet(opts, false);
+function MachineGunBullet(opts, render) {
+    opts = opts || {};
 
-    self._damage = BULLET.MACHINE_GUN.DAMAGE;
-    self._speed = BULLET.MACHINE_GUN.SPEED;
-    self._lifeTime = BULLET.MACHINE_GUN.LIFETIME;
+    Bullet.call(this, opts, false);
 
-    self.draw = function() {
-        Painter.circle(self, 2, "#000");
-        Painter.circle(self, 1, "#600");
-    };
+    this.setDamage(opts.damage || BULLET.MACHINE_GUN.DAMAGE);
+    this.setSpeed(opts.speed || BULLET.MACHINE_GUN.SPEED );
+    this.setLifetime(opts.lifetime || BULLET.MACHINE_GUN.LIFETIME);
 
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+MachineGunBullet.prototype = Object.create(Bullet.prototype);
+
+MachineGunBullet.prototype.render = function() {
+    Painter.circle(this, 2, "#000");
+    Painter.circle(this, 1, "#600");
+};

@@ -1,29 +1,32 @@
 function AutomaticWeapon(opts) {
-    var self = Weapon(opts);
+    opts = opts || {};
 
-    self._rateOfFire = WEAPON.DEFAULT.AUTOMATIC.RATE_OF_FIRE;        // shots per minute
-    self._shootingDelay = 60000 / self._rateOfFire;
+    Weapon.call(this, opts);
 
-    var _shootingTimer = null;                              // shoots every 60000 / self._rateOfFire ms
+    this._shootingTimer = null;
 
-    self.startShooting = function() {
-        if (self._isShootingAllowed() && _shootingTimer == null) {
-            self.shoot();
-            _shootingTimer = setInterval(function () {
-                self.shoot();
-            }, 60000 / self._rateOfFire);
-
-            self._forbidShoot();        // to forbid shoot faster than rateOfFire (fast clicking)
-            setTimeout(function() {
-                self._allowShoot();
-            }, self._shootingDelay);
-        }
-    };
-
-    self.stopShooting = function() {
-        clearInterval(_shootingTimer);
-        _shootingTimer = null;
-    };
-
-    return self;
+    this.setRateOfFire(opts.rateOfFire || WEAPON.DEFAULT.AUTOMATIC.RATE_OF_FIRE)
 }
+
+AutomaticWeapon.prototype = Object.create(Weapon.prototype);
+
+AutomaticWeapon.prototype.startShooting = function() {
+    if (this.canMakeNextShot() && this._shootingTimer == null) {
+        var self = this;
+
+        this.shoot();
+        this._shootingTimer = setInterval(function () {
+            self.shoot();
+        }, this.getShootingDelay());
+
+        this.forbidMakeNextShot();        // to forbid shoot faster than rateOfFire (fast clicking)
+        setTimeout(function() {
+            self.allowMakeNextShot();
+        }, this.getShootingDelay());
+    }
+};
+
+AutomaticWeapon.prototype.stopShooting = function() {
+    clearInterval(this._shootingTimer);
+    this._shootingTimer = null;
+};

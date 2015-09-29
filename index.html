@@ -7,9 +7,10 @@
     <link href="css/style.css" rel="stylesheet" type="text/css">
 
     <script src="js/lib/jquery-1.11.1.min.js" defer></script>
-    <script src="js/lib/createjs-2014.12.12.min.js" defer></script>
+    <script src="js/lib/createjs-2015.05.21.min.js" defer></script>
 
     <script src="js/jsg/util/math-utility.js" defer></script>
+    <script src="js/jsg/util/type-utility.js" defer></script>
     <script src="js/jsg/util/painter.js" defer></script>
     <script src="js/jsg/util/random-access-array.js" defer></script>
 
@@ -19,8 +20,10 @@
     <script src="js/jsg/config/public/controls.js" defer></script>
     <script src="js/jsg/config/public/config.js" defer></script>
 
+    <script src="js/jsg/objects/base-object.js" defer></script>
     <script src="js/jsg/objects/positioned-object.js" defer></script>
     <script src="js/jsg/objects/shaped-object.js" defer></script>
+    <script src="js/jsg/objects/moving-object.js" defer></script>
 
     <script src="js/jsg/objects/weapons/bullets/bullet.js" defer></script>
     <script src="js/jsg/objects/weapons/bullets/explosive-bullet.js" defer></script>
@@ -29,7 +32,7 @@
     <script src="js/jsg/objects/weapons/bullets/explosive-rocket.js" defer></script>
     <script src="js/jsg/objects/weapons/bullets/fraction.js" defer></script>
 
-    <script src="js/jsg/objects/weapons/chargers/charger.js"></script>
+    <script src="js/jsg/objects/weapons/chargers/charger.js" defer></script>
 
     <script src="js/jsg/objects/weapons/weapon.js" defer></script>
     <script src="js/jsg/objects/weapons/fake-weapon.js" defer></script>
@@ -59,6 +62,7 @@
     <script src="js/jsg/level-resolver.js" defer></script>
     <script src="js/jsg/enemy-factory.js" defer></script>
     <script src="js/jsg/ai.js" defer></script>
+    <script src="js/jsg/game-context.js" defer></script>
     <script src="js/jsg/game-engine.js" defer></script>
     <script src="js/jsg/player-panel.js" defer></script>
 
@@ -91,7 +95,10 @@
             resizeCanvas();
             window.onresize = resizeCanvas;
 
-            var gameEngine = GameEngine();
+            window.gctx = new GameContext();
+            var gameEngine = GameEngine({
+                gameContext: window.gctx
+            });
             gameEngine.start();
 
             PlayerPanel().initHandlers();

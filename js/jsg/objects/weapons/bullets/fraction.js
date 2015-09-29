@@ -1,13 +1,15 @@
-function Fraction(opts, draw) {
-    var self = Bullet(opts, false);
+function Fraction(opts, render) {
+    opts = opts || {};
 
-    self.draw = function() {
-        Painter.rectangle(self, 3, 3, 1.5, 1.5, "#f00");
-    };
+    Bullet.call(this, opts, false);
 
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+Fraction.prototype = Object.create(Bullet.prototype);
+
+Fraction.prototype.render = function() {
+    Painter.rectangle(this, 3, 3, 1.5, 1.5, "#f00");
+};

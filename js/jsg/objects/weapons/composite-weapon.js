@@ -1,79 +1,74 @@
-function CompositeWeapon(opts, draw) {
-    var self = ShapedObject(opts);
+function CompositeWeapon(opts, render) {
+    opts = opts || {};
 
-    var _weapons = [];
-    initWeapons(opts.weaponConstructors, opts.weaponOffsetsY, opts.weaponOffsetsX);
+    MovingObject.call(this, opts);
 
-    function initWeapons(weaponConstructors, weaponOffsetsY, weaponOffsetsX) {
+    this._weapons = opts.weapons || [];
+    if (this._weapons.length == 0) {
+        initWeapons.call(this, opts.weaponConstructors, opts.offsetsY || [], opts.offsetsX || []);
+    }
+
+    if (render !== false) {
+        this.render();
+    }
+
+    function initWeapons(weaponConstructors, offsetsY, offsetsX) {
+        var self = this;
         weaponConstructors.forEach(function(weaponConstructor, i) {
-            _weapons.push(weaponConstructor({
-                stage: opts.stage,
-                bullets: opts.bullets,
-                weaponOffsetY: weaponOffsetsY[i],
-                weaponOffsetX: weaponOffsetsX[i]
-            }, draw));
+            self._weapons.push(new weaponConstructor({
+                offsetY: offsetsY[i] || 0,
+                offsetX: offsetsX[i] || 0
+            }, false));
         });
     }
-
-    self.draw = function() {
-        _weapons.forEach(function(weapon) {
-            weapon.draw();
-        });
-    };
-
-    if (draw !== false) {
-        self.draw();
-    }
-
-    self.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
-        _weapons.forEach(function(weapon) {
-            weapon.angle = MathUtility.getLinesAngle(
-                unitX - weapon._weaponOffsetY * sin_d(unitAngle) + weapon._weaponOffsetX * cos_d(unitAngle),
-                unitY + weapon._weaponOffsetY * cos_d(unitAngle) + weapon._weaponOffsetX * sin_d(unitAngle),
-                targetX,
-                targetY
-            );
-
-            weapon.x = unitX - weapon._weaponOffsetY * sin_d(unitAngle) + weapon._weaponOffsetX * cos_d(unitAngle);
-            weapon.y = unitY + weapon._weaponOffsetY * cos_d(unitAngle) + weapon._weaponOffsetX * sin_d(unitAngle);
-        });
-    };
-
-    self.shoot = function() {
-        _weapons.forEach(function(weapon) {
-            weapon.shoot();
-        });
-    };
-
-    self.startShooting = function() {
-        _weapons.forEach(function(weapon) {
-            weapon.startShooting();
-        });
-    };
-
-    self.stopShooting = function() {
-        _weapons.forEach(function(weapon) {
-            weapon.stopShooting();
-        });
-    };
-
-    self.fix = function() {
-        _weapons.forEach(function(weapon) {
-            weapon.fix();
-        });
-    };
-
-    self.updateShapes = function() {
-        _weapons.forEach(function(weapon) {
-            weapon.updateShapes();
-        });
-    };
-
-    self.destroyShapes = function() {
-        _weapons.forEach(function(weapon) {
-            weapon.destroyShapes();
-        });
-    };
-
-    return self;
 }
+
+CompositeWeapon.prototype = Object.create(MovingObject.prototype);
+
+CompositeWeapon.prototype.render = function() {
+    this._weapons.forEach(function(weapon) {
+        weapon.render();
+    });
+};
+
+CompositeWeapon.prototype.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
+    this._weapons.forEach(function(weapon) {
+        weapon.aimAt(targetX, targetY, unitX, unitY, unitAngle);
+    });
+};
+
+CompositeWeapon.prototype.shoot = function() {
+    this._weapons.forEach(function(weapon) {
+        weapon.shoot();
+    });
+};
+
+CompositeWeapon.prototype.startShooting = function() {
+    this._weapons.forEach(function(weapon) {
+        weapon.startShooting();
+    });
+};
+
+CompositeWeapon.prototype.stopShooting = function() {
+    this._weapons.forEach(function(weapon) {
+        weapon.stopShooting();
+    });
+};
+
+CompositeWeapon.prototype.fix = function() {
+    this._weapons.forEach(function(weapon) {
+        weapon.fix();
+    });
+};
+
+CompositeWeapon.prototype.updateShapes = function() {
+    this._weapons.forEach(function(weapon) {
+        weapon.updateShapes();
+    });
+};
+
+CompositeWeapon.prototype.destroyShapes = function() {
+    this._weapons.forEach(function(weapon) {
+        weapon.destroyShapes();
+    });
+};

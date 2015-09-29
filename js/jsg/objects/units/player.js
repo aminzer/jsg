@@ -1,78 +1,73 @@
-function Player(opts, draw) {
-    var self = Unit(opts);
+function Player(opts, render) {
+    opts = opts || {};
 
-    self._unitType = UNIT_TYPE.PLAYER;
-    self._speed = opts.speed || PLAYER.SPEED;
-    self.setMaxHp(opts.hp || PLAYER.HP);
+    Unit.call(this, opts);
 
-    var _weaponArsenal = [];
-    var _weaponIndex = 0;
+    this._arsenal = [];
+    this._weaponIndex = 0;      // index of current weapon in arsenal
 
-    initArsenal();
+    this.setObjectType(OBJECT_TYPE.PLAYER);
+    this.setSpeed(opts.speed || PLAYER.SPEED);
+    this.setMaxHp(opts.hp || PLAYER.HP);
 
-    self.draw = function() {
-        Painter.circle(self, self._radius, "#73B500");
-        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#345200");
+    initArsenal.call(this);
 
-        self._weapon.draw();
-    };
-
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    self.setWeapon = function(index) {
-        self._weapon.destroyShapes();
-
-        _weaponIndex = index;
-
-        if (_weaponIndex < 0) {
-            _weaponIndex = _weaponArsenal.length - 1;
-        }
-
-        if (_weaponIndex > _weaponArsenal.length - 1) {
-            _weaponIndex = 0;
-        }
-
-        self._weapon = _weaponArsenal[_weaponIndex];
-        self._weapon.draw();
-    };
-
-    self.changeWeapon = function(direction) {    // mouse wheel forward(1) or backward (-1)
-        self.setWeapon(_weaponIndex + (direction ? direction : 1));
-    };
 
     function initArsenal() {
-        _weaponArsenal.push(GrandfathersGun({
-            stage: self._stage,
-            bullets: self._bullets
-        }, false));
+        this._arsenal.push(
+            new GrandfathersGun({
+                offsetY: 0
+            }, false),
+            new AutomaticGun({}, false),
+            new MachineGun({}, false),
+            new RocketLauncher({}, false),
+            new CompositeWeapon({
+                weaponConstructors: [RocketLauncher, RocketLauncher, RocketLauncher],
+                offsetsY: [15, -15, 1]
+            }, false)
+        );
 
-        _weaponArsenal.push(AutomaticGun({
-            stage: self._stage,
-            bullets: self._bullets
-        }, false));
+        this.chooseWeapon(this._weaponIndex);
+    }
+}
 
-        _weaponArsenal.push(MachineGun({
-            stage: self._stage,
-            bullets: self._bullets
-        }, false));
+Player.prototype = Object.create(Unit.prototype);
 
-        _weaponArsenal.push(RocketLauncher({
-            stage: self._stage,
-            bullets: self._bullets
-        }, false));
+Player.prototype.render = function() {
+    Painter.circle(this, this.getRadius(), "#73B500");
+    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#345200");
 
-        _weaponArsenal.push(CompositeWeapon({
-            stage: self._stage,
-            bullets: self._bullets,
-            weaponConstructors: [MachineGun, MachineGun],
-            weaponOffsetsY: [15, -15],
-            weaponOffsetsX: [0, 0]
-        }, false));
+    if (this.hasWeapon()) {
+        this.getWeapon().render();
+    }
+};
 
-        self._weapon = _weaponArsenal[_weaponIndex];
+Player.prototype.chooseWeapon = function(index) {
+    if (this.getWeapon() != null) {
+        this.getWeapon().destroyShapes();
     }
 
-    return self;
-}
+    this._weaponIndex = index;
+
+    if (this._weaponIndex < 0) {
+        this._weaponIndex = 0;
+    }
+
+    if (this._weaponIndex > this._arsenal.length - 1) {
+        this._weaponIndex = this._arsenal.length - 1;
+    }
+
+    this.setWeapon( this._arsenal[this._weaponIndex] );
+    this.getWeapon().render();
+};
+
+Player.prototype.chooseNextWeapon = function() {
+    this.chooseWeapon(this._weaponIndex + 1);
+};
+
+Player.prototype.choosePrevWeapon = function() {
+    this.chooseWeapon(this._weaponIndex - 1);
+};

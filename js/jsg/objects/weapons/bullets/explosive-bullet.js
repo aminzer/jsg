@@ -1,38 +1,34 @@
-function ExplosiveBullet(opts, draw) {
-    var self = Bullet(opts, false);
+function ExplosiveBullet(opts, render) {
+    opts = opts || {};
 
-    // tip: count === 0 or count === undefined
-    self._explosionCount = opts.explosionCount || (opts.explosionCount === 0 ? 0 : 2);
-    self._childCount = opts.childCount || 3;
-    self._sector = opts.sector || 10;
+    Bullet.call(this, opts, false);
 
-    self._speed = 15;
-    self._lifeTime = 20;
+    this._explosionCount = opts.explosionCount || (opts.explosionCount === 0 ? 0 : 3);
+    this._childCount = opts.childCount || 3;
+    this._sector = opts.sector || 10;
 
-    self.draw = function() {
-        Painter.circle(self, 2, "#000");
-    };
-
-    if (draw !== false) {       // constructor's call from child
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    self.destroy = function() {
-        console.log(self._explosionCount);
-        if (self._explosionCount > 0) {
-            for (var angle = self.angle - self._sector/2; angle <= self.angle + self._sector/2; angle += self._sector / (self._childCount-1)) {
-                self._bullets.push(ExplosiveBullet({
-                    bullets: self._bullets,
-                    stage: self._stage,
-                    x: self.x,
-                    y: self.y,
-                    angle: angle,
-                    lifeTime: 20,
-                    explosionCount: self._explosionCount - 1
-                }));
-            }
-        }
-    };
-
-    return self;
 }
+
+ExplosiveBullet.prototype = Object.create(Bullet.prototype);
+
+ExplosiveBullet.prototype.render = function() {
+    Painter.circle(this, 2, "#00f");
+};
+
+ExplosiveBullet.prototype.destroy = function() {
+    if (this._explosionCount > 0) {
+        for (var angle = this.getAngle() - this._sector/2; angle <= this.getAngle() + this._sector/2; angle += this._sector / (this._childCount-1)) {
+            gctx.addBullet(new ExplosiveBullet({
+                x: this.getX(),
+                y: this.getY(),
+                angle: angle,
+                lifeTime: this.getLifetime(),
+                speed: this.getSpeed(),
+                explosionCount: this._explosionCount - 1
+            }));
+        }
+    }
+};

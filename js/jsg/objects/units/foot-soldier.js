@@ -1,21 +1,20 @@
-function FootSoldier(opts, draw) {
-    var self = Unit(opts);
+function FootSoldier(opts, render) {
+    Unit.call(this, opts);
 
-    self._weapon = AutomaticGun({
-        stage: self._stage,
-        bullets: self._bullets
-    }, false);
+    this.setWeapon(new AutomaticGun({}, false));
 
-    self.draw = function() {
-        Painter.circle(self, self._radius, "#559");
-        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#199EE0");
-
-        self._weapon.draw();
-    };
-
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+FootSoldier.prototype = Object.create(Unit.prototype);
+
+FootSoldier.prototype.render = function() {
+    Painter.circle(this, this.getRadius(), "#559");
+    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#199EE0");
+
+    if (this.getWeapon() != null) {
+        this.getWeapon().render();
+    }
+};

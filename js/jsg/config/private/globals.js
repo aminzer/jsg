@@ -3,10 +3,11 @@ var CANVAS_HEIGHT = 0;
 
 var NO_MOVEMENT = 'NO_MOVEMENT';
 
-var UNIT_TYPE = {
-    PLAYER: parseInt("0001", 2),
-    ENEMY: parseInt("0010", 2),
-    NEUTRAL: parseInt("0011", 2)
+var OBJECT_TYPE = {
+    UNDEFINED:  parseInt("0000000", 16),
+    PLAYER:     parseInt("0000001", 16),
+    ENEMY:      parseInt("0000002", 16),
+    NEUTRAL:    parseInt("0000003", 16)
 };
 
 var PI = Math.PI;

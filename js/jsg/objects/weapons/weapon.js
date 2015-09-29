@@ -1,95 +1,155 @@
 function Weapon(opts) {
-    var self = ShapedObject(opts);
-    
-    self._frontLength = WEAPON.DEFAULT.FRONT_LENGTH;                       // influence on bullets start coordinates
-    self._weaponOffsetY = opts.weaponOffsetY || UNIT.DEFAULT.RADIUS - 5;   // offset between weapon's and unit's centers
-    self._weaponOffsetX = opts.weaponOffsetX || 0;
+    opts = opts || {};
 
-    self._hardness = WEAPON.DEFAULT.HARDNESS;             // max number of bullets to reduce the accuracy
-    self._state = self._hardness;                 // current number of bullets to reduce the accuracy
-    self._maxSector = WEAPON.DEFAULT.MAX_SECTOR;          // if accuracy = 0, bullets will be in this sector (degrees)
+    MovingObject.call(this, opts);
 
-    self._bullets = opts.bullets;           // reference to global bullet array
+    this._frontLength = WEAPON.DEFAULT.FRONT_LENGTH;
+    //this._offsetY = opts.offsetY || (opts.offsetY === 0 ? 0 : UNIT.DEFAULT.RADIUS - 5);
+    this._offsetY = typeof (opts.offsetY) === 'undefined' ? UNIT.DEFAULT.RADIUS - 5 : opts.offsetY;
+    this._offsetX = opts.offsetX || 0;
 
-    self._shootingDelay = WEAPON.DEFAULT.SHOOTING_DELAY;  // min time interval between 2 shots
-    self._canShoot = true;
+    this._hardness = WEAPON.DEFAULT.HARDNESS;             // max number of bullets to completely reduce the accuracy
+    this._state = this._hardness;                         // current number of bullets to reduce the accuracy
+    this._maxSector = WEAPON.DEFAULT.MAX_SECTOR;          // if accuracy = 0, bullets will be in this sector (degrees)
 
-    self._charger = opts.charger || Charger(opts);
+    this._shootingDelay = WEAPON.DEFAULT.SHOOTING_DELAY;  // min time interval between 2 shots
+    this._canMakeNextShot = true;                         // to prevent shooting until shooting delay finished
 
-    self.shoot = function() {
-        if (self._charger.isEmpty()) return;
-
-        var bullet = self._charger.getBullet();
-        bullet.x = self.x + self._frontLength * cos_d(self.angle);
-        bullet.y = self.y + self._frontLength * sin_d(self.angle);
-        bullet.angle = self.angle + (1 - self._getAccuracy()) * (self._maxSector * random() - self._maxSector / 2);
-        bullet._bullets = self._bullets;
-        self._bullets.push(bullet);
-
-        self._harmWeapon();
-    };
-
-    self.startShooting = function() {
-        if (self._isShootingAllowed()) {
-            self.shoot();       // single shot
-
-            self._forbidShoot();
-            setTimeout(function() {
-                self._allowShoot();
-            }, self._shootingDelay);
-        }
-    };
-
-    self.stopShooting = function() {};
-
-    self.fix = function() {
-        self._state = self._hardness;
-    };
-
-    self.setHardness = function(hardness) {
-        self._state = self._hardness = hardness;
-    };
-
-    self.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
-        self.angle = MathUtility.getLinesAngle(
-            unitX - self._weaponOffsetY * sin_d(unitAngle) + self._weaponOffsetX * cos_d(unitAngle),
-            unitY + self._weaponOffsetY * cos_d(unitAngle) + self._weaponOffsetX * sin_d(unitAngle),
-            targetX,
-            targetY
-        );
-
-        self.x = unitX - self._weaponOffsetY * sin_d(unitAngle) + self._weaponOffsetX * cos_d(unitAngle);
-        self.y = unitY + self._weaponOffsetY * cos_d(unitAngle) + self._weaponOffsetX * sin_d(unitAngle);
-    };
-
-    // @Override
-    self.p_destroyShapes = self.destroyShapes;    // save parents function
-    self.destroyShapes = function() {             // destroy own shapes and start destroying of children
-        self.p_destroyShapes();
-        self.stopShooting();
-    };
-
-    self._allowShoot = function() {
-        self._canShoot = true;
-    };
-
-    self._forbidShoot = function() {
-        self._canShoot = false;
-    };
-
-    self._isShootingAllowed = function() {
-        return self._canShoot;
-    };
-
-    self._getAccuracy = function() {
-        return self._state / self._hardness;
-    };
-
-    self._harmWeapon = function() {
-        if (self._state > 0) {
-            self._state--;
-        }
-    };
-
-    return self;
+    this._charger = opts.charger || new Charger(opts);
 }
+
+Weapon.prototype = Object.create(MovingObject.prototype);
+
+Weapon.prototype.getAccuracy = function() {
+    return this._state / this._hardness;
+};
+
+Weapon.prototype.harmWeapon = function() {
+    if (this._state > 0) {
+        this._state--;
+    }
+};
+
+Weapon.prototype.shoot = function() {
+    var bullet = this._charger.getNextBullet();
+    if (bullet !== false) {
+        bullet.setX(this.getX() + this._frontLength * cos_d(this.getAngle()));
+        bullet.setY(this.getY() + this._frontLength * sin_d(this.getAngle()));
+        bullet.setAngle(this.getAngle() + (1 - this.getAccuracy()) * (this._maxSector * random() - this._maxSector / 2));
+        this.harmWeapon();
+    }
+    return bullet;
+};
+
+Weapon.prototype.canMakeNextShot = function() {
+    return this._canMakeNextShot;
+};
+
+Weapon.prototype.allowMakeNextShot = function() {
+    this._canMakeNextShot = true;
+};
+
+Weapon.prototype.forbidMakeNextShot = function() {
+    this._canMakeNextShot = false;
+};
+
+Weapon.prototype.startShooting = function() {
+    if (this.canMakeNextShot()) {
+        this.shoot();
+
+        this.forbidMakeNextShot();
+        var self = this;
+        setTimeout(function() {
+            self.allowMakeNextShot();
+        }, this._shootingDelay);
+    }
+};
+
+Weapon.prototype.stopShooting = function() { };
+
+Weapon.prototype.fix = function() {
+    this._state = this._hardness;
+};
+
+Weapon.prototype.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
+    this.setAngle(MathUtility.getLinesAngle(
+        unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle),
+        unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle),
+        targetX,
+        targetY
+    ));
+
+    this.setX(unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle));
+    this.setY(unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle));
+};
+
+// @Override
+Weapon.prototype.parent_destroyShapes = Weapon.prototype.destroyShapes;
+Weapon.prototype.destroyShapes = function() {
+    Weapon.prototype.parent_destroyShapes.call(this);
+    this.stopShooting();
+};
+
+Weapon.prototype.getFrontLength = function() {
+    return this._frontLength;
+};
+
+Weapon.prototype.setFrontLength = function(frontLength) {
+    this._frontLength = frontLength;
+};
+
+Weapon.prototype.getOffsetY = function() {
+    return this._offsetY;
+};
+
+Weapon.prototype.setOffsetY = function(offsetY) {
+    this._offsetY = offsetY;
+};
+
+Weapon.prototype.getOffsetX = function() {
+    return this._offsetX;
+};
+
+Weapon.prototype.setOffsetX = function(offsetX) {
+    this._offsetX = offsetX;
+};
+
+Weapon.prototype.getHardness = function() {
+    return this._hardness;
+};
+
+Weapon.prototype.setHardness = function(hardness) {
+    this._state = this._hardness = hardness;
+};
+
+Weapon.prototype.getMaxSector = function() {
+    return this._maxSector;
+};
+
+Weapon.prototype.setMaxSector = function(maxSector) {
+    this._maxSector = maxSector;
+};
+
+Weapon.prototype.getShootingDelay = function() {
+    return this._shootingDelay;
+};
+
+Weapon.prototype.setShootingDelay = function(shootingDelay) {
+    this._shootingDelay = shootingDelay;
+};
+
+Weapon.prototype.getRateOfFire = function() {
+    return 60000 / this._shootingDelay;
+};
+
+Weapon.prototype.setRateOfFire = function(rateOfFire) {
+    this._shootingDelay = 60000 / rateOfFire;
+};
+
+Weapon.prototype.getCharger = function() {
+    return this._charger;
+};
+
+Weapon.prototype.setCharger = function(charger) {
+    this._charger = charger;
+};

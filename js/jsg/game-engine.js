@@ -5,14 +5,15 @@ function GameEngine(opts) {
         running: true
     };
 
-    var _canvas = document.getElementById("canvas");
+    var gameContext = opts.gameContext;
 
-    var _stage = new createjs.Stage("canvas");
+    var _canvas = gameContext.getCanvas();
+    var _stage = gameContext.getStage();
 
-    var _player = null;
-    var _units = [];            // units and player
-    var _bullets = [];          // harm elements (like bullets)
-    var _effects = [];          // different physical effects
+    var _player = gameContext.getPlayer();
+    var _units = gameContext.getUnits();              // units and player
+    var _bullets = gameContext.getBullets();          // harm elements (like bullets)
+    var _effects = gameContext.getEffects();          // different physical effects
 
     var _ai = null;             // artificial intellect
     var _levelResolver = null;
@@ -26,32 +27,23 @@ function GameEngine(opts) {
     function init() {
         createjs.Ticker.setFPS(FPS);
 
-        _cursor = Cursor({
+        _cursor = new Cursor({
             stage: _stage
         });
 
-        _player = Player({
+        _player = new Player({
             stage: _stage,
             bullets: _bullets,
             x: 100,
             y: 100
         });
         _units.push(_player);
+        gameContext.setPlayer(_player);
 
-        _levelResolver = LevelResolver({
-            stage: _stage,
-            units: _units,
-            effects: _effects,
-            bullets: _bullets
-        });
-
-       // _levelResolver.resolve(TEST_LEVEL());
+        _levelResolver = new LevelResolver();
         _levelResolver.resolve(SIMPLE_LEVEL());
 
-        _ai = new AI({
-            units: _units,
-            target: _player
-        });
+        _ai = new AI();
 
         // set handlers
         _canvas.addEventListener("mousemove", handleMouseMove);
@@ -170,9 +162,11 @@ function GameEngine(opts) {
     }
 
     function handleMouseWheel(e) {
-        var direction = e.deltaY > 0 ? 1 : -1;
-        _player.changeWeapon(direction);
-
+        if (e.deltaY > 0) {
+            _player.chooseNextWeapon();
+        } else {
+            _player.choosePrevWeapon();
+        }
         return false;
     }
 
@@ -183,20 +177,20 @@ function GameEngine(opts) {
     function handleTargetHits() {
         for (var j = 0; j < _units.length; j++) {
             for (var i = 0; i < _bullets.length; i++) {
-                if (_units[j].isPointInside(_bullets[i].x, _bullets[i].y)) {
-                    _units[j].takeDamage(_bullets[i]._damage);     // unit takes damage
+                if (_units[j].isPointInside(_bullets[i].getX(), _bullets[i].getY())) {
+                    _units[j].takeDamage(_bullets[i].getDamage());     // unit takes damage
                     destroyBullet(i);
                     i--;  // because of splice
                     if (_units[j] === _player) {
-                        $(document).trigger('player_hp_change', [_player._hp, _player._maxHp]);
+                        $(document).trigger('player_hp_change', [_player.getHp(), _player.getMaxHp()]);
                     }
                 }
             }
 
             if (_units[j].isAlive() === false) {        // unit is dead
-                if (_units[j].getObjectType() & UNIT_TYPE.ENEMY) {
+                if (_units[j].getObjectType() == OBJECT_TYPE.ENEMY) {
                     $(document).trigger("enemy_died");
-                } else if (_units[j].getObjectType() & UNIT_TYPE.PLAYER) {
+                } else if (_units[j].getObjectType() == OBJECT_TYPE.PLAYER) {
                     $(document).trigger("player_dead");
                 }
                 _units[j].destroyShapes();

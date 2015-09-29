@@ -1,15 +1,17 @@
-function AutomaticGun(opts, draw) {
-    var self = AutomaticWeapon(opts);
+function AutomaticGun(opts, render) {
+    opts = opts || {};
 
-    self.draw = function() {
-        Painter.rectangle(self, self._frontLength + 15, 5, 15, 2.5, "#555");
-        Painter.rectangle(self, 10, 5, -7, 0, "#691C1C");
-        Painter.rectangle(self, self._frontLength, 2, 10, 1, "#ddd");
-    };
+    AutomaticWeapon.call(this, opts);
 
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+AutomaticGun.prototype = Object.create(AutomaticWeapon.prototype);
+
+AutomaticGun.prototype.render = function() {
+    Painter.rectangle(this, this.getFrontLength() + 15, 5, 15, 2.5, "#555");
+    Painter.rectangle(this, 10, 5, -7, 0, "#691C1C");
+    Painter.rectangle(this, this.getFrontLength(), 2, 10, 1, "#ddd");
+};
