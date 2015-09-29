@@ -7,7 +7,7 @@ function RocketLauncher(opts, render) {
     this.setFrontLength(WEAPON.ROCKET_LAUNCHER.FRONT_LENGTH);
     this.setHardness(WEAPON.ROCKET_LAUNCHER.HARDNESS);
     this.setShootingDelay(WEAPON.ROCKET_LAUNCHER.SHOOTING_DELAY);
-    this.getCharger().setBulletConstructor(opts.bulletConstructor || ExplosiveRocket);
+    this.getCharger().setBulletConstructor(this.def( opts.bulletConstructor, ExplosiveRocket ));
 
     if (render !== false) {
         this.render();

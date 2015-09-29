@@ -3,9 +3,9 @@ function ExplosiveBullet(opts, render) {
 
     Bullet.call(this, opts, false);
 
-    this._explosionCount = opts.explosionCount || (opts.explosionCount === 0 ? 0 : 3);
-    this._childCount = opts.childCount || 3;
-    this._sector = opts.sector || 10;
+    this._explosionCount = this.def( opts.explosionCount, 3 );
+    this._childCount = this.def( opts.childCount, 3 );
+    this._sector = this.def( opts.sector, 10 );
 
     if (render !== false) {
         this.render();

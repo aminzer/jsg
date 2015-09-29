@@ -3,9 +3,9 @@ function MovingObject(opts) {
 
     ShapedObject.call(this, opts);
 
-    this._isMoving = opts.isMoving || false;
-    this._speed = opts.speed || UNIT.DEFAULT.SPEED;
-    this._movementAngle = opts.movementAngle || 0;
+    this._isMoving = this.def( opts.isMoving, false );
+    this._speed = this.def( opts.speed, UNIT.DEFAULT.SPEED );
+    this._movementAngle = this.def( opts.movementAngle, 0 );
 }
 
 MovingObject.prototype = Object.create(ShapedObject.prototype);

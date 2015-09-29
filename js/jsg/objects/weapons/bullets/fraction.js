@@ -3,6 +3,10 @@ function Fraction(opts, render) {
 
     Bullet.call(this, opts, false);
 
+    this.setDamage(this.def( opts.damage, BULLET.DEFAULT.DAMAGE ));
+    this.setSpeed(this.def( opts.speed, BULLET.DEFAULT.SPEED ));
+    this.setLifetime(this.def( opts.lifetime, BULLET.DEFAULT.LIFETIME ));
+
     if (render !== false) {
         this.render();
     }

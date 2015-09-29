@@ -54,7 +54,7 @@ var BULLET = {
         LIFETIME: 100,
         FRACTION_COUNT: 60,
         FRACTION_DAMAGE: 2,
-        FRACTION_LIFETIME: 10
+        FRACTION_LIFETIME: 25
     }
 };
 

@@ -6,9 +6,9 @@ function Player(opts, render) {
     this._arsenal = [];
     this._weaponIndex = 0;      // index of current weapon in arsenal
 
+    this.setSpeed(this.def( opts.speed, PLAYER.SPEED ));
+    this.setMaxHp(this.def( opts.hp, PLAYER.HP ));
     this.setObjectType(OBJECT_TYPE.PLAYER);
-    this.setSpeed(opts.speed || PLAYER.SPEED);
-    this.setMaxHp(opts.hp || PLAYER.HP);
 
     initArsenal.call(this);
 
@@ -18,9 +18,7 @@ function Player(opts, render) {
 
     function initArsenal() {
         this._arsenal.push(
-            new GrandfathersGun({
-                offsetY: 0
-            }, false),
+            new GrandfathersGun({}, false),
             new AutomaticGun({}, false),
             new MachineGun({}, false),
             new RocketLauncher({}, false),

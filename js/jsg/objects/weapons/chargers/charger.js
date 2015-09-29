@@ -2,10 +2,10 @@ function Charger(opts) {
     opts = opts || {};
     MovingObject.call(this, opts);
 
-    this._bulletCapacity = opts._bulletCapacity || Number.MAX_VALUE;       // max count of bullets in charger
-    this._bulletCount = opts.bulletCount || this._bulletCapacity;          // current count of bullets
+    this._bulletCapacity = this.def( opts._bulletCapacity, Number.MAX_VALUE );       // max count of bullets in charger
+    this._bulletCount = this.def( opts.bulletCount, this._bulletCapacity );          // current count of bullets
 
-    this._bulletConstructor = opts.bulletConstructor || Bullet;
+    this._bulletConstructor = this.def( opts.bulletConstructor, Bullet );
 }
 
 Charger.prototype = Object.create(MovingObject.prototype);

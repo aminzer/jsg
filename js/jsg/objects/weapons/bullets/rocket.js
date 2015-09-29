@@ -3,9 +3,9 @@ function Rocket(opts, render) {
 
     Bullet.call(this, opts, false);
         
-    this.setDamage(opts.damage || BULLET.ROCKET.DAMAGE);
-    this.setSpeed(opts.speed || BULLET.ROCKET.START_SPEED);
-    this.setLifetime(opts.lifetime || BULLET.ROCKET.LIFETIME);
+    this.setDamage(this.def( opts.damage, BULLET.ROCKET.DAMAGE ));
+    this.setSpeed(this.def( opts.speed, BULLET.ROCKET.START_SPEED ));
+    this.setLifetime(this.def( opts.lifetime, BULLET.ROCKET.LIFETIME ));
     
     if (render !== false) {
         this.render();

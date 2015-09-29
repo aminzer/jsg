@@ -3,10 +3,10 @@ function Unit(opts) {
 
     MovingObject.call(this, opts);
     
-    this._maxHp = opts.maxHp || UNIT.DEFAULT.HP;
-    this._hp = opts.hp || this._maxHp;
+    this._maxHp = this.def( opts.maxHp, UNIT.DEFAULT.HP );
+    this._hp = this.def( opts.hp, this._maxHp );
 
-    this._radius = opts.radius || UNIT.DEFAULT.RADIUS;          // body area = circle (for handling hits)
+    this._radius = this.def( opts.radius, UNIT.DEFAULT.RADIUS );          // body area = circle (for handling hits)
 
     this._weapon = null;
 

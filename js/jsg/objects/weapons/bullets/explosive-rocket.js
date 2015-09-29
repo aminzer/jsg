@@ -3,9 +3,9 @@ function ExplosiveRocket(opts, render) {
 
     Rocket.call(this, opts, render);
 
-    this.setDamage(opts.damage || BULLET.EXPLOSIVE_ROCKET.DAMAGE);
-    this.setSpeed(opts.speed || BULLET.EXPLOSIVE_ROCKET.START_SPEED);
-    this.setLifetime(opts.lifetime || BULLET.EXPLOSIVE_ROCKET.LIFETIME);
+    this.setDamage(this.def( opts.damage, BULLET.EXPLOSIVE_ROCKET.DAMAGE ));
+    this.setSpeed(this.def( opts.speed, BULLET.EXPLOSIVE_ROCKET.START_SPEED ));
+    this.setLifetime(this.def( opts.lifetime, BULLET.EXPLOSIVE_ROCKET.LIFETIME ));
 }
 
 ExplosiveRocket.prototype = Object.create(Rocket.prototype);
@@ -18,7 +18,7 @@ ExplosiveRocket.prototype.destroy = function() {
             angle: angle,
             damage: BULLET.EXPLOSIVE_ROCKET.FRACTION_DAMAGE,
             speed: 10 + random() * 5,
-            lifeTime: BULLET.EXPLOSIVE_ROCKET.FRACTION_LIFETIME
+            lifetime: BULLET.EXPLOSIVE_ROCKET.FRACTION_LIFETIME
         }));
     }
 };

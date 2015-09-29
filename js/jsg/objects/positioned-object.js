@@ -3,10 +3,10 @@ function PositionedObject(opts) {
 
     BaseObject.call(this, opts);
 
-    this._x = opts.x || 0;
-    this._y = opts.y || 0;
-    this._angle = opts.angle || 0;
-    this._naturalAngle = opts.naturalAngle || 0;
+    this._x = this.def( opts.x, 0 );
+    this._y = this.def( opts.y, 0 );
+    this._angle = this.def( opts.angle, 0 );
+    this._naturalAngle = this.def( opts.naturalAngle, 0 );
 }
 
 PositionedObject.prototype = Object.create(BaseObject.prototype);

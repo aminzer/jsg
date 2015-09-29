@@ -3,19 +3,18 @@ function Weapon(opts) {
 
     MovingObject.call(this, opts);
 
-    this._frontLength = WEAPON.DEFAULT.FRONT_LENGTH;
-    //this._offsetY = opts.offsetY || (opts.offsetY === 0 ? 0 : UNIT.DEFAULT.RADIUS - 5);
-    this._offsetY = typeof (opts.offsetY) === 'undefined' ? UNIT.DEFAULT.RADIUS - 5 : opts.offsetY;
-    this._offsetX = opts.offsetX || 0;
+    this._frontLength = this.def( opts.frontLength, WEAPON.DEFAULT.FRONT_LENGTH );
+    this._offsetY = this.def( opts.offsetY, UNIT.DEFAULT.RADIUS - 5 );
+    this._offsetX = this.def( opts.offsetX, 0 );
 
-    this._hardness = WEAPON.DEFAULT.HARDNESS;             // max number of bullets to completely reduce the accuracy
-    this._state = this._hardness;                         // current number of bullets to reduce the accuracy
-    this._maxSector = WEAPON.DEFAULT.MAX_SECTOR;          // if accuracy = 0, bullets will be in this sector (degrees)
+    this._hardness = this.def( opts.hardness, WEAPON.DEFAULT.HARDNESS );        // max number of bullets to completely reduce the accuracy
+    this._state = this.def( opts.state, this._hardness );                     // current number of bullets to reduce the accuracy
+    this._maxSector = this.def( opts.maxSector, WEAPON.DEFAULT.MAX_SECTOR );  // if accuracy = 0, bullets will be in this sector (degrees)
 
-    this._shootingDelay = WEAPON.DEFAULT.SHOOTING_DELAY;  // min time interval between 2 shots
-    this._canMakeNextShot = true;                         // to prevent shooting until shooting delay finished
+    this._shootingDelay = this.def( opts.shootingDelay, WEAPON.DEFAULT.SHOOTING_DELAY );  // min time interval between 2 shots
+    this._canMakeNextShot = true;                                                        // to prevent shooting until shooting delay finished
 
-    this._charger = opts.charger || new Charger(opts);
+    this._charger = this.def( opts.charger, new Charger(opts) );
 }
 
 Weapon.prototype = Object.create(MovingObject.prototype);

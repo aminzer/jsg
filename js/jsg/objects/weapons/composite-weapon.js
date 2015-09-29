@@ -3,7 +3,7 @@ function CompositeWeapon(opts, render) {
 
     MovingObject.call(this, opts);
 
-    this._weapons = opts.weapons || [];
+    this._weapons = this.def( opts.weapons, []);
     if (this._weapons.length == 0) {
         initWeapons.call(this, opts.weaponConstructors, opts.offsetsY || [], opts.offsetsX || []);
     }

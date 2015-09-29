@@ -3,10 +3,10 @@ function Bullet(opts, render) {
 
     MovingObject.call(this, opts);
 
-    this._damage = opts.damage || BULLET.DEFAULT.DAMAGE;
-    this._lifetime = opts.lifetime || BULLET.DEFAULT.LIFETIME;    // depends on FPS
+    this._damage = this.def( opts.damage, BULLET.DEFAULT.DAMAGE );
+    this._lifetime = this.def( opts.lifetime, BULLET.DEFAULT.LIFETIME );
 
-    this.setSpeed(opts.speed || BULLET.DEFAULT.SPEED);
+    this.setSpeed(this.def( opts.speed, BULLET.DEFAULT.SPEED ));
     applyAngle.call(this, opts);
     this.startMoving();
 
@@ -15,7 +15,7 @@ function Bullet(opts, render) {
     }
 
     function applyAngle(opts) {
-        var angle = opts.angle || opts.movementAngle;
+        var angle = opts.angle || opts.movementAngle || 0;
         this._angle = this._movementAngle = angle;
     }
 }
