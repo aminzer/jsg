@@ -1,21 +1,22 @@
-function GuyWithPanzerschreck(opts, draw) {
-    var self = Unit(opts);
+function GuyWithPanzerschreck(opts, render) {
+    opts = opts || {};
 
-    self._weapon = RocketLauncher({
-        stage: self._stage,
-        bullets: self._bullets
-    }, false);
+    Unit.call(this, opts);
 
-    self.draw = function() {
-        Painter.circle(self, self._radius, "#8D91E3");
-        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#34378A");
+    this.setWeapon(new RocketLauncher({}, false));
 
-        self._weapon.draw();
-    };
-
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+GuyWithPanzerschreck.prototype = Object.create(Unit.prototype);
+
+GuyWithPanzerschreck.prototype.render = function() {
+    Painter.circle(this, this.getRadius(), "#8D91E3");
+    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#34378A");
+
+    if (this.getWeapon() != null) {
+        this.getWeapon().render();
+    }
+};

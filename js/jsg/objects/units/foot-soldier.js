@@ -1,4 +1,6 @@
 function FootSoldier(opts, render) {
+    opts = opts || {};
+
     Unit.call(this, opts);
 
     this.setWeapon(new AutomaticGun({}, false));

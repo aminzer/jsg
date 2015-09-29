@@ -1,21 +1,22 @@
-function MachineGunner(opts, draw) {
-    var self = Unit(opts);
+function MachineGunner(opts, render) {
+    opts = opts || {};
 
-    self._weapon = MachineGun({
-        stage: self._stage,
-        bullets: self._bullets
-    }, false);
+    Unit.call(this, opts);
 
-    self.draw = function() {
-        Painter.circle(self, self._radius, "#E08A19");
-        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#7A4D11");
+    this.setWeapon(new MachineGun({}, false));
 
-        self._weapon.draw();
-    };
-
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+MachineGunner.prototype = Object.create(Unit.prototype);
+
+MachineGunner.prototype.render = function() {
+    Painter.circle(this, this.getRadius(), "#E08A19");
+    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#7A4D11");
+
+    if (this.getWeapon() != null) {
+        this.getWeapon().render();
+    }
+};

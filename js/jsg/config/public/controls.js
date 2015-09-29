@@ -9,5 +9,5 @@ var CONTROLS = {
 
     PAUSE: KEY.P,
     FIX_WEAPON: KEY.O,
-    LOG: KEY.CTRL
+    LOG: KEY.L
 };

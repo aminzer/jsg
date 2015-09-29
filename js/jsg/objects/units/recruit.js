@@ -1,4 +1,6 @@
 function Recruit(opts, render) {
+    opts = opts || {};
+
     Unit.call(this, opts);
 
     this.setWeapon(new GrandfathersGun({}, false));

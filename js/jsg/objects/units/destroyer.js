@@ -1,28 +1,28 @@
-function Destroyer(opts, draw) {
-    var self = Unit(opts);
+function Destroyer(opts, render) {
+    opts = opts || {};
 
-    self._radius = UNIT.DESTROYER.RADIUS;
-    self.setMaxHp(UNIT.DESTROYER.HP);
+    Unit.call(this, opts);
 
-    self._weapon = CompositeWeapon({
-        stage: self._stage,
-        bullets: self._bullets,
+    this.setRadius(UNIT.DESTROYER.RADIUS);
+    this.setWeapon(new CompositeWeapon({
         weaponConstructors: [MachineGun, MachineGun, RocketLauncher],
         offsetsY: [-22, -9, 19],
         offsetsX: [-1, 2, 0]
-    }, false);
+    }, false));
 
-    self.draw = function() {
-        Painter.circle(self, self._radius, "#c22");
-        Painter.rectangle(self, 10, 2 * (self._radius - 1), 5, self._radius - 1, "#fd1");
-        Painter.rectangle(self, 26, 8, 13, -1, "#fd1");
-
-        self._weapon.draw();
-    };
-
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    return self;
 }
+
+Destroyer.prototype = Object.create(Unit.prototype);
+
+Destroyer.prototype.render = function() {
+    Painter.circle(this, this.getRadius(), "#c22");
+    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#fd1");
+    Painter.rectangle(this, 26, 8, 13, -1, "#fd1");
+
+    if (this.getWeapon() != null) {
+        this.getWeapon().render();
+    }
+};
