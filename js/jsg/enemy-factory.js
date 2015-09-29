@@ -1,43 +1,35 @@
 function EnemyFactory(opts) {
-    var self = {};
+    opts = opts || {};
 
-    var _stage = opts.stage;
-    var _units = opts.units;
-    var _bullets = opts.bullets;
+    this._generatingDelay = opts.generatingDelay || ENEMY_FACTORY.DEFAULT.GENERATING_DELAY;
+    this. _creationTimer = null;
 
-    var _generatingDelay = opts.generatingDelay || ENEMY_FACTORY.DEFAULT.GENERATING_DELAY;
-
-    var _enemyConstructors = new RandomAccessArray([
+    this._enemyConstructors = new RandomAccessArray([
         {element: Recruit, weight: 10},
         {element: FootSoldier, weight: 5},
         {element: MachineGunner, weight: 2},
         {element: GuyWithPanzerschreck, weight: 1}
     ]);
+}
 
-    var _creationTimer = null;
-
-    self.startGenerating = function() {
-        _creationTimer = setInterval(generate, _generatingDelay);
-    };
-
-    self.stopGenerating = function() {
-        clearInterval(_creationTimer);
-        _creationTimer = null;
-    };
-
-    self.isGenerating = function() {
-        return _creationTimer !== null;
-    };
-
-    function generate() {
-        _units.push(_enemyConstructors.get()({
-            stage: _stage,
-            units: _units,
-            bullets: _bullets,
+EnemyFactory.prototype.startGenerating = function() {
+    var self = this;
+    this._creationTimer = setInterval(function () {
+        var constructor = self._enemyConstructors.get();
+        gctx._units.push(new constructor({
             x: CANVAS_WIDTH * (random() / 2 + 0.5),
             y: CANVAS_HEIGHT * (random() / 2 + 0.5)
         }));
-    }
+    }, this._generatingDelay);
 
-    return self;
-}
+
+};
+
+EnemyFactory.prototype.stopGenerating = function() {
+    clearInterval(this._creationTimer);
+    this._creationTimer = null;
+};
+
+EnemyFactory.prototype.isGenerating = function() {
+    return this._creationTimer !== null;
+};
