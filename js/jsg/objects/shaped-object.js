@@ -7,9 +7,7 @@ function ShapedObject(opts) {
     this._shapes = [];
 }
 
-ShapedObject.prototype = Object.create(PositionedObject.prototype);
-
-ShapedObject.prototype.render = function() { };
+Extend(ShapedObject).from(PositionedObject);
 
 ShapedObject.prototype.addShape = function(shape) {
     if (shape instanceof Array) {

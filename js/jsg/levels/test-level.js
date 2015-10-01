@@ -3,9 +3,13 @@ function TEST_LEVEL() {
         enemies: [
             {
                 constructor: Tank,
-                x: 80,
-                y: 80
-            }
+                x: 30,
+                y: 15
+            },/* {
+                constructor: Recruit,
+                x: 50,
+                y: 0
+            }*/
         ]
         //effects: [
         //    {

@@ -2,7 +2,7 @@ function Unit(opts) {
     opts = opts || {};
 
     MovingObject.call(this, opts);
-    
+
     this._maxHp = this.def( opts.maxHp, UNIT.DEFAULT.HP );
     this._hp = this.def( opts.hp, this._maxHp );
 
@@ -20,9 +20,9 @@ Unit.prototype.hasWeapon = function() {
 };
 
 Unit.prototype.aimAt = function(targetX, targetY) {
-    this.setAngle( MathUtility.getLinesAngle(this._x, this._y, targetX, targetY) );
+    this.setAngle( MathUtility.getLinesAngle(this.getX(), this.getY(), targetX, targetY) );
     if (this.hasWeapon()) {
-        this._weapon.aimAt(targetX, targetY, this._x, this._y, this._angle);
+        this._weapon.aimAt(targetX, targetY, this.getX(), this.getY(), this.getAngle());
     }
 };
 

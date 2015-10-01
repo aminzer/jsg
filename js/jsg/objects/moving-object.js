@@ -8,7 +8,7 @@ function MovingObject(opts) {
     this._movementAngle = this.def( opts.movementAngle, 0 );
 }
 
-MovingObject.prototype = Object.create(ShapedObject.prototype);
+Extend(MovingObject).from(ShapedObject);
 
 MovingObject.prototype.startMoving = function(movementAngle) {
     this._isMoving = true;

@@ -9,7 +9,7 @@ function PositionedObject(opts) {
     this._naturalAngle = this.def( opts.naturalAngle, 0 );
 }
 
-PositionedObject.prototype = Object.create(BaseObject.prototype);
+Extend(PositionedObject).from(BaseObject);
 
 PositionedObject.prototype.moveX = function(deltaX) {
     this._x += deltaX;
