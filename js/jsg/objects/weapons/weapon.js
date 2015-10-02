@@ -17,7 +17,7 @@ function Weapon(opts) {
     this._charger = this.def( opts.charger, new Charger(opts) );
 }
 
-Weapon.prototype = Object.create(MovingObject.prototype);
+Extend(Weapon).from(MovingObject);
 
 Weapon.prototype.getAccuracy = function() {
     return this._state / this._hardness;
@@ -36,6 +36,7 @@ Weapon.prototype.shoot = function() {
         bullet.setY(this.getY() + this._frontLength * sin_d(this.getAngle()));
         bullet.setAngle(this.getAngle() + (1 - this.getAccuracy()) * (this._maxSector * random() - this._maxSector / 2));
         this.harmWeapon();
+        gctx.addBullet(bullet);
     }
     return bullet;
 };

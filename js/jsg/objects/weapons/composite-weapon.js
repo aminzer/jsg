@@ -23,7 +23,7 @@ function CompositeWeapon(opts, render) {
     }
 }
 
-CompositeWeapon.prototype = Object.create(MovingObject.prototype);
+Extend(CompositeWeapon).from(MovingObject);
 
 CompositeWeapon.prototype.render = function() {
     this._weapons.forEach(function(weapon) {

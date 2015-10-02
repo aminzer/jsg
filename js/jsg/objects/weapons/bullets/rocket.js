@@ -12,7 +12,7 @@ function Rocket(opts, render) {
     }
 }
 
-Rocket.prototype = Object.create(Bullet.prototype);
+Extend(Rocket).from(Bullet);
 
 Rocket.prototype.render = function() {
     Painter.rectangle(this, 40, 6, 40, 3, "#999");

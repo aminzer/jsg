@@ -8,7 +8,7 @@ function ExplosiveRocket(opts, render) {
     this.setLifetime(this.def( opts.lifetime, BULLET.EXPLOSIVE_ROCKET.LIFETIME ));
 }
 
-ExplosiveRocket.prototype = Object.create(Rocket.prototype);
+Extend(ExplosiveRocket).from(Rocket);
 
 ExplosiveRocket.prototype.destroy = function() {
     for (var angle = 0; angle < 360; angle += 360 / BULLET.EXPLOSIVE_ROCKET.FRACTION_COUNT) {

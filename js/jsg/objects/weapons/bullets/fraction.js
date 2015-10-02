@@ -12,7 +12,7 @@ function Fraction(opts, render) {
     }
 }
 
-Fraction.prototype = Object.create(Bullet.prototype);
+Extend(Fraction).from(Bullet);
 
 Fraction.prototype.render = function() {
     Painter.rectangle(this, 3, 3, 1.5, 1.5, "#f00");

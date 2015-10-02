@@ -15,7 +15,7 @@ function Destroyer(opts, render) {
     }
 }
 
-Destroyer.prototype = Object.create(CircleUnit.prototype);
+Extend(Destroyer).from(CircleUnit);
 
 Destroyer.prototype.render = function() {
     Painter.circle(this, this.getRadius(), "#c22");

@@ -1,5 +1,7 @@
 function Cursor(opts, draw) {
+    opts = opts || {};
+
     ShapedObject.call(this, opts);
 }
 
-Cursor.prototype = Object.create(ShapedObject.prototype);
+Extend(Cursor).from(ShapedObject);

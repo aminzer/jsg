@@ -8,7 +8,7 @@ function AutomaticWeapon(opts) {
     this.setRateOfFire(this.def(opts.rateOfFire, WEAPON.DEFAULT.AUTOMATIC.RATE_OF_FIRE) );
 }
 
-AutomaticWeapon.prototype = Object.create(Weapon.prototype);
+Extend(AutomaticWeapon).from(Weapon);
 
 AutomaticWeapon.prototype.startShooting = function() {
     if (this.canMakeNextShot() && this._shootingTimer == null) {

@@ -8,7 +8,7 @@ function GrandfathersGun(opts, render) {
     }
 }
 
-GrandfathersGun.prototype = Object.create(Weapon.prototype);
+Extend(GrandfathersGun).from(Weapon);
 
 GrandfathersGun.prototype.render = function() {
     Painter.rectangle(this, this.getFrontLength() + 15, 5, 15, 2.5, "#444");

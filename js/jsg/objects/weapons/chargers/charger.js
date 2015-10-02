@@ -1,6 +1,7 @@
 function Charger(opts) {
     opts = opts || {};
-    MovingObject.call(this, opts);
+
+    BaseObject.call(this, opts);
 
     this._bulletCapacity = this.def( opts._bulletCapacity, Number.MAX_VALUE );       // max count of bullets in charger
     this._bulletCount = this.def( opts.bulletCount, this._bulletCapacity );          // current count of bullets
@@ -8,7 +9,7 @@ function Charger(opts) {
     this._bulletConstructor = this.def( opts.bulletConstructor, Bullet );
 }
 
-Charger.prototype = Object.create(MovingObject.prototype);
+Extend(Charger).from(BaseObject);
 
 Charger.prototype.isEmpty = function() {
     return this._bulletCount <= 0;
@@ -21,7 +22,6 @@ Charger.prototype.getNextBullet = function () {
 
     var nextBullet = new this._bulletConstructor();
     this._bulletCount--;
-    gctx.addBullet(nextBullet);
     return nextBullet;
 };
 

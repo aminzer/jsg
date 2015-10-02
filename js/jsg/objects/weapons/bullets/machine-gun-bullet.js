@@ -12,7 +12,7 @@ function MachineGunBullet(opts, render) {
     }
 }
 
-MachineGunBullet.prototype = Object.create(Bullet.prototype);
+Extend(MachineGunBullet).from(Bullet);
 
 MachineGunBullet.prototype.render = function() {
     Painter.circle(this, 2, "#000");

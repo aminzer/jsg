@@ -11,7 +11,7 @@ function Unit(opts) {
     this.setObjectType(OBJECT_TYPE.ENEMY);
 }
 
-Unit.prototype = Object.create(MovingObject.prototype);
+Extend(Unit).from(MovingObject);
 
 Unit.prototype.isPointInside = function(pointX, pointY) {
     // must define shape

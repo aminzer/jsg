@@ -16,7 +16,7 @@ function TankGun(opts, render) {
     }
 }
 
-TankGun.prototype = Object.create(Weapon.prototype);
+Extend(TankGun).from(Weapon);
 
 TankGun.prototype.render = function() {
     Painter.rectangle(this, this.getFrontLength() + 30, 14, 30, 7, "#381D11");

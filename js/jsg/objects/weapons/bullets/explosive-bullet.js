@@ -12,7 +12,7 @@ function ExplosiveBullet(opts, render) {
     }
 }
 
-ExplosiveBullet.prototype = Object.create(Bullet.prototype);
+Extend(ExplosiveBullet).from(Bullet);
 
 ExplosiveBullet.prototype.render = function() {
     Painter.circle(this, 2, "#00f");

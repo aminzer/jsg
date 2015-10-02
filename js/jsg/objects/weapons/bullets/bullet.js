@@ -20,7 +20,7 @@ function Bullet(opts, render) {
     }
 }
 
-Bullet.prototype = Object.create(MovingObject.prototype);
+Extend(Bullet).from(MovingObject);
 
 Bullet.prototype.render = function() {
     Painter.circle(this, 2, "#000");

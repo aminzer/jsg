@@ -14,7 +14,7 @@ function MachineGun(opts, render) {
     }
 }
 
-MachineGun.prototype = Object.create(AutomaticWeapon.prototype);
+Extend(MachineGun).from(AutomaticWeapon);
 
 MachineGun.prototype.render = function () {
     Painter.rectangle(this, this.getFrontLength() + 20, 4, 20, 2, "#8A8A8A");

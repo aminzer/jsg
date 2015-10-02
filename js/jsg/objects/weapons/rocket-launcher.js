@@ -14,7 +14,7 @@ function RocketLauncher(opts, render) {
     }
 }
 
-RocketLauncher.prototype = Object.create(Weapon.prototype);
+Extend(RocketLauncher).from(Weapon);
 
 RocketLauncher.prototype.render = function() {
     Painter.rectangle(this, this.getFrontLength() + 30, 8, 30, 4, "#244482");
