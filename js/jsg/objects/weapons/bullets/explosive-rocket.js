@@ -1,6 +1,7 @@
 function ExplosiveRocket(opts, render) {
     opts = opts || {};
 
+    Rocket.call(this, opts, render);
     ExplosiveBullet.call(this, opts, render);
 
     this.setDamage(this.def( opts.damage, BULLET.EXPLOSIVE_ROCKET.DAMAGE ));
