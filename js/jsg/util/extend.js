@@ -4,10 +4,9 @@
  * Extend(ChildClass).from(ParentClass);
  * Extend(ChildClass).from(ParentClass).withMixins([Mixin1, Mixin2]);
  *
- * !!! Parent constructors must be called manually from child constructor
- * !!! Mixin constructors must be first
- *
- * mixin methods override parent methods
+ * # Parent constructors must be called manually from child constructor
+ * # Mixin constructors must be first (parent fields are more important)
+ * # Mixin methods override parent methods
  */
 
 function Extend(childClass) {
