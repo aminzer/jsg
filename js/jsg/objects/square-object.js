@@ -1,8 +1,8 @@
 function SquareObject(opts) {
     opts = opts || {};
 
-    this._length = this.def( opts.length || 0 );
-    this._width = this.def( opts.width || 0 );
+    this._length = this.def( opts.length, 0 );
+    this._width = this.def( opts.width, 0 );
 }
 
 SquareObject.prototype.isPointInside = function(pointX, pointY) {

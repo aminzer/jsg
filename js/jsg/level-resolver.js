@@ -28,7 +28,7 @@ LevelResolver.prototype.resolve = function (level) {
                 x: effectDefinition.x * CANVAS_WIDTH / 100,
                 y: effectDefinition.y * CANVAS_HEIGHT / 100,
                 angle: effectDefinition.angle,
-                on: effectDefinition.on
+                active: effectDefinition.active
             }));
         }
     }

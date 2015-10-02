@@ -1,5 +1,5 @@
 var PLAYER = {
-    HP: 10,
+    HP: 20,
     SPEED: 3
 };
 

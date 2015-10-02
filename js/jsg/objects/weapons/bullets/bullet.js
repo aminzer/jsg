@@ -15,7 +15,7 @@ function Bullet(opts, render) {
     }
 
     function applyAngle(opts) {
-        var angle = opts.angle || opts.movementAngle || 0;
+        var angle = this.def( opts.angle, opts.movementAngle) || 0;
         this._angle = this._movementAngle = angle;
     }
 }

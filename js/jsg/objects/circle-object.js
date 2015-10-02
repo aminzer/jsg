@@ -1,7 +1,7 @@
 function CircleObject(opts) {
     opts = opts || {};
 
-    this._radius = this.def( opts.radius || 0 );
+    this._radius = this.def( opts.radius, 0 );
 }
 
 CircleObject.prototype.isPointInside = function(pointX, pointY) {

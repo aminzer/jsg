@@ -1,29 +1,31 @@
-function BulletReflectEffect(opts, draw) {
-    var self = Effect(opts);
+function BulletReflectEffect(opts, render) {
+    opts = opts || {};
 
-    self._radius = opts.radius || 100;
-    self._bullets = opts.bullets;
+    CircleObject.call(this, opts);
+    Effect.call(this, opts);
 
-    self.draw = function() {
-        Painter.circle(self, self._radius, "rgba(0,50,255,0.1)");
-    };
+    this.setRadius(this.def( opts.radius || 100 ));
 
-    if (draw !== false) {
-        self.draw();
+    if (render !== false) {
+        this.render();
     }
-
-    self.makeInfluence = function() {
-        if (self.haveInfluence()) {
-            for (var i = 0; i < self._bullets.length; i++) {
-                var bullet = self._bullets[i];
-                if (MathUtility.isInCircle(bullet.x, bullet.y, self.x, self.y, self._radius)) {
-                    var normalAngle = MathUtility.getLinesAngle(bullet.x, bullet.y, self.x, self.y);
-                    bullet.angle = 180 - bullet.angle + 2 * normalAngle;
-                    bullet.move();
-                }
-            }
-        }
-    };
-
-    return self;
 }
+
+Extend(BulletReflectEffect).from(Effect).withMixins(CircleObject);
+
+BulletReflectEffect.prototype.render = function() {
+    Painter.circle(this, this.getRadius(), "rgba(0,50,255,0.1)");
+};
+
+BulletReflectEffect.prototype.makeInfluence = function() {
+    if (this.isActive()) {
+        var self = this;
+        gctx.getBullets().forEach(function(bullet) {
+            if (self.isPointInside(bullet.getX(), bullet.getY())) {
+                var normalAngle = MathUtility.getLinesAngle(bullet.getX(), bullet.getY(), self.getX(), self.getY());
+                bullet.setAngle(180 - bullet.getAngle() + 2 * normalAngle);
+                bullet.move();
+            }
+        });
+    }
+};

@@ -21,11 +21,7 @@ function Player(opts, render) {
             new GrandfathersGun({}, false),
             new AutomaticGun({}, false),
             new MachineGun({}, false),
-            new RocketLauncher({}, false),
-            new CompositeWeapon({
-                weaponConstructors: [RocketLauncher, RocketLauncher, RocketLauncher],
-                offsetsY: [15, -15, 0]
-            }, false)
+            new RocketLauncher({}, false)
         );
 
         this.chooseWeapon(this._weaponIndex);

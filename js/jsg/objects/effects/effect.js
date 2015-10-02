@@ -1,19 +1,21 @@
 function Effect(opts) {
-    var self = ShapedObject(opts);
+    opts = opts || {};
 
-    var _on = opts.on || false;
+    MovingObject.call(this, opts);
 
-    self.on = function() {
-        _on = true;
-    };
-
-    self.off = function() {
-        _on = false;
-    };
-
-    self.haveInfluence = function() {
-        return _on;
-    };
-
-    return self;
+    this._active = this.def( opts.active, true );
 }
+
+Extend(Effect).from(MovingObject);
+
+Effect.prototype.activate = function() {
+    this._active = true;
+};
+
+Effect.prototype.deactivate = function() {
+    this._active = false;
+};
+
+Effect.prototype.isActive = function() {
+    return this._active;
+};

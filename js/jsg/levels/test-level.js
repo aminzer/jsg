@@ -3,26 +3,39 @@ function TEST_LEVEL() {
         enemies: [
             {
                 constructor: MachineGunner,
-                x: 30,
-                y: 15
-            }/*, {
+                x: 80,
+                y: 20
+            }, {
                 constructor: Recruit,
-                x: 50,
-                y: 0
-            }*/
-        ]
-        //effects: [
-        //    {
-        //        constructor: BulletReflectEffect,
-        //        x: 40,
-        //        y: 20,
-        //        on: true
-        //    }
-        //],
+                x: 70,
+                y: 70
+            }, {
+                constructor: FootSoldier,
+                x: 60,
+                y: 50
+            }, {
+                constructor: GuyWithPanzerschreck,
+                x: 70,
+                y: 90
+            }, {
+                constructor: Destroyer,
+                x: 70,
+                y: 40
+            }
+        ],
 
-        //enemyFactory: {
-        //    constructor: EnemyFactory,
-        //    generatingDelay: 5000
-        //}
+        effects: [
+            {
+                constructor: BulletReflectEffect,
+                x: 20,
+                y: 80,
+                active: true
+            }
+        ],
+
+        enemyFactory: {
+            constructor: EnemyFactory,
+            generatingDelay: 2000
+        }
     };
 }
