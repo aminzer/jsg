@@ -9,43 +9,50 @@ function AI(opts) {
     var self = this;
     this._changeActionTimer = setInterval(function () {
         self._changeAction = true;
-    }, 700);
+    }, 1000);
 }
 
 AI.prototype.resolve = function() {
-    for (var i = 0; i < this._units.length; i++) {
-        var ownUnit = this._units[i];
-        if (ownUnit.getObjectType() == OBJECT_TYPE.ENEMY) {
-            ownUnit.aimAt(this._target.getX(), this._target.getY());   // aim at target
+    var self = this;
 
-            if (!canShoot.call(this, ownUnit)) {    // prevent friendly fire
-                ownUnit.stopShooting();
+    this._units.forEach(function(unit) {
+        if (unit.getObjectType() === OBJECT_TYPE.ENEMY) {
+            unit.aimAt(self._target.getX(), self._target.getY());
+
+            var shootingAllowed = canShoot(unit, self._target, self._units);
+
+            if (!shootingAllowed) {
+                unit.stopShooting();
             }
 
-            if (this._changeAction == true) {    // random behaviour
+            if (self._changeAction == true) {    // random behaviour
                 if (random() > 0.5) {
-                    ownUnit.stopShooting();
-                    ownUnit.startMoving(MathUtility.getLinesAngle(
-                            ownUnit.getX(),
-                            ownUnit.getY(),
-                            this._target.getX(),
-                            this._target.getY()
+                    unit.stopShooting();
+                    unit.startMoving(MathUtility.getLinesAngle(
+                            unit.getX(),
+                            unit.getY(),
+                            self._target.getX(),
+                            self._target.getY()
                         ) + random() * 90 - 45);
                 } else {
-                    ownUnit.stopMoving();
-                    if (canShoot.call(this, ownUnit)) {
-                        ownUnit.startShooting();
+                    unit.stopMoving();
+                    if (shootingAllowed) {
+                        unit.startShooting();
                     }
                 }
             }
         }
-    }
+    });
+
     this._changeAction = false;
 
-    function canShoot(shooter) {        // check all friends on firing lines
-        for (var k = 0; k < this._units.length; k++) {
-            var ownUnit = this._units[i];
-            if (!ownUnit == this._target && (ownUnit.getObjectType() == OBJECT_TYPE.ENEMY) && isOnFiringLine.call(this, shooter, ownUnit)) {
+    function canShoot(shooter, target, units) {        // check all friends on firing lines
+        for (var k = 0; k < units.length; k++) {
+            var unit = units[k];
+            if (unit === shooter || unit === target) {
+                continue;
+            }
+            if (unit.getObjectType() === OBJECT_TYPE.ENEMY && isOnFiringLine(shooter, unit)) {
                 return false;
             }
         }
@@ -53,13 +60,17 @@ AI.prototype.resolve = function() {
     }
 
     function isOnFiringLine(shooter, target) {
+        // TODO fix for square units
+        if (!TypeUtility.isDefined(target.getRadius)) {
+            return false;
+        }
         return MathUtility.isRayPassThroughCircle(
-            shooter._weapon.x,
-            shooter._weapon.y,
-            shooter._weapon.angle,
-            target.x,
-            target.y,
-            target._radius
+            shooter.getWeapon().getX(),
+            shooter.getWeapon().getY(),
+            shooter.getWeapon().getAngle(),
+            target.getX(),
+            target.getY(),
+            target.getRadius()
         );
     }
 };
