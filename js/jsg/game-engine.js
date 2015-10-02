@@ -41,7 +41,7 @@ function GameEngine(opts) {
         gameContext.setPlayer(_player);
 
         _levelResolver = new LevelResolver();
-        _levelResolver.resolve(TEST_LEVEL());
+        _levelResolver.resolve(TEST_LEVEL);
 
         _ai = new AI();
 

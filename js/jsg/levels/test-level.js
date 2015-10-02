@@ -1,5 +1,4 @@
-function TEST_LEVEL() {
-    return {
+var TEST_LEVEL =  {
         enemies: [
             {
                 constructor: MachineGunner,
@@ -38,4 +37,3 @@ function TEST_LEVEL() {
             generatingDelay: 2000
         }
     };
-}

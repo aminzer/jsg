@@ -1,5 +1,4 @@
-function SIMPLE_LEVEL() {
-    return {
+var SIMPLE_LEVEL = {
         enemies: [
             {
                 constructor: Recruit,
@@ -16,4 +15,3 @@ function SIMPLE_LEVEL() {
             }
         ]
     };
-}
