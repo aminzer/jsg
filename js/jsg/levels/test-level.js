@@ -2,10 +2,10 @@ function TEST_LEVEL() {
     return {
         enemies: [
             {
-                constructor: Tank,
+                constructor: MachineGunner,
                 x: 30,
                 y: 15
-            },/* {
+            }/*, {
                 constructor: Recruit,
                 x: 50,
                 y: 0

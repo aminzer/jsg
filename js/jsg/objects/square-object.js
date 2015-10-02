@@ -3,8 +3,8 @@ function SquareObject(opts) {
 
     PositionedObject.call(this, opts);
 
-    this._length = this.def( opts.length || 2 * UNIT.DEFAULT.RADIUS );
-    this._width = this.def( opts.width || 2 * UNIT.DEFAULT.RADIUS );
+    this._length = this.def( opts.length || 0 );
+    this._width = this.def( opts.width || 0 );
 }
 
 Extend(SquareObject).from(PositionedObject);

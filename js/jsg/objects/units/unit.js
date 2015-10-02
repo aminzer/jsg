@@ -6,14 +6,17 @@ function Unit(opts) {
     this._maxHp = this.def( opts.maxHp, UNIT.DEFAULT.HP );
     this._hp = this.def( opts.hp, this._maxHp );
 
-    this._radius = this.def( opts.radius, UNIT.DEFAULT.RADIUS );          // body area = circle (for handling hits)
-
     this._weapon = null;
 
     this.setObjectType(OBJECT_TYPE.ENEMY);
 }
 
 Unit.prototype = Object.create(MovingObject.prototype);
+
+Unit.prototype.isPointInside = function(pointX, pointY) {
+    // must define shape
+    return false;
+};
 
 Unit.prototype.hasWeapon = function() {
     return this._weapon != null;
@@ -95,12 +98,4 @@ Unit.prototype.getWeapon = function() {
 
 Unit.prototype.setWeapon = function(weapon) {
     this._weapon = weapon;
-};
-
-Unit.prototype.getRadius = function() {
-    return this._radius;
-};
-
-Unit.prototype.setRadius = function(radius) {
-    this._radius = radius;
 };

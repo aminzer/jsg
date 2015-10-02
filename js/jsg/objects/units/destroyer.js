@@ -1,7 +1,7 @@
 function Destroyer(opts, render) {
     opts = opts || {};
 
-    Unit.call(this, opts);
+    CircleUnit.call(this, opts);
 
     this.setRadius(UNIT.DESTROYER.RADIUS);
     this.setWeapon(new CompositeWeapon({
@@ -15,7 +15,7 @@ function Destroyer(opts, render) {
     }
 }
 
-Destroyer.prototype = Object.create(Unit.prototype);
+Destroyer.prototype = Object.create(CircleUnit.prototype);
 
 Destroyer.prototype.render = function() {
     Painter.circle(this, this.getRadius(), "#c22");

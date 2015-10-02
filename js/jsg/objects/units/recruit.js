@@ -1,7 +1,7 @@
 function Recruit(opts, render) {
     opts = opts || {};
 
-    Unit.call(this, opts);
+    CircleUnit.call(this, opts);
 
     this.setWeapon(new GrandfathersGun({}, false));
 
@@ -10,7 +10,7 @@ function Recruit(opts, render) {
     }
 }
 
-Recruit.prototype = Object.create(Unit.prototype);
+Extend(Recruit).from(CircleUnit);
 
 Recruit.prototype.render = function() {
     Painter.circle(this, this.getRadius(), "#199EE0");

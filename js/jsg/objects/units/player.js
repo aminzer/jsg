@@ -1,7 +1,7 @@
 function Player(opts, render) {
     opts = opts || {};
 
-    Unit.call(this, opts);
+    CircleUnit.call(this, opts);
 
     this._arsenal = [];
     this._weaponIndex = 0;      // index of current weapon in arsenal
@@ -24,7 +24,7 @@ function Player(opts, render) {
             new RocketLauncher({}, false),
             new CompositeWeapon({
                 weaponConstructors: [RocketLauncher, RocketLauncher, RocketLauncher],
-                offsetsY: [15, -15, 1]
+                offsetsY: [15, -15, 0]
             }, false)
         );
 
@@ -32,7 +32,7 @@ function Player(opts, render) {
     }
 }
 
-Player.prototype = Object.create(Unit.prototype);
+Extend(Player).from(CircleUnit);
 
 Player.prototype.render = function() {
     Painter.circle(this, this.getRadius(), "#73B500");

@@ -1,7 +1,7 @@
 function MachineGunner(opts, render) {
     opts = opts || {};
 
-    Unit.call(this, opts);
+    CircleUnit.call(this, opts);
 
     this.setWeapon(new MachineGun({}, false));
 
@@ -10,7 +10,7 @@ function MachineGunner(opts, render) {
     }
 }
 
-MachineGunner.prototype = Object.create(Unit.prototype);
+Extend(MachineGunner).from(CircleUnit);
 
 MachineGunner.prototype.render = function() {
     Painter.circle(this, this.getRadius(), "#E08A19");

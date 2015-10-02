@@ -1,7 +1,7 @@
 function FootSoldier(opts, render) {
     opts = opts || {};
 
-    Unit.call(this, opts);
+    CircleUnit.call(this, opts);
 
     this.setWeapon(new AutomaticGun({}, false));
 
@@ -10,7 +10,7 @@ function FootSoldier(opts, render) {
     }
 }
 
-FootSoldier.prototype = Object.create(Unit.prototype);
+Extend(FootSoldier).from(CircleUnit);
 
 FootSoldier.prototype.render = function() {
     Painter.circle(this, this.getRadius(), "#559");

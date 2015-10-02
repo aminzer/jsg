@@ -1,7 +1,7 @@
 function GuyWithPanzerschreck(opts, render) {
     opts = opts || {};
 
-    Unit.call(this, opts);
+    CircleUnit.call(this, opts);
 
     this.setWeapon(new RocketLauncher({}, false));
 
@@ -10,7 +10,7 @@ function GuyWithPanzerschreck(opts, render) {
     }
 }
 
-GuyWithPanzerschreck.prototype = Object.create(Unit.prototype);
+Extend(GuyWithPanzerschreck).from(CircleUnit);
 
 GuyWithPanzerschreck.prototype.render = function() {
     Painter.circle(this, this.getRadius(), "#8D91E3");
