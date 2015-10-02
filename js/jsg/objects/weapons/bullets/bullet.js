@@ -29,7 +29,7 @@ Bullet.prototype.render = function() {
 Bullet.prototype.parent_move = Bullet.prototype.move;
 Bullet.prototype.move = function() {
     Bullet.prototype.parent_move.call(this);
-    return --this._lifetime > 0;
+    return this.reduceLifetime() > 0;
 };
 
 Bullet.prototype.destroy = function() { };
@@ -57,5 +57,5 @@ Bullet.prototype.setLifetime = function(lifetime) {
 };
 
 Bullet.prototype.reduceLifetime = function () {
-    this._lifetime--;
+    return --this._lifetime;
 };

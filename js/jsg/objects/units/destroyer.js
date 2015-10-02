@@ -4,6 +4,7 @@ function Destroyer(opts, render) {
     CircleUnit.call(this, opts);
 
     this.setRadius(UNIT.DESTROYER.RADIUS);
+    this.setMaxHp(UNIT.DESTROYER.HP);
     this.setWeapon(new CompositeWeapon({
         weaponConstructors: [MachineGun, MachineGun, RocketLauncher],
         offsetsY: [-22, -9, 19],

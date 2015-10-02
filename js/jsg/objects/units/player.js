@@ -21,7 +21,8 @@ function Player(opts, render) {
             new GrandfathersGun({}, false),
             new AutomaticGun({}, false),
             new MachineGun({}, false),
-            new RocketLauncher({}, false)
+            new RocketLauncher({}, false),
+            new Mortar({}, false)
         );
 
         this.chooseWeapon(this._weaponIndex);

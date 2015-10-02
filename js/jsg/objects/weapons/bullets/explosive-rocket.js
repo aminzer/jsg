@@ -24,7 +24,6 @@ ExplosiveRocket.prototype.getChildBulletOpts = function() {
         y: this.getY() - 30 * sin_d(this.getAngle()),
         damage: BULLET.EXPLOSIVE_ROCKET.FRACTION_DAMAGE,
         speed: 10 + random() * 5,
-        lifetime: BULLET.EXPLOSIVE_ROCKET.FRACTION_LIFETIME,
-        explosionCount: 2
+        lifetime: BULLET.EXPLOSIVE_ROCKET.FRACTION_LIFETIME
     }
 };

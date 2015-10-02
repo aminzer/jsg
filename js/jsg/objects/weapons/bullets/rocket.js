@@ -46,12 +46,12 @@ Rocket.prototype.setAcceleration = function(acceleration) {
     this._acceleration = acceleration;
 };
 
-Rocket.prototype.getStartAccelerationLifetime = function() {
-    return this._startAccelerationLifetime;
+Rocket.prototype.getBeginAccelerationLifetime = function() {
+    return this._beginAccelerationLifetime;
 };
 
-Rocket.prototype.setStartAccelerationLifetime = function(startAccelerationLifetime) {
-    this._startAccelerationLifetime = startAccelerationLifetime;
+Rocket.prototype.setBeginAccelerationLifetime = function(beginAccelerationLifetime) {
+    this._beginAccelerationLifetime = beginAccelerationLifetime;
 };
 
 Rocket.prototype.getEndAccelerationLifetime = function() {
