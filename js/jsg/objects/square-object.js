@@ -1,13 +1,9 @@
 function SquareObject(opts) {
     opts = opts || {};
 
-    PositionedObject.call(this, opts);
-
     this._length = this.def( opts.length || 0 );
     this._width = this.def( opts.width || 0 );
 }
-
-Extend(SquareObject).from(PositionedObject);
 
 SquareObject.prototype.isPointInside = function(pointX, pointY) {
     var relativeX = (pointX - this.getX()) * cos_d(this.getAngle()) + (pointY - this.getY()) * sin_d(this.getAngle());

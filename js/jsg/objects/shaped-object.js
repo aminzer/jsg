@@ -2,8 +2,7 @@ function ShapedObject(opts) {
     opts = opts || {};
 
     PositionedObject.call(this, opts);
-    
-    this._stage = opts.stage;
+
     this._shapes = [];
 }
 
@@ -34,8 +33,4 @@ ShapedObject.prototype.destroyShapes = function() {
         gctx.getStage().removeChild(this._shapes[i]);
     }
     this._shapes = [];
-};
-
-ShapedObject.prototype.getStage = function() {
-    return this._stage;
 };
