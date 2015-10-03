@@ -139,7 +139,7 @@ function GameEngine(opts) {
         }
 
         if (e.keyCode >= KEY.NUM_1 && e.keyCode <= KEY.NUM_9) {
-            _player.setWeapon(e.keyCode - KEY.NUM_1);
+            _player.chooseWeapon(e.keyCode - KEY.NUM_1);
         }
     }
 
