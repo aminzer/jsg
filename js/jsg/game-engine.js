@@ -235,7 +235,7 @@ function GameEngine(opts) {
     }
 
     function destroyBullet(index) {
-        _bullets[index].destroy();          // last action
+        _bullets[index].die();          // last action
         _bullets[index].destroyShapes();    // erase from stage
         _bullets.splice(index, 1);          // delete from _bullets array
     }

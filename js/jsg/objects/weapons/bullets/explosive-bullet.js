@@ -30,7 +30,7 @@ ExplosiveBullet.prototype.getChildBulletOpts = function() {
     };
 };
 
-ExplosiveBullet.prototype.destroy = function() {
+ExplosiveBullet.prototype.die = function() {
     if (this._explosionCount > 0) {
         for (var angle = this.getAngle() - this._sector/2; angle <= this.getAngle() + this._sector/2; angle += this._sector / (this._childCount-1)) {
             var childBullet = new this._childBulletConstructor(

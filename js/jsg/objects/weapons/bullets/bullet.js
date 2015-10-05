@@ -32,7 +32,7 @@ Bullet.prototype.move = function() {
     return this.reduceLifetime() > 0;
 };
 
-Bullet.prototype.destroy = function() { };
+Bullet.prototype.die = function() { };
 
 Bullet.prototype.getDamage = function() {
     return this._damage;

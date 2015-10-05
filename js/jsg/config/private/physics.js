@@ -30,7 +30,10 @@ var BULLET = {
     DEFAULT: {
         DAMAGE: 1,
         SPEED: 9,
-        LIFETIME: 50
+        LIFETIME: 50,
+        ACCELERATION: 0.5,
+        BEGIN_ACCELERATION_LIFETIME: 90,
+        END_ACCELERATION_LIFETIME: 60
     },
 
     MACHINE_GUN: {
@@ -55,6 +58,22 @@ var BULLET = {
         FRACTION_COUNT: 60,
         FRACTION_DAMAGE: 1,
         FRACTION_LIFETIME: 25
+    },
+
+    MINE: {
+        DAMAGE: 5,
+        FRACTION_COUNT: 50,
+        FRACTION_DAMAGE: 1,
+        FRACTION_LIFETIME: 10
+    },
+
+    MINE_DELIVERY: {
+        DAMAGE: 0,
+        START_SPEED: 18,
+        LIFETIME: 50,
+        ACCELERATION: -0.6,
+        BEGIN_ACCELERATION_LIFETIME: 30,
+        END_ACCELERATION_LIFETIME: 0
     }
 };
 

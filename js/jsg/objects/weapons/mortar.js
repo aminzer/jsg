@@ -7,7 +7,7 @@ function Mortar(opts, render) {
     this.setFrontLength(WEAPON.ROCKET_LAUNCHER.FRONT_LENGTH);
     this.setHardness(WEAPON.ROCKET_LAUNCHER.HARDNESS);
     this.setShootingDelay(WEAPON.ROCKET_LAUNCHER.SHOOTING_DELAY);
-    this.getCharger().setBulletConstructor(Mine);
+    this.getCharger().setBulletConstructor(MineDelivery);
 
     if (render !== false) {
         this.render();

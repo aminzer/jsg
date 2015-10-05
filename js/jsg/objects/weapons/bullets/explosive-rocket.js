@@ -2,7 +2,7 @@ function ExplosiveRocket(opts, render) {
     opts = opts || {};
 
     Rocket.call(this, opts, render);
-    ExplosiveBullet.call(this, opts, render);
+    ExplosiveBullet.call(this, opts, false);
 
     this.setDamage(this.def( opts.damage, BULLET.EXPLOSIVE_ROCKET.DAMAGE ));
     this.setSpeed(this.def( opts.speed, BULLET.EXPLOSIVE_ROCKET.START_SPEED ));
@@ -16,7 +16,7 @@ function ExplosiveRocket(opts, render) {
     }
 }
 
-Extend(ExplosiveRocket).from(ExplosiveBullet).withMixins(Rocket);
+Extend(ExplosiveRocket).from(ExplosiveBullet).withMixins([AcceleratingBullet, Rocket]);
 
 ExplosiveRocket.prototype.getChildBulletOpts = function() {
     return {
