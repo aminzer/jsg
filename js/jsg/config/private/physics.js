@@ -45,23 +45,23 @@ var BULLET = {
     ROCKET: {
         DAMAGE: 10,
         START_SPEED: 2,
-        LIFETIME: 100,
+        LIFETIME: 80,
         ACCELERATION: 0.5,
-        BEGIN_ACCELERATION_LIFETIME: 90,
-        END_ACCELERATION_LIFETIME: 60
+        BEGIN_ACCELERATION_LIFETIME: 70,
+        END_ACCELERATION_LIFETIME: 40
     },
 
     EXPLOSIVE_ROCKET: {
-        DAMAGE: 10,
+        DAMAGE: 20,
         START_SPEED: 2,
         LIFETIME: 100,
         FRACTION_COUNT: 60,
-        FRACTION_DAMAGE: 1,
+        FRACTION_DAMAGE: 1.5,
         FRACTION_LIFETIME: 25
     },
 
     MINE: {
-        DAMAGE: 5,
+        DAMAGE: 10,
         FRACTION_COUNT: 50,
         FRACTION_DAMAGE: 1,
         FRACTION_LIFETIME: 10
