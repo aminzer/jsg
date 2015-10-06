@@ -19,10 +19,11 @@ ExplosiveBullet.prototype.render = function() {
     Painter.circle(this, 2, "#00f");
 };
 
-ExplosiveBullet.prototype.getChildBulletOpts = function() {
+ExplosiveBullet.prototype.getChildBulletOpts = function(angle) {
     return {
         x: this.getX(),
         y: this.getY(),
+        angle: angle,
         lifeTime: this.getLifetime(),
         speed: this.getSpeed(),
         damage: this.getDamage(),
@@ -34,9 +35,8 @@ ExplosiveBullet.prototype.die = function() {
     if (this._explosionCount > 0) {
         for (var angle = this.getAngle() - this._sector/2; angle <= this.getAngle() + this._sector/2; angle += this._sector / (this._childCount-1)) {
             var childBullet = new this._childBulletConstructor(
-                this.getChildBulletOpts()
+                this.getChildBulletOpts(angle)
             );
-            childBullet.setAngle(angle);
             gctx.addBullet(childBullet);
         }
     }

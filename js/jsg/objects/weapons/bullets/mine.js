@@ -20,10 +20,11 @@ Mine.prototype.render = function() {
     Painter.circle(this, 3, "#f00");
 };
 
-Mine.prototype.getChildBulletOpts = function() {
+Mine.prototype.getChildBulletOpts = function(angle) {
     return {
-        x: this.getX() - 30 * cos_d(this.getAngle()),   // TODO fix tail exploding
-        y: this.getY() - 30 * sin_d(this.getAngle()),
+        x: this.getX() + 10 * cos_d(angle),
+        y: this.getY() + 10 * sin_d(angle),
+        angle: angle,
         damage: BULLET.MINE.FRACTION_DAMAGE,
         speed: 10 + random() * 5,
         lifetime: BULLET.MINE.FRACTION_LIFETIME

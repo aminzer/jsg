@@ -18,10 +18,11 @@ function ExplosiveRocket(opts, render) {
 
 Extend(ExplosiveRocket).from(ExplosiveBullet).withMixins([AcceleratingBullet, Rocket]);
 
-ExplosiveRocket.prototype.getChildBulletOpts = function() {
+ExplosiveRocket.prototype.getChildBulletOpts = function(angle) {
     return {
         x: this.getX() - 30 * cos_d(this.getAngle()),   // rocket explode in it's tail
         y: this.getY() - 30 * sin_d(this.getAngle()),
+        angle: angle,
         damage: BULLET.EXPLOSIVE_ROCKET.FRACTION_DAMAGE,
         speed: 10 + random() * 5,
         lifetime: BULLET.EXPLOSIVE_ROCKET.FRACTION_LIFETIME
