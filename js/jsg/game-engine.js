@@ -27,13 +27,9 @@ function GameEngine(opts) {
     function init() {
         createjs.Ticker.setFPS(FPS);
 
-        _cursor = new Cursor({
-            stage: _stage
-        });
+        _cursor = new Cursor();
 
         _player = new Player({
-            stage: _stage,
-            bullets: _bullets,
             x: 100,
             y: 100
         });
@@ -46,9 +42,9 @@ function GameEngine(opts) {
         _ai = new AI();
 
         // set handlers
-        _canvas.addEventListener("mousemove", handleMouseMove);
-        _canvas.addEventListener("mousedown", handleMouseDown);
-        _canvas.addEventListener("mouseup", handleMouseUp);
+        _stage.addEventListener("stagemousemove", handleMouseMove);
+        _stage.addEventListener("stagemousedown", handleMouseDown);
+        _stage.addEventListener("stagemouseup", handleMouseUp);
         _canvas.addEventListener("wheel", handleMouseWheel);
         _canvas.oncontextmenu = handleRightButtonClick;
         document.addEventListener("keydown", handleKeyDown);
@@ -79,7 +75,7 @@ function GameEngine(opts) {
         }
 
         // 2. controlling objects (player and AI)
-        _player.aimAt(_cursor.x, _cursor.y);
+        _player.aimAt(_cursor.getX(), _cursor.getY());
         _ai.resolve();
 
 
@@ -149,15 +145,15 @@ function GameEngine(opts) {
     }
 
     function handleMouseMove(e) {
-        _cursor.x = e.clientX - _canvas.offsetLeft;
-        _cursor.y = e.clientY - _canvas.offsetTop;
+        _cursor.setX(e.stageX);
+        _cursor.setY(e.stageY);
     }
 
-    function handleMouseDown(e) {
+    function handleMouseDown() {
         _player.startShooting();
     }
 
-    function handleMouseUp(e) {
+    function handleMouseUp() {
         _player.stopShooting();
     }
 
