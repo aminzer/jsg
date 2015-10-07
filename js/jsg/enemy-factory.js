@@ -17,12 +17,10 @@ EnemyFactory.prototype.startGenerating = function() {
     this._creationTimer = setInterval(function () {
         var constructor = self._enemyConstructors.get();
         gctx._units.push(new constructor({
-            x: CANVAS_WIDTH * (random() / 2 + 0.5),
-            y: CANVAS_HEIGHT * (random() / 2 + 0.5)
+            x: CANVAS.getWidth() * (random() / 2 + 0.5),
+            y: CANVAS.getHeight() * (random() / 2 + 0.5)
         }));
     }, this._generatingDelay);
-
-
 };
 
 EnemyFactory.prototype.stopGenerating = function() {

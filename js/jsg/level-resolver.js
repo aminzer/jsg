@@ -14,8 +14,8 @@ LevelResolver.prototype.resolve = function (level) {
         for (var i = 0; i < level.enemies.length; i++) {
             var enemyDefinition = level.enemies[i];
             this._units.push(new enemyDefinition.constructor({
-                x: enemyDefinition.x * CANVAS_WIDTH / 100,
-                y: enemyDefinition.y * CANVAS_HEIGHT / 100,
+                x: enemyDefinition.x,
+                y: enemyDefinition.y,
                 angle: enemyDefinition.angle
             }));
         }
@@ -25,8 +25,8 @@ LevelResolver.prototype.resolve = function (level) {
         for (i = 0; i < level.effects.length; i++) {
             var effectDefinition = level.effects[i];
             this._effects.push(new effectDefinition.constructor({
-                x: effectDefinition.x * CANVAS_WIDTH / 100,
-                y: effectDefinition.y * CANVAS_HEIGHT / 100,
+                x: effectDefinition.x,
+                y: effectDefinition.y,
                 angle: effectDefinition.angle,
                 active: effectDefinition.active
             }));

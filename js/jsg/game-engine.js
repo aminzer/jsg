@@ -145,8 +145,8 @@ function GameEngine(opts) {
     }
 
     function handleMouseMove(e) {
-        _cursor.setX(e.stageX);
-        _cursor.setY(e.stageY);
+        _cursor.setX( Scale.getVirtual(e.stageX) );
+        _cursor.setY( Scale.getVirtual(e.stageY) );
     }
 
     function handleMouseDown() {

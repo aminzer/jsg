@@ -2,32 +2,32 @@ var TEST_LEVEL =  {
         enemies: [
             {
                 constructor: MachineGunner,
-                x: 80,
-                y: 20
+                x: 1400,
+                y: 100
             }, {
                 constructor: Recruit,
-                x: 70,
-                y: 70
+                x: 1300,
+                y: 700
             }, {
                 constructor: FootSoldier,
-                x: 60,
-                y: 50
+                x: 1200,
+                y: 450
             }, {
                 constructor: GuyWithPanzerschreck,
-                x: 70,
-                y: 90
+                x: 1400,
+                y: 800
             }, {
                 constructor: Destroyer,
-                x: 70,
-                y: 40
+                x: 1400,
+                y: 350
             }
         ],
 
         effects: [
             {
                 constructor: BulletReflectEffect,
-                x: 20,
-                y: 80,
+                x: 250,
+                y: 700,
                 active: true
             }
         ],

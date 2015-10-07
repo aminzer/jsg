@@ -2,16 +2,16 @@ var SIMPLE_LEVEL = {
         enemies: [
             {
                 constructor: Recruit,
-                x: 70,
-                y: 10
+                x: 1300,
+                y: 600
             }, {
                 constructor: Recruit,
-                x: 70,
-                y: 50
+                x: 1300,
+                y: 700
             }, {
                 constructor: FootSoldier,
-                x: 65,
-                y: 30
+                x: 1300,
+                y: 800
             }
         ]
     };
