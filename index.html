@@ -133,7 +133,7 @@
                 $(".choose-level-button").button().click(function(e) {
                     e.preventDefault();
                     $("#choose-level-dialog").dialog("close");
-                    var level = $(event.target).parent().data("level");
+                    var level = $(e.target).parent().data("level");
                     startGame(level);
                 });
             });
