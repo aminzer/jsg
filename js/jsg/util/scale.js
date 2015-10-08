@@ -4,7 +4,7 @@ var Scale = {
         return virtualSizeOfObject * CANVAS.getWidth() / CANVAS.getVirtualWidth();
     },
 
-    getVirtual: function(virtualSizeOfObject) {
-        return virtualSizeOfObject * CANVAS.getVirtualWidth() / CANVAS.getWidth();
+    getVirtual: function(realSizeOfObject) {
+        return realSizeOfObject * CANVAS.getVirtualWidth() / CANVAS.getWidth();
     }
 };
