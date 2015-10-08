@@ -29,15 +29,10 @@ function GameEngine(opts) {
 
         _cursor = new Cursor();
 
-        _player = new Player({
-            x: 100,
-            y: 100
-        });
-        _units.push(_player);
-        gameContext.setPlayer(_player);
-
         _levelResolver = new LevelResolver();
-        _levelResolver.resolve(TEST_LEVEL);
+        _levelResolver.resolve(LevelStorage.get('Survival'));
+
+        _player = gctx.getPlayer();
 
         _ai = new AI();
 
