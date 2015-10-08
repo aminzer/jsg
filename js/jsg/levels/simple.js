@@ -1,4 +1,4 @@
-LevelStorage.add('Simple', {
+LevelStorage.add('Just piece of cake', {
 
     player: {
         x: 100,

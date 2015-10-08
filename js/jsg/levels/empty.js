@@ -1,4 +1,4 @@
-LevelStorage.add('Empty', {
+LevelStorage.add('Try your weapons', {
 
     player: {
         x: 100,

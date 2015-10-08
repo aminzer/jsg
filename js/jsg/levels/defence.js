@@ -1,4 +1,4 @@
-LevelStorage.add('Survival', {
+LevelStorage.add('Defence', {
 
     player: {
         x: 100,
