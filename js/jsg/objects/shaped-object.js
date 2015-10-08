@@ -12,11 +12,11 @@ ShapedObject.prototype.addShape = function(shape) {
     if (shape instanceof Array) {
         for (var i = 0; i < shape.length; i++) {
             this._shapes.push(shape[i]);
-            gctx.getStage().addChild(shape[i]);
+            _.stage().addChild(shape[i]);
         }
     } else {
         this._shapes.push(shape);
-        gctx.getStage().addChild(shape);
+        _.stage().addChild(shape);
     }
 };
 
@@ -30,7 +30,7 @@ ShapedObject.prototype.updateShapes = function() {
 
 ShapedObject.prototype.destroyShapes = function() {
     for (var i = 0; i < this._shapes.length; i++) {
-        gctx.getStage().removeChild(this._shapes[i]);
+        _.stage().removeChild(this._shapes[i]);
     }
     this._shapes = [];
 };

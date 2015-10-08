@@ -36,7 +36,7 @@ Weapon.prototype.shoot = function() {
         bullet.setY(this.getY() + this._frontLength * sin_d(this.getAngle()));
         bullet.setAngle(this.getAngle() + (1 - this.getAccuracy()) * (this._maxSector * random() - this._maxSector / 2));
         this.harmWeapon();
-        gctx.addBullet(bullet);
+        _.addBullet(bullet);
     }
     return bullet;
 };

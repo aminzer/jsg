@@ -37,7 +37,7 @@ ExplosiveBullet.prototype.die = function() {
             var childBullet = new this._childBulletConstructor(
                 this.getChildBulletOpts(angle)
             );
-            gctx.addBullet(childBullet);
+            _.addBullet(childBullet);
         }
     }
 };

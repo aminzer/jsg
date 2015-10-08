@@ -1,8 +1,8 @@
 function AI(opts) {
     opts = opts || {};
 
-    this._units = gctx.getUnits();
-    this._target = opts.target || gctx.getPlayer();
+    this._units = _.units();
+    this._target = opts.target || _.player();
 
     this._changeAction = true;
 

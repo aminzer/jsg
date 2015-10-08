@@ -1,56 +1,47 @@
-function LevelResolver(opts) {
-    opts = opts || {};
+var LevelResolver = function() {
+    return {
+        resolve: function(level) {
+            if (level.player) {
+                var playerDef = level.player;
+                var player = new Player({
+                    x: playerDef.x || 0,
+                    y: playerDef.y || 0
+                });
+                _.addUnit(player);
+                _.setPlayer(player);
+            }
 
-    this._enemyFactory = null;
-}
+            if (level.enemies) {
+                for (var i = 0; i < level.enemies.length; i++) {
+                    var enemyDef = level.enemies[i];
+                    _.addUnit(new enemyDef.constructor({
+                        x: enemyDef.x,
+                        y: enemyDef.y,
+                        angle: enemyDef.angle
+                    }));
+                }
+            }
 
-LevelResolver.prototype.resolve = function (level) {
-    if (level.player) {
-        var playerDef = level.player;
-        var player = new Player({
-            x: playerDef.x || 0,
-            y: playerDef.y || 0
-        });
-        gctx.setPlayer(player);
-        gctx.getUnits().push(player);
-    }
+            if (level.effects) {
+                for (i = 0; i < level.effects.length; i++) {
+                    var effectDef = level.effects[i];
+                    _.addEffect(new effectDef.constructor({
+                        x: effectDef.x,
+                        y: effectDef.y,
+                        angle: effectDef.angle,
+                        active: effectDef.active
+                    }));
+                }
+            }
 
-    if (level.enemies) {
-        for (var i = 0; i < level.enemies.length; i++) {
-            var enemyDef = level.enemies[i];
-            gctx.getUnits().push(new enemyDef.constructor({
-                x: enemyDef.x,
-                y: enemyDef.y,
-                angle: enemyDef.angle
-            }));
+            if (level.enemyFactory) {
+                var enemyFactoryDef = level.enemyFactory;
+                var enemyFactory = new enemyFactoryDef.constructor({
+                    generatingDelay: enemyFactoryDef.generatingDelay
+                });
+                _.setEnemyFactory(enemyFactory);
+                enemyFactory.startGenerating();
+            }
         }
     }
-
-    if (level.effects) {
-        for (i = 0; i < level.effects.length; i++) {
-            var effectDef = level.effects[i];
-            gctx.getEffects().push(new effectDef.constructor({
-                x: effectDef.x,
-                y: effectDef.y,
-                angle: effectDef.angle,
-                active: effectDef.active
-            }));
-        }
-    }
-
-    if (level.enemyFactory) {
-        var enemyFactoryDef = level.enemyFactory;
-        this._enemyFactory = new enemyFactoryDef.constructor({
-            generatingDelay: enemyFactoryDef.generatingDelay
-        });
-        this._enemyFactory.startGenerating();
-    }
-};
-
-LevelResolver.prototype.startGenerating = function() {
-    this._enemyFactory && this._enemyFactory.startGenerating();
-};
-
-LevelResolver.prototype.stopGenerating = function() {
-    this._enemyFactory && this._enemyFactory.stopGenerating();
-};
+}();

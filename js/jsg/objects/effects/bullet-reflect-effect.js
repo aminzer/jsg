@@ -20,7 +20,7 @@ BulletReflectEffect.prototype.render = function() {
 BulletReflectEffect.prototype.makeInfluence = function() {
     if (this.isActive()) {
         var self = this;
-        gctx.getBullets().forEach(function(bullet) {
+        _.bullets().forEach(function(bullet) {
             if (self.isPointInside(bullet.getX(), bullet.getY())) {
                 var normalAngle = MathUtility.getLinesAngle(bullet.getX(), bullet.getY(), self.getX(), self.getY());
                 bullet.setAngle(180 - bullet.getAngle() + 2 * normalAngle);

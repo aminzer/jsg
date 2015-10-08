@@ -23,7 +23,7 @@ MineDelivery.prototype.render = function() {
 };
 
 MineDelivery.prototype.die = function() {
-    gctx.getBullets().push(new Mine({
+    _.bullets().push(new Mine({
         x: this.getX(),
         y: this.getY()
     }));

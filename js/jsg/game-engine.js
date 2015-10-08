@@ -5,21 +5,8 @@ function GameEngine(opts) {
         running: true
     };
 
-    var gameContext = opts.gameContext;
-
-    var _canvas = gameContext.getCanvas();
-    var _stage = gameContext.getStage();
-
-    var _player = gameContext.getPlayer();
-    var _units = gameContext.getUnits();              // units and player
-    var _bullets = gameContext.getBullets();          // harm elements (like bullets)
-    var _effects = gameContext.getEffects();          // different physical effects
-
     var _ai = null;             // artificial intellect
-    var _levelResolver = null;
-
     var _pressedKeys = {};   // array with key codes of pressed buttons
-
     var _cursor = null;
 
     init();
@@ -29,36 +16,32 @@ function GameEngine(opts) {
 
         _cursor = new Cursor();
 
-        _levelResolver = new LevelResolver();
-        _levelResolver.resolve(LevelStorage.get('Survival'));
-
-        _player = gctx.getPlayer();
-
-        _ai = new AI();
-
         // set handlers
-        _stage.addEventListener("stagemousemove", handleMouseMove);
-        _stage.addEventListener("stagemousedown", handleMouseDown);
-        _stage.addEventListener("stagemouseup", handleMouseUp);
-        _canvas.addEventListener("wheel", handleMouseWheel);
-        _canvas.oncontextmenu = handleRightButtonClick;
+        _.stage().addEventListener("stagemousemove", handleMouseMove);
+        _.stage().addEventListener("stagemousedown", handleMouseDown);
+        _.stage().addEventListener("stagemouseup", handleMouseUp);
+        _.canvas().addEventListener("wheel", handleMouseWheel);
+        _.canvas().oncontextmenu = handleRightButtonClick;
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
         $(document).bind("player_dead", handlePlayersDeath);
     }
 
+    self.chooseLevel = function(levelName) {
+        LevelResolver.resolve( LevelStorage.get(levelName) );
+    };
+
     self.start = function() {
         createjs.Ticker.addEventListener("tick", handleTick);
+        _ai = new AI();
     };
 
     self.pause = function() {
-        createjs.Ticker.paused = !createjs.Ticker.paused;
-        _levelResolver.stopGenerating();
+        pauseGame();
     };
 
     self.resume = function() {
-        createjs.Ticker.paused = !createjs.Ticker.paused;
-        _levelResolver.startGenerating();
+        resumeGame();
     };
 
     // event handlers
@@ -70,43 +53,43 @@ function GameEngine(opts) {
         }
 
         // 2. controlling objects (player and AI)
-        _player.aimAt(_cursor.getX(), _cursor.getY());
+        _.player().aimAt(_cursor.getX(), _cursor.getY());
         _ai.resolve();
 
 
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
-        for (var i = 0; i < _units.length; i++) {
-            if (_units[i].move() == false) {     // lifeTime ended
-                _units[i].destroyShapes();
-                _units.splice(i, 1);
+        for (var i = 0; i < _.units().length; i++) {
+            if (_.units()[i].move() == false) {     // lifeTime ended
+                _.units()[i].destroyShapes();
+                _.units().splice(i, 1);
                 i--;  // because of splice
             }
         }
-        for (i = 0; i < _bullets.length; i++) {
-            if (_bullets[i].move() == false){     // lifeTime ended
+        for (i = 0; i < _.bullets().length; i++) {
+            if (_.bullets()[i].move() == false){     // lifeTime ended
                 destroyBullet(i);
                 i--;  // because of splice
             }
         }
-        for (i = 0; i < _effects.length; i++) {
-            _effects[i].makeInfluence();
+        for (i = 0; i < _.effects().length; i++) {
+            _.effects()[i].makeInfluence();
         }
 
         handleTargetHits();
 
         // 4. updating shapes related to Game Model Objects
-        for (i = 0; i < _units.length; i++) {
-            _units[i].updateShapes();
+        for (i = 0; i < _.units().length; i++) {
+            _.units()[i].updateShapes();
         }
-        for (i = 0; i < _bullets.length; i++) {
-            _bullets[i].updateShapes();
+        for (i = 0; i < _.bullets().length; i++) {
+            _.bullets()[i].updateShapes();
         }
-        for (i = 0; i < _effects.length; i++) {
-            _effects[i].updateShapes();
+        for (i = 0; i < _.effects().length; i++) {
+            _.effects()[i].updateShapes();
         }
 
         // 5. updating stage (redraw)
-        _stage.update();
+        _.stage().update();
     }
 
     function handleKeyDown(e) {
@@ -114,11 +97,11 @@ function GameEngine(opts) {
         setPlayersDirection();
 
         if (e.keyCode === CONTROLS.LOG) {
-            console.log("objects/bullets " + _units.length + "/" + _bullets.length);
+            console.log("objects/bullets " + _.units().length + "/" + _.bullets().length);
         }
 
         if (e.keyCode === CONTROLS.FIX_WEAPON) {
-            _player._weapon.fix();
+            _.player()._weapon.fix();
         }
 
         if (e.keyCode === CONTROLS.PAUSE) {
@@ -130,7 +113,7 @@ function GameEngine(opts) {
         }
 
         if (e.keyCode >= KEY.NUM_1 && e.keyCode <= KEY.NUM_9) {
-            _player.chooseWeapon(e.keyCode - KEY.NUM_1);
+            _.player().chooseWeapon(e.keyCode - KEY.NUM_1);
         }
     }
 
@@ -145,18 +128,18 @@ function GameEngine(opts) {
     }
 
     function handleMouseDown() {
-        _player.startShooting();
+        _.player().startShooting();
     }
 
     function handleMouseUp() {
-        _player.stopShooting();
+        _.player().stopShooting();
     }
 
     function handleMouseWheel(e) {
         if (e.deltaY > 0) {
-            _player.chooseNextWeapon();
+            _.player().chooseNextWeapon();
         } else {
-            _player.choosePrevWeapon();
+            _.player().choosePrevWeapon();
         }
         return false;
     }
@@ -166,26 +149,26 @@ function GameEngine(opts) {
     }
 
     function handleTargetHits() {
-        for (var j = 0; j < _units.length; j++) {
-            for (var i = 0; i < _bullets.length; i++) {
-                if (_units[j].isPointInside(_bullets[i].getX(), _bullets[i].getY())) {
-                    _units[j].takeDamage(_bullets[i].getDamage());     // unit takes damage
+        for (var j = 0; j < _.units().length; j++) {
+            for (var i = 0; i < _.bullets().length; i++) {
+                if (_.units()[j].isPointInside(_.bullets()[i].getX(), _.bullets()[i].getY())) {
+                    _.units()[j].takeDamage(_.bullets()[i].getDamage());     // unit takes damage
                     destroyBullet(i);
                     i--;  // because of splice
-                    if (_units[j] === _player) {
-                        $(document).trigger('player_hp_change', [_player.getHp(), _player.getMaxHp()]);
+                    if (_.units()[j] === _.player()) {
+                        $(document).trigger('player_hp_change', [_.player().getHp(), _.player().getMaxHp()]);
                     }
                 }
             }
 
-            if (_units[j].isAlive() === false) {        // unit is dead
-                if (_units[j].getObjectType() == OBJECT_TYPE.ENEMY) {
+            if (_.units()[j].isAlive() === false) {        // unit is dead
+                if (_.units()[j].getObjectType() == OBJECT_TYPE.ENEMY) {
                     $(document).trigger("enemy_died");
-                } else if (_units[j].getObjectType() == OBJECT_TYPE.PLAYER) {
+                } else if (_.units()[j].getObjectType() == OBJECT_TYPE.PLAYER) {
                     $(document).trigger("player_dead");
                 }
-                _units[j].destroyShapes();
-                _units.splice(j, 1);
+                _.units()[j].destroyShapes();
+                _.units().splice(j, 1);
                 j--;  // because of splice
             }
         }
@@ -213,7 +196,7 @@ function GameEngine(opts) {
             dy--;
         }
         if (dx == 0 && dy == 0) {
-            _player.stopMoving();
+            _.player().stopMoving();
             return;
         }
 
@@ -222,19 +205,19 @@ function GameEngine(opts) {
             angle = -angle;
         }
 
-        _player.startMoving(angle);
+        _.player().startMoving(angle);
     }
 
     function destroyBullet(index) {
-        _bullets[index].die();          // last action
-        _bullets[index].destroyShapes();    // erase from stage
-        _bullets.splice(index, 1);          // delete from _bullets array
+        _.bullets()[index].die();          // last action
+        _.bullets()[index].destroyShapes();    // erase from stage
+        _.bullets().splice(index, 1);          // delete from _.bullets() array
     }
 
     function pauseGame() {
         if (_gameState.running) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            _levelResolver.stopGenerating();
+            _.enemyFactory() || _.enemyFactory().stopGenerating();
             _gameState.running = false;
         }
     }
@@ -242,7 +225,7 @@ function GameEngine(opts) {
     function resumeGame() {
         if (!_gameState.running) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            _levelResolver.startGenerating();
+            _.enemyFactory() || _.enemyFactory().startGenerating();
             _gameState.running = true;
         }
     }

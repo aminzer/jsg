@@ -42,7 +42,6 @@
     <script src="js/jsg/objects/weapons/chargers/charger.js" defer></script>
 
     <script src="js/jsg/objects/weapons/weapon.js" defer></script>
-    <script src="js/jsg/objects/weapons/fake-weapon.js" defer></script>
     <script src="js/jsg/objects/weapons/automatic-weapon.js" defer></script>
     <script src="js/jsg/objects/weapons/composite-weapon.js" defer></script>
     <script src="js/jsg/objects/weapons/grandfathers-gun.js" defer></script>
@@ -61,7 +60,6 @@
     <script src="js/jsg/objects/units/guy-with-panzerschreck.js" defer></script>
     <script src="js/jsg/objects/units/tank.js" defer></script>
     <script src="js/jsg/objects/units/destroyer.js" defer></script>
-    <script src="js/jsg/objects/units/wall.js" defer></script>
     <script src="js/jsg/objects/units/player.js" defer></script>
 
     <script src="js/jsg/objects/effects/effect.js" defer></script>
@@ -110,10 +108,10 @@
                 location.reload();
             };
 
-            window.gctx = new GameContext();
-            var gameEngine = GameEngine({
-                gameContext: window.gctx
-            });
+            window._ = new GameContext();
+
+            var gameEngine = GameEngine();
+            gameEngine.chooseLevel('Survival');
             gameEngine.start();
 
             PlayerPanel().initHandlers();

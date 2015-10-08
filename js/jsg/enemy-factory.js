@@ -16,7 +16,7 @@ EnemyFactory.prototype.startGenerating = function() {
     var self = this;
     this._creationTimer = setInterval(function () {
         var constructor = self._enemyConstructors.get();
-        gctx._units.push(new constructor({
+        _._units.push(new constructor({
             x: CANVAS.getWidth() * (random() / 2 + 0.5),
             y: CANVAS.getHeight() * (random() / 2 + 0.5)
         }));
