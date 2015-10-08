@@ -17,8 +17,8 @@ EnemyFactory.prototype.startGenerating = function() {
     this._creationTimer = setInterval(function () {
         var constructor = self._enemyConstructors.get();
         _._units.push(new constructor({
-            x: CANVAS.getWidth() * (random() / 2 + 0.5),
-            y: CANVAS.getHeight() * (random() / 2 + 0.5)
+            x: CANVAS.getVirtualWidth() * (random() / 2 + 0.5),
+            y: CANVAS.getVirtualHeight() * (random() / 2 + 0.5)
         }));
     }, this._generatingDelay);
 };
