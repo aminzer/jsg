@@ -217,7 +217,7 @@ function GameEngine(opts) {
     function pauseGame() {
         if (_gameState.running) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            _.enemyFactory() || _.enemyFactory().stopGenerating();
+            _.enemyFactory() && _.enemyFactory().stopGenerating();
             _gameState.running = false;
         }
     }
@@ -225,7 +225,7 @@ function GameEngine(opts) {
     function resumeGame() {
         if (!_gameState.running) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            _.enemyFactory() || _.enemyFactory().startGenerating();
+            _.enemyFactory() && _.enemyFactory().startGenerating();
             _gameState.running = true;
         }
     }
