@@ -19,3 +19,9 @@ Effect.prototype.deactivate = function() {
 Effect.prototype.isActive = function() {
     return this._active;
 };
+
+Effect.prototype.makeInfluence = function() {
+    if (this.isActive()) {
+        // do some stuff
+    }
+};
