@@ -7,15 +7,15 @@ LevelStorage.add('Just piece of cake', {
 
     enemies: [
         {
-            constructor: Recruit,
+            $constructor: Recruit,
             x: 1300,
             y: 600
         }, {
-            constructor: Recruit,
+            $constructor: Recruit,
             x: 1300,
             y: 700
         }, {
-            constructor: FootSoldier,
+            $constructor: FootSoldier,
             x: 1300,
             y: 800
         }

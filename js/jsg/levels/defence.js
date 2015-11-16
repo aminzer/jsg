@@ -7,23 +7,23 @@ LevelStorage.add('Defence', {
 
     enemies: [
         {
-            constructor: MachineGunner,
+            $constructor: MachineGunner,
             x: 1400,
             y: 100
         }, {
-            constructor: Recruit,
+            $constructor: Recruit,
             x: 1300,
             y: 700
         }, {
-            constructor: FootSoldier,
+            $constructor: FootSoldier,
             x: 1200,
             y: 450
         }, {
-            constructor: GuyWithPanzerschreck,
+            $constructor: GuyWithPanzerschreck,
             x: 1400,
             y: 800
         }, {
-            constructor: Destroyer,
+            $constructor: Destroyer,
             x: 1400,
             y: 350
         }
@@ -31,7 +31,7 @@ LevelStorage.add('Defence', {
 
     effects: [
         {
-            constructor: BulletReflectEffect,
+            $constructor: BulletReflectEffect,
             x: 250,
             y: 700,
             active: true
@@ -39,7 +39,7 @@ LevelStorage.add('Defence', {
     ],
 
     enemyFactory: {
-        constructor: EnemyFactory,
+        $constructor: EnemyFactory,
         generatingDelay: 2000
     }
 });

@@ -112,6 +112,7 @@ var WEAPON = {
 };
 
 var ENEMY_FACTORY = {
+
     DEFAULT: {
         GENERATING_DELAY: 2000
     }
