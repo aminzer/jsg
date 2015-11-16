@@ -14,7 +14,7 @@ function BulletReflectEffect(opts, render) {
 Extend(BulletReflectEffect).from(Effect).withMixins(CircleObject);
 
 BulletReflectEffect.prototype.render = function() {
-    Painter.circle(this, this.getRadius(), "rgba(0,50,255,0.1)");
+    Painter.circle(this, this.getRadius(), "rgba(0, 100, 0, 0.2)");
 };
 
 BulletReflectEffect.prototype.makeInfluence = function() {

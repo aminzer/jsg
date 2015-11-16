@@ -1,7 +1,7 @@
 LevelStorage.add('Try your weapons', {
 
     player: {
-        x: 800,
+        x: 400,
         y: 450
     },
 

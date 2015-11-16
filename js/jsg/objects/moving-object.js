@@ -45,6 +45,14 @@ MovingObject.prototype.getSpeed = function() {
     return this._speed;
 };
 
+MovingObject.prototype.getXSpeed = function() {
+    return this._speed * cos_d(this._movementAngle);
+};
+
+MovingObject.prototype.getYSpeed = function() {
+    return this._speed * sin_d(this._movementAngle);
+};
+
 MovingObject.prototype.setSpeed = function (speed) {
     this._speed = speed;
 };

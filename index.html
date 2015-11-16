@@ -66,6 +66,7 @@
 
     <script src="js/jsg/objects/effects/effect.js" defer></script>
     <script src="js/jsg/objects/effects/bullet-reflect-effect.js" defer></script>
+    <script src="js/jsg/objects/effects/wind-effect.js" defer></script>
 
     <script src="js/jsg/cursor.js" defer></script>
 
@@ -111,32 +112,33 @@
                 location.reload();
             };
 
-            var dialog = $("<div/>", {id: "choose-level-dialog", title: "Choose your level"});
-            for (var level in LevelStorage.getAll()) {
-                if (LevelStorage.getAll().hasOwnProperty(level)) {
-                    var button = $("<button/>", {class: "choose-level-button", style: "margin: 10px"}).html(level).attr("data-level", level);
-                    dialog.append(button);
-                }
-            }
-            $('body').append(dialog);
-
-
-            $("#choose-level-dialog").dialog({
-                resizable: false,
-                width: 600,
-                height: 400,
-                modal: true
-            });
-
-
-            $(function() {
-                $(".choose-level-button").button().click(function(e) {
-                    e.preventDefault();
-                    $("#choose-level-dialog").dialog("close");
-                    var level = $(e.target).parent().data("level");
-                    startGame(level);
-                });
-            });
+//            var dialog = $("<div/>", {id: "choose-level-dialog", title: "Choose your level"});
+//            for (var level in LevelStorage.getAll()) {
+//                if (LevelStorage.getAll().hasOwnProperty(level)) {
+//                    var button = $("<button/>", {class: "choose-level-button", style: "margin: 10px"}).html(level).attr("data-level", level);
+//                    dialog.append(button);
+//                }
+//            }
+//            $('body').append(dialog);
+//
+//
+//            $("#choose-level-dialog").dialog({
+//                resizable: false,
+//                width: 600,
+//                height: 400,
+//                modal: true
+//            });
+//
+//
+//            $(function() {
+//                $(".choose-level-button").button().click(function(e) {
+//                    e.preventDefault();
+//                    $("#choose-level-dialog").dialog("close");
+//                    var level = $(e.target).parent().data("level");
+//                    startGame(level);
+//                });
+//            });
+            startGame('Try your weapons');
         }
 
         function startGame(level) {
