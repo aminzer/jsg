@@ -39,6 +39,11 @@ PositionedObject.prototype.setY = function(y) {
     this._y = y;
 };
 
+PositionedObject.prototype.setXY = function(x, y) {
+    this._x = x;
+    this._y = y;
+};
+
 PositionedObject.prototype.getAngle = function() {
     return this._angle;
 };

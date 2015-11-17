@@ -9,6 +9,8 @@ function GameEngine(opts) {
     var _pressedKeys = {};   // array with key codes of pressed buttons
     var _cursor = null;
 
+    var _control = null;
+
     init();
 
     function init() {
@@ -29,6 +31,7 @@ function GameEngine(opts) {
 
     self.chooseLevel = function(levelName) {
         LevelResolver.resolve( LevelStorage.get(levelName) );
+        _control = new DefaultControl();
     };
 
     self.start = function() {
@@ -53,7 +56,7 @@ function GameEngine(opts) {
         }
 
         // 2. controlling objects (player and AI)
-        _.player().aimAt(_cursor.getX(), _cursor.getY());
+        _control.handleRender();
         _ai.resolve();
 
 
@@ -93,54 +96,45 @@ function GameEngine(opts) {
     }
 
     function handleKeyDown(e) {
-        _pressedKeys[e.keyCode] = true;
-        setPlayersDirection();
+        _control.handleKeyDown(e.keyCode);
+        handleCommonKeys(e.keyCode);
+    }
 
-        if (e.keyCode === CONTROLS.LOG) {
-            console.log("objects/bullets " + _.units().length + "/" + _.bullets().length);
+    function handleCommonKeys(keyCode) {
+        if (keyCode === CONTROLS.COMMON.LOG) {
+            console.log(_);
         }
 
-        if (e.keyCode === CONTROLS.FIX_WEAPON) {
-            _.player()._weapon.fix();
-        }
-
-        if (e.keyCode === CONTROLS.PAUSE) {
+        if (keyCode === CONTROLS.COMMON.PAUSE) {
             if (_gameState.running) {
                 pauseGame();
             } else {
                 resumeGame();
             }
         }
-
-        if (e.keyCode >= KEY.NUM_1 && e.keyCode <= KEY.NUM_9) {
-            _.player().chooseWeapon(e.keyCode - KEY.NUM_1);
-        }
     }
 
     function handleKeyUp(e) {
-        _pressedKeys[e.keyCode] = false;
-        setPlayersDirection();
+        _control.handleKeyUp(e.keyCode);
     }
 
     function handleMouseMove(e) {
-        _cursor.setX( Scale.getVirtual(e.stageX) );
-        _cursor.setY( Scale.getVirtual(e.stageY) );
+        _control.handleMouseMove(
+            Scale.getVirtual(e.stageX),
+            Scale.getVirtual(e.stageY)
+        );
     }
 
     function handleMouseDown() {
-        _.player().startShooting();
+        _control.handleMouseDown();
     }
 
     function handleMouseUp() {
-        _.player().stopShooting();
+        _control.handleMouseUp();
     }
 
     function handleMouseWheel(e) {
-        if (e.deltaY > 0) {
-            _.player().chooseNextWeapon();
-        } else {
-            _.player().choosePrevWeapon();
-        }
+        _control.handleMouseWheel(e.deltaY);
         return false;
     }
 

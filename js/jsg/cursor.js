@@ -1,4 +1,4 @@
-function Cursor(opts, draw) {
+function Cursor(opts, render) {
     opts = opts || {};
 
     ShapedObject.call(this, opts);
