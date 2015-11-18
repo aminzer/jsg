@@ -160,6 +160,13 @@ var MathUtility = {
         return Math.abs(angle - basicAngle) <= deltaAngle;
     },
 
+    turnPointRelative: function(pointX, pointY, relativePointX, relativePointY, angle) {
+        var res = {};
+        res.x = relativePointX + (pointX - relativePointX) * cos_d(angle) - (pointY - relativePointY) * sin_d(angle);
+        res.y = relativePointY + (pointX - relativePointX) * sin_d(angle) + (pointY - relativePointY) * cos_d(angle);
+        return res;
+    },
+
     /**
      * get angle of ray after reflection from barrier
      * @param rayAngle (deg)

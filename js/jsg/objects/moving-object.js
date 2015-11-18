@@ -25,11 +25,11 @@ MovingObject.prototype.isMoving = function() {
     return this._isMoving;
 };
 
-MovingObject.getMovementAngle = function() {
+MovingObject.prototype.getMovementAngle = function() {
     return this._movementAngle;
 };
 
-MovingObject.setMovementAngle = function(movementAngle) {
+MovingObject.prototype.setMovementAngle = function(movementAngle) {
     this._movementAngle = movementAngle;
 };
 

@@ -8,16 +8,12 @@ function DefaultControl(opts) {
 
 Extend(DefaultControl).from(Control);
 
-DefaultControl.prototype.player = function() {
-    return _.player();
-};
-
 DefaultControl.prototype.handleKeyDown = function(keyCode) {
     this._pressedKeys[keyCode] = true;
     this._correctPlayerDirection();
 
-    if (keyCode == this.getKeyMap().HUCK.FIX_WEAPON) {
-        this.player().getWeapon().fix();
+    if (this.isPressed('HUCK.FIX_WEAPON')) {
+        this._controlledObject.getWeapon().fix();
     }
 };
 
@@ -27,47 +23,51 @@ DefaultControl.prototype.handleKeyUp = function(keyCode) {
 };
 
 DefaultControl.prototype.handleMouseDown = function(targetX, targetY) {
-    this.player().startShooting();
+    this._controlledObject.startShooting();
 };
 
 DefaultControl.prototype.handleMouseUp = function(targetX, targetY) {
-    this.player().stopShooting();
+    this._controlledObject.stopShooting();
 };
 
 DefaultControl.prototype.handleMouseMove = function(targetX, targetY) {
-    this.getCursor().setXY(targetX, targetY);
+    this.getCursor().setPosition({
+        x: targetX,
+        y: targetY
+    });
 };
 
 DefaultControl.prototype.handleMouseWheel = function(delta) {
     if (delta > 0) {
-        _.player().chooseNextWeapon();
+        this._controlledObject.chooseNextWeapon();
     } else {
-        _.player().choosePrevWeapon();
+        this._controlledObject.choosePrevWeapon();
     }
 };
 
 DefaultControl.prototype.handleRender = function() {
-    this.player().aimAt(this.getCursor().getX(), this.getCursor().getY());
+    this.getCursor().updateShapes();
+    this._controlledObject.aimAt(this.getCursor().getX(), this.getCursor().getY());
 };
 
 DefaultControl.prototype._correctPlayerDirection = function setPlayersDirection() {
     var dx = 0,
         dy = 0;
 
-    if (this._pressedKeys[this.getKeyMap().MOVE.RIGHT]) {
+    if (this.isPressed('MOVE.RIGHT')) {
         dx++;
     }
-    if (this._pressedKeys[this.getKeyMap().MOVE.LEFT]) {
+    if (this.isPressed('MOVE.LEFT')) {
         dx--;
     }
-    if (this._pressedKeys[this.getKeyMap().MOVE.DOWN]) {
+    if (this.isPressed('MOVE.DOWN')) {
         dy++;
     }
-    if (this._pressedKeys[this.getKeyMap().MOVE.UP]) {
+    if (this.isPressed('MOVE.UP')) {
         dy--;
     }
     if (dx == 0 && dy == 0) {
-        this.player().stopMoving();
+        this._controlledObject.stopMoving();
         return;
     }
 
@@ -75,6 +75,5 @@ DefaultControl.prototype._correctPlayerDirection = function setPlayersDirection(
     if (dy < 0) {
         angle = -angle;
     }
-
-    this.player().startMoving(angle);
+    this._controlledObject.startMoving(angle);
 };

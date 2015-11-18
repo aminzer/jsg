@@ -5,18 +5,13 @@ function GameEngine(opts) {
         running: true
     };
 
-    var _ai = null;             // artificial intellect
-    var _pressedKeys = {};   // array with key codes of pressed buttons
-    var _cursor = null;
-
+    var _ai = null;
     var _control = null;
 
     init();
 
     function init() {
         createjs.Ticker.setFPS(FPS);
-
-        _cursor = new Cursor();
 
         // set handlers
         _.stage().addEventListener("stagemousemove", handleMouseMove);
