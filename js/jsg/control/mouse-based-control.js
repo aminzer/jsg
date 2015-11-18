@@ -1,4 +1,4 @@
-function DefaultControl(opts) {
+function MouseBasedControl(opts) {
     opts = opts || {};
 
     Control.call(this, opts);
@@ -6,9 +6,9 @@ function DefaultControl(opts) {
     this._pressedKeys = {};
 }
 
-Extend(DefaultControl).from(Control);
+Extend(MouseBasedControl).from(Control);
 
-DefaultControl.prototype.handleKeyDown = function(keyCode) {
+MouseBasedControl.prototype.handleKeyDown = function(keyCode) {
     this._pressedKeys[keyCode] = true;
     this._correctPlayerDirection();
 
@@ -17,27 +17,27 @@ DefaultControl.prototype.handleKeyDown = function(keyCode) {
     }
 };
 
-DefaultControl.prototype.handleKeyUp = function(keyCode) {
+MouseBasedControl.prototype.handleKeyUp = function(keyCode) {
     this._pressedKeys[keyCode] = false;
     this._correctPlayerDirection();
 };
 
-DefaultControl.prototype.handleMouseDown = function(targetX, targetY) {
+MouseBasedControl.prototype.handleMouseDown = function(targetX, targetY) {
     this._controlledObject.startShooting();
 };
 
-DefaultControl.prototype.handleMouseUp = function(targetX, targetY) {
+MouseBasedControl.prototype.handleMouseUp = function(targetX, targetY) {
     this._controlledObject.stopShooting();
 };
 
-DefaultControl.prototype.handleMouseMove = function(targetX, targetY) {
+MouseBasedControl.prototype.handleMouseMove = function(targetX, targetY) {
     this.getCursor().setPosition({
         x: targetX,
         y: targetY
     });
 };
 
-DefaultControl.prototype.handleMouseWheel = function(delta) {
+MouseBasedControl.prototype.handleMouseWheel = function(delta) {
     if (delta > 0) {
         this._controlledObject.chooseNextWeapon();
     } else {
@@ -45,12 +45,12 @@ DefaultControl.prototype.handleMouseWheel = function(delta) {
     }
 };
 
-DefaultControl.prototype.handleRender = function() {
+MouseBasedControl.prototype.handleRender = function() {
     this.getCursor().updateShapes();
     this._controlledObject.aimAt(this.getCursor().getX(), this.getCursor().getY());
 };
 
-DefaultControl.prototype._correctPlayerDirection = function setPlayersDirection() {
+MouseBasedControl.prototype._correctPlayerDirection = function setPlayersDirection() {
     var dx = 0,
         dy = 0;
 

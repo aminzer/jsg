@@ -26,7 +26,7 @@ function GameEngine(opts) {
 
     self.chooseLevel = function(levelName) {
         LevelResolver.resolve( LevelStorage.get(levelName) );
-        _control = new DefaultControl();
+        _control = new UniversalControl();
     };
 
     self.start = function() {
