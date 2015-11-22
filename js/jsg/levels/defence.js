@@ -2,7 +2,14 @@ LevelStorage.add('Defence', {
 
     player: {
         x: 100,
-        y: 100
+        y: 100,
+        arsenal: [
+            new GrandfathersGun({}, false),
+            new AutomaticGun({}, false),
+            new MachineGun({}, false),
+            new RocketLauncher({}, false),
+            new Mortar({}, false)
+        ]
     },
 
     enemies: [

@@ -13,6 +13,7 @@ function Extend(childClass) {
     return {
         from: function(parentClass) {
             childClass.prototype = Object.create(parentClass.prototype);
+            childClass.prototype._parentPrototype = parentClass.prototype;
             return {
                 withMixins: function(mixins) {
                     if (mixins instanceof Array === false) {

@@ -2,7 +2,14 @@ LevelStorage.add('Try your weapons', {
 
     player: {
         x: 400,
-        y: 450
+        y: 450,
+        arsenal: [
+            new GrandfathersGun({}, false),
+            new AutomaticGun({}, false),
+            new MachineGun({}, false),
+            new RocketLauncher({}, false),
+            new Mortar({}, false)
+        ]
     },
 
     effects: [

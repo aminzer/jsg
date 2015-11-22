@@ -17,7 +17,7 @@ Charger.prototype.isEmpty = function() {
 
 Charger.prototype.getNextBullet = function () {
     if (this.isEmpty()) {
-        return false;
+        return null;
     }
 
     var nextBullet = new this._bulletConstructor();

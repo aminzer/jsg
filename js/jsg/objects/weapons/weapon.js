@@ -31,7 +31,7 @@ Weapon.prototype.harmWeapon = function() {
 
 Weapon.prototype.shoot = function() {
     var bullet = this._charger.getNextBullet();
-    if (bullet !== false) {
+    if (bullet !== null) {
         bullet.setX(this.getX() + this._frontLength * cos_d(this.getAngle()));
         bullet.setY(this.getY() + this._frontLength * sin_d(this.getAngle()));
         bullet.setAngle(this.getAngle() + (1 - this.getAccuracy()) * (this._maxSector * random() - this._maxSector / 2));
