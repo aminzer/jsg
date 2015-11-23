@@ -4,7 +4,7 @@ function Control(opts) {
     this._controlledObject = opts.controlledObject || _.player();
     this._cursor = opts.cursor || new Cursor();
 
-    this._keyMap = opts.keyMap || CONTROLS.PLAYER2;
+    this._keyMap = opts.keyMap || CONTROLS.DEFAULT;
     this._properties = {};    // quick analog of _keyMap
 }
 
