@@ -1,17 +1,15 @@
 function Destroyer(opts, render) {
     opts = opts || {};
 
-    CircleUnit.call(this, opts);
+    this.setIfUndefined(opts, 'radius', UNIT.DESTROYER.RADIUS);
+    this.setIfUndefined(opts, 'maxHp', UNIT.DESTROYER.HP);
+    this.setIfUndefined(opts, 'weaponSet', WeaponSet.oneGun(new CompositeWeapon({
+        weaponConstructors: [MachineGun, MachineGun, RocketLauncher],
+        offsetsY: [-22, -9, 19],
+        offsetsX: [-1, 2, 0]
+    }, false)));
 
-    this.setRadius(UNIT.DESTROYER.RADIUS);
-    this.setMaxHp(UNIT.DESTROYER.HP);
-    this.setWeaponSet(
-        WeaponSet.oneGun(new CompositeWeapon({
-            weaponConstructors: [MachineGun, MachineGun, RocketLauncher],
-            offsetsY: [-22, -9, 19],
-            offsetsX: [-1, 2, 0]
-        }, false))
-    );
+    CircleUnit.call(this, opts);
 
     if (render !== false) {
         this.render();

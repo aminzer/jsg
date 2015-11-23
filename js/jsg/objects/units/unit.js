@@ -1,6 +1,8 @@
 function Unit(opts) {
     opts = opts || {};
 
+    this.setIfUndefined(opts, 'speed', UNIT.DEFAULT.SPEED);
+
     MovingObject.call(this, opts);
 
     this._maxHp = this.def( opts.maxHp, UNIT.DEFAULT.HP );

@@ -1,11 +1,9 @@
 function MachineGunner(opts, render) {
     opts = opts || {};
 
-    CircleUnit.call(this, opts);
+    this.setIfUndefined(opts, 'weaponSet', WeaponSet.oneGun(new MachineGun({}, false)));
 
-    this.setWeaponSet(
-        WeaponSet.oneGun(new MachineGun({}, false))
-    );
+    CircleUnit.call(this, opts);
 
     if (render !== false) {
         this.render();

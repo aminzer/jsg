@@ -1,11 +1,9 @@
 function Recruit(opts, render) {
     opts = opts || {};
 
-    CircleUnit.call(this, opts);
+    this.setIfUndefined(opts, 'weaponSet', WeaponSet.oneGun(new GrandfathersGun({}, false)));
 
-    this.setWeaponSet(
-        WeaponSet.oneGun(new GrandfathersGun({}, false))
-    );
+    CircleUnit.call(this, opts);
 
     if (render !== false) {
         this.render();

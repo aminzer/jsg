@@ -26,3 +26,10 @@ BaseObject.prototype.def = function(value, defaultValue) {
     }
     return defaultValue;
 };
+
+BaseObject.prototype.setIfUndefined = function(opts, key, defaultValue) {
+    opts = opts || {};
+    if (!opts.hasOwnProperty(key)) {
+        opts[key] = defaultValue;
+    }
+};

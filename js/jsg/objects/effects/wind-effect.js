@@ -1,10 +1,10 @@
 function WindEffect(opts, render) {
     opts = opts || {};
 
+    this.setIfUndefined(opts, 'radius', 100);
+
     CircleObject.call(this, opts);
     Effect.call(this, opts);
-
-    this.setRadius(this.def( opts.radius || 300 ));
 
     if (render !== false) {
         this.render();

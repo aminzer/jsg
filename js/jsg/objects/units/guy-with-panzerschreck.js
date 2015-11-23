@@ -1,11 +1,9 @@
 function GuyWithPanzerschreck(opts, render) {
     opts = opts || {};
 
-    CircleUnit.call(this, opts);
+    this.setIfUndefined(opts, 'weaponSet', WeaponSet.oneGun(new RocketLauncher({}, false)));
 
-    this.setWeaponSet(
-        WeaponSet.oneGun(new RocketLauncher({}, false))
-    );
+    CircleUnit.call(this, opts);
 
     if (render !== false) {
         this.render();

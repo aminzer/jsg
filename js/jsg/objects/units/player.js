@@ -1,11 +1,10 @@
 function Player(opts, render) {
     opts = opts || {};
 
-    CircleUnit.call(this, opts);
+    this.setIfUndefined(opts, 'speed', PLAYER.SPEED);
+    this.setIfUndefined(opts, 'maxHp', PLAYER.HP);
 
-    this.setSpeed(this.def( opts.speed, PLAYER.SPEED ));
-    this.setMaxHp(this.def( opts.hp, PLAYER.HP ));
-    this.setObjectType(OBJECT_TYPE.PLAYER);
+    CircleUnit.call(this, opts);
 
     if (render !== false) {
         this.render();
