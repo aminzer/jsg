@@ -5,11 +5,13 @@ function Destroyer(opts, render) {
 
     this.setRadius(UNIT.DESTROYER.RADIUS);
     this.setMaxHp(UNIT.DESTROYER.HP);
-    this.setWeapon(new CompositeWeapon({
-        weaponConstructors: [MachineGun, MachineGun, RocketLauncher],
-        offsetsY: [-22, -9, 19],
-        offsetsX: [-1, 2, 0]
-    }, false));
+    this.setWeaponSet(
+        WeaponSet.oneGun(new CompositeWeapon({
+            weaponConstructors: [MachineGun, MachineGun, RocketLauncher],
+            offsetsY: [-22, -9, 19],
+            offsetsX: [-1, 2, 0]
+        }, false))
+    );
 
     if (render !== false) {
         this.render();

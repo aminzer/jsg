@@ -3,7 +3,9 @@ function Recruit(opts, render) {
 
     CircleUnit.call(this, opts);
 
-    this.setWeapon(new GrandfathersGun({}, false));
+    this.setWeaponSet(
+        WeaponSet.oneGun(new GrandfathersGun({}, false))
+    );
 
     if (render !== false) {
         this.render();

@@ -3,7 +3,9 @@ function GuyWithPanzerschreck(opts, render) {
 
     CircleUnit.call(this, opts);
 
-    this.setWeapon(new RocketLauncher({}, false));
+    this.setWeaponSet(
+        WeaponSet.oneGun(new RocketLauncher({}, false))
+    );
 
     if (render !== false) {
         this.render();

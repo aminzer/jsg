@@ -3,7 +3,9 @@ function MachineGunner(opts, render) {
 
     CircleUnit.call(this, opts);
 
-    this.setWeapon(new MachineGun({}, false));
+    this.setWeaponSet(
+        WeaponSet.oneGun(new MachineGun({}, false))
+    );
 
     if (render !== false) {
         this.render();

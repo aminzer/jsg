@@ -3,7 +3,9 @@ function FootSoldier(opts, render) {
 
     CircleUnit.call(this, opts);
 
-    this.setWeapon(new AutomaticGun({}, false));
+    this.setWeaponSet(
+        WeaponSet.oneGun(new AutomaticGun({}, false))
+    );
 
     if (render !== false) {
         this.render();

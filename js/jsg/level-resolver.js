@@ -17,6 +17,7 @@ var LevelResolver = function() {
                 var player = new Player(
                     getObjectOpts(level.player)
                 );
+                player.setObjectType(OBJECT_TYPE.PLAYER);
                 _.addUnit(player);
                 _.setPlayer(player);
             }

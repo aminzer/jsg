@@ -5,7 +5,6 @@ function Tank(opts, render) {
 
     this.setLength(80);
     this.setWidth(20);
-    this.setWeapon(new GrandfathersGun({}, false));
 
     if (render !== false) {
         this.render();
