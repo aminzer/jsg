@@ -1,4 +1,4 @@
-function Player(opts, render) {
+function Tommy(opts, render) {
     opts = opts || {};
 
     this.setIfUndefined(opts, 'speed', PLAYER.SPEED);
@@ -11,9 +11,9 @@ function Player(opts, render) {
     }
 }
 
-Extend(Player).from(CircleUnit);
+Extend(Tommy).from(CircleUnit);
 
-Player.prototype.render = function() {
+Tommy.prototype.render = function() {
     Painter.circle(this, this.getRadius(), "#73B500");
     Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#345200");
 

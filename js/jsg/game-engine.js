@@ -138,6 +138,8 @@ function GameEngine(opts) {
     }
 
     function handleTargetHits() {
+        // TODO check standard method     easel.js : Shape.hitTest(x,y)
+
         for (var j = 0; j < _.units().length; j++) {
             for (var i = 0; i < _.bullets().length; i++) {
                 if (_.units()[j].isPointInside(_.bullets()[i].getX(), _.bullets()[i].getY())) {

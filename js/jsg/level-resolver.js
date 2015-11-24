@@ -25,7 +25,8 @@ var LevelResolver = function() {
     return {
         resolve: function(level) {
             getPlayersDefinitions(level).forEach(function(playerDef) {
-                var player = new Player(
+                var constructor = playerDef.$constructor || Tommy;
+                var player = new constructor(
                     getObjectOpts(playerDef)
                 );
                 player.setObjectType(OBJECT_TYPE.PLAYER);
