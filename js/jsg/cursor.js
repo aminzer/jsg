@@ -3,6 +3,8 @@ function Cursor(opts, render) {
 
     MovingObject.call(this, opts);
 
+    this._color = this.def( opts.color, "rgba(0,0,255,0.1)" );
+
     if (render !== false) {
         this.render();
     }
@@ -21,5 +23,13 @@ Cursor.prototype.render = function () {
     Painter.rectangle(this, 2, 7, 1, 11, "#000");
     Painter.rectangle(this, 2, 7, 1, -4, "#000");
 
-    Painter.circle(this, 10, "rgba(0, 0, 255, 0.1)");
+    Painter.circle(this, 10, this.getColor());
+};
+
+Cursor.prototype.getColor = function() {
+    return this._color;
+};
+
+Cursor.prototype.setColor = function(color) {
+    this._color = color;
 };

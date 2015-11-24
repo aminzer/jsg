@@ -2,7 +2,7 @@ function AI(opts) {
     opts = opts || {};
 
     this._units = _.units();
-    this._target = opts.target || _.player();
+    this._target = opts.target || _.players()[0];
 
     this._changeAction = true;
 

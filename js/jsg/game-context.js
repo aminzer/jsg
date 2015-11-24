@@ -8,7 +8,7 @@ function GameContext(opts) {
 
     this._bullets = opts.bullets || [];
     this._units = opts.units || [];
-    this._player = opts.player || null;
+    this._players = opts.players || [];
     this._effects = opts.effects || [];
     this._enemyFactory = opts.enemyFactory || null;
 }
@@ -53,12 +53,16 @@ GameContext.prototype.addUnit = function(unit) {
     this._units.push(unit);
 };
 
-GameContext.prototype.player = function() {
-    return this._player;
+GameContext.prototype.players = function() {
+    return this._players;
 };
 
-GameContext.prototype.setPlayer = function(player) {
-    this._player = player;
+GameContext.prototype.setPlayers = function(players) {
+    this._players = players;
+};
+
+GameContext.prototype.addPlayer = function(player) {
+    this._players.push(player);
 };
 
 GameContext.prototype.effects = function() {

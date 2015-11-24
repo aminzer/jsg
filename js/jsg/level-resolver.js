@@ -1,5 +1,6 @@
 var LevelResolver = function() {
     var SPECIAL_OPTION_PREFIX = '$';
+    var PLAYER_PREFIX = 'player';
 
     function getObjectOpts(opts) {
         var res = {};
@@ -11,16 +12,27 @@ var LevelResolver = function() {
         return res;
     }
 
+    function getPlayersDefinitions(level) {
+        var players = [];
+        for (var key in level) {
+            if (level.hasOwnProperty(key) && key.indexOf(PLAYER_PREFIX) === 0) {
+                players.push(level[key]);
+            }
+        }
+        return players;
+    }
+
     return {
         resolve: function(level) {
-            if (level.player) {
+            getPlayersDefinitions(level).forEach(function(playerDef) {
                 var player = new Player(
-                    getObjectOpts(level.player)
+                    getObjectOpts(playerDef)
                 );
                 player.setObjectType(OBJECT_TYPE.PLAYER);
+                player.aimAt(Number.MAX_VALUE * cos_d(player.getAngle()), Number.MAX_VALUE * sin_d(player.getAngle()));
                 _.addUnit(player);
-                _.setPlayer(player);
-            }
+                _.addPlayer(player);
+            });
 
             if (level.enemies) {
                 for (var i = 0; i < level.enemies.length; i++) {

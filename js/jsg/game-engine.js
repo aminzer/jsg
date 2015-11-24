@@ -26,7 +26,7 @@ function GameEngine(opts) {
 
     self.chooseLevel = function(levelName) {
         LevelResolver.resolve( LevelStorage.get(levelName) );
-        _control = new UniversalControl();
+        initControls();
     };
 
     self.start = function() {
@@ -144,8 +144,8 @@ function GameEngine(opts) {
                     _.units()[j].takeDamage(_.bullets()[i].getDamage());     // unit takes damage
                     destroyBullet(i);
                     i--;  // because of splice
-                    if (_.units()[j] === _.player()) {
-                        $(document).trigger('player_hp_change', [_.player().getHp(), _.player().getMaxHp()]);
+                    if (_.units()[j] === _.players()[0]) {
+                        $(document).trigger('player_hp_change', [_.units()[j].getHp(), _.units()[j].getMaxHp()]);
                     }
                 }
             }
@@ -168,35 +168,6 @@ function GameEngine(opts) {
         location.reload();
     }
 
-    function setPlayersDirection() {
-        var dx = 0,
-            dy = 0;
-
-        if (_pressedKeys[CONTROLS.MOVE.RIGHT]) {
-            dx++;
-        }
-        if (_pressedKeys[CONTROLS.MOVE.LEFT]) {
-            dx--;
-        }
-        if (_pressedKeys[CONTROLS.MOVE.DOWN]) {
-            dy++;
-        }
-        if (_pressedKeys[CONTROLS.MOVE.UP]) {
-            dy--;
-        }
-        if (dx == 0 && dy == 0) {
-            _.player().stopMoving();
-            return;
-        }
-
-        var angle = 180 / Math.PI * Math.acos( dx / Math.sqrt(dx*dx + dy*dy) );
-        if (dy < 0) {
-            angle = -angle;
-        }
-
-        _.player().startMoving(angle);
-    }
-
     function destroyBullet(index) {
         _.bullets()[index].die();          // last action
         _.bullets()[index].destroyShapes();    // erase from stage
@@ -216,6 +187,37 @@ function GameEngine(opts) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
             _.enemyFactory() && _.enemyFactory().startGenerating();
             _gameState.running = true;
+        }
+    }
+
+    function initControls() {
+        switch (_.players().length) {
+            case 1:
+                _control = new UniversalControl({
+                    keyMap: CONTROLS.DEFAULT,
+                    controlledObject: _.players()[0]
+                });
+                break;
+            case 2:
+                _control = new MultiController({
+                    controls: [
+                        new UniversalControl({
+                            keyMap: CONTROLS.PLAYER1,
+                            controlledObject: _.players()[0],
+                            cursor: new Cursor({
+                                color: "rgba(0,100,0,0.2)"
+                            })
+                        }),
+                        new UniversalControl({
+                            keyMap: CONTROLS.PLAYER2,
+                            controlledObject: _.players()[1],
+                            color: "rgba(0,0,255,0.1)"
+                        })
+                    ]
+                });
+                break;
+            default:
+                _control = new ControlInterface();
         }
     }
 
