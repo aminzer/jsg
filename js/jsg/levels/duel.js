@@ -16,6 +16,9 @@ LevelStorage.add('Duel', {
     },
 
     player2: {
+        $constructor: MachineGunner,
+        speed: PLAYER.SPEED,
+        hp: PLAYER.HP,
         x: 400,
         y: 450,
         angle: 0,
