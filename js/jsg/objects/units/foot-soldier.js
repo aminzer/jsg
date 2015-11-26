@@ -2,21 +2,14 @@ function FootSoldier(opts, render) {
     opts = opts || {};
 
     this.setIfUndefined(opts, 'weaponSet', WeaponSet.oneGun(new AutomaticGun({}, false)));
+    this.setIfUndefined(opts, 'mainColor', '#559');
+    this.setIfUndefined(opts, 'extraColor', '#199EE0');
 
-    CircleUnit.call(this, opts);
+    Tommy.call(this, opts);
 
     if (render !== false) {
         this.render();
     }
 }
 
-Extend(FootSoldier).from(CircleUnit);
-
-FootSoldier.prototype.render = function() {
-    Painter.circle(this, this.getRadius(), "#559");
-    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#199EE0");
-
-    if (this.getWeapon() != null) {
-        this.getWeapon().render();
-    }
-};
+Extend(FootSoldier).from(Tommy);
