@@ -25,7 +25,7 @@ var LevelResolver = function() {
     return {
         resolve: function(level) {
             getPlayersDefinitions(level).forEach(function(playerDef) {
-                var constructor = playerDef.$constructor || DefaultHero;
+                var constructor = playerDef.$constructor || (_.players().length === 0 ? DefaultHero : DefaultHero2);
                 var player = new constructor(
                     getObjectOpts(playerDef)
                 );
