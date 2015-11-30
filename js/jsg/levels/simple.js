@@ -1,4 +1,6 @@
-LevelStorage.add('Just piece of cake', {
+LevelStorage.add(3, {
+
+    name: 'Just piece of cake',
 
     player: {
         x: 100,

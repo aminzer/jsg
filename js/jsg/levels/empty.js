@@ -1,4 +1,6 @@
-LevelStorage.add('Try your weapons', {
+LevelStorage.add(1, {
+
+    name: 'Try your weapons',
 
     player: {
         x: 400,

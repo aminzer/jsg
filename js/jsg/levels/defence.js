@@ -1,4 +1,6 @@
-LevelStorage.add('Defence', {
+LevelStorage.add(4, {
+
+    name: 'Defence',
 
     player: {
         x: 100,

@@ -1,4 +1,6 @@
-LevelStorage.add('Duel', {
+LevelStorage.add(2, {
+
+    name: 'Duel',
 
     player1: {
         x: 400,
