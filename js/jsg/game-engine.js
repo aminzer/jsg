@@ -86,7 +86,12 @@ function GameEngine(opts) {
             _.effects()[i].updateShapes();
         }
 
-        // 5. updating stage (redraw)
+        // 5. trigger player events
+        _.players().forEach(function(player) {
+            $(document).trigger('player_hp_change', [player.getId(), player.getHp(), player.getMaxHp()]);
+        });
+
+        // 6. updating stage (redraw)
         _.stage().update();
     }
 
@@ -140,27 +145,26 @@ function GameEngine(opts) {
     function handleTargetHits() {
         // TODO check standard method     easel.js : Shape.hitTest(x,y)
 
-        for (var j = 0; j < _.units().length; j++) {
-            for (var i = 0; i < _.bullets().length; i++) {
-                if (_.units()[j].isPointInside(_.bullets()[i].getX(), _.bullets()[i].getY())) {
-                    _.units()[j].takeDamage(_.bullets()[i].getDamage());     // unit takes damage
-                    destroyBullet(i);
-                    i--;  // because of splice
-                    if (_.units()[j] === _.players()[0]) {
-                        $(document).trigger('player_hp_change', [_.units()[j].getHp(), _.units()[j].getMaxHp()]);
-                    }
+        for (var i = 0; i < _.units().length; i++) {
+            var unit = _.units()[i];
+            for (var j = 0; j < _.bullets().length; j++) {
+                var bullet = _.bullets()[j];
+                if (unit.isPointInside(bullet.getX(), bullet.getY())) {
+                    unit.takeDamage(bullet.getDamage());     // unit takes damage
+                    destroyBullet(j);
+                    j--;  // because of splice
                 }
             }
 
-            if (_.units()[j].isAlive() === false) {        // unit is dead
-                if (_.units()[j].getObjectType() == OBJECT_TYPE.ENEMY) {
+            if (unit.isAlive() === false) {        // unit is dead
+                if (unit.getObjectType() == OBJECT_TYPE.ENEMY) {
                     $(document).trigger("enemy_died");
-                } else if (_.units()[j].getObjectType() == OBJECT_TYPE.PLAYER) {
+                } else if (unit.getObjectType() == OBJECT_TYPE.PLAYER) {
                     $(document).trigger("player_dead");
                 }
-                _.units()[j].destroyShapes();
-                _.units().splice(j, 1);
-                j--;  // because of splice
+                unit.destroyShapes();
+                _.units().splice(i, 1);
+                i--;  // because of splice
             }
         }
     }

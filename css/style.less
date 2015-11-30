@@ -1,5 +1,5 @@
 body {
-  @hp-panel-height: 10px;
+  @hp-panel-height: 16px;
   @kills-panel-size: 1px;
   @player-panel-height: @hp-panel-height;
 
@@ -17,26 +17,7 @@ body {
     left: 0;
     height: @player-panel-height;
     width: 100%;
-    background-color: #fff;
-
-    .hp-panel {
-      height: @hp-panel-height;
-      width: 100%;
-      outline: 1px solid #aaa;
-
-      .hp {
-        height: @hp-panel-height;
-        width: 100%;
-        background-color: #b03823;
-      }
-    }
-
-    .kills-panel {
-      height: @kills-panel-size;
-      width: @kills-panel-size;
-      padding-left: 10px;
-      font-size: 20px;
-    }
+    background-color: #333;
   }
 
   #canvas {

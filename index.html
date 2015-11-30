@@ -4,11 +4,11 @@
     <title> JSG </title>
     <meta charset="utf-8">
 
+    <link href="lib/bootstrap-3.3.5-dist/themes/cosmo-bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link href="lib/jquery-ui-1.11.4.custom/jquery-ui.min.css" rel="stylesheet" type="text/css">
 
-    <script src="lib/jquery-1.11.1.min.js" defer></script>
-    <script src="lib/jquery-ui-1.11.4.custom/jquery-ui.min.js" defer></script>
+    <script src="lib/jquery-2.1.4.min.js" defer></script>
+    <script src="lib/bootstrap-3.3.5-dist/bootstrap.min.js" defer></script>
     <script src="lib/createjs-2015.05.21.min.js" defer></script>
 
     <script src="js/jsg/util/extend.js" defer></script>
@@ -86,6 +86,7 @@
     <script src="js/jsg/game-context.js" defer></script>
     <script src="js/jsg/game-engine.js" defer></script>
     <script src="js/jsg/player-panel.js" defer></script>
+    <script src="js/jsg/progress-bar.js" defer></script>
     <script src="js/jsg/canvas.js" defer></script>
 
     <script src="js/jsg/levels/empty.js" defer></script>
@@ -96,12 +97,7 @@
 
 <body onload="onLoad();">
 
-    <div id="player-panel">
-        <div class="hp-panel">
-            <div class="hp"></div>
-        </div>
-        <div class="kills-panel">0</div>
-    </div>
+    <div id="player-panel"></div>
 
     <canvas id="canvas" height="900" width="1600"></canvas>
 
@@ -122,32 +118,7 @@
                 location.reload();
             };
 
-            var dialog = $("<div/>", {id: "choose-level-dialog", title: "Choose your level"});
-            for (var level in LevelStorage.getAll()) {
-                if (LevelStorage.getAll().hasOwnProperty(level)) {
-                    var button = $("<button/>", {class: "choose-level-button", style: "margin: 10px"}).html(level).attr("data-level", level);
-                    dialog.append(button);
-                }
-            }
-            $('body').append(dialog);
-
-
-            $("#choose-level-dialog").dialog({
-                resizable: false,
-                width: 600,
-                height: 400,
-                modal: true
-            });
-
-
-            $(function() {
-                $(".choose-level-button").button().click(function(e) {
-                    e.preventDefault();
-                    $("#choose-level-dialog").dialog("close");
-                    var level = $(e.target).parent().data("level");
-                    startGame(level);
-                });
-            });
+            startGame('Duel');
         }
 
         function startGame(level) {
@@ -155,9 +126,12 @@
 
             var gameEngine = GameEngine();
             gameEngine.chooseLevel(level);
-            gameEngine.start();
 
-            PlayerPanel().initHandlers();
+            var playerPanel = PlayerPanel();
+            playerPanel.setPlayers(_.players());
+            playerPanel.construct();
+
+            gameEngine.start();
         }
 
     </script>

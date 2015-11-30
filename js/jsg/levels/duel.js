@@ -1,7 +1,7 @@
 LevelStorage.add('Duel', {
 
     player1: {
-        x: 1200,
+        x: 400,
         y: 450,
         angle: 180,
         weaponSet: new WeaponSet({
@@ -16,7 +16,7 @@ LevelStorage.add('Duel', {
     },
 
     player2: {
-        x: 400,
+        x: 1200,
         y: 450,
         angle: 0,
         weaponSet: new WeaponSet({
