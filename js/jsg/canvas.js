@@ -1,4 +1,4 @@
-var CANVAS = function(opts) {
+var Canvas = function(opts) {
     opts = opts || {};
 
     var VIRTUAL_WIDTH = 1600;

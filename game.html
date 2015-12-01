@@ -105,20 +105,19 @@
     <script>
 
         function onLoad() {
-            CANVAS.setAndValidateSize({
+            Canvas.setAndValidateSize({
                 width: window.innerWidth,
                 height: window.innerHeight - parseInt(getComputedStyle(document.getElementById("player-panel"), '').height),
                 canvasElem: document.getElementById("canvas")
             });
 
-            startGame(RequestParams.get('level'));
-        }
-
-        function startGame(level) {
             window._ = new GameContext();
 
             var gameEngine = GameEngine();
-            gameEngine.chooseLevel(level);
+            gameEngine.chooseLevel({
+                level: RequestParams.get('level'),
+                playersCount: RequestParams.get('playersCount')
+            });
 
             var playerPanel = PlayerPanel();
             playerPanel.setPlayers(_.players());

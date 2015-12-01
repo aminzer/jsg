@@ -12,8 +12,6 @@ function GameEngine(opts) {
 
     function init() {
         createjs.Ticker.setFPS(FPS);
-
-        // set handlers
         _.stage().addEventListener("stagemousemove", handleMouseMove);
         _.stage().addEventListener("stagemousedown", handleMouseDown);
         _.stage().addEventListener("stagemouseup", handleMouseUp);
@@ -24,8 +22,11 @@ function GameEngine(opts) {
         $(document).bind("player_dead", handlePlayersDeath);
     }
 
-    self.chooseLevel = function(levelName) {
-        LevelResolver.resolve( LevelStorage.get(levelName) );
+    self.chooseLevel = function(opts) {
+        LevelResolver.resolve({
+            level: LevelStorage.get(opts.level || 1),
+            playersCount: opts.playersCount || 1
+        });
         initControls();
     };
 
