@@ -25,9 +25,12 @@ var LevelResolver = function() {
     return {
         resolve: function(opts) {
             var level = opts.level;
+            var playersCount = opts.playersCount || 1;
 
-            getPlayersDefinitions(level).forEach(function(playerDef) {
-                var constructor = playerDef.$constructor || (_.players().length === 0 ? DefaultHero : DefaultHero2);
+            var playerDefs = getPlayersDefinitions(level);
+            for (var i = 0; i < playersCount; i++) {
+                var playerDef = playerDefs[i] || {$constructor: DefaultHero2};
+                var constructor = playerDef.$constructor || (i === 0 ? DefaultHero : DefaultHero2);
                 var player = new constructor(
                     getObjectOpts(playerDef)
                 );
@@ -35,10 +38,10 @@ var LevelResolver = function() {
                 player.aimAt(Number.MAX_VALUE * cos_d(player.getAngle()), Number.MAX_VALUE * sin_d(player.getAngle()));
                 _.addUnit(player);
                 _.addPlayer(player);
-            });
+            }
 
             if (level.enemies) {
-                for (var i = 0; i < level.enemies.length; i++) {
+                for (i = 0; i < level.enemies.length; i++) {
                     _.addUnit(new level.enemies[i].$constructor(
                         getObjectOpts(level.enemies[i])
                     ));

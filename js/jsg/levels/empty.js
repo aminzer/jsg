@@ -2,9 +2,25 @@ LevelStorage.add(1, {
 
     name: 'Try your weapons',
 
-    player: {
+    player1: {
         x: 400,
         y: 450,
+        angle: 180,
+        weaponSet: new WeaponSet({
+            weapons: [
+                new GrandfathersGun({}, false),
+                new AutomaticGun({}, false),
+                new MachineGun({}, false),
+                new RocketLauncher({}, false),
+                new Mortar({}, false)
+            ]
+        })
+    },
+
+    player2: {
+        x: 1200,
+        y: 450,
+        angle: 0,
         weaponSet: new WeaponSet({
             weapons: [
                 new GrandfathersGun({}, false),
