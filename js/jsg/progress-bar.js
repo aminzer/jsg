@@ -11,7 +11,7 @@ function ProgressBar(opts) {
     self.generateHtml = function(opts) {
         var type = opts.type || 'success';
         _progressElem = $('<div/>', {'class': 'progress-bar progress-bar-' + type});
-        _elem = $('<div/>', {'class': 'progress progress-striped', 'style': 'width: 100%; padding:0; margin:0'});
+        _elem = $('<div/>', {'class': 'progress progress-striped', 'style': 'width:100%; padding:0; margin:0; background-color:#222'});
         _elem.append(_progressElem);
         return _elem;
     };
