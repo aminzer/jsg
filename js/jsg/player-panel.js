@@ -22,7 +22,8 @@ function PlayerPanel(opts) {
             var hpPanel = ProgressBar();
             var type = (i == 0) ? 'success' : 'warning';
             _panel.append(hpPanel.generateHtml({
-                 type: type
+                type: type,
+                height: _panel.height() / _players.length + 'px'
             }));
             hpPanel.setProgress(1);
             _hpPanels.push(hpPanel);
