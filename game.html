@@ -86,10 +86,13 @@
     <script src="js/jsg/enemy-factory.js" defer></script>
     <script src="js/jsg/ai.js" defer></script>
     <script src="js/jsg/game-context.js" defer></script>
-    <script src="js/jsg/game-engine.js" defer></script>
+    <script src="js/jsg/game.js" defer></script>
     <script src="js/jsg/player-panel.js" defer></script>
     <script src="js/jsg/progress-bar.js" defer></script>
     <script src="js/jsg/canvas.js" defer></script>
+
+    <script src="js/jsg/sound/sound.js" defer></script>
+    <script src="js/jsg/sound/sound-storage.js" defer></script>
 
     <script src="js/jsg/levels/empty.js" defer></script>
     <script src="js/jsg/levels/simple.js" defer></script>
@@ -113,8 +116,8 @@
 
             window._ = new GameContext();
 
-            var gameEngine = GameEngine();
-            gameEngine.chooseLevel({
+            var game = Game();
+            game.chooseLevel({
                 level: RequestParams.get('level'),
                 playersCount: RequestParams.get('playersCount')
             });
@@ -123,7 +126,7 @@
             playerPanel.setPlayers(_.players());
             playerPanel.construct();
 
-            gameEngine.start();
+            game.start();
         }
 
     </script>

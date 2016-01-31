@@ -1,4 +1,4 @@
-function GameEngine(opts) {
+function Game(opts) {
     var self = {};
 
     var _gameState = {
@@ -11,15 +11,9 @@ function GameEngine(opts) {
     init();
 
     function init() {
-        createjs.Ticker.framerate = CONFIG.FPS;
-        _.stage().addEventListener("stagemousemove", handleMouseMove);
-        _.stage().addEventListener("stagemousedown", handleMouseDown);
-        _.stage().addEventListener("stagemouseup", handleMouseUp);
-        _.canvas().addEventListener("wheel", handleMouseWheel);
-        _.canvas().oncontextmenu = handleRightButtonClick;
-        document.addEventListener("keydown", handleKeyDown);
-        document.addEventListener("keyup", handleKeyUp);
-        $(document).bind("player_dead", handlePlayersDeath);
+        createjs.Ticker.framerate = Config.FPS;
+        initHandlers();
+        initSound();
     }
 
     self.chooseLevel = function(opts) {
@@ -43,7 +37,23 @@ function GameEngine(opts) {
         resumeGame();
     };
 
-    // event handlers
+    function initHandlers() {
+        _.stage().addEventListener("stagemousemove", handleMouseMove);
+        _.stage().addEventListener("stagemousedown", handleMouseDown);
+        _.stage().addEventListener("stagemouseup", handleMouseUp);
+        _.canvas().addEventListener("wheel", handleMouseWheel);
+        _.canvas().oncontextmenu = handleRightButtonClick;
+        document.addEventListener("keydown", handleKeyDown);
+        document.addEventListener("keyup", handleKeyUp);
+        $(document).bind("player_dead", handlePlayersDeath);
+    }
+
+    function initSound() {
+        if (Config.sound.on) {
+            SoundStorage.registerSoundBank();
+        }
+    }
+
     function handleTick(event) {
 
         // 1. check if ticker isn't paused

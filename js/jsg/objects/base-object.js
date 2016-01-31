@@ -1,4 +1,5 @@
 function BaseObject(opts) {
+    opts = opts || {};
     this._id = UID.generate();
     this._objectType = this.def(opts.objectType, OBJECT_TYPE.UNDEFINED);
 }
