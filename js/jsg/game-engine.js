@@ -11,7 +11,7 @@ function GameEngine(opts) {
     init();
 
     function init() {
-        createjs.Ticker.setFPS(FPS);
+        createjs.Ticker.framerate = CONFIG.FPS;
         _.stage().addEventListener("stagemousemove", handleMouseMove);
         _.stage().addEventListener("stagemousedown", handleMouseDown);
         _.stage().addEventListener("stagemouseup", handleMouseUp);

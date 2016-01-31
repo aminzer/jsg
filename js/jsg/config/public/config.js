@@ -1,1 +1,3 @@
-var FPS = 60;
+var CONFIG = {
+    FPS:60
+};
