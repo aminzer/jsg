@@ -58,10 +58,7 @@ Weapon.prototype.startShooting = function() {
         this.shoot();
 
         this.forbidMakeNextShot();
-        var self = this;
-        setTimeout(function() {
-            self.allowMakeNextShot();
-        }, this._shootingDelay);
+        setTimeout(this.allowMakeNextShot.bind(this), this._shootingDelay);
     }
 };
 

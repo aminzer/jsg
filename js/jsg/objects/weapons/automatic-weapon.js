@@ -12,17 +12,11 @@ Extend(AutomaticWeapon).from(Weapon);
 
 AutomaticWeapon.prototype.startShooting = function() {
     if (this.canMakeNextShot() && this._shootingTimer == null) {
-        var self = this;
-
         this.shoot();
-        this._shootingTimer = setInterval(function () {
-            self.shoot();
-        }, this.getShootingDelay());
+        this._shootingTimer = setInterval(this.shoot.bind(this), this.getShootingDelay());
 
         this.forbidMakeNextShot();        // to forbid shoot faster than rateOfFire (fast clicking)
-        setTimeout(function() {
-            self.allowMakeNextShot();
-        }, this.getShootingDelay());
+        setTimeout(this.allowMakeNextShot.bind(this), this.getShootingDelay());
     }
 };
 

@@ -65,7 +65,6 @@ function Game(opts) {
         _control.handleRender();
         _ai.resolve();
 
-
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
         for (var i = 0; i < _.units().length; i++) {
             if (_.units()[i].move() == false) {     // lifeTime ended
@@ -80,22 +79,14 @@ function Game(opts) {
                 i--;  // because of splice
             }
         }
-        for (i = 0; i < _.effects().length; i++) {
-            _.effects()[i].makeInfluence();
-        }
+        _.effects().forEach(function (effect) { effect.makeInfluence() });
 
         handleTargetHits();
 
         // 4. updating shapes related to Game Model Objects
-        for (i = 0; i < _.units().length; i++) {
-            _.units()[i].updateShapes();
-        }
-        for (i = 0; i < _.bullets().length; i++) {
-            _.bullets()[i].updateShapes();
-        }
-        for (i = 0; i < _.effects().length; i++) {
-            _.effects()[i].updateShapes();
-        }
+        _.units().forEach(function (unit) { unit.updateShapes() });
+        _.bullets().forEach(function (bullet) { bullet.updateShapes() });
+        _.effects().forEach(function (effect) { effect.updateShapes() });
 
         // 5. trigger player events
         _.players().forEach(function(player) {
