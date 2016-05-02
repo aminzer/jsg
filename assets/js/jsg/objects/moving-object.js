@@ -3,64 +3,56 @@ function MovingObject(opts) {
 
     ShapedObject.call(this, opts);
 
-    this._isMoving = this.def( opts.isMoving, false );
-    this._speed = this.def( opts.speed, 0 );
-    this._movementAngle = this.def( opts.movementAngle, 0 );
+    this._isMoving = meta.common.first_defined( opts.isMoving, false );
+    this._speed = meta.common.first_defined( opts.speed, 0 );
+    this._movementAngle = meta.common.first_defined( opts.movementAngle, 0 );
 }
 
-Extend(MovingObject).from(ShapedObject);
+meta.Class( MovingObject).extend_from( ShapedObject )
 
-MovingObject.prototype.startMoving = function(movementAngle) {
-    this._isMoving = true;
-    if (TypeUtility.isFloat(movementAngle)) {
-        this._movementAngle = movementAngle ;
-    }
-};
+    .define_accessors([
+        'isMoving',
+        'speed',
+        'movementAngle'
+    ])
 
-MovingObject.prototype.stopMoving = function() {
-    this._isMoving = false;
-};
+    .define_reader('xSpeed', function () {
+        return this._speed * cos_d(this._movementAngle);
+    })
+    .define_reader('ySpeed', function () {
+        return this._speed * sin_d(this._movementAngle);
+    })
 
-MovingObject.prototype.isMoving = function() {
-    return this._isMoving;
-};
+    .define_methods({
+        startMoving: function (movementAngle) {
+            this._isMoving = true;
+            if (TypeUtility.isFloat(movementAngle)) {
+                this._movementAngle = movementAngle;
+            }
+        },
 
-MovingObject.prototype.getMovementAngle = function() {
-    return this._movementAngle;
-};
+        stopMoving: function () {
+            this._isMoving = false;
+        },
 
-MovingObject.prototype.setMovementAngle = function(movementAngle) {
-    this._movementAngle = movementAngle;
-};
+        isMoving: function () {
+            return this._isMoving;
+        },
 
-MovingObject.prototype.move = function() {
-    if (this.isMoving()) {
-        this.moveX(this._speed * cos_d(this._movementAngle));
-        this.moveY(this._speed * sin_d(this._movementAngle));
-    }
-    return true;
-};
+        move: function () {
+            if (this.isMoving()) {
+                this.moveX(this._speed * cos_d(this._movementAngle));
+                this.moveY(this._speed * sin_d(this._movementAngle));
+            }
+            return true;
+        },
 
-MovingObject.prototype.getSpeed = function() {
-    return this._speed;
-};
+        increaseSpeed: function (deltaSpeed) {
+            this._speed += deltaSpeed;
+        },
 
-MovingObject.prototype.getXSpeed = function() {
-    return this._speed * cos_d(this._movementAngle);
-};
-
-MovingObject.prototype.getYSpeed = function() {
-    return this._speed * sin_d(this._movementAngle);
-};
-
-MovingObject.prototype.setSpeed = function (speed) {
-    this._speed = speed;
-};
-
-MovingObject.prototype.increaseSpeed = function( deltaSpeed ) {
-    this._speed += deltaSpeed;
-};
-
-MovingObject.prototype.reduceSpeed = function( deltaSpeed ) {
-    this.increaseSpeed( - deltaSpeed );
-};
+        reduceSpeed: function (deltaSpeed)  {
+            this.increaseSpeed(-deltaSpeed);
+        }
+    })
+;

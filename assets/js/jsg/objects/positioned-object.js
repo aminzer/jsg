@@ -3,10 +3,10 @@ function PositionedObject(opts) {
 
     BaseObject.call(this, opts);
 
-    this._x = this.def( opts.x, 0 );
-    this._y = this.def( opts.y, 0 );
-    this._angle = this.def( opts.angle, 0 );
-    this._naturalAngle = this.def( opts.naturalAngle, 0 );
+    this._x = meta.common.first_defined( opts.x, 0 );
+    this._y = meta.common.first_defined( opts.y, 0 );
+    this._angle = meta.common.first_defined( opts.angle, 0 );
+    this._naturalAngle = meta.common.first_defined( opts.naturalAngle, 0 );
 }
 
 meta.Class( PositionedObject ).extend_from( BaseObject )
@@ -18,16 +18,12 @@ meta.Class( PositionedObject ).extend_from( BaseObject )
         'naturalAngle'
     ])
 
-    .define_reader({
-        position: function () {
-            return { x: this._x, y: this._y };
-        }
+    .define_reader('position', function () {
+        return { x: this._x, y: this._y };
     })
-    .define_writer({
-        position: function (position) {
-            this._x = position.x;
-            this._y = position.y;
-        }
+    .define_writer('position', function (position) {
+        this._x = position.x;
+        this._y = position.y;
     })
 
     .define_methods({

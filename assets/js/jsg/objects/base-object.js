@@ -1,7 +1,7 @@
 function BaseObject(opts) {
     opts = opts || {};
-    this._id = UID.generate();
-    this._objectType = this.def(opts.objectType, OBJECT_TYPE.UNDEFINED);
+    this._id = meta.common.first_defined( opts.id, UID.generate() );
+    this._objectType = meta.common.first_defined( opts.objectType, OBJECT_TYPE.UNDEFINED );
 }
 
 meta.Class( BaseObject )
