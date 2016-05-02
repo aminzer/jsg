@@ -29,7 +29,7 @@ var BULLET = {
 
     DEFAULT: {
         DAMAGE: 1,
-        SPEED: 9,
+        SPEED: 12,
         LIFETIME: 50,
         ACCELERATION: 0.5,
         BEGIN_ACCELERATION_LIFETIME: 90,
@@ -38,7 +38,7 @@ var BULLET = {
 
     MACHINE_GUN: {
         DAMAGE: 2,
-        SPEED: 12,
+        SPEED: 15,
         LIFETIME: 50
     },
 
