@@ -1,7 +1,9 @@
 function BulletReflectEffect(opts, render) {
     opts = opts || {};
 
-    this.setIfUndefined(opts, 'radius', 100);
+    meta.Hash( opts ).merge({
+        radius: 100
+    });
 
     CircleObject.call(this, opts);
     Effect.call(this, opts);

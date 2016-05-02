@@ -5,7 +5,7 @@ function AutomaticWeapon(opts) {
 
     this._shootingTimer = null;
 
-    this.setRateOfFire(this.def(opts.rateOfFire, WEAPON.DEFAULT.AUTOMATIC.RATE_OF_FIRE) );
+    this.setRateOfFire(meta.common.first_defined(opts.rateOfFire, WEAPON.DEFAULT.AUTOMATIC.RATE_OF_FIRE) );
 }
 
 Extend(AutomaticWeapon).from(Weapon);

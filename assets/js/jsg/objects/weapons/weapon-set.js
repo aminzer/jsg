@@ -3,7 +3,7 @@ function WeaponSet(opts) {
 
     BaseObject.call(this, opts);
 
-    this._weapons = this.def( opts.weapons, [] );
+    this._weapons = meta.common.first_defined( opts.weapons, [] );
     this._weaponIndex = 0;
     this._currentWeapon = this.chooseWeapon(this._weaponIndex);
 }

@@ -3,13 +3,13 @@ function Rocket(opts, render) {
 
     AcceleratingBullet.call(this, opts, false);
 
-    this.setDamage(this.def( opts.damage, BULLET.ROCKET.DAMAGE ));
-    this.setSpeed(this.def( opts.speed, BULLET.ROCKET.START_SPEED ));
-    this.setLifetime(this.def( opts.lifetime, BULLET.ROCKET.LIFETIME ));
+    this.setDamage(meta.common.first_defined( opts.damage, BULLET.ROCKET.DAMAGE ));
+    this.setSpeed(meta.common.first_defined( opts.speed, BULLET.ROCKET.START_SPEED ));
+    this.setLifetime(meta.common.first_defined( opts.lifetime, BULLET.ROCKET.LIFETIME ));
 
-    this.setAcceleration(this.def( opts.acceleration || BULLET.ROCKET.ACCELERATION));
-    this.setBeginAccelerationLifetime(this.def( opts.beginAccelerationLifetime || BULLET.ROCKET.BEGIN_ACCELERATION_LIFETIME));
-    this.setEndAccelerationLifetime(this.def( opts.endAccelerationLifetime || BULLET.ROCKET.END_ACCELERATION_LIFETIME));
+    this.setAcceleration(meta.common.first_defined( opts.acceleration || BULLET.ROCKET.ACCELERATION));
+    this.setBeginAccelerationLifetime(meta.common.first_defined( opts.beginAccelerationLifetime || BULLET.ROCKET.BEGIN_ACCELERATION_LIFETIME));
+    this.setEndAccelerationLifetime(meta.common.first_defined( opts.endAccelerationLifetime || BULLET.ROCKET.END_ACCELERATION_LIFETIME));
 
     if (render !== false) {
         this.render();

@@ -3,7 +3,7 @@ function Effect(opts) {
 
     MovingObject.call(this, opts);
 
-    this._active = this.def( opts.active, true );
+    this._active = meta.common.first_defined( opts.active, true );
 }
 
 Extend(Effect).from(MovingObject);

@@ -4,9 +4,9 @@ function Mine(opts, render) {
     ExplosiveBullet.call(this, opts, false);
 
     this.setSpeed(0);
-    this.setChildBulletConstructor(this.def( opts.childBulletConstructor, Fraction ));
-    this.setChildCount(this.def( opts.childCount, BULLET.MINE.FRACTION_COUNT ));
-    this.setSector(this.def (opts.sector, 360));
+    this.setChildBulletConstructor(meta.common.first_defined( opts.childBulletConstructor, Fraction ));
+    this.setChildCount(meta.common.first_defined( opts.childCount, BULLET.MINE.FRACTION_COUNT ));
+    this.setSector(meta.common.first_defined (opts.sector, 360));
 
     if (render !== false) {
         this.render();

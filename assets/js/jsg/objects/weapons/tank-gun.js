@@ -7,7 +7,7 @@ function TankGun(opts, render) {
     this.setFrontLength(WEAPON.TANK_GUN.FRONT_LENGTH);
     this.setHardness(WEAPON.TANK_GUN.HARDNESS);
     this.setShootingDelay(WEAPON.TANK_GUN.SHOOTING_DELAY);
-    this.getCharger().setBulletConstructor(this.def( opts.bulletConstructor, ExplosiveRocket ));
+    this.getCharger().setBulletConstructor(meta.common.first_defined( opts.bulletConstructor, ExplosiveRocket ));
     this.setOffsetY(0);
     this.setOffsetX(20);
 

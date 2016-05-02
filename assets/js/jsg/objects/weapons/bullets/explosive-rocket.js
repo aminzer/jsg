@@ -4,12 +4,12 @@ function ExplosiveRocket(opts, render) {
     Rocket.call(this, opts, render);
     ExplosiveBullet.call(this, opts, false);
 
-    this.setDamage(this.def( opts.damage, BULLET.EXPLOSIVE_ROCKET.DAMAGE ));
-    this.setSpeed(this.def( opts.speed, BULLET.EXPLOSIVE_ROCKET.START_SPEED ));
-    this.setLifetime(this.def( opts.lifetime, BULLET.EXPLOSIVE_ROCKET.LIFETIME ));
-    this.setChildBulletConstructor(this.def( opts.childBulletConstructor, Fraction ));
-    this.setChildCount(this.def( opts.childCount, BULLET.EXPLOSIVE_ROCKET.FRACTION_COUNT ));
-    this.setSector(this.def (opts.sector, 360));
+    this.setDamage(meta.common.first_defined( opts.damage, BULLET.EXPLOSIVE_ROCKET.DAMAGE ));
+    this.setSpeed(meta.common.first_defined( opts.speed, BULLET.EXPLOSIVE_ROCKET.START_SPEED ));
+    this.setLifetime(meta.common.first_defined( opts.lifetime, BULLET.EXPLOSIVE_ROCKET.LIFETIME ));
+    this.setChildBulletConstructor(meta.common.first_defined( opts.childBulletConstructor, Fraction ));
+    this.setChildCount(meta.common.first_defined( opts.childCount, BULLET.EXPLOSIVE_ROCKET.FRACTION_COUNT ));
+    this.setSector(meta.common.first_defined (opts.sector, 360));
 
     if (render !== false) {
         this.render();

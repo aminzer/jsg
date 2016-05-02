@@ -3,18 +3,18 @@ function Weapon(opts) {
 
     MovingObject.call(this, opts);
 
-    this._frontLength = this.def( opts.frontLength, WEAPON.DEFAULT.FRONT_LENGTH );
-    this._offsetY = this.def( opts.offsetY, UNIT.DEFAULT.RADIUS - 5 );
-    this._offsetX = this.def( opts.offsetX, 0 );
+    this._frontLength = meta.common.first_defined( opts.frontLength, WEAPON.DEFAULT.FRONT_LENGTH );
+    this._offsetY = meta.common.first_defined( opts.offsetY, UNIT.DEFAULT.RADIUS - 5 );
+    this._offsetX = meta.common.first_defined( opts.offsetX, 0 );
 
-    this._hardness = this.def( opts.hardness, WEAPON.DEFAULT.HARDNESS );        // max number of bullets to completely reduce the accuracy
-    this._state = this.def( opts.state, this._hardness );                     // current number of bullets to reduce the accuracy
-    this._maxSector = this.def( opts.maxSector, WEAPON.DEFAULT.MAX_SECTOR );  // if accuracy = 0, bullets will be in this sector (degrees)
+    this._hardness = meta.common.first_defined( opts.hardness, WEAPON.DEFAULT.HARDNESS );        // max number of bullets to completely reduce the accuracy
+    this._state = meta.common.first_defined( opts.state, this._hardness );                     // current number of bullets to reduce the accuracy
+    this._maxSector = meta.common.first_defined( opts.maxSector, WEAPON.DEFAULT.MAX_SECTOR );  // if accuracy = 0, bullets will be in this sector (degrees)
 
-    this._shootingDelay = this.def( opts.shootingDelay, WEAPON.DEFAULT.SHOOTING_DELAY );  // min time interval between 2 shots
+    this._shootingDelay = meta.common.first_defined( opts.shootingDelay, WEAPON.DEFAULT.SHOOTING_DELAY );  // min time interval between 2 shots
     this._canMakeNextShot = true;                                                        // to prevent shooting until shooting delay finished
 
-    this._charger = this.def( opts.charger, new Charger(opts) );
+    this._charger = meta.common.first_defined( opts.charger, new Charger(opts) );
 }
 
 Extend(Weapon).from(MovingObject);

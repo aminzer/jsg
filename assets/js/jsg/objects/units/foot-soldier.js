@@ -1,9 +1,11 @@
 function FootSoldier(opts, render) {
     opts = opts || {};
 
-    this.setIfUndefined(opts, 'weaponSet', WeaponSet.oneGun(new AutomaticGun({}, false)));
-    this.setIfUndefined(opts, 'mainColor', '#559');
-    this.setIfUndefined(opts, 'extraColor', '#199EE0');
+    meta.Hash( opts ).merge({
+        weaponSet: WeaponSet.oneGun(new AutomaticGun({}, false)),
+        mainColor: '#559',
+        extraColor: '#199EE0'
+    });
 
     Tommy.call(this, opts);
 

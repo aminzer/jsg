@@ -1,8 +1,10 @@
 function DefaultHero2(opts, render) {
     opts = opts || {};
 
-    this.setIfUndefined(opts, 'mainColor', '#FF860D');
-    this.setIfUndefined(opts, 'extraColor', '#75420E');
+    meta.Hash( opts ).merge({
+        mainColor: '#FF860D',
+        extraColor: '#75420E'
+    });
 
     DefaultHero.call(this, opts);
 

@@ -3,10 +3,10 @@ function Charger(opts) {
 
     BaseObject.call(this, opts);
 
-    this._bulletCapacity = this.def( opts._bulletCapacity, Number.MAX_VALUE );       // max count of bullets in charger
-    this._bulletCount = this.def( opts.bulletCount, this._bulletCapacity );          // current count of bullets
+    this._bulletCapacity = meta.common.first_defined( opts._bulletCapacity, Number.MAX_VALUE );       // max count of bullets in charger
+    this._bulletCount = meta.common.first_defined( opts.bulletCount, this._bulletCapacity );          // current count of bullets
 
-    this._bulletConstructor = this.def( opts.bulletConstructor, Bullet );
+    this._bulletConstructor = meta.common.first_defined( opts.bulletConstructor, Bullet );
 }
 
 Extend(Charger).from(BaseObject);

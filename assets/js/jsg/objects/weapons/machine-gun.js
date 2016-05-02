@@ -7,7 +7,7 @@ function MachineGun(opts, render) {
     this.setMaxSector(WEAPON.MACHINE_GUN.MAX_SECTOR);
     this.setFrontLength(WEAPON.MACHINE_GUN.FRONT_LENGTH);
     this.setHardness(WEAPON.MACHINE_GUN.HARDNESS);
-    this.getCharger().setBulletConstructor(this.def( opts.bulletConstructor, MachineGunBullet ));
+    this.getCharger().setBulletConstructor(meta.common.first_defined( opts.bulletConstructor, MachineGunBullet ));
 
     if (render !== false) {
         this.render();

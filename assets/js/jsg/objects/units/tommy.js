@@ -3,8 +3,8 @@ function Tommy(opts, render) {
 
     CircleUnit.call(this, opts);
 
-    this._mainColor = this.def( opts.mainColor, '#199EE0' );
-    this._extraColor = this.def( opts.extraColor, '#559' );
+    this._mainColor = meta.common.first_defined( opts.mainColor, '#199EE0' );
+    this._extraColor = meta.common.first_defined( opts.extraColor, '#559' );
 
     if (render !== false) {
         this.render();

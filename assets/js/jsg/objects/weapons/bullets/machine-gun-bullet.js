@@ -3,9 +3,9 @@ function MachineGunBullet(opts, render) {
 
     Bullet.call(this, opts, false);
 
-    this.setDamage(this.def( opts.damage, BULLET.MACHINE_GUN.DAMAGE ));
-    this.setSpeed(this.def( opts.speed, BULLET.MACHINE_GUN.SPEED ));
-    this.setLifetime(this.def( opts.lifetime, BULLET.MACHINE_GUN.LIFETIME ));
+    this.setDamage(meta.common.first_defined( opts.damage, BULLET.MACHINE_GUN.DAMAGE ));
+    this.setSpeed(meta.common.first_defined( opts.speed, BULLET.MACHINE_GUN.SPEED ));
+    this.setLifetime(meta.common.first_defined( opts.lifetime, BULLET.MACHINE_GUN.LIFETIME ));
 
     if (render !== false) {
         this.render();

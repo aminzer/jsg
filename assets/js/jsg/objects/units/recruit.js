@@ -1,9 +1,11 @@
 function Recruit(opts, render) {
     opts = opts || {};
 
-    this.setIfUndefined(opts, 'weaponSet', WeaponSet.oneGun(new GrandfathersGun({}, false)));
-    this.setIfUndefined(opts, 'mainColor', '#199EE0');
-    this.setIfUndefined(opts, 'extraColor', '#559');
+    meta.Hash( opts ).merge({
+        weaponSet: WeaponSet.oneGun(new GrandfathersGun({}, false)),
+        mainColor: '#199EE0',
+        extraColor: '#559'
+    });
 
     Tommy.call(this, opts);
 

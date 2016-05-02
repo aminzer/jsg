@@ -3,7 +3,7 @@ function Cursor(opts, render) {
 
     MovingObject.call(this, opts);
 
-    this._color = this.def( opts.color, "rgba(0,0,255,0.1)" );
+    this._color = meta.common.first_defined( opts.color, "rgba(0,0,255,0.1)" );
 
     if (render !== false) {
         this.render();

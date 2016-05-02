@@ -3,10 +3,10 @@ function ExplosiveBullet(opts, render) {
 
     Bullet.call(this, opts, false);
 
-    this._explosionCount = this.def( opts.explosionCount, 2 );
-    this._childCount = this.def( opts.childCount, 3 );
-    this._sector = this.def( opts.sector, 10 );
-    this._childBulletConstructor = this.def( opts.childBulletConstructor, ExplosiveBullet);
+    this._explosionCount = meta.common.first_defined( opts.explosionCount, 2 );
+    this._childCount = meta.common.first_defined( opts.childCount, 3 );
+    this._sector = meta.common.first_defined( opts.sector, 10 );
+    this._childBulletConstructor = meta.common.first_defined( opts.childBulletConstructor, ExplosiveBullet);
 
     if (render !== false) {
         this.render();

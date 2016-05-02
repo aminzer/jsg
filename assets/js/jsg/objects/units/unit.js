@@ -1,14 +1,16 @@
 function Unit(opts) {
     opts = opts || {};
 
-    this.setIfUndefined(opts, 'speed', UNIT.DEFAULT.SPEED);
+    meta.Hash( opts ).merge({
+        speed: UNIT.DEFAULT.SPEED
+    });
 
     MovingObject.call(this, opts);
 
-    this._maxHp = this.def( opts.maxHp, UNIT.DEFAULT.HP );
-    this._hp = this.def( opts.hp, this._maxHp );
+    this._maxHp = meta.common.first_defined( opts.maxHp, UNIT.DEFAULT.HP );
+    this._hp = meta.common.first_defined( opts.hp, this._maxHp );
 
-    this._weaponSet = this.def( opts.weaponSet || new WeaponSet({}) );
+    this._weaponSet = meta.common.first_defined( opts.weaponSet || new WeaponSet({}) );
     this.chooseWeapon(0);
 
     this.setObjectType(OBJECT_TYPE.ENEMY);

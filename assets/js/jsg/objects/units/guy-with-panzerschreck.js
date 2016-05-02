@@ -1,9 +1,11 @@
 function GuyWithPanzerschreck(opts, render) {
     opts = opts || {};
 
-    this.setIfUndefined(opts, 'weaponSet', WeaponSet.oneGun(new RocketLauncher({}, false)));
-    this.setIfUndefined(opts, 'mainColor', '#8D91E3');
-    this.setIfUndefined(opts, 'extraColor', '#34378A');
+    meta.Hash( opts ).merge({
+        weaponSet: WeaponSet.oneGun(new RocketLauncher({}, false)),
+        mainColor: '#8D91E3',
+        extraColor: '#34378A'
+    });
 
     Tommy.call(this, opts);
 
