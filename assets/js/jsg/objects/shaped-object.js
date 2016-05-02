@@ -6,31 +6,37 @@ function ShapedObject(opts) {
     this._shapes = [];
 }
 
-Extend(ShapedObject).from(PositionedObject);
+meta.Class( ShapedObject ).extend_from( PositionedObject )
 
-ShapedObject.prototype.addShape = function(shape) {
-    if (shape instanceof Array) {
-        for (var i = 0; i < shape.length; i++) {
-            this._shapes.push(shape[i]);
-            _.stage().addChild(shape[i]);
+    .define_methods({
+        render: function () {
+            /* override it to define initial look of object */
+        },
+
+        addShape: function addShapeFunc(shape) {
+            if (shape instanceof Array) {
+                shape.forEach(function (singleShape) {
+                    addShapeFunc(singleShape);
+                });
+            } else {
+                this._shapes.push(shape);
+                _.stage().addChild(shape);
+            }
+        },
+
+        updateShapes: function () {
+            this._shapes.forEach(function (shape) {
+                shape.x = Scale.getReal(this.getX());
+                shape.y = Scale.getReal(this.getY());
+                shape.rotation = this.getAngle();         // TODO accept delta = natural angle
+            }, this);
+        },
+
+        destroyShapes: function () {
+            this._shapes.forEach(function (shape) {
+                _.stage().removeChild(shape);
+            });
+            this._shapes = [];
         }
-    } else {
-        this._shapes.push(shape);
-        _.stage().addChild(shape);
-    }
-};
-
-ShapedObject.prototype.updateShapes = function() {
-    for (var i = 0; i < this._shapes.length; i++) {
-        this._shapes[i].x = Scale.getReal(this.getX());
-        this._shapes[i].y = Scale.getReal(this.getY());
-        this._shapes[i].rotation = this.getAngle();         // TODO accept delta = natural angle
-    }
-};
-
-ShapedObject.prototype.destroyShapes = function() {
-    for (var i = 0; i < this._shapes.length; i++) {
-        _.stage().removeChild(this._shapes[i]);
-    }
-    this._shapes = [];
-};
+    })
+;

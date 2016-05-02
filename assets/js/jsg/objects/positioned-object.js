@@ -9,7 +9,7 @@ function PositionedObject(opts) {
     this._naturalAngle = this.def( opts.naturalAngle, 0 );
 }
 
-meta( PositionedObject ).extend_from( BaseObject )
+meta.Class( PositionedObject ).extend_from( BaseObject )
 
     .define_accessors([
         'x',
