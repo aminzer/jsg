@@ -20,12 +20,15 @@ meta.Class( PositionedObject )
         'naturalAngle'
     ])
 
-    .define_reader('position', function () {
-        return { x: this._x, y: this._y };
-    })
-    .define_writer('position', function (position) {
-        this._x = position.x;
-        this._y = position.y;
+    .define_accessors('position', {
+        get: function () {
+            return { x: this._x, y: this._y };
+        },
+
+        set: function (position) {
+            this._x = position.x;
+            this._y = position.y;
+        }
     })
 
     .define_methods({

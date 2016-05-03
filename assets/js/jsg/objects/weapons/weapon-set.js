@@ -8,54 +8,59 @@ function WeaponSet(opts) {
     this._currentWeapon = this.chooseWeapon(this._weaponIndex);
 }
 
-Extend(WeaponSet).from(BaseObject);
+meta.Class( WeaponSet)
 
-WeaponSet.prototype.getCurrentWeapon = function() {
-    return this._currentWeapon;
-};
+    .extend_from( BaseObject )
 
-WeaponSet.prototype.chooseWeapon = function(index) {
-    this._weaponIndex = index;
+    .define_reader([
+        'weapons',
+        'currentWeapon'
+    ])
 
-    if (this._weaponIndex < 0) {
-        this._weaponIndex = 0;
-    }
+    .define_methods({
+        chooseWeapon: function(index) {
+            this._weaponIndex = index;
 
-    if (this._weaponIndex > this._weapons.length - 1) {
-        this._weaponIndex = this._weapons.length - 1;
-    }
+            if (this._weaponIndex < 0) {
+                this._weaponIndex = 0;
+            }
 
-    if (this._weaponIndex < 0 || this._weaponIndex >= this._weapons.length) {
-        this._currentWeapon = null;
-        return;
-    }
+            if (this._weaponIndex > this._weapons.length - 1) {
+                this._weaponIndex = this._weapons.length - 1;
+            }
 
-    this._currentWeapon = this._weapons[this._weaponIndex];
-};
+            if (this._weaponIndex < 0 || this._weaponIndex >= this._weapons.length) {
+                this._currentWeapon = null;
+                return;
+            }
 
-WeaponSet.prototype.chooseNextWeapon = function() {
-    this.chooseWeapon(this._weaponIndex + 1);
-};
+            this._currentWeapon = this._weapons[this._weaponIndex];
+        },
 
-WeaponSet.prototype.choosePrevWeapon = function() {
-    this.chooseWeapon(this._weaponIndex - 1);
-};
+        chooseNextWeapon: function () {
+            this.chooseWeapon(this._weaponIndex + 1);
+        },
 
-WeaponSet.prototype.addWeapon = function(weapon) {
-    this._weapons.push(weapon);
-};
+        choosePrevWeapon: function () {
+            this.chooseWeapon(this._weaponIndex - 1);
+        },
 
-WeaponSet.prototype.getWeapons = function() {
-    return this._weapons;
-};
+        addWeapon: function(weapon) {
+            this._weapons.push(weapon);
+        },
 
-WeaponSet.prototype.setWeapons = function(weapons) {
-    this._weapons = weapons;
-};
-
-// fabric
-WeaponSet.oneGun = function(weapon) {
-    return new WeaponSet({
-        weapons: [weapon]
+        oneGun: function(weapon) {
+            return new WeaponSet({
+                weapons: [weapon]
+            })
+        }
     })
-};
+
+    .define_static_method({
+        oneGun: function (weapon) {
+            return new WeaponSet({
+                weapons: [weapon]
+            })
+        }
+    })
+;

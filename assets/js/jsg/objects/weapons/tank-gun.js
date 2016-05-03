@@ -16,10 +16,15 @@ function TankGun(opts, render) {
     }
 }
 
-Extend(TankGun).from(Weapon);
+meta.Class( TankGun )
 
-TankGun.prototype.render = function() {
-    Painter.rectangle(this, this.getFrontLength() + 30, 14, 30, 7, "#381D11");
-    Painter.roundRectangle(this, 70, 50, 35, 25, 15, "#27130D");
-    Painter.offsetRoundRectangle(this, this.getFrontLength(), 0, 10, 16, 5, 8, 2, "#21100F");
-};
+    .extend_from( Weapon )
+
+    .define_method({
+        render: function () {
+            Painter.rectangle(this, this.getFrontLength() + 30, 14, 30, 7, "#381D11");
+            Painter.roundRectangle(this, 70, 50, 35, 25, 15, "#27130D");
+            Painter.offsetRoundRectangle(this, this.getFrontLength(), 0, 10, 16, 5, 8, 2, "#21100F");
+        }
+    })
+;

@@ -20,6 +20,31 @@ function Weapon(opts) {
 meta.Class( Weapon )
     
     .extend_from( MovingObject )
+
+    .define_accessors([
+        'frontLength',
+        'offsetX',
+        'offsetY',
+        'maxSector',
+        'shootingDelay',
+        'charger'
+    ])
+
+    .define_accessors('hardness', {
+        set: function(hardness) {
+            this._state = this._hardness = hardness;
+        }
+    })
+
+    .define_accessors('rateOfFire', {
+        get: function () {
+            return 60000 / this._shootingDelay;
+        },
+
+        set: function(rateOfFire) {
+            this._shootingDelay = 60000 / rateOfFire;
+        }
+    })
     
     .define_methods({
         getAccuracy: function () {
@@ -90,26 +115,5 @@ meta.Class( Weapon )
             this.stopShooting();
             Weapon.prototype.parentMethod_destroyShapes.call(this);
         }
-    })
-
-    .define_accessors([
-        'frontLength',
-        'offsetX',
-        'offsetY',
-        'maxSector',
-        'shootingDelay',
-        'charger'
-    ])
-
-    .define_reader('hardness')
-    .define_writer('hardness', function(hardness) {
-        this._state = this._hardness = hardness;
-    })
-
-    .define_reader('rateOfFire', function () {
-        return 60000 / this._shootingDelay;
-    })
-    .define_writer('rateOfFire', function(rateOfFire) {
-        this._shootingDelay = 60000 / rateOfFire;
     })
 ;

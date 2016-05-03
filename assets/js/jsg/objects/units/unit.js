@@ -23,15 +23,17 @@ meta.Class( Unit )
         'hp'
     ])
 
-    .define_reader('maxHp')
-    .define_writer('maxHp', function (maxHp) {
-        this._maxHp = this._hp = maxHp;
+    .define_accessors('maxHp', {
+        set: function (maxHp) {
+            this._maxHp = this._hp = maxHp;
+        }
     })
 
-    .define_reader('weaponSet')
-    .define_writer('weaponSet', function (maxHp) {
-        this._weaponSet = weaponSet;
-        this.chooseWeapon(0);
+    .define_accessors('weaponSet', {
+        set: function (weaponSet) {
+            this._weaponSet = weaponSet;
+            this.chooseWeapon(0);
+        }
     })
 
     .define_methods({
