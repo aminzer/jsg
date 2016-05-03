@@ -6,22 +6,27 @@ function Effect(opts) {
     this._active = meta.common.first_defined( opts.active, true );
 }
 
-Extend(Effect).from(MovingObject);
+meta.Class( Effect )
 
-Effect.prototype.activate = function() {
-    this._active = true;
-};
+    .extend_from( MovingObject )
 
-Effect.prototype.deactivate = function() {
-    this._active = false;
-};
+    .define_methods({
+        activate: function () {
+            this._active = true;
+        },
 
-Effect.prototype.isActive = function() {
-    return this._active;
-};
+        deactivate: function () {
+            this._active = false;
+        },
 
-Effect.prototype.makeInfluence = function() {
-    if (this.isActive()) {
-        // do some stuff
-    }
-};
+        isActive: function () {
+            return this._active;
+        },
+
+        makeInfluence: function () {
+            if (this.isActive()) {
+                // do some stuff
+            }
+        }
+    })
+;

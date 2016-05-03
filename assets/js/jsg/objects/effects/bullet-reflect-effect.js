@@ -1,9 +1,7 @@
 function BulletReflectEffect(opts, render) {
-    opts = opts || {};
-
-    meta.Hash( opts ).merge({
+    opts = meta.Hash( opts ).merge({
         radius: 100
-    });
+    }).get_hash();
 
     CircleObject.call(this, opts);
     Effect.call(this, opts);
@@ -13,21 +11,25 @@ function BulletReflectEffect(opts, render) {
     }
 }
 
-Extend(BulletReflectEffect).from(Effect).withMixins(CircleObject);
+meta.Class( BulletReflectEffect )
 
-BulletReflectEffect.prototype.render = function() {
-    Painter.circle(this, this.getRadius(), "rgba(0, 100, 0, 0.2)");
-};
+    .extend_from( Effect )
 
-BulletReflectEffect.prototype.makeInfluence = function() {
-    if (this.isActive()) {
-        var self = this;
-        _.bullets().forEach(function(bullet) {
-            if (self.isPointInside(bullet.getX(), bullet.getY())) {
-                var normalAngle = MathUtility.getLinesAngle(bullet.getX(), bullet.getY(), self.getX(), self.getY());
-                bullet.setAngle(180 - bullet.getAngle() + 2 * normalAngle);
-                bullet.move();
-            }
-        });
-    }
-};
+    .add_mixin( CircleObject )
+
+    .define_methods({
+        render: function () {
+            Painter.circle(this, this.getRadius(), "rgba(0, 100, 0, 0.2)");
+        },
+
+        makeInfluence: function () {
+            _.bullets().forEach(function (bullet) {
+                if (this.isPointInside(bullet.getX(), bullet.getY())) {
+                    var normalAngle = MathUtility.getLinesAngle(bullet.getX(), bullet.getY(), this.getX(), this.getY());
+                    bullet.setAngle(180 - bullet.getAngle() + 2 * normalAngle);
+                    bullet.move();
+                }
+            }, this);
+        }
+    })
+;

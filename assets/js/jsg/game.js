@@ -79,7 +79,11 @@ function Game(opts) {
                 i--;  // because of splice
             }
         }
-        _.effects().forEach(function (effect) { effect.makeInfluence() });
+        _.effects().forEach(function (effect) {
+            if (effect.isActive()) {
+                effect.makeInfluence()
+            }
+        });
 
         handleTargetHits();
 

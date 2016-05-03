@@ -1,9 +1,7 @@
 function WindEffect(opts, render) {
-    opts = opts || {};
-
-    meta.Hash( opts ).merge({
+    opts = meta.Hash( opts ).merge({
         radius: 100
-    });
+    }).get_hash();
 
     CircleObject.call(this, opts);
     Effect.call(this, opts);
@@ -13,42 +11,42 @@ function WindEffect(opts, render) {
     }
 }
 
-Extend(WindEffect).from(Effect).withMixins(CircleObject);
+meta.Class( WindEffect )
 
-WindEffect.prototype.render = function() {
-    var radius = this.getRadius();
+    .extend_from( Effect )
 
-    Painter.circle(this, rad(1), "rgba(0, 50, 255, 0.2)");
-    Painter.rectangle(this, rad(7/6), 2, rad(1/3), 1, "rgba(0, 50, 255, 0.1)");
-    Painter.rectangle(this, rad(1/2), 2, -rad(0.17), rad(1/2), "rgba(0, 50, 255, 0.1)");
-    Painter.rectangle(this, rad(1/2), 2, -rad(0.17), -rad(1/2), "rgba(0, 50, 255, 0.1)");
-    Painter.rectangle(this, rad(5/6), 2, rad(0.05), rad(1/4), "rgba(0, 50, 255, 0.1)");
-    Painter.rectangle(this, rad(5/6), 2, rad(0.05), -rad(1/4), "rgba(0, 50, 255, 0.1)");
+    .add_mixin( CircleObject )
 
-    function rad(scale) {
-        return radius * scale;
-    }
-};
+    .define_methods({
+        render: function () {
+            var radius = this.getRadius();
 
-WindEffect.prototype.makeInfluence = function() {
-    if (this.isActive()) {
-        var self = this;
-        _.bullets().forEach(function(bullet) {
-            if (self.isPointInside(bullet.getX(), bullet.getY())) {
-                var delta = 5;
-                if (Math.abs( MathUtility.normalizeAngle(bullet.getAngle() - self.getAngle()) ) < delta) {
-                    bullet.setAngle(self.getAngle());
-                } else {
-                    if (!MathUtility.isClockwiseDirection(bullet.getAngle(), self.getAngle())) {
-                        delta = -delta;
-                    }
-                    bullet.setAngle(bullet.getAngle() + delta);
-                }
+            Painter.circle(this, rad(1), "rgba(0, 50, 255, 0.2)");
+            Painter.rectangle(this, rad(7/6), 2, rad(1/3), 1, "rgba(0, 50, 255, 0.1)");
+            Painter.rectangle(this, rad(1/2), 2, -rad(0.17), rad(1/2), "rgba(0, 50, 255, 0.1)");
+            Painter.rectangle(this, rad(1/2), 2, -rad(0.17), -rad(1/2), "rgba(0, 50, 255, 0.1)");
+            Painter.rectangle(this, rad(5/6), 2, rad(0.05), rad(1/4), "rgba(0, 50, 255, 0.1)");
+            Painter.rectangle(this, rad(5/6), 2, rad(0.05), -rad(1/4), "rgba(0, 50, 255, 0.1)");
 
-                function norm(angle) {
-                    return MathUtility.normalizeAngle(angle);
-                }
+            function rad(scale) {
+                return radius * scale;
             }
-        });
-    }
-};
+        },
+
+        makeInfluence: function () {
+            _.bullets().forEach(function(bullet) {
+                if (this.isPointInside(bullet.getX(), bullet.getY())) {
+                    var delta = 5;
+                    if (Math.abs( MathUtility.normalizeAngle(bullet.getAngle() - this.getAngle()) ) < delta) {
+                        bullet.setAngle(this.getAngle());
+                    } else {
+                        if (!MathUtility.isClockwiseDirection(bullet.getAngle(), this.getAngle())) {
+                            delta = -delta;
+                        }
+                        bullet.setAngle(bullet.getAngle() + delta);
+                    }
+                }
+            }, this);
+        }
+    })
+;

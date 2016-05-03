@@ -34,7 +34,7 @@ LevelStorage.add(1, {
 
     effects: [
         {
-            $constructor: BulletReflectEffect,
+            $constructor: WindEffect,
             x: 150,
             y: 150
         }, {
