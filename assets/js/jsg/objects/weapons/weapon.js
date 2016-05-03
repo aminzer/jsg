@@ -17,136 +17,99 @@ function Weapon(opts) {
     this._charger = meta.common.first_defined( opts.charger, new Charger(opts) );
 }
 
-Extend(Weapon).from(MovingObject);
+meta.Class( Weapon )
+    
+    .extend_from( MovingObject )
+    
+    .define_methods({
+        getAccuracy: function () {
+            return this._state / this._hardness;
+        },
 
-Weapon.prototype.getAccuracy = function() {
-    return this._state / this._hardness;
-};
+        harmWeapon: function () {
+            if (this._state > 0) {
+                this._state--;
+            }
+        },
 
-Weapon.prototype.harmWeapon = function() {
-    if (this._state > 0) {
-        this._state--;
-    }
-};
+        shoot: function () {
+            var bullet = this._charger.getNextBullet();
+            if (bullet !== null) {
+                bullet.setX(this.getX() + this._frontLength * cos_d(this.getAngle()));
+                bullet.setY(this.getY() + this._frontLength * sin_d(this.getAngle()));
+                bullet.setAngle(this.getAngle() + (1 - this.getAccuracy()) * (this._maxSector * random() - this._maxSector / 2));
+                this.harmWeapon();
+                _.addBullet(bullet);
+            }
+            return bullet;
+        },
 
-Weapon.prototype.shoot = function() {
-    var bullet = this._charger.getNextBullet();
-    if (bullet !== null) {
-        bullet.setX(this.getX() + this._frontLength * cos_d(this.getAngle()));
-        bullet.setY(this.getY() + this._frontLength * sin_d(this.getAngle()));
-        bullet.setAngle(this.getAngle() + (1 - this.getAccuracy()) * (this._maxSector * random() - this._maxSector / 2));
-        this.harmWeapon();
-        _.addBullet(bullet);
-    }
-    return bullet;
-};
+        canMakeNextShot: function () {
+            return this._canMakeNextShot;
+        },
 
-Weapon.prototype.canMakeNextShot = function() {
-    return this._canMakeNextShot;
-};
+        allowMakeNextShot: function () {
+            this._canMakeNextShot = true;
+        },
 
-Weapon.prototype.allowMakeNextShot = function() {
-    this._canMakeNextShot = true;
-};
+        forbidMakeNextShot: function () {
+            this._canMakeNextShot = false;
+        },
 
-Weapon.prototype.forbidMakeNextShot = function() {
-    this._canMakeNextShot = false;
-};
+        startShooting: function () {
+            if (this.canMakeNextShot()) {
+                this.shoot();
 
-Weapon.prototype.startShooting = function() {
-    if (this.canMakeNextShot()) {
-        this.shoot();
+                this.forbidMakeNextShot();
+                setTimeout(this.allowMakeNextShot.bind(this), this._shootingDelay);
+            }
+        },
 
-        this.forbidMakeNextShot();
-        setTimeout(this.allowMakeNextShot.bind(this), this._shootingDelay);
-    }
-};
+        stopShooting: function () {
+        },
 
-Weapon.prototype.stopShooting = function() { };
+        fix: function () {
+            this._state = this._hardness;
+        },
 
-Weapon.prototype.fix = function() {
-    this._state = this._hardness;
-};
+        aimAt: function(targetX, targetY, unitX, unitY, unitAngle) {
+            this.setAngle(MathUtility.getLinesAngle(
+                unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle),
+                unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle),
+                targetX,
+                targetY
+            ));
 
-Weapon.prototype.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
-    this.setAngle(MathUtility.getLinesAngle(
-        unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle),
-        unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle),
-        targetX,
-        targetY
-    ));
+            this.setX(unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle));
+            this.setY(unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle));
+        }
+    })
 
-    this.setX(unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle));
-    this.setY(unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle));
-};
+    .override_method({
+        destroyShapes: function () {
+            this.stopShooting();
+            Weapon.prototype.parentMethod_destroyShapes.call(this);
+        }
+    })
 
-// @Override
-Weapon.prototype.parent_destroyShapes = Weapon.prototype.destroyShapes;
-Weapon.prototype.destroyShapes = function() {
-    Weapon.prototype.parent_destroyShapes.call(this);
-    this.stopShooting();
-};
+    .define_accessors([
+        'frontLength',
+        'offsetX',
+        'offsetY',
+        'maxSector',
+        'shootingDelay',
+        'charger'
+    ])
 
-Weapon.prototype.getFrontLength = function() {
-    return this._frontLength;
-};
+    .define_reader('hardness')
+    .define_writer('hardness', function(hardness) {
+        this._state = this._hardness = hardness;
+    })
 
-Weapon.prototype.setFrontLength = function(frontLength) {
-    this._frontLength = frontLength;
-};
-
-Weapon.prototype.getOffsetY = function() {
-    return this._offsetY;
-};
-
-Weapon.prototype.setOffsetY = function(offsetY) {
-    this._offsetY = offsetY;
-};
-
-Weapon.prototype.getOffsetX = function() {
-    return this._offsetX;
-};
-
-Weapon.prototype.setOffsetX = function(offsetX) {
-    this._offsetX = offsetX;
-};
-
-Weapon.prototype.getHardness = function() {
-    return this._hardness;
-};
-
-Weapon.prototype.setHardness = function(hardness) {
-    this._state = this._hardness = hardness;
-};
-
-Weapon.prototype.getMaxSector = function() {
-    return this._maxSector;
-};
-
-Weapon.prototype.setMaxSector = function(maxSector) {
-    this._maxSector = maxSector;
-};
-
-Weapon.prototype.getShootingDelay = function() {
-    return this._shootingDelay;
-};
-
-Weapon.prototype.setShootingDelay = function(shootingDelay) {
-    this._shootingDelay = shootingDelay;
-};
-
-Weapon.prototype.getRateOfFire = function() {
-    return 60000 / this._shootingDelay;
-};
-
-Weapon.prototype.setRateOfFire = function(rateOfFire) {
-    this._shootingDelay = 60000 / rateOfFire;
-};
-
-Weapon.prototype.getCharger = function() {
-    return this._charger;
-};
-
-Weapon.prototype.setCharger = function(charger) {
-    this._charger = charger;
-};
+    .define_reader('rateOfFire', function () {
+        return 60000 / this._shootingDelay;
+    })
+    .define_writer('rateOfFire', function(rateOfFire) {
+        this._shootingDelay = 60000 / rateOfFire;
+    })
+;
