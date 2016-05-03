@@ -6,11 +6,7 @@ function DefaultHero2(opts, render) {
         extraColor: '#75420E'
     });
 
-    DefaultHero.call(this, opts);
-
-    if (render !== false) {
-        this.render();
-    }
+    DefaultHero.call(this, opts, render);
 }
 
 meta.Class( DefaultHero2 )

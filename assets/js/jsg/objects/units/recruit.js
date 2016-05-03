@@ -7,11 +7,7 @@ function Recruit(opts, render) {
         extraColor: '#559'
     });
 
-    Tommy.call(this, opts);
-
-    if (render !== false) {
-        this.render();
-    }
+    Tommy.call(this, opts, render);
 }
 
 meta.Class( Recruit )

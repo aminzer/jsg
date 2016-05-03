@@ -8,11 +8,7 @@ function DefaultHero(opts, render) {
         extraColor: '#345200'
     });
 
-    Tommy.call(this, opts);
-
-    if (render !== false) {
-        this.render();
-    }
+    Tommy.call(this, opts, render);
 }
 
 meta.Class( DefaultHero )

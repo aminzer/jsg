@@ -7,11 +7,7 @@ function GuyWithPanzerschreck(opts, render) {
         extraColor: '#34378A'
     });
 
-    Tommy.call(this, opts);
-
-    if (render !== false) {
-        this.render();
-    }
+    Tommy.call(this, opts, render);
 }
 
 meta.Class( GuyWithPanzerschreck )

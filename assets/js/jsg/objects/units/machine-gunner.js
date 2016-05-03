@@ -7,11 +7,7 @@ function MachineGunner(opts, render) {
         extraColor: '#7A4D11'
     });
 
-    Tommy.call(this, opts);
-
-    if (render !== false) {
-        this.render();
-    }
+    Tommy.call(this, opts, render);
 }
 
 meta.Class( MachineGunner )

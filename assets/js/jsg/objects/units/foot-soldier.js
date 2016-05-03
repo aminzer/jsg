@@ -7,11 +7,7 @@ function FootSoldier(opts, render) {
         extraColor: '#199EE0'
     });
 
-    Tommy.call(this, opts);
-
-    if (render !== false) {
-        this.render();
-    }
+    Tommy.call(this, opts, render);
 }
 
 meta.Class( FootSoldier )
