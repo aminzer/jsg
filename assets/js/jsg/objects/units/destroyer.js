@@ -18,14 +18,19 @@ function Destroyer(opts, render) {
     }
 }
 
-Extend(Destroyer).from(CircleUnit);
+meta.Class( Destroyer )
 
-Destroyer.prototype.render = function() {
-    Painter.circle(this, this.getRadius(), "#c22");
-    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#fd1");
-    Painter.rectangle(this, 26, 8, 13, -1, "#fd1");
+    .extend_from( CircleUnit )
 
-    if (this.getWeapon() != null) {
-        this.getWeapon().render();
-    }
-};
+    .define_methods({
+        render: function () {
+            Painter.circle(this, this.getRadius(), "#c22");
+            Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#fd1");
+            Painter.rectangle(this, 26, 8, 13, -1, "#fd1");
+
+            if (this.getWeapon() != null) {
+                this.getWeapon().render();
+            }
+        }
+    })
+;

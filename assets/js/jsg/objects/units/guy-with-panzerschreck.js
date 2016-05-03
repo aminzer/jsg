@@ -14,4 +14,7 @@ function GuyWithPanzerschreck(opts, render) {
     }
 }
 
-Extend(GuyWithPanzerschreck).from(Tommy);
+meta.Class( GuyWithPanzerschreck )
+
+    .extend_from( Tommy )
+;

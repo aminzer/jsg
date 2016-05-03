@@ -15,6 +15,11 @@ meta.Class( ShapedObject )
             /* override it to define initial look of object */
         },
 
+        isPointInside: function(pointX, pointY) {
+            /* override it to determine, if point is inside current object */
+            return false;
+        },
+
         addShape: function addShapeFunc(shape) {
             if (shape instanceof Array) {
                 shape.forEach(function (singleShape) {

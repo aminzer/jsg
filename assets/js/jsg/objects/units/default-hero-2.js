@@ -13,4 +13,7 @@ function DefaultHero2(opts, render) {
     }
 }
 
-Extend(DefaultHero2).from(DefaultHero);
+meta.Class( DefaultHero2 )
+
+    .extend_from( DefaultHero )
+;

@@ -11,13 +11,18 @@ function Tommy(opts, render) {
     }
 }
 
-Extend(Tommy).from(CircleUnit);
+meta.Class( Tommy )
 
-Tommy.prototype.render = function() {
-    Painter.circle(this, this.getRadius(), this._mainColor);
-    Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, this._extraColor);
+    .extend_from( CircleUnit )
 
-    if (this.hasWeapon()) {
-        this.getWeapon().render();
-    }
-};
+    .define_method({
+        render: function () {
+            Painter.circle(this, this.getRadius(), this._mainColor);
+            Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, this._extraColor);
+
+            if (this.hasWeapon()) {
+                this.getWeapon().render();
+            }
+        }
+    })
+;

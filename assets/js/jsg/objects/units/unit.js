@@ -2,6 +2,7 @@ function Unit(opts) {
     opts = opts || {};
 
     meta.Hash( opts ).merge({
+        objectType: OBJECT_TYPE.ENEMY,
         speed: UNIT.DEFAULT.SPEED
     });
 
@@ -12,126 +13,113 @@ function Unit(opts) {
 
     this._weaponSet = meta.common.first_defined( opts.weaponSet || new WeaponSet({}) );
     this.chooseWeapon(0);
-
-    this.setObjectType(OBJECT_TYPE.ENEMY);
 }
 
-Extend(Unit).from(MovingObject);
+meta.Class( Unit )
 
-Unit.prototype.isPointInside = function(pointX, pointY) {
-    // must define shape
-    return false;
-};
+    .extend_from( MovingObject )
 
-Unit.prototype.getWeapon = function() {
-    return this._weaponSet.getCurrentWeapon();
-};
+    .define_accessors([
+        'hp'
+    ])
 
-Unit.prototype.hasWeapon = function() {
-    return this.getWeapon() != null;
-};
+    .define_reader('maxHp')
+    .define_writer('maxHp', function (maxHp) {
+        this._maxHp = this._hp = maxHp;
+    })
 
-Unit.prototype.chooseWeapon = function(index) {
-    if (this.hasWeapon()) {
-        this.getWeapon().destroyShapes();
-    }
-    this._weaponSet.chooseWeapon(index);
-    if (this.hasWeapon()) {
-        this.getWeapon().render();
-    }
-};
+    .define_reader('weaponSet')
+    .define_writer('weaponSet', function (maxHp) {
+        this._weaponSet = weaponSet;
+        this.chooseWeapon(0);
+    })
 
-Unit.prototype.chooseNextWeapon = function() {
-    if (this.hasWeapon()) {
-        this.getWeapon().destroyShapes();
-    }
-    this._weaponSet.chooseNextWeapon();
-    if (this.hasWeapon()) {
-        this.getWeapon().render();
-    }
-};
+    .define_methods({
+        getWeapon: function () {
+            return this._weaponSet.getCurrentWeapon();
+        },
 
-Unit.prototype.choosePrevWeapon = function() {
-    if (this.hasWeapon()) {
-        this.getWeapon().destroyShapes();
-    }
-    this._weaponSet.choosePrevWeapon();
-    if (this.hasWeapon()) {
-        this.getWeapon().render();
-    }
-};
+        hasWeapon: function () {
+            return this.getWeapon() != null;
+        },
 
-Unit.prototype.aimAt = function(targetX, targetY) {
-    this.setAngle( MathUtility.getLinesAngle(this.getX(), this.getY(), targetX, targetY) );
-    if (this.hasWeapon()) {
-        this.getWeapon().aimAt(targetX, targetY, this.getX(), this.getY(), this.getAngle());
-    }
-};
+        chooseWeapon: function (index) {
+            if (this.hasWeapon()) {
+                this.getWeapon().destroyShapes();
+            }
+            this._weaponSet.chooseWeapon(index);
+            if (this.hasWeapon()) {
+                this.getWeapon().render();
+            }
+        },
 
-Unit.prototype.shoot = function() {
-    if (this.hasWeapon()) {
-        this.getWeapon().shoot();
-    }
-};
+        chooseNextWeapon: function () {
+            if (this.hasWeapon()) {
+                this.getWeapon().destroyShapes();
+            }
+            this._weaponSet.chooseNextWeapon();
+            if (this.hasWeapon()) {
+                this.getWeapon().render();
+            }
+        },
 
-Unit.prototype.startShooting = function() {
-    if (this.hasWeapon()) {
-        this.getWeapon().startShooting();
-    }
-};
+        choosePrevWeapon: function () {
+            if (this.hasWeapon()) {
+                this.getWeapon().destroyShapes();
+            }
+            this._weaponSet.choosePrevWeapon();
+            if (this.hasWeapon()) {
+                this.getWeapon().render();
+            }
+        },
 
-Unit.prototype.stopShooting = function() {
-    if (this.hasWeapon()) {
-        this.getWeapon().stopShooting();
-    }};
+        aimAt: function (targetX, targetY) {
+            this.setAngle( MathUtility.getLinesAngle(this.getX(), this.getY(), targetX, targetY) );
+            if (this.hasWeapon()) {
+                this.getWeapon().aimAt(targetX, targetY, this.getX(), this.getY(), this.getAngle());
+            }
+        },
 
-Unit.prototype.takeDamage = function(damage) {
-    this._hp -= damage;
-};
+        shoot: function () {
+            if (this.hasWeapon()) {
+                this.getWeapon().shoot();
+            }
+        },
 
-Unit.prototype.isAlive = function() {
-    return this._hp > 0;
-};
+        startShooting: function () {
+            if (this.hasWeapon()) {
+                this.getWeapon().startShooting();
+            }
+        },
 
-// @Override
-Unit.prototype.parent_updateShapes = Unit.prototype.updateShapes;
-Unit.prototype.updateShapes = function() {
-    Unit.prototype.parent_updateShapes.call(this);
-    if (this.hasWeapon()) {
-        this.getWeapon().updateShapes();
-    }
-};
+        stopShooting: function () {
+            if (this.hasWeapon()) {
+                this.getWeapon().stopShooting();
+            }
+        },
 
-// @Override
-Unit.prototype.parent_destroyShapes = Unit.prototype.destroyShapes;
-Unit.prototype.destroyShapes = function() {
-    Unit.prototype.parent_destroyShapes.call(this);
-    if (this.hasWeapon()) {
-        this.getWeapon().destroyShapes();
-    }
-};
+        takeDamage: function (damage) {
+            this._hp -= damage;
+        },
 
-Unit.prototype.getMaxHp = function() {
-    return this._maxHp;
-};
+        isAlive: function () {
+            return this._hp > 0;
+        }
+    })
 
-Unit.prototype.setMaxHp = function(maxHp) {
-    this._maxHp = this._hp = maxHp;
-};
+    .override_methods({
+        updateShapes: function () {
+            Unit.prototype.parentMethod_updateShapes.call(this);
+            if (this.hasWeapon()) {
+                this.getWeapon().updateShapes();
+            }
+        },
 
-Unit.prototype.getHp = function() {
-    return this._hp;
-};
-
-Unit.prototype.setHp = function(hp) {
-    this._hp = hp;
-};
-
-Unit.prototype.getWeaponSet = function() {
-    return this._weaponSet;
-};
-
-Unit.prototype.setWeaponSet = function(weaponSet) {
-    this._weaponSet = weaponSet;
-    this.chooseWeapon(0);
-};
+        destroyShapes: function () {
+            Unit.prototype.parentMethod_destroyShapes.call(this);
+            if (this.hasWeapon()) {
+                this.getWeapon().destroyShapes();
+            }
+        }
+    })
+;

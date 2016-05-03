@@ -14,4 +14,7 @@ function Recruit(opts, render) {
     }
 }
 
-Extend(Recruit).from(Tommy);
+meta.Class( Recruit )
+
+    .extend_from( Tommy )
+;

@@ -8,8 +8,8 @@ function Weapon(opts) {
     this._offsetX = meta.common.first_defined( opts.offsetX, 0 );
 
     this._hardness = meta.common.first_defined( opts.hardness, WEAPON.DEFAULT.HARDNESS );        // max number of bullets to completely reduce the accuracy
-    this._state = meta.common.first_defined( opts.state, this._hardness );                     // current number of bullets to reduce the accuracy
-    this._maxSector = meta.common.first_defined( opts.maxSector, WEAPON.DEFAULT.MAX_SECTOR );  // if accuracy = 0, bullets will be in this sector (degrees)
+    this._state = meta.common.first_defined( opts.state, this._hardness );                       // current number of bullets to reduce the accuracy
+    this._maxSector = meta.common.first_defined( opts.maxSector, WEAPON.DEFAULT.MAX_SECTOR );    // if accuracy = 0, bullets will be in this sector (degrees)
 
     this._shootingDelay = meta.common.first_defined( opts.shootingDelay, WEAPON.DEFAULT.SHOOTING_DELAY );  // min time interval between 2 shots
     this._canMakeNextShot = true;                                                        // to prevent shooting until shooting delay finished

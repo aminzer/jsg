@@ -14,4 +14,7 @@ function FootSoldier(opts, render) {
     }
 }
 
-Extend(FootSoldier).from(Tommy);
+meta.Class( FootSoldier )
+
+    .extend_from( Tommy )
+;

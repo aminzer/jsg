@@ -8,4 +8,9 @@ function SquareUnit(opts) {
     this.setWidth(meta.common.first_defined( opts.width, 2 * UNIT.DEFAULT.RADIUS ));
 }
 
-Extend(SquareUnit).from(Unit).withMixins(SquareObject);
+meta.Class( SquareUnit )
+
+    .extend_from( Unit )
+
+    .add_mixin( SquareObject )
+;

@@ -7,4 +7,9 @@ function CircleUnit(opts) {
     this.setRadius(meta.common.first_defined( opts.radius, UNIT.DEFAULT.RADIUS ));
 }
 
-Extend(CircleUnit).from(Unit).withMixins(CircleObject);
+meta.Class( CircleUnit )
+
+    .extend_from( Unit )
+
+    .add_mixin( CircleObject )
+;

@@ -11,16 +11,22 @@ function Tank(opts, render) {
     }
 }
 
-Extend(Tank).from(SquareUnit);
+meta.Class( Tank )
 
-Tank.prototype.render = function() {
-    Painter.rectangle(this, this.getLength(), this.getWidth(), this.getLength() / 2, this.getWidth() / 2, "#474924");
-    Painter.circle(this, 3, "red");
+    .extend_from( SquareUnit )
 
-    if (this.getWeapon() != null) {
-        this.getWeapon().render();
-    }
-};
+    .define_method({
+        render: function () {
+            Painter.rectangle(this, this.getLength(), this.getWidth(), this.getLength() / 2, this.getWidth() / 2, "#474924");
+            Painter.circle(this, 3, "red");
+
+            if (this.getWeapon() != null) {
+                this.getWeapon().render();
+            }
+        }
+    })
+;
+
 
 // TODO refactor and move to master
 //function Tank1(opts, draw) {

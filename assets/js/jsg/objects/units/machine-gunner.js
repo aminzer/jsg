@@ -14,4 +14,7 @@ function MachineGunner(opts, render) {
     }
 }
 
-Extend(MachineGunner).from(Tommy);
+meta.Class( MachineGunner )
+
+    .extend_from( Tommy )
+;
