@@ -60,8 +60,8 @@ AI.prototype.resolve = function() {
     }
 
     function isOnFiringLine(shooter, target) {
-        // TODO fix for square units
-        if (!TypeUtility.isDefined(target.getRadius)) {
+        // TODO fix for square units and composite weapons
+        if (!meta.common.is_defined(target.getRadius)) {
             return false;
         }
         return MathUtility.isRayPassThroughCircle(

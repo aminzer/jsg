@@ -28,7 +28,7 @@ meta.Class( MovingObject )
     .define_methods({
         startMoving: function (movementAngle) {
             this._isMoving = true;
-            if (TypeUtility.isFloat(movementAngle)) {
+            if (meta.common.is_float(movementAngle)) {
                 this._movementAngle = movementAngle;
             }
         },

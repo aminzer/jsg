@@ -5,7 +5,6 @@ var Painter = function() {
     }
 
     return {
-
         offsetCircle: function(shapedObject, x, y, radius, color) {
             x = scale(x);
             y = scale(y);
