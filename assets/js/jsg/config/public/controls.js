@@ -2,7 +2,7 @@ var CONTROLS = {
 
     COMMON: {
         PAUSE: KEY.ESC,
-        LOG: KEY.L
+        LOG: KEY.MINUS
     },
 
     DEFAULT : {
@@ -48,17 +48,17 @@ var CONTROLS = {
         },
 
         CURSOR: {
-            UP: KEY.Y,
-            DOWN: KEY.H,
-            LEFT: KEY.G,
-            RIGHT: KEY.J,
+            UP: KEY.I,
+            DOWN: KEY.K,
+            LEFT: KEY.J,
+            RIGHT: KEY.L,
             SENSITIVITY: 10
         },
 
         WEAPON: {
             SHOOT: KEY.SPACE,
-            NEXT_WEAPON: KEY.NUM_7,
-            PREV_WEAPON: KEY.NUM_6
+            NEXT_WEAPON: KEY.NUM_9,
+            PREV_WEAPON: KEY.NUM_8
         },
 
         HUCK: {

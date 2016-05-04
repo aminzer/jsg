@@ -8,98 +8,105 @@ function UniversalControl(opts) {
     }
 }
 
-Extend(UniversalControl).from(MouseBasedControl);
+meta.Class( UniversalControl )
 
-UniversalControl.prototype.handleKeyDown = function(keyCode) {
-    MouseBasedControl.prototype.handleKeyDown.call(this, keyCode);
-    this._correctCursorPosition();
-    this._handleWeaponChanges();
-};
+    .extend_from( MouseBasedControl )
 
-UniversalControl.prototype.handleKeyUp = function(keyCode) {
-    MouseBasedControl.prototype.handleKeyUp.call(this, keyCode);
-    this._correctCursorPosition();
-    this._handleWeaponChanges();
-};
+    .override_methods({
+        handleKeyDown: function (keyCode) {
+            this.parentMethod_handleKeyDown(keyCode);
+            this._correctCursorPosition();
+            this._handleWeaponChanges();
+        },
 
-UniversalControl.prototype.handleMouseDown = function(targetX, targetY) {
-    if (this._isMouseOn()) {
-        MouseBasedControl.prototype.handleMouseDown.call(this, targetX, targetY);
-    }
-};
+        handleKeyUp: function (keyCode) {
+            this.parentMethod_handleKeyUp(keyCode);
+            this._correctCursorPosition();
+            this._handleWeaponChanges();
+        },
 
-UniversalControl.prototype.handleMouseUp = function(targetX, targetY) {
-    if (this._isMouseOn()) {
-        MouseBasedControl.prototype.handleMouseUp.call(this, targetX, targetY);
-    }
-};
+        handleMouseDown: function (targetX, targetY) {
+            if (this._isMouseOn()) {
+                this.parentMethod_handleMouseDown(targetX, targetY);
+            }
+        },
 
-UniversalControl.prototype.handleMouseMove = function(targetX, targetY) {
-    if (this._isMouseOn()) {
-        MouseBasedControl.prototype.handleMouseMove.call(this, targetX, targetY);
-    }
-};
+        handleMouseUp: function (targetX, targetY) {
+            if (this._isMouseOn()) {
+                this.parentMethod_handleMouseUp(targetX, targetY);
+            }
+        },
 
-UniversalControl.prototype.handleMouseWheel = function(delta) {
-    if (this._isMouseOn()) {
-        MouseBasedControl.prototype.handleMouseWheel.call(this, delta);
-    }
-};
+        handleMouseMove: function (targetX, targetY) {
+            if (this._isMouseOn()) {
+                this.parentMethod_handleMouseMove(targetX, targetY);
+            }
+        },
 
-UniversalControl.prototype.handleRender = function() {
-    this.getCursor().move();
-    MouseBasedControl.prototype.handleRender.call(this);
-};
+        handleMouseWheel: function (delta) {
+            if (this._isMouseOn()) {
+                this.parentMethod_handleMouseWheel(delta);
+            }
+        },
 
-UniversalControl.prototype._correctCursorPosition = function() {
-    if (this._isMouseOn()) {
-        return;
-    }
-    var dx = 0,
-        dy = 0;
-
-    if (this.isPressed('CURSOR.RIGHT')) {
-        dx++;
-    }
-    if (this.isPressed('CURSOR.LEFT')) {
-        dx--;
-    }
-    if (this.isPressed('CURSOR.DOWN')) {
-        dy++;
-    }
-    if (this.isPressed('CURSOR.UP')) {
-        dy--;
-    }
-    if (dx == 0 && dy == 0) {
-        this.getCursor().stopMoving();
-        return;
-    }
-
-    var angle = 180 / Math.PI * Math.acos( dx / Math.sqrt(dx*dx + dy*dy) );
-    if (dy < 0) {
-        angle = -angle;
-    }
-    this.getCursor().startMoving(angle);
-};
-
-UniversalControl.prototype._handleWeaponChanges = function() {
-    if (!this._isMouseOn()) {
-        if (this.isPressed('WEAPON.SHOOT')) {
-            this._controlledObject.startShooting();
-        } else {
-            this._controlledObject.stopShooting();
+        handleRender: function () {
+            this.getCursor().move();
+            this.parentMethod_handleRender();
         }
-    }
+    })
 
-    if (this.isPressed('WEAPON.NEXT_WEAPON')) {
-        this._controlledObject.chooseNextWeapon();
-    }
+    .define_methods({
+        _correctCursorPosition: function () {
+            if (this._isMouseOn()) {
+                return;
+            }
+            var dx = 0,
+                dy = 0;
 
-    if (this.isPressed('WEAPON.PREV_WEAPON')) {
-        this._controlledObject.choosePrevWeapon();
-    }
-};
+            if (this.isPressed('CURSOR.RIGHT')) {
+                dx++;
+            }
+            if (this.isPressed('CURSOR.LEFT')) {
+                dx--;
+            }
+            if (this.isPressed('CURSOR.DOWN')) {
+                dy++;
+            }
+            if (this.isPressed('CURSOR.UP')) {
+                dy--;
+            }
+            if (dx == 0 && dy == 0) {
+                this.getCursor().stopMoving();
+                return;
+            }
 
-UniversalControl.prototype._isMouseOn = function() {
-    return this.getProperty('CURSOR.MOUSE') === true;
-};
+            var angle = 180 / Math.PI * Math.acos( dx / Math.sqrt(dx*dx + dy*dy) );
+            if (dy < 0) {
+                angle = -angle;
+            }
+            this.getCursor().startMoving(angle);
+        },
+
+        _handleWeaponChanges: function () {
+            if (!this._isMouseOn()) {
+                if (this.isPressed('WEAPON.SHOOT')) {
+                    this._controlledObject.startShooting();
+                } else {
+                    this._controlledObject.stopShooting();
+                }
+            }
+
+            if (this.isPressed('WEAPON.NEXT_WEAPON')) {
+                this._controlledObject.chooseNextWeapon();
+            }
+
+            if (this.isPressed('WEAPON.PREV_WEAPON')) {
+                this._controlledObject.choosePrevWeapon();
+            }
+        },
+
+        _isMouseOn: function () {
+            return this.getProperty('CURSOR.MOUSE') === true;
+        }
+    })
+;

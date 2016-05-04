@@ -10,26 +10,27 @@ function Cursor(opts, render) {
     }
 }
 
-Extend(Cursor).from(MovingObject);
+meta.Class( Cursor )
 
-Cursor.prototype.render = function () {
-    Painter.rectangle(this, 9, 4, 12, 2, "#fff");
-    Painter.rectangle(this, 9, 4, -3, 2, "#fff");
-    Painter.rectangle(this, 4, 9, 2, 12, "#fff");
-    Painter.rectangle(this, 4, 9, 2, -3, "#fff");
+    .extend_from( MovingObject )
 
-    Painter.rectangle(this, 7, 2, 11, 1, "#000");
-    Painter.rectangle(this, 7, 2, -4, 1, "#000");
-    Painter.rectangle(this, 2, 7, 1, 11, "#000");
-    Painter.rectangle(this, 2, 7, 1, -4, "#000");
+    .define_accessors([
+        'color'
+    ])
 
-    Painter.circle(this, 10, this.getColor());
-};
+    .define_methods({
+        render: function () {
+            Painter.rectangle(this, 9, 4, 12, 2, "#fff");
+            Painter.rectangle(this, 9, 4, -3, 2, "#fff");
+            Painter.rectangle(this, 4, 9, 2, 12, "#fff");
+            Painter.rectangle(this, 4, 9, 2, -3, "#fff");
 
-Cursor.prototype.getColor = function() {
-    return this._color;
-};
+            Painter.rectangle(this, 7, 2, 11, 1, "#000");
+            Painter.rectangle(this, 7, 2, -4, 1, "#000");
+            Painter.rectangle(this, 2, 7, 1, 11, "#000");
+            Painter.rectangle(this, 2, 7, 1, -4, "#000");
 
-Cursor.prototype.setColor = function(color) {
-    this._color = color;
-};
+            Painter.circle(this, 10, this.getColor());
+        }
+    })
+;

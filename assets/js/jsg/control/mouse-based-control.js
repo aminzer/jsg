@@ -6,74 +6,79 @@ function MouseBasedControl(opts) {
     this._pressedKeys = {};
 }
 
-Extend(MouseBasedControl).from(Control);
+meta.Class( MouseBasedControl )
 
-MouseBasedControl.prototype.handleKeyDown = function(keyCode) {
-    this._pressedKeys[keyCode] = true;
-    this._correctPlayerDirection();
+    .extend_from( Control )
 
-    if (this.isPressed('HUCK.FIX_WEAPON')) {
-        this._controlledObject.getWeapon().fix();
-    }
-};
+    .define_methods({
+        handleKeyDown: function (keyCode) {
+            this._pressedKeys[keyCode] = true;
+            this._correctPlayerDirection();
 
-MouseBasedControl.prototype.handleKeyUp = function(keyCode) {
-    this._pressedKeys[keyCode] = false;
-    this._correctPlayerDirection();
-};
+            if (this.isPressed('HUCK.FIX_WEAPON')) {
+                this._controlledObject.getWeapon().fix();
+            }
+        },
 
-MouseBasedControl.prototype.handleMouseDown = function(targetX, targetY) {
-    this._controlledObject.startShooting();
-};
+        handleKeyUp: function (keyCode) {
+            this._pressedKeys[keyCode] = false;
+            this._correctPlayerDirection();
+        },
 
-MouseBasedControl.prototype.handleMouseUp = function(targetX, targetY) {
-    this._controlledObject.stopShooting();
-};
+        handleMouseDown: function (targetX, targetY) {
+            this._controlledObject.startShooting();
+        },
 
-MouseBasedControl.prototype.handleMouseMove = function(targetX, targetY) {
-    this.getCursor().setPosition({
-        x: targetX,
-        y: targetY
-    });
-};
+        handleMouseUp: function (targetX, targetY) {
+            this._controlledObject.stopShooting();
+        },
 
-MouseBasedControl.prototype.handleMouseWheel = function(delta) {
-    if (delta > 0) {
-        this._controlledObject.chooseNextWeapon();
-    } else {
-        this._controlledObject.choosePrevWeapon();
-    }
-};
+        handleMouseMove: function (targetX, targetY) {
+            this.getCursor().setPosition({
+                x: targetX,
+                y: targetY
+            });
+        },
 
-MouseBasedControl.prototype.handleRender = function() {
-    this.getCursor().updateShapes();
-    this._controlledObject.aimAt(this.getCursor().getX(), this.getCursor().getY());
-};
+        handleMouseWheel: function (delta) {
+            if (delta > 0) {
+                this._controlledObject.chooseNextWeapon();
+            } else {
+                this._controlledObject.choosePrevWeapon();
+            }
+        },
 
-MouseBasedControl.prototype._correctPlayerDirection = function setPlayersDirection() {
-    var dx = 0,
-        dy = 0;
+        handleRender: function () {
+            this.getCursor().updateShapes();
+            this._controlledObject.aimAt(this.getCursor().getX(), this.getCursor().getY());
+        },
 
-    if (this.isPressed('MOVE.RIGHT')) {
-        dx++;
-    }
-    if (this.isPressed('MOVE.LEFT')) {
-        dx--;
-    }
-    if (this.isPressed('MOVE.DOWN')) {
-        dy++;
-    }
-    if (this.isPressed('MOVE.UP')) {
-        dy--;
-    }
-    if (dx == 0 && dy == 0) {
-        this._controlledObject.stopMoving();
-        return;
-    }
+        _correctPlayerDirection: function () {
+            var dx = 0,
+                dy = 0;
 
-    var angle = 180 / Math.PI * Math.acos( dx / Math.sqrt(dx*dx + dy*dy) );
-    if (dy < 0) {
-        angle = -angle;
-    }
-    this._controlledObject.startMoving(angle);
-};
+            if (this.isPressed('MOVE.RIGHT')) {
+                dx++;
+            }
+            if (this.isPressed('MOVE.LEFT')) {
+                dx--;
+            }
+            if (this.isPressed('MOVE.DOWN')) {
+                dy++;
+            }
+            if (this.isPressed('MOVE.UP')) {
+                dy--;
+            }
+            if (dx == 0 && dy == 0) {
+                this._controlledObject.stopMoving();
+                return;
+            }
+
+            var angle = 180 / Math.PI * Math.acos( dx / Math.sqrt(dx*dx + dy*dy) );
+            if (dy < 0) {
+                angle = -angle;
+            }
+            this._controlledObject.startMoving(angle);
+        }
+    })
+;
