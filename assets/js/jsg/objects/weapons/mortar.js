@@ -14,10 +14,15 @@ function Mortar(opts, render) {
     }
 }
 
-Extend(Mortar).from(Weapon);
+meta.Class( Mortar )
 
-Mortar.prototype.render = function() {
-    Painter.roundRectangle(this, this.getFrontLength() + 30, 10, 30, 5, 5, "#306337");
-    Painter.offsetRectangle(this, 23, 0, 8, 12, 0, 6, "#B0BA3C");
-    Painter.offsetRectangle(this, -27, 0, 12, 4, 0, 2, "#B0BA3C");
-};
+    .extend_from( Weapon )
+
+    .define_method({
+        render: function () {
+            Painter.roundRectangle(this, this.getFrontLength() + 30, 10, 30, 5, 5, "#306337");
+            Painter.offsetRectangle(this, 23, 0, 8, 12, 0, 6, "#B0BA3C");
+            Painter.offsetRectangle(this, -27, 0, 12, 4, 0, 2, "#B0BA3C");
+        }
+    })
+;

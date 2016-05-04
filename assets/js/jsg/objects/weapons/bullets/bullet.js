@@ -7,55 +7,45 @@ function Bullet(opts, render) {
     this._lifetime = meta.common.first_defined( opts.lifetime, BULLET.DEFAULT.LIFETIME );
 
     this.setSpeed(meta.common.first_defined( opts.speed, BULLET.DEFAULT.SPEED ));
-    applyAngle.call(this, opts);
+    this.setAngle(meta.common.first_defined( opts.angle, opts.movementAngle, 0));
     this.startMoving();
 
     if (render !== false) {
         this.render();
     }
-
-    function applyAngle(opts) {
-        var angle = meta.common.first_defined( opts.angle, opts.movementAngle) || 0;
-        this._angle = this._movementAngle = angle;
-    }
 }
 
-Extend(Bullet).from(MovingObject);
+meta.Class( Bullet )
+    .extend_from( MovingObject )
 
-Bullet.prototype.render = function() {
-    Painter.circle(this, 2, "#000");
-};
+    .define_accessors([
+        'damage',
+        'lifetime'
+    ])
 
-Bullet.prototype.parent_move = Bullet.prototype.move;
-Bullet.prototype.move = function() {
-    Bullet.prototype.parent_move.call(this);
-    return this.reduceLifetime() > 0;
-};
+    .define_writer('angle', function (angle) {
+        this._angle = this._movementAngle = angle;
+    })
 
-Bullet.prototype.die = function() { };
+    .define_alias('setMovementAngle', 'setAngle')
 
-Bullet.prototype.getDamage = function() {
-    return this._damage;
-};
+    .define_methods({
+        render: function () {
+            Painter.circle(this, 2, "#000");
+        },
 
-Bullet.prototype.setDamage = function(damage) {
-    this._damage = damage;
-};
+        die: function () {
+        },
 
-Bullet.prototype.setAngle = function(angle) {
-    this._angle = this._movementAngle = angle;
-};
+        reduceLifetime: function () {
+            return --this._lifetime;
+        }
+    })
 
-Bullet.prototype.setMovementAngle = Bullet.prototype.setAngle;
-
-Bullet.prototype.getLifetime = function() {
-    return this._lifetime;
-};
-
-Bullet.prototype.setLifetime = function(lifetime) {
-    this._lifetime = lifetime;
-};
-
-Bullet.prototype.reduceLifetime = function () {
-    return --this._lifetime;
-};
+    .override_method({
+        move: function () {
+            Bullet.prototype.parentMethod_move.call(this);
+            return this.reduceLifetime() > 0;
+        }
+    })
+;

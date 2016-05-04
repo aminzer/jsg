@@ -1,7 +1,7 @@
 function MineDelivery(opts, render) {
     opts = opts || {};
 
-    AcceleratingBullet.call(this, opts, false);
+    AcceleratingBullet.call(this, opts, render);
 
     this.setDamage(meta.common.first_defined( opts.damage, BULLET.MINE_DELIVERY.DAMAGE));
     this.setSpeed(meta.common.first_defined( opts.speed, BULLET.MINE_DELIVERY.START_SPEED));
@@ -10,21 +10,22 @@ function MineDelivery(opts, render) {
     this.setAcceleration(meta.common.first_defined( opts.acceleration, BULLET.MINE_DELIVERY.ACCELERATION));
     this.setBeginAccelerationLifetime(meta.common.first_defined( opts.beginAccelerationLifetime, BULLET.MINE_DELIVERY.BEGIN_ACCELERATION_LIFETIME));
     this.setEndAccelerationLifetime(meta.common.first_defined( opts.endAccelerationLifetime, BULLET.MINE_DELIVERY.END_ACCELERATION_LIFETIME));
-
-    if (render !== false) {
-        this.render();
-    }
 }
 
-Extend(MineDelivery).from(AcceleratingBullet);
+meta.Class( MineDelivery )
 
-MineDelivery.prototype.render = function() {
-    Painter.circle(this, 4, "#588DAD");
-};
+    .extend_from( AcceleratingBullet )
 
-MineDelivery.prototype.die = function() {
-    _.bullets().push(new Mine({
-        x: this.getX(),
-        y: this.getY()
-    }));
-};
+    .define_methods({
+        render: function () {
+            Painter.circle(this, 4, "#588DAD");
+        },
+
+        die: function () {
+            _.bullets().push(new Mine({
+                x: this.getX(),
+                y: this.getY()
+            }));
+        }
+    })
+;

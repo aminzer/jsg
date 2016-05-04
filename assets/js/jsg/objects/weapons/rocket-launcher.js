@@ -14,10 +14,15 @@ function RocketLauncher(opts, render) {
     }
 }
 
-Extend(RocketLauncher).from(Weapon);
+meta.Class( RocketLauncher )
 
-RocketLauncher.prototype.render = function() {
-    Painter.rectangle(this, this.getFrontLength() + 30, 8, 30, 4, "#244482");
-    Painter.offsetRectangle(this, 21, 0, 8, 10, 0, 5, "#bbb");
-    Painter.offsetRectangle(this, -27, 0, 12, 4, 0, 2, "#999");
-};
+    .extend_from( Weapon )
+
+    .define_method({
+        render: function () {
+            Painter.rectangle(this, this.getFrontLength() + 30, 8, 30, 4, "#244482");
+            Painter.offsetRectangle(this, 21, 0, 8, 10, 0, 5, "#bbb");
+            Painter.offsetRectangle(this, -27, 0, 12, 4, 0, 2, "#999");
+        }
+    })
+;

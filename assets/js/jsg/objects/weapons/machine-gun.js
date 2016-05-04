@@ -14,11 +14,16 @@ function MachineGun(opts, render) {
     }
 }
 
-Extend(MachineGun).from(AutomaticWeapon);
+meta.Class( MachineGun )
 
-MachineGun.prototype.render = function () {
-    Painter.rectangle(this, this.getFrontLength() + 20, 4, 20, 2, "#8A8A8A");
-    Painter.rectangle(this, 20, 10, 10, 4, "#444");
-    Painter.rectangle(this, 7, 8, 20, 4, "#444");
-    Painter.rectangle(this, 10, 4, -30, 2, "#222");
-};
+    .extend_from( AutomaticWeapon )
+
+    .define_method({
+        render: function () {
+            Painter.rectangle(this, this.getFrontLength() + 20, 4, 20, 2, "#8A8A8A");
+            Painter.rectangle(this, 20, 10, 10, 4, "#444");
+            Painter.rectangle(this, 7, 8, 20, 4, "#444");
+            Painter.rectangle(this, 10, 4, -30, 2, "#222");
+        }
+    })
+;

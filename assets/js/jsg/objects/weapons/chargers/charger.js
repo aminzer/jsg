@@ -9,42 +9,34 @@ function Charger(opts) {
     this._bulletConstructor = meta.common.first_defined( opts.bulletConstructor, Bullet );
 }
 
-Extend(Charger).from(BaseObject);
+meta.Class( Charger )
+    
+    .extend_from( BaseObject )
 
-Charger.prototype.isEmpty = function() {
-    return this._bulletCount <= 0;
-};
+    .define_accessors([
+        'bulletCount',
+        'bulletConstructor'
+    ])
 
-Charger.prototype.getNextBullet = function () {
-    if (this.isEmpty()) {
-        return null;
-    }
+    .define_accessors('bulletCapacity', {
+        set: function (bulletCapacity) {
+            this._bulletCount = this._bulletCapacity = bulletCapacity;
+        }
+    })
 
-    var nextBullet = new this._bulletConstructor();
-    this._bulletCount--;
-    return nextBullet;
-};
+    .define_methods({
+        isEmpty: function () {
+            return this._bulletCount <= 0;
+        },
 
-Charger.prototype.getBulletCapacity = function() {
-    return this._bulletCapacity;
-};
+        getNextBullet: function () {
+            if (this.isEmpty()) {
+                return null;
+            }
 
-Charger.prototype.setBulletCapacity = function(bulletCapacity) {
-    this._bulletCount = this._bulletCapacity = bulletCapacity;
-};
-
-Charger.prototype.getBulletCount = function() {
-    return this._bulletCount;
-};
-
-Charger.prototype.setBulletCount = function(bulletCount) {
-    this._bulletCount = bulletCount;
-};
-
-Charger.prototype.getBulletConstructor = function() {
-    return this._bulletConstructor;
-};
-
-Charger.prototype.setBulletConstructor = function(bulletConstructor) {
-    this._bulletConstructor = bulletConstructor;
-};
+            var nextBullet = new this._bulletConstructor();
+            this._bulletCount--;
+            return nextBullet;
+        }
+    })
+;

@@ -14,7 +14,7 @@ function CompositeWeapon(opts, render) {
 
     function initWeapons(weaponConstructors, offsetsY, offsetsX) {
         var self = this;
-        weaponConstructors.forEach(function(weaponConstructor, i) {
+        weaponConstructors.forEach(function (weaponConstructor, i) {
             self._weapons.push(new weaponConstructor({
                 offsetY: offsetsY[i] || 0,
                 offsetX: offsetsX[i] || 0
@@ -23,52 +23,57 @@ function CompositeWeapon(opts, render) {
     }
 }
 
-Extend(CompositeWeapon).from(MovingObject);
+meta.Class( CompositeWeapon )
 
-CompositeWeapon.prototype.render = function() {
-    this._weapons.forEach(function(weapon) {
-        weapon.render();
-    });
-};
+    .extend_from( MovingObject )
 
-CompositeWeapon.prototype.aimAt = function(targetX, targetY, unitX, unitY, unitAngle) {
-    this._weapons.forEach(function(weapon) {
-        weapon.aimAt(targetX, targetY, unitX, unitY, unitAngle);
-    });
-};
+    .define({
+        render: function () {
+            this._weapons.forEach(function (weapon) {
+                weapon.render();
+            });
+        },
 
-CompositeWeapon.prototype.shoot = function() {
-    this._weapons.forEach(function(weapon) {
-        weapon.shoot();
-    });
-};
+        aimAt: function (targetX, targetY, unitX, unitY, unitAngle) {
+            this._weapons.forEach(function (weapon) {
+                weapon.aimAt(targetX, targetY, unitX, unitY, unitAngle);
+            });
+        },
 
-CompositeWeapon.prototype.startShooting = function() {
-    this._weapons.forEach(function(weapon) {
-        weapon.startShooting();
-    });
-};
+        shoot: function () {
+            this._weapons.forEach(function (weapon) {
+                weapon.shoot();
+            });
+        },
 
-CompositeWeapon.prototype.stopShooting = function() {
-    this._weapons.forEach(function(weapon) {
-        weapon.stopShooting();
-    });
-};
+        startShooting: function () {
+            this._weapons.forEach(function (weapon) {
+                weapon.startShooting();
+            });
+        },
 
-CompositeWeapon.prototype.fix = function() {
-    this._weapons.forEach(function(weapon) {
-        weapon.fix();
-    });
-};
+        stopShooting: function () {
+            this._weapons.forEach(function (weapon) {
+                weapon.stopShooting();
+            });
+        },
 
-CompositeWeapon.prototype.updateShapes = function() {
-    this._weapons.forEach(function(weapon) {
-        weapon.updateShapes();
-    });
-};
+        fix: function () {
+            this._weapons.forEach(function (weapon) {
+                weapon.fix();
+            });
+        },
 
-CompositeWeapon.prototype.destroyShapes = function() {
-    this._weapons.forEach(function(weapon) {
-        weapon.destroyShapes();
-    });
-};
+        updateShapes: function () {
+            this._weapons.forEach(function (weapon) {
+                weapon.updateShapes();
+            });
+        },
+
+        destroyShapes: function () {
+            this._weapons.forEach(function (weapon) {
+                weapon.destroyShapes();
+            });
+        }
+    })
+;
