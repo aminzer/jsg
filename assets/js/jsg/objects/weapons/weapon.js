@@ -113,7 +113,7 @@ meta.Class( Weapon )
     .override_method({
         destroyShapes: function () {
             this.stopShooting();
-            Weapon.prototype.parentMethod_destroyShapes.call(this);
+            Weapon.prototype.parent_destroyShapes.call(this);
         }
     })
 ;

@@ -44,7 +44,7 @@ meta.Class( Bullet )
 
     .override_method({
         move: function () {
-            Bullet.prototype.parentMethod_move.call(this);
+            Bullet.prototype.parent_move.call(this);
             return this.reduceLifetime() > 0;
         }
     })

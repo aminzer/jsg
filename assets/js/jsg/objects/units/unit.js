@@ -111,14 +111,14 @@ meta.Class( Unit )
 
     .override_methods({
         updateShapes: function () {
-            Unit.prototype.parentMethod_updateShapes.call(this);
+            Unit.prototype.parent_updateShapes.call(this);
             if (this.hasWeapon()) {
                 this.getWeapon().updateShapes();
             }
         },
 
         destroyShapes: function () {
-            Unit.prototype.parentMethod_destroyShapes.call(this);
+            Unit.prototype.parent_destroyShapes.call(this);
             if (this.hasWeapon()) {
                 this.getWeapon().destroyShapes();
             }

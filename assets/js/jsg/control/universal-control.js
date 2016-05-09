@@ -14,44 +14,44 @@ meta.Class( UniversalControl )
 
     .override_methods({
         handleKeyDown: function (keyCode) {
-            this.parentMethod_handleKeyDown(keyCode);
+            this.parent_handleKeyDown(keyCode);
             this._correctCursorPosition();
             this._handleWeaponChanges();
         },
 
         handleKeyUp: function (keyCode) {
-            this.parentMethod_handleKeyUp(keyCode);
+            this.parent_handleKeyUp(keyCode);
             this._correctCursorPosition();
             this._handleWeaponChanges();
         },
 
         handleMouseDown: function (targetX, targetY) {
             if (this._isMouseOn()) {
-                this.parentMethod_handleMouseDown(targetX, targetY);
+                this.parent_handleMouseDown(targetX, targetY);
             }
         },
 
         handleMouseUp: function (targetX, targetY) {
             if (this._isMouseOn()) {
-                this.parentMethod_handleMouseUp(targetX, targetY);
+                this.parent_handleMouseUp(targetX, targetY);
             }
         },
 
         handleMouseMove: function (targetX, targetY) {
             if (this._isMouseOn()) {
-                this.parentMethod_handleMouseMove(targetX, targetY);
+                this.parent_handleMouseMove(targetX, targetY);
             }
         },
 
         handleMouseWheel: function (delta) {
             if (this._isMouseOn()) {
-                this.parentMethod_handleMouseWheel(delta);
+                this.parent_handleMouseWheel(delta);
             }
         },
 
         handleRender: function () {
             this.getCursor().move();
-            this.parentMethod_handleRender();
+            this.parent_handleRender();
         }
     })
 
