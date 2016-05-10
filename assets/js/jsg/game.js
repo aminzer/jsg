@@ -126,8 +126,8 @@ function Game(opts) {
 
     function handleMouseMove(e) {
         _control.handleMouseMove(
-            Scale.getVirtual(e.stageX),
-            Scale.getVirtual(e.stageY)
+            Canvas.Scale.convertToVirtual(e.stageX),
+            Canvas.Scale.convertToVirtual(e.stageY)
         );
     }
 

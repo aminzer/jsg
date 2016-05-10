@@ -1,44 +1,60 @@
-var Canvas = function(opts) {
-    opts = opts || {};
+var Canvas = function() {
+    var self = {
+        _width: 0,
+        _height: 0
+    };
 
-    var VIRTUAL_WIDTH = 1600;
-    var VIRTUAL_HEIGHT = 900;
-
-    var _width = 0;
-    var _height = 0;
-
-    return {
-
-        getVirtualWidth: function() {
-            return VIRTUAL_WIDTH;
+    Object.defineProperties(self, {
+        virtualWidth: {
+            value: 1600,
+            writable: false,
+            configurable: false
         },
 
-        getVirtualHeight: function() {
-            return VIRTUAL_HEIGHT;
+        virtualHeight: {
+            value: 900,
+            writable: false,
+            configurable: false
         },
 
-        getWidth: function() {
-            return _width;
-        },
-
-        getHeight: function() {
-            return _height;
-        },
-
-        setAndValidateSize: function(opts) {
-            _width = opts.width;
-            _height = opts.height;
-
-            if (_width / VIRTUAL_WIDTH < _height / VIRTUAL_HEIGHT) {
-                _height = _width * VIRTUAL_HEIGHT / VIRTUAL_WIDTH;
-            } else {
-                _width = _height * VIRTUAL_WIDTH / VIRTUAL_HEIGHT;
+        width: {
+            get: function () {
+                return self._width;
             }
+        },
 
-            if (opts.canvasElem) {
-                opts.canvasElem.width = _width;
-                opts.canvasElem.height = _height;
+        height: {
+            get: function () {
+                return self._height;
             }
         }
-    }
+    });
+
+    self.setAndValidateSize = function(opts) {
+        self._width = opts.width;
+        self._height = opts.height;
+
+        if (self.width / self.virtualWidth < self.height / self.virtualHeight) {
+            self._height = self.width * self.virtualHeight / self.virtualWidth;
+        } else {
+            self._width = self.height * self.virtualWidth / self.virtualHeight;
+        }
+
+        if (opts.canvasElem) {
+            opts.canvasElem.width = self.width;
+            opts.canvasElem.height = self.height;
+        }
+    };
+
+    self.Scale = {
+        convertToReal: function(virtualSizeOfObject) {
+            return virtualSizeOfObject * self.width / self.virtualWidth;
+        },
+
+        convertToVirtual: function(realSizeOfObject) {
+            return realSizeOfObject * self.virtualWidth / self.width;
+        }
+    };
+
+    return self;
 }();
