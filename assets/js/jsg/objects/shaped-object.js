@@ -33,9 +33,9 @@ meta.Class( ShapedObject )
 
         updateShapes: function () {
             this._shapes.forEach(function (shape) {
-                shape.x = Scale.getReal(this.getX());
-                shape.y = Scale.getReal(this.getY());
-                shape.rotation = this.getAngle();         // TODO accept delta = natural angle
+                shape.x = Scale.getReal(this.x);
+                shape.y = Scale.getReal(this.y);
+                shape.rotation = this.angle;         // TODO accept delta = natural angle
             }, this);
         },
 

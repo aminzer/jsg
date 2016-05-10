@@ -12,7 +12,7 @@ meta.Class( CircleObject )
 
     .define_method({
         isPointInside: function(pointX, pointY) {
-            return MathUtility.isInCircle(pointX, pointY, this.getX(), this.getY(), this._radius);
+            return MathUtility.isInCircle(pointX, pointY, this.x, this.y, this._radius);
         }
     })
 ;

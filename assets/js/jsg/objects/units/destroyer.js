@@ -24,12 +24,12 @@ meta.Class( Destroyer )
 
     .define_methods({
         render: function () {
-            Painter.circle(this, this.getRadius(), "#c22");
-            Painter.rectangle(this, 10, 2 * (this.getRadius() - 1), 5, this.getRadius() - 1, "#fd1");
+            Painter.circle(this, this.radius, "#c22");
+            Painter.rectangle(this, 10, 2 * (this.radius - 1), 5, this.radius - 1, "#fd1");
             Painter.rectangle(this, 26, 8, 13, -1, "#fd1");
 
-            if (this.getWeapon() != null) {
-                this.getWeapon().render();
+            if (this.weapon != null) {
+                this.weapon.render();
             }
         }
     })

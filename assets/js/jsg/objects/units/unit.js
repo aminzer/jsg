@@ -11,7 +11,7 @@ function Unit(opts) {
     this._maxHp = meta.common.first_defined( opts.maxHp, UNIT.DEFAULT.HP );
     this._hp = meta.common.first_defined( opts.hp, this._maxHp );
 
-    this._weaponSet = meta.common.first_defined( opts.weaponSet || new WeaponSet({}) );
+    this._weaponSet = meta.common.first_defined( opts.weaponSet || new WeaponSet() );
     this.chooseWeapon(0);
 }
 
@@ -36,67 +36,67 @@ meta.Class( Unit )
         }
     })
 
-    .define_methods({
-        getWeapon: function () {
-            return this._weaponSet.getCurrentWeapon();
-        },
+    .define_reader('weapon', function () {
+        return this._weaponSet.currentWeapon;
+    })
 
+    .define_methods({
         hasWeapon: function () {
-            return this.getWeapon() != null;
+            return this.weapon != null;
         },
 
         chooseWeapon: function (index) {
             if (this.hasWeapon()) {
-                this.getWeapon().destroyShapes();
+                this.weapon.destroyShapes();
             }
             this._weaponSet.chooseWeapon(index);
             if (this.hasWeapon()) {
-                this.getWeapon().render();
+                this.weapon.render();
             }
         },
 
         chooseNextWeapon: function () {
             if (this.hasWeapon()) {
-                this.getWeapon().destroyShapes();
+                this.weapon.destroyShapes();
             }
             this._weaponSet.chooseNextWeapon();
             if (this.hasWeapon()) {
-                this.getWeapon().render();
+                this.weapon.render();
             }
         },
 
         choosePrevWeapon: function () {
             if (this.hasWeapon()) {
-                this.getWeapon().destroyShapes();
+                this.weapon.destroyShapes();
             }
             this._weaponSet.choosePrevWeapon();
             if (this.hasWeapon()) {
-                this.getWeapon().render();
+                this.weapon.render();
             }
         },
 
         aimAt: function (targetX, targetY) {
-            this.setAngle( MathUtility.getLinesAngle(this.getX(), this.getY(), targetX, targetY) );
+            this.angle = MathUtility.getLinesAngle(this.x, this.y, targetX, targetY);
             if (this.hasWeapon()) {
-                this.getWeapon().aimAt(targetX, targetY, this.getX(), this.getY(), this.getAngle());
+                this.weapon.aimAt(targetX, targetY, this.x, this.y, this.angle);
             }
         },
 
         shoot: function () {
             if (this.hasWeapon()) {
-                this.getWeapon().shoot();
+                this.weapon.shoot();
             }
         },
 
         startShooting: function () {
             if (this.hasWeapon()) {
-                this.getWeapon().startShooting();
+                this.weapon.startShooting();
             }
         },
 
         stopShooting: function () {
             if (this.hasWeapon()) {
-                this.getWeapon().stopShooting();
+                this.weapon.stopShooting();
             }
         },
 
@@ -113,14 +113,14 @@ meta.Class( Unit )
         updateShapes: function () {
             Unit.prototype.parent_updateShapes.call(this);
             if (this.hasWeapon()) {
-                this.getWeapon().updateShapes();
+                this.weapon.updateShapes();
             }
         },
 
         destroyShapes: function () {
             Unit.prototype.parent_destroyShapes.call(this);
             if (this.hasWeapon()) {
-                this.getWeapon().destroyShapes();
+                this.weapon.destroyShapes();
             }
         }
     })

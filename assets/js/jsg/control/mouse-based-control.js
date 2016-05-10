@@ -16,7 +16,7 @@ meta.Class( MouseBasedControl )
             this._correctPlayerDirection();
 
             if (this.isPressed('HUCK.FIX_WEAPON')) {
-                this._controlledObject.getWeapon().fix();
+                this._controlledObject.weapon.fix();
             }
         },
 
@@ -34,10 +34,10 @@ meta.Class( MouseBasedControl )
         },
 
         handleMouseMove: function (targetX, targetY) {
-            this.getCursor().setPosition({
+            this.cursor.position = {
                 x: targetX,
                 y: targetY
-            });
+            };
         },
 
         handleMouseWheel: function (delta) {
@@ -49,8 +49,8 @@ meta.Class( MouseBasedControl )
         },
 
         handleRender: function () {
-            this.getCursor().updateShapes();
-            this._controlledObject.aimAt(this.getCursor().getX(), this.getCursor().getY());
+            this.cursor.updateShapes();
+            this._controlledObject.aimAt(this.cursor.x, this.cursor.y);
         },
 
         _correctPlayerDirection: function () {

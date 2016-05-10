@@ -13,7 +13,6 @@ meta.Class( MovingObject )
     .extend_from( ShapedObject )
 
     .define_accessors([
-        'isMoving',
         'speed',
         'movementAngle'
     ])

@@ -3,9 +3,9 @@ function Fraction(opts, render) {
 
     Bullet.call(this, opts, render);
 
-    this.setDamage(meta.common.first_defined( opts.damage, BULLET.DEFAULT.DAMAGE ));
-    this.setSpeed(meta.common.first_defined( opts.speed, BULLET.DEFAULT.SPEED ));
-    this.setLifetime(meta.common.first_defined( opts.lifetime, BULLET.DEFAULT.LIFETIME ));
+    this.damage = meta.common.first_defined( opts.damage, BULLET.DEFAULT.DAMAGE );
+    this.speed = meta.common.first_defined( opts.speed, BULLET.DEFAULT.SPEED );
+    this.lifetime = meta.common.first_defined( opts.lifetime, BULLET.DEFAULT.LIFETIME );
 }
 
 meta.Class( Fraction )

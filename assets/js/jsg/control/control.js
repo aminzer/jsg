@@ -29,7 +29,7 @@ meta.Class( Control )
             }
 
             defaultValue = typeof defaultValue === 'undefined' ? -1 : defaultValue;
-            var res = this.getKeyMap();
+            var res = this.keyMap;
             var keys = keyString.split('.');
             for (var i = 0; i < keys.length; i++) {
                 if (!res.hasOwnProperty(keys[i]) || res[keys[i]] === null) {

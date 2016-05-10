@@ -16,8 +16,8 @@ AI.prototype.resolve = function() {
     var self = this;
 
     this._units.forEach(function(unit) {
-        if (unit.getObjectType() === OBJECT_TYPE.ENEMY) {
-            unit.aimAt(self._target.getX(), self._target.getY());
+        if (unit.objectType === OBJECT_TYPE.ENEMY) {
+            unit.aimAt(self._target.x, self._target.y);
 
             var shootingAllowed = canShoot(unit, self._target, self._units);
 
@@ -29,10 +29,10 @@ AI.prototype.resolve = function() {
                 if (random() > 0.5) {
                     unit.stopShooting();
                     unit.startMoving(MathUtility.getLinesAngle(
-                            unit.getX(),
-                            unit.getY(),
-                            self._target.getX(),
-                            self._target.getY()
+                            unit.x,
+                            unit.y,
+                            self._target.x,
+                            self._target.y
                         ) + random() * 90 - 45);
                 } else {
                     unit.stopMoving();
@@ -52,7 +52,7 @@ AI.prototype.resolve = function() {
             if (unit === shooter || unit === target) {
                 continue;
             }
-            if (unit.getObjectType() === OBJECT_TYPE.ENEMY && isOnFiringLine(shooter, unit)) {
+            if (unit.objectType === OBJECT_TYPE.ENEMY && isOnFiringLine(shooter, unit)) {
                 return false;
             }
         }
@@ -61,16 +61,16 @@ AI.prototype.resolve = function() {
 
     function isOnFiringLine(shooter, target) {
         // TODO fix for square units and composite weapons
-        if (!meta.common.is_defined(target.getRadius)) {
+        if (!meta.common.is_defined(target.radius)) {
             return false;
         }
         return MathUtility.isRayPassThroughCircle(
-            shooter.getWeapon().getX(),
-            shooter.getWeapon().getY(),
-            shooter.getWeapon().getAngle(),
-            target.getX(),
-            target.getY(),
-            target.getRadius()
+            shooter.weapon.x,
+            shooter.weapon.y,
+            shooter.weapon.angle,
+            target.x,
+            target.y,
+            target.radius
         );
     }
 };

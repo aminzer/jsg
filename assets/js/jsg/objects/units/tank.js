@@ -3,8 +3,8 @@ function Tank(opts, render) {
     
     SquareUnit.call(this, opts);
 
-    this.setLength(80);
-    this.setWidth(20);
+    this.length = 80;
+    this.width = 20;
 
     if (render !== false) {
         this.render();
@@ -17,11 +17,11 @@ meta.Class( Tank )
 
     .define_method({
         render: function () {
-            Painter.rectangle(this, this.getLength(), this.getWidth(), this.getLength() / 2, this.getWidth() / 2, "#474924");
+            Painter.rectangle(this, this.length, this.width, this.length / 2, this.width / 2, "#474924");
             Painter.circle(this, 3, "red");
 
-            if (this.getWeapon() != null) {
-                this.getWeapon().render();
+            if (this.weapon != null) {
+                this.weapon.render();
             }
         }
     })

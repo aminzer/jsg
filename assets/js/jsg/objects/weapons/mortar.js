@@ -3,11 +3,11 @@ function Mortar(opts, render) {
 
     Weapon.call(this, opts);
 
-    this.setMaxSector(WEAPON.ROCKET_LAUNCHER.MAX_SECTOR);
-    this.setFrontLength(WEAPON.ROCKET_LAUNCHER.FRONT_LENGTH);
-    this.setHardness(WEAPON.ROCKET_LAUNCHER.HARDNESS);
-    this.setShootingDelay(WEAPON.ROCKET_LAUNCHER.SHOOTING_DELAY);
-    this.getCharger().setBulletConstructor(MineDelivery);
+    this.maxSector = WEAPON.ROCKET_LAUNCHER.MAX_SECTOR;
+    this.frontLength = WEAPON.ROCKET_LAUNCHER.FRONT_LENGTH;
+    this.hardness = WEAPON.ROCKET_LAUNCHER.HARDNESS;
+    this.shootingDelay = WEAPON.ROCKET_LAUNCHER.SHOOTING_DELAY;
+    this.charger.bulletConstructor = MineDelivery;
 
     if (render !== false) {
         this.render();
@@ -20,7 +20,7 @@ meta.Class( Mortar )
 
     .define_method({
         render: function () {
-            Painter.roundRectangle(this, this.getFrontLength() + 30, 10, 30, 5, 5, "#306337");
+            Painter.roundRectangle(this, this.frontLength + 30, 10, 30, 5, 5, "#306337");
             Painter.offsetRectangle(this, 23, 0, 8, 12, 0, 6, "#B0BA3C");
             Painter.offsetRectangle(this, -27, 0, 12, 4, 0, 2, "#B0BA3C");
         }

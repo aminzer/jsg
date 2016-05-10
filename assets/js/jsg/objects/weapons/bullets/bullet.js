@@ -6,8 +6,8 @@ function Bullet(opts, render) {
     this._damage = meta.common.first_defined( opts.damage, BULLET.DEFAULT.DAMAGE );
     this._lifetime = meta.common.first_defined( opts.lifetime, BULLET.DEFAULT.LIFETIME );
 
-    this.setSpeed(meta.common.first_defined( opts.speed, BULLET.DEFAULT.SPEED ));
-    this.setAngle(meta.common.first_defined( opts.angle, opts.movementAngle, 0));
+    this.speed = meta.common.first_defined( opts.speed, BULLET.DEFAULT.SPEED );
+    this.angle = meta.common.first_defined( opts.angle, opts.movementAngle, 0);
     this.startMoving();
 
     if (render !== false) {
@@ -16,6 +16,7 @@ function Bullet(opts, render) {
 }
 
 meta.Class( Bullet )
+
     .extend_from( MovingObject )
 
     .define_accessors([
@@ -27,7 +28,9 @@ meta.Class( Bullet )
         this._angle = this._movementAngle = angle;
     })
 
-    .define_alias('setMovementAngle', 'setAngle')
+    .define_writer('movementAngle', function (angle) {
+        this._angle = this._movementAngle = angle;
+    })
 
     .define_methods({
         render: function () {

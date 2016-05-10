@@ -19,7 +19,7 @@ meta.Class( WindEffect )
 
     .define_methods({
         render: function () {
-            var radius = this.getRadius();
+            var radius = this.radius;
 
             Painter.circle(this, rad(1), "rgba(0, 50, 255, 0.2)");
             Painter.rectangle(this, rad(7/6), 2, rad(1/3), 1, "rgba(0, 50, 255, 0.1)");
@@ -35,15 +35,15 @@ meta.Class( WindEffect )
 
         makeInfluence: function () {
             _.bullets().forEach(function(bullet) {
-                if (this.isPointInside(bullet.getX(), bullet.getY())) {
+                if (this.isPointInside(bullet.x, bullet.y)) {
                     var delta = 5;
-                    if (Math.abs( MathUtility.normalizeAngle(bullet.getAngle() - this.getAngle()) ) < delta) {
-                        bullet.setAngle(this.getAngle());
+                    if (Math.abs( MathUtility.normalizeAngle(bullet.angle - this.angle) ) < delta) {
+                        bullet.angle = this.angle;
                     } else {
-                        if (!MathUtility.isClockwiseDirection(bullet.getAngle(), this.getAngle())) {
+                        if (!MathUtility.isClockwiseDirection(bullet.angle, this.angle)) {
                             delta = -delta;
                         }
-                        bullet.setAngle(bullet.getAngle() + delta);
+                        bullet.angle += delta;
                     }
                 }
             }, this);

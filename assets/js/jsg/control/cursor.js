@@ -30,7 +30,7 @@ meta.Class( Cursor )
             Painter.rectangle(this, 2, 7, 1, 11, "#000");
             Painter.rectangle(this, 2, 7, 1, -4, "#000");
 
-            Painter.circle(this, 10, this.getColor());
+            Painter.circle(this, 10, this.color);
         }
     })
 ;

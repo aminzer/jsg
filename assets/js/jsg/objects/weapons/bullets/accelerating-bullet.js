@@ -20,15 +20,15 @@ meta.Class( AcceleratingBullet )
 
     .define_methods({
         move: function () {
-            this.moveX(this.getSpeed() * cos_d(this.getAngle()));
-            this.moveY(this.getSpeed() * sin_d(this.getAngle()));
+            this.moveX(this.speed * cos_d(this.angle));
+            this.moveY(this.speed * sin_d(this.angle));
             this.reduceLifetime();
 
-            if (this.getLifetime() < this._beginAccelerationLifetime && this.getLifetime() > this._endAccelerationLifetime) {
+            if (this.lifetime < this._beginAccelerationLifetime && this.lifetime > this._endAccelerationLifetime) {
                 this.increaseSpeed(this._acceleration);
             }
 
-            return this.getLifetime() > 0;
+            return this.lifetime > 0;
         }
     })
 ;

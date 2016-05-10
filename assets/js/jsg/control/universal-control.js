@@ -4,7 +4,7 @@ function UniversalControl(opts) {
     MouseBasedControl.call(this, opts);
 
     if (!this._isMouseOn()) {
-        this.getCursor().setSpeed(this.getProperty('CURSOR.SENSITIVITY', 10));
+        this.cursor.speed = this.getProperty('CURSOR.SENSITIVITY', 10);
     }
 }
 
@@ -50,7 +50,7 @@ meta.Class( UniversalControl )
         },
 
         handleRender: function () {
-            this.getCursor().move();
+            this.cursor.move();
             this.parent_handleRender();
         }
     })
@@ -76,7 +76,7 @@ meta.Class( UniversalControl )
                 dy--;
             }
             if (dx == 0 && dy == 0) {
-                this.getCursor().stopMoving();
+                this.cursor.stopMoving();
                 return;
             }
 
@@ -84,7 +84,7 @@ meta.Class( UniversalControl )
             if (dy < 0) {
                 angle = -angle;
             }
-            this.getCursor().startMoving(angle);
+            this.cursor.startMoving(angle);
         },
 
         _handleWeaponChanges: function () {

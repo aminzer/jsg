@@ -34,8 +34,8 @@ var LevelResolver = function() {
                 var player = new constructor(
                     getObjectOpts(playerDef)
                 );
-                player.setObjectType(OBJECT_TYPE.PLAYER);
-                player.aimAt(Number.MAX_VALUE * cos_d(player.getAngle()), Number.MAX_VALUE * sin_d(player.getAngle()));
+                player.objectType = OBJECT_TYPE.PLAYER;
+                player.aimAt(Number.MAX_VALUE * cos_d(player.angle), Number.MAX_VALUE * sin_d(player.angle));
                 _.addUnit(player);
                 _.addPlayer(player);
             }

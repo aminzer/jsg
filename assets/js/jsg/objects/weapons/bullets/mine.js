@@ -3,10 +3,9 @@ function Mine(opts, render) {
 
     ExplosiveBullet.call(this, opts, render);
 
-    this.setSpeed(0);
-    this.setChildBulletConstructor(meta.common.first_defined( opts.childBulletConstructor, Fraction ));
-    this.setChildCount(meta.common.first_defined( opts.childCount, BULLET.MINE.FRACTION_COUNT ));
-    this.setSector(meta.common.first_defined (opts.sector, 360));
+    this.speed = 0;
+    this.childCount = meta.common.first_defined( opts.childCount, BULLET.MINE.FRACTION_COUNT );
+    this.sector = meta.common.first_defined (opts.sector, 360);
 }
 
 meta.Class( Mine )
@@ -21,8 +20,8 @@ meta.Class( Mine )
 
         getChildBulletOpts: function (angle) {
             return {
-                x: this.getX() + 10 * cos_d(angle),
-                y: this.getY() + 10 * sin_d(angle),
+                x: this.x + 10 * cos_d(angle),
+                y: this.y + 10 * sin_d(angle),
                 angle: angle,
                 damage: BULLET.MINE.FRACTION_DAMAGE,
                 speed: 10 + random() * 5,

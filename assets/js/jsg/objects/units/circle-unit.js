@@ -4,7 +4,7 @@ function CircleUnit(opts) {
     CircleObject.call(this, opts);
     Unit.call(this, opts);
 
-    this.setRadius(meta.common.first_defined( opts.radius, UNIT.DEFAULT.RADIUS ));
+    this.radius = meta.common.first_defined( opts.radius, UNIT.DEFAULT.RADIUS );
 }
 
 meta.Class( CircleUnit )

@@ -19,14 +19,14 @@ meta.Class( BulletReflectEffect )
 
     .define_methods({
         render: function () {
-            Painter.circle(this, this.getRadius(), "rgba(0, 100, 0, 0.2)");
+            Painter.circle(this, this.radius, "rgba(0, 100, 0, 0.2)");
         },
 
         makeInfluence: function () {
             _.bullets().forEach(function (bullet) {
-                if (this.isPointInside(bullet.getX(), bullet.getY())) {
-                    var normalAngle = MathUtility.getLinesAngle(bullet.getX(), bullet.getY(), this.getX(), this.getY());
-                    bullet.setAngle(180 - bullet.getAngle() + 2 * normalAngle);
+                if (this.isPointInside(bullet.x, bullet.y)) {
+                    var normalAngle = MathUtility.getLinesAngle(bullet.x, bullet.y, this.x, this.y);
+                    bullet.angle = 180 - bullet.angle + 2 * normalAngle;
                     bullet.move();
                 }
             }, this);

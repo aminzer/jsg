@@ -94,7 +94,7 @@ function Game(opts) {
 
         // 5. trigger player events
         _.players().forEach(function(player) {
-            $(document).trigger('player_hp_change', [player.getId(), player.getHp(), player.getMaxHp()]);
+            $(document).trigger('player_hp_change', [player.id, player.hp, player.maxHp]);
         });
 
         // 6. updating stage (redraw)
@@ -155,17 +155,17 @@ function Game(opts) {
             var unit = _.units()[i];
             for (var j = 0; j < _.bullets().length; j++) {
                 var bullet = _.bullets()[j];
-                if (unit.isPointInside(bullet.getX(), bullet.getY())) {
-                    unit.takeDamage(bullet.getDamage());     // unit takes damage
+                if (unit.isPointInside(bullet.x, bullet.y)) {
+                    unit.takeDamage(bullet.damage);     // unit takes damage
                     destroyBullet(j);
                     j--;  // because of splice
                 }
             }
 
             if (unit.isAlive() === false) {        // unit is dead
-                if (unit.getObjectType() == OBJECT_TYPE.ENEMY) {
+                if (unit.objectType == OBJECT_TYPE.ENEMY) {
                     $(document).trigger("enemy_died");
-                } else if (unit.getObjectType() == OBJECT_TYPE.PLAYER) {
+                } else if (unit.objectType == OBJECT_TYPE.PLAYER) {
                     $(document).trigger("player_dead");
                 }
                 unit.destroyShapes();

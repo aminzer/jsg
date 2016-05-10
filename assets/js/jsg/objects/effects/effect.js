@@ -24,9 +24,7 @@ meta.Class( Effect )
         },
 
         makeInfluence: function () {
-            if (this.isActive()) {
-                // do some stuff
-            }
+            // do some stuff
         }
     })
 ;

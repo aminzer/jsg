@@ -3,13 +3,14 @@ function Rocket(opts, render) {
 
     AcceleratingBullet.call(this, opts, render);
 
-    this.setDamage(meta.common.first_defined( opts.damage, BULLET.ROCKET.DAMAGE ));
-    this.setSpeed(meta.common.first_defined( opts.speed, BULLET.ROCKET.START_SPEED ));
-    this.setLifetime(meta.common.first_defined( opts.lifetime, BULLET.ROCKET.LIFETIME ));
+    // TODO use Hash.merge and pass params to parent constructor instead of setters
+    this.damage = meta.common.first_defined( opts.damage, BULLET.ROCKET.DAMAGE );
+    this.speed = meta.common.first_defined( opts.speed, BULLET.ROCKET.START_SPEED );
+    this.lifetime = meta.common.first_defined( opts.lifetime, BULLET.ROCKET.LIFETIME );
 
-    this.setAcceleration(meta.common.first_defined( opts.acceleration || BULLET.ROCKET.ACCELERATION));
-    this.setBeginAccelerationLifetime(meta.common.first_defined( opts.beginAccelerationLifetime || BULLET.ROCKET.BEGIN_ACCELERATION_LIFETIME));
-    this.setEndAccelerationLifetime(meta.common.first_defined( opts.endAccelerationLifetime || BULLET.ROCKET.END_ACCELERATION_LIFETIME));
+    this.acceleration = meta.common.first_defined( opts.acceleration || BULLET.ROCKET.ACCELERATION);
+    this.beginAccelerationLifetime = meta.common.first_defined( opts.beginAccelerationLifetime || BULLET.ROCKET.BEGIN_ACCELERATION_LIFETIME);
+    this.endAccelerationLifetime = meta.common.first_defined( opts.endAccelerationLifetime || BULLET.ROCKET.END_ACCELERATION_LIFETIME);
 }
 
 meta.Class( Rocket )

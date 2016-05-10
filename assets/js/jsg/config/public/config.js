@@ -1,6 +1,6 @@
 var Config = {
-    FPS:60,
+    FPS: 60,
     sound: {
-        on: true
+        on: false
     }
 };

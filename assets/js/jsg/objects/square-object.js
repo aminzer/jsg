@@ -14,8 +14,8 @@ meta.Class( SquareObject )
 
     .define_method({
         isPointInside: function (pointX, pointY) {
-            var relativeX = (pointX - this.getX()) * cos_d(this.getAngle()) + (pointY - this.getY()) * sin_d(this.getAngle());
-            var relativeY = -(pointX - this.getX()) * sin_d(this.getAngle()) + (pointY - this.getY()) * cos_d(this.getAngle());
+            var relativeX = (pointX - this.x) * cos_d(this.angle) + (pointY - this.y) * sin_d(this.angle);
+            var relativeY = -(pointX - this.x) * sin_d(this.angle) + (pointY - this.y) * cos_d(this.angle);
             return (Math.abs(relativeX) <= this._length / 2) && (Math.abs(relativeY) <= this._width / 2);
         }
     })

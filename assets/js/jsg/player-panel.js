@@ -42,7 +42,7 @@ function PlayerPanel(opts) {
 
     function getHpPanel(playerId) {
         for (var i = 0; i < _players.length; i++) {
-            if (_players[i].getId() === playerId) {
+            if (_players[i].id === playerId) {
                 return _hpPanels[i];
             }
         }
