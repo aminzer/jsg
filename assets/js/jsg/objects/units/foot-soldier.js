@@ -1,11 +1,9 @@
 function FootSoldier(opts, render) {
-    opts = opts || {};
-
-    meta.Hash( opts ).merge({
+    opts = new meta.Hash( opts ).merge({
         weaponSet: WeaponSet.oneGun(new AutomaticGun({}, false)),
         mainColor: '#559',
         extraColor: '#199EE0'
-    });
+    }).to_obj();
 
     Tommy.call(this, opts, render);
 }

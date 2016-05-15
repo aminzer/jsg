@@ -1,16 +1,14 @@
 function Rocket(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash(opts).merge({
+        damage: BULLET.ROCKET.DAMAGE,
+        speed: BULLET.ROCKET.START_SPEED,
+        lifetime: BULLET.ROCKET.LIFETIME,
+        acceleration: BULLET.ROCKET.ACCELERATION,
+        beginAccelerationLifetime: BULLET.ROCKET.BEGIN_ACCELERATION_LIFETIME,
+        endAccelerationLifetime: BULLET.ROCKET.END_ACCELERATION_LIFETIME
+    }).to_obj();
 
     AcceleratingBullet.call(this, opts, render);
-
-    // TODO use Hash.merge and pass params to parent constructor instead of setters
-    this.damage = meta.common.first_defined( opts.damage, BULLET.ROCKET.DAMAGE );
-    this.speed = meta.common.first_defined( opts.speed, BULLET.ROCKET.START_SPEED );
-    this.lifetime = meta.common.first_defined( opts.lifetime, BULLET.ROCKET.LIFETIME );
-
-    this.acceleration = meta.common.first_defined( opts.acceleration || BULLET.ROCKET.ACCELERATION);
-    this.beginAccelerationLifetime = meta.common.first_defined( opts.beginAccelerationLifetime || BULLET.ROCKET.BEGIN_ACCELERATION_LIFETIME);
-    this.endAccelerationLifetime = meta.common.first_defined( opts.endAccelerationLifetime || BULLET.ROCKET.END_ACCELERATION_LIFETIME);
 }
 
 meta.Class( Rocket )

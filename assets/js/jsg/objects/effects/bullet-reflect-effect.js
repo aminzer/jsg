@@ -1,7 +1,7 @@
 function BulletReflectEffect(opts, render) {
-    opts = meta.Hash( opts ).merge({
+    opts = new meta.Hash( opts ).merge({
         radius: 100
-    }).get_hash();
+    }).to_obj();
 
     CircleObject.call(this, opts);
     Effect.call(this, opts);

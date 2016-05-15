@@ -64,7 +64,7 @@ AI.prototype.resolve = function() {
         if (!meta.common.is_defined(target.radius)) {
             return false;
         }
-        return MathUtility.isRayPassThroughCircle(
+        return MathUtility.isRayPassThroughCircle(      // TODO check if weapon exist
             shooter.weapon.x,
             shooter.weapon.y,
             shooter.weapon.angle,

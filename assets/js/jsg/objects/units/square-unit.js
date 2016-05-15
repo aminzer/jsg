@@ -1,11 +1,11 @@
 function SquareUnit(opts) {
-    opts = opts || {};
+    opts = new meta.Hash( opts).merge({
+        length: 2 * UNIT.DEFAULT.RADIUS,
+        width: 2 * UNIT.DEFAULT.RADIUS
+    }).to_obj();
 
     SquareObject.call(this, opts);
     Unit.call(this, opts);
-
-    this.length = meta.common.first_defined( opts.length, 2 * UNIT.DEFAULT.RADIUS );
-    this.width = meta.common.first_defined( opts.width, 2 * UNIT.DEFAULT.RADIUS );
 }
 
 meta.Class( SquareUnit )

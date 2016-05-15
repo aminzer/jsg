@@ -1,7 +1,5 @@
 function Destroyer(opts, render) {
-    opts = opts || {};
-
-    meta.Hash( opts ).merge({
+    opts = new meta.Hash( opts ).merge({
         radius: UNIT.DESTROYER.RADIUS,
         maxHp: UNIT.DESTROYER.HP,
         weaponSet: WeaponSet.oneGun(new CompositeWeapon({
@@ -9,7 +7,7 @@ function Destroyer(opts, render) {
             offsetsY: [-22, -9, 19],
             offsetsX: [-1, 2, 0]
         }, false))
-    });
+    }).to_obj();
 
     CircleUnit.call(this, opts);
 

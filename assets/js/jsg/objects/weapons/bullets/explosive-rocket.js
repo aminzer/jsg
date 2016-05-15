@@ -1,15 +1,16 @@
 function ExplosiveRocket(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash(opts).merge({
+        damage: BULLET.EXPLOSIVE_ROCKET.DAMAGE,
+        speed: BULLET.EXPLOSIVE_ROCKET.START_SPEED,
+        lifetime: BULLET.EXPLOSIVE_ROCKET.LIFETIME,
+
+        childBulletConstructor: Fraction,
+        childCount: BULLET.EXPLOSIVE_ROCKET.FRACTION_COUNT,
+        sector: 360
+    }).to_obj();
 
     ExplosiveBullet.call(this, opts, false);
     Rocket.call(this, opts, render);
-
-    this.damage = meta.common.first_defined( opts.damage, BULLET.EXPLOSIVE_ROCKET.DAMAGE );
-    this.speed = meta.common.first_defined( opts.speed, BULLET.EXPLOSIVE_ROCKET.START_SPEED );
-    this.lifetime = meta.common.first_defined( opts.lifetime, BULLET.EXPLOSIVE_ROCKET.LIFETIME );
-    this.childBulletConstructor = meta.common.first_defined( opts.childBulletConstructor, Fraction );
-    this.childCount = meta.common.first_defined( opts.childCount, BULLET.EXPLOSIVE_ROCKET.FRACTION_COUNT );
-    this.sector = meta.common.first_defined (opts.sector, 360);
 }
 
 meta.Class( ExplosiveRocket )

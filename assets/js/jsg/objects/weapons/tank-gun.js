@@ -1,15 +1,16 @@
 function TankGun(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash(opts).merge({
+        maxSector: WEAPON.TANK_GUN.MAX_SECTOR,
+        frontLength: WEAPON.TANK_GUN.FRONT_LENGTH,
+        hardness: WEAPON.TANK_GUN.HARDNESS,
+        shootingDelay: WEAPON.TANK_GUN.SHOOTING_DELAY,
+        offsetX: 20,
+        offsetY: 0
+    }).to_obj();
 
     Weapon.call(this, opts);
 
-    this.maxSector = WEAPON.TANK_GUN.MAX_SECTOR;
-    this.frontLength = WEAPON.TANK_GUN.FRONT_LENGTH;
-    this.hardness = WEAPON.TANK_GUN.HARDNESS;
-    this.shootingDelay = WEAPON.TANK_GUN.SHOOTING_DELAY;
     this.charger.bulletConstructor = meta.common.first_defined( opts.bulletConstructor, ExplosiveRocket );
-    this.offsetY = 0;
-    this.offsetX = 20;
 
     if (render !== false) {
         this.render();

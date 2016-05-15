@@ -1,10 +1,11 @@
 function Tank(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash( opts ).merge({
+        length: 80,
+        width: 20,
+        weaponSet: WeaponSet.oneGun(new TankGun({}, false))
+    }).to_obj();
     
     SquareUnit.call(this, opts);
-
-    this.length = 80;
-    this.width = 20;
 
     if (render !== false) {
         this.render();

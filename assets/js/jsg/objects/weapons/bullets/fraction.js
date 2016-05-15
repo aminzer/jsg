@@ -1,11 +1,11 @@
 function Fraction(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash(opts).merge({
+        damage: BULLET.DEFAULT.DAMAGE,
+        speed: BULLET.DEFAULT.SPEED,
+        lifetime: BULLET.DEFAULT.LIFETIME
+    }).to_obj();
 
     Bullet.call(this, opts, render);
-
-    this.damage = meta.common.first_defined( opts.damage, BULLET.DEFAULT.DAMAGE );
-    this.speed = meta.common.first_defined( opts.speed, BULLET.DEFAULT.SPEED );
-    this.lifetime = meta.common.first_defined( opts.lifetime, BULLET.DEFAULT.LIFETIME );
 }
 
 meta.Class( Fraction )

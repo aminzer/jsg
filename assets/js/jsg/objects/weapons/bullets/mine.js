@@ -1,11 +1,12 @@
 function Mine(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash(opts).merge({
+        speed: 0,
+        childBulletConstructor: Fraction,
+        childCount: BULLET.MINE.FRACTION_COUNT,
+        sector: 360
+    }).to_obj();
 
     ExplosiveBullet.call(this, opts, render);
-
-    this.speed = 0;
-    this.childCount = meta.common.first_defined( opts.childCount, BULLET.MINE.FRACTION_COUNT );
-    this.sector = meta.common.first_defined (opts.sector, 360);
 }
 
 meta.Class( Mine )

@@ -1,10 +1,8 @@
 function DefaultHero2(opts, render) {
-    opts = opts || {};
-
-    meta.Hash( opts ).merge({
+    opts = new meta.Hash( opts ).merge({
         mainColor: '#FF860D',
         extraColor: '#75420E'
-    });
+    }).to_obj();
 
     DefaultHero.call(this, opts, render);
 }

@@ -1,11 +1,9 @@
 function Recruit(opts, render) {
-    opts = opts || {};
-
-    meta.Hash( opts ).merge({
+    opts = new meta.Hash( opts ).merge({
         weaponSet: WeaponSet.oneGun(new GrandfathersGun({}, false)),
         mainColor: '#199EE0',
         extraColor: '#559'
-    });
+    }).to_obj();
 
     Tommy.call(this, opts, render);
 }

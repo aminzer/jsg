@@ -1,10 +1,8 @@
 function Unit(opts) {
-    opts = opts || {};
-
-    meta.Hash( opts ).merge({
+    opts = new meta.Hash( opts ).merge({
         objectType: OBJECT_TYPE.ENEMY,
         speed: UNIT.DEFAULT.SPEED
-    });
+    }).to_obj();
 
     MovingObject.call(this, opts);
 

@@ -1,11 +1,11 @@
 function MachineGunBullet(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash(opts).merge({
+        damage: BULLET.MACHINE_GUN.DAMAGE,
+        speed: BULLET.MACHINE_GUN.SPEED,
+        lifetime: BULLET.MACHINE_GUN.LIFETIME
+    }).to_obj();
 
     Bullet.call(this, opts, render);
-
-    this.damage = meta.common.first_defined( opts.damage, BULLET.MACHINE_GUN.DAMAGE );
-    this.speed = meta.common.first_defined( opts.speed, BULLET.MACHINE_GUN.SPEED );
-    this.lifetime = meta.common.first_defined( opts.lifetime, BULLET.MACHINE_GUN.LIFETIME );
 }
 
 meta.Class( MachineGunBullet )

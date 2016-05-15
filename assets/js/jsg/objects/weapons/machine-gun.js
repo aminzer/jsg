@@ -1,12 +1,13 @@
 function MachineGun(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash(opts).merge({
+        maxSector: WEAPON.MACHINE_GUN.MAX_SECTOR,
+        frontLength: WEAPON.MACHINE_GUN.FRONT_LENGTH,
+        hardness: WEAPON.MACHINE_GUN.HARDNESS,
+        rateOfFire: WEAPON.MACHINE_GUN.RATE_OF_FIRE
+    }).to_obj();
 
     AutomaticWeapon.call(this, opts);
 
-    this.maxSector = WEAPON.MACHINE_GUN.MAX_SECTOR;
-    this.frontLength = WEAPON.MACHINE_GUN.FRONT_LENGTH;
-    this.hardness = WEAPON.MACHINE_GUN.HARDNESS;
-    this.rateOfFire = WEAPON.MACHINE_GUN.RATE_OF_FIRE;
     this.charger.bulletConstructor = meta.common.first_defined( opts.bulletConstructor, MachineGunBullet );
 
     if (render !== false) {

@@ -1,9 +1,9 @@
 function AcceleratingBullet(opts, render) {
     opts = opts || {};
-    
-    this._acceleration = meta.common.first_defined( opts.acceleration || BULLET.DEFAULT.ACCELERATION);
-    this._beginAccelerationLifetime = meta.common.first_defined( opts.beginAccelerationLifetime || BULLET.DEFAULT.BEGIN_ACCELERATION_LIFETIME);
-    this._endAccelerationLifetime = meta.common.first_defined( opts.endAccelerationLifetime || BULLET.DEFAULT.END_ACCELERATION_LIFETIME);
+
+    this._acceleration = meta.common.first_defined( opts.acceleration, BULLET.DEFAULT.ACCELERATION);
+    this._beginAccelerationLifetime = meta.common.first_defined( opts.beginAccelerationLifetime, BULLET.DEFAULT.BEGIN_ACCELERATION_LIFETIME);
+    this._endAccelerationLifetime = meta.common.first_defined( opts.endAccelerationLifetime, BULLET.DEFAULT.END_ACCELERATION_LIFETIME);
 
     Bullet.call(this, opts, render);
 }

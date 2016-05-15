@@ -1,12 +1,13 @@
 function Mortar(opts, render) {
-    opts = opts || {};
+    opts = new meta.Hash(opts).merge({
+        maxSector: WEAPON.ROCKET_LAUNCHER.MAX_SECTOR,
+        frontLength: WEAPON.ROCKET_LAUNCHER.FRONT_LENGTH,
+        hardness: WEAPON.ROCKET_LAUNCHER.HARDNESS,
+        shootingDelay: WEAPON.ROCKET_LAUNCHER.SHOOTING_DELAY
+    }).to_obj();
 
     Weapon.call(this, opts);
 
-    this.maxSector = WEAPON.ROCKET_LAUNCHER.MAX_SECTOR;
-    this.frontLength = WEAPON.ROCKET_LAUNCHER.FRONT_LENGTH;
-    this.hardness = WEAPON.ROCKET_LAUNCHER.HARDNESS;
-    this.shootingDelay = WEAPON.ROCKET_LAUNCHER.SHOOTING_DELAY;
     this.charger.bulletConstructor = MineDelivery;
 
     if (render !== false) {

@@ -1,11 +1,9 @@
 function MachineGunner(opts, render) {
-    opts = opts || {};
-
-    meta.Hash( opts ).merge({
+    opts = new meta.Hash( opts ).merge({
         weaponSet: WeaponSet.oneGun(new MachineGun({}, false)),
         mainColor: '#E08A19',
         extraColor: '#7A4D11'
-    });
+    }).to_obj();
 
     Tommy.call(this, opts, render);
 }
