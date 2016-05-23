@@ -47,12 +47,6 @@ meta.Class( WeaponSet)
 
         addWeapon: function(weapon) {
             this._weapons.push(weapon);
-        },
-
-        oneGun: function(weapon) {
-            return new WeaponSet({
-                weapons: [weapon]
-            })
         }
     })
 
