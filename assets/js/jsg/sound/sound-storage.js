@@ -1,5 +1,5 @@
 var SoundStorage = function () {
-    var audioPath = "sound/";
+    var audioPath = "assets/sound/";
     var rawSounds = [
         'weapon/shot1.mp3',
         'weapon/shot2.mp3',
@@ -19,8 +19,8 @@ var SoundStorage = function () {
                 });
                 sounds.push(sound);
                 soundsToRegister.push({
-                    id: sound.getId(),
-                    src: sound.getSrc()
+                    id: sound.id,
+                    src: sound.src
                 });
             });
             createjs.Sound.registerSounds(soundsToRegister, audioPath);
@@ -32,14 +32,14 @@ var SoundStorage = function () {
 
         getSound: function(soundId) {
             for (var i = 0; i < sounds.length; i++) {
-                if (sounds[i].getId() == soundId) {
+                if (sounds[i].id == soundId) {
                     return sounds[i]
                 }
             }
             return null;
         },
 
-        // TODO move to player class
+        // TODO move to player class (also create mock implementation for config.sound == false)
         play: function(soundId) {
             createjs.Sound.play(soundId);
         }

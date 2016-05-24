@@ -5,18 +5,10 @@ function Sound(opts) {
     this._src = opts.src;
 }
 
-Sound.prototype.getId = function() {
-    return this._id;
-};
+new meta.Class( Sound )
 
-Sound.prototype.setId = function(id) {
-    this._id = id;
-};
-
-Sound.prototype.getSrc = function() {
-    return this._src;
-};
-
-Sound.prototype.setSrc = function(src) {
-    this._src = src;
-};
+    .define_accessors([
+        'id',
+        'src'
+    ])
+;
