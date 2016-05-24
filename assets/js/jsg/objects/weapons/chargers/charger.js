@@ -9,7 +9,7 @@ function Charger(opts) {
     this._bulletConstructor = meta.common.first_defined( opts.bulletConstructor, Bullet );
 }
 
-meta.Class( Charger )
+new meta.Class( Charger )
     
     .extend_from( BaseObject )
 

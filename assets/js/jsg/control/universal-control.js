@@ -8,7 +8,7 @@ function UniversalControl(opts) {
     }
 }
 
-meta.Class( UniversalControl )
+new meta.Class( UniversalControl )
 
     .extend_from( MouseBasedControl )
 

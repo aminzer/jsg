@@ -8,7 +8,7 @@ function SquareUnit(opts) {
     Unit.call(this, opts);
 }
 
-meta.Class( SquareUnit )
+new meta.Class( SquareUnit )
 
     .extend_from( Unit )
 

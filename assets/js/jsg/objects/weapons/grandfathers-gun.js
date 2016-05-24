@@ -8,7 +8,7 @@ function GrandfathersGun(opts, render) {
     }
 }
 
-meta.Class( GrandfathersGun )
+new meta.Class( GrandfathersGun )
 
     .extend_from( Weapon )
 

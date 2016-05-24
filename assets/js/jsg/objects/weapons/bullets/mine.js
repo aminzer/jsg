@@ -9,7 +9,7 @@ function Mine(opts, render) {
     ExplosiveBullet.call(this, opts, render);
 }
 
-meta.Class( Mine )
+new meta.Class( Mine )
 
     .extend_from( ExplosiveBullet )
 

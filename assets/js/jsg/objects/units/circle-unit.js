@@ -7,7 +7,7 @@ function CircleUnit(opts) {
     this.radius = meta.common.first_defined( opts.radius, UNIT.DEFAULT.RADIUS );
 }
 
-meta.Class( CircleUnit )
+new meta.Class( CircleUnit )
 
     .extend_from( Unit )
 

@@ -17,7 +17,7 @@ function Weapon(opts) {
     this._charger = meta.common.first_defined( opts.charger, new Charger(opts) );
 }
 
-meta.Class( Weapon )
+new meta.Class( Weapon )
     
     .extend_from( MovingObject )
 

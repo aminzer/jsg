@@ -10,7 +10,7 @@ function Cursor(opts, render) {
     }
 }
 
-meta.Class( Cursor )
+new meta.Class( Cursor )
 
     .extend_from( MovingObject )
 

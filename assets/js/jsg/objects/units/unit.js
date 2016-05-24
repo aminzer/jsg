@@ -13,7 +13,7 @@ function Unit(opts) {
     this.chooseWeapon(0);
 }
 
-meta.Class( Unit )
+new meta.Class( Unit )
 
     .extend_from( MovingObject )
 

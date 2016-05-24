@@ -15,7 +15,7 @@ function Bullet(opts, render) {
     }
 }
 
-meta.Class( Bullet )
+new meta.Class( Bullet )
 
     .extend_from( MovingObject )
 

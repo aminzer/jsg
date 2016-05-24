@@ -7,7 +7,7 @@ function DefaultHero2(opts, render) {
     DefaultHero.call(this, opts, render);
 }
 
-meta.Class( DefaultHero2 )
+new meta.Class( DefaultHero2 )
 
     .extend_from( DefaultHero )
 ;

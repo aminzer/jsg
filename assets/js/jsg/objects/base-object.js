@@ -4,7 +4,7 @@ function BaseObject(opts) {
     this._objectType = meta.common.first_defined( opts.objectType, OBJECT_TYPE.UNDEFINED );
 }
 
-meta.Class( BaseObject )
+new meta.Class( BaseObject )
 
     .define_accessors([
         'id',

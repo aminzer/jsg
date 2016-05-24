@@ -8,7 +8,7 @@ function AutomaticWeapon(opts) {
     this.rateOfFire = meta.common.first_defined( opts.rateOfFire, WEAPON.DEFAULT.AUTOMATIC.RATE_OF_FIRE );
 }
 
-meta.Class( AutomaticWeapon )
+new meta.Class( AutomaticWeapon )
 
     .extend_from( Weapon )
 

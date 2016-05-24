@@ -9,7 +9,7 @@ function DefaultHero(opts, render) {
     Tommy.call(this, opts, render);
 }
 
-meta.Class( DefaultHero )
+new meta.Class( DefaultHero )
 
     .extend_from( Tommy )
 ;

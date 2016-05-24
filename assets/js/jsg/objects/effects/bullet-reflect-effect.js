@@ -11,7 +11,7 @@ function BulletReflectEffect(opts, render) {
     }
 }
 
-meta.Class( BulletReflectEffect )
+new meta.Class( BulletReflectEffect )
 
     .extend_from( Effect )
 

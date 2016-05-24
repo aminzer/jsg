@@ -8,7 +8,7 @@ function AcceleratingBullet(opts, render) {
     Bullet.call(this, opts, render);
 }
 
-meta.Class( AcceleratingBullet )
+new meta.Class( AcceleratingBullet )
     
     .extend_from( Bullet )
 

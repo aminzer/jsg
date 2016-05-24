@@ -12,7 +12,7 @@ function Tank(opts, render) {
     }
 }
 
-meta.Class( Tank )
+new meta.Class( Tank )
 
     .extend_from( SquareUnit )
 

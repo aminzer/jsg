@@ -6,7 +6,7 @@ function Effect(opts) {
     this._active = meta.common.first_defined( opts.active, true );
 }
 
-meta.Class( Effect )
+new meta.Class( Effect )
 
     .extend_from( MovingObject )
 

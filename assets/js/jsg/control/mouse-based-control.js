@@ -6,7 +6,7 @@ function MouseBasedControl(opts) {
     this._pressedKeys = {};
 }
 
-meta.Class( MouseBasedControl )
+new meta.Class( MouseBasedControl )
 
     .extend_from( Control )
 

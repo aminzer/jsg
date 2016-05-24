@@ -8,7 +8,7 @@ function WeaponSet(opts) {
     this._currentWeapon = this.chooseWeapon(this._weaponIndex);
 }
 
-meta.Class( WeaponSet)
+new meta.Class( WeaponSet)
 
     .extend_from( BaseObject )
 

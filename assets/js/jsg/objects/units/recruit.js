@@ -8,7 +8,7 @@ function Recruit(opts, render) {
     Tommy.call(this, opts, render);
 }
 
-meta.Class( Recruit )
+new meta.Class( Recruit )
 
     .extend_from( Tommy )
 ;

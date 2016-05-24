@@ -11,7 +11,7 @@ function WindEffect(opts, render) {
     }
 }
 
-meta.Class( WindEffect )
+new meta.Class( WindEffect )
 
     .extend_from( Effect )
 

@@ -8,7 +8,7 @@ function MachineGunBullet(opts, render) {
     Bullet.call(this, opts, render);
 }
 
-meta.Class( MachineGunBullet )
+new meta.Class( MachineGunBullet )
 
     .extend_from( Bullet )
 

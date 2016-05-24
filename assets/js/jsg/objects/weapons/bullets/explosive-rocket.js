@@ -13,7 +13,7 @@ function ExplosiveRocket(opts, render) {
     Rocket.call(this, opts, render);
 }
 
-meta.Class( ExplosiveRocket )
+new meta.Class( ExplosiveRocket )
 
     .extend_from( ExplosiveBullet )
 

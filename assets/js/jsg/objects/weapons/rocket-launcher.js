@@ -15,7 +15,7 @@ function RocketLauncher(opts, render) {
     }
 }
 
-meta.Class( RocketLauncher )
+new meta.Class( RocketLauncher )
 
     .extend_from( Weapon )
 

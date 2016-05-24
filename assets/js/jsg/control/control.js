@@ -8,7 +8,7 @@ function Control(opts) {
     this._properties = {};    // quick analog of _keyMap
 }
 
-meta.Class( Control )
+new meta.Class( Control )
 
     .extend_from( ControlInterface )
     

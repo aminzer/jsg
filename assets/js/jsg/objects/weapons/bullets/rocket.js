@@ -11,7 +11,7 @@ function Rocket(opts, render) {
     AcceleratingBullet.call(this, opts, render);
 }
 
-meta.Class( Rocket )
+new meta.Class( Rocket )
 
     .extend_from( AcceleratingBullet )
 

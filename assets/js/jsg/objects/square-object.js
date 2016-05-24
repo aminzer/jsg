@@ -5,7 +5,7 @@ function SquareObject(opts) {
     this._width = meta.common.first_defined( opts.width, 0 );
 }
 
-meta.Class( SquareObject )
+new meta.Class( SquareObject )
 
     .define_accessors([
         'length',

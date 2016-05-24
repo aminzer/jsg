@@ -8,7 +8,7 @@ function MovingObject(opts) {
     this._movementAngle = meta.common.first_defined( opts.movementAngle, 0 );
 }
 
-meta.Class( MovingObject )
+new meta.Class( MovingObject )
 
     .extend_from( ShapedObject )
 

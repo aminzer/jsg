@@ -17,7 +17,7 @@ function TankGun(opts, render) {
     }
 }
 
-meta.Class( TankGun )
+new meta.Class( TankGun )
 
     .extend_from( Weapon )
 

@@ -23,7 +23,7 @@ function CompositeWeapon(opts, render) {
     }
 }
 
-meta.Class( CompositeWeapon )
+new meta.Class( CompositeWeapon )
 
     .extend_from( MovingObject )
 

@@ -8,7 +8,7 @@ function FootSoldier(opts, render) {
     Tommy.call(this, opts, render);
 }
 
-meta.Class( FootSoldier )
+new meta.Class( FootSoldier )
 
     .extend_from( Tommy )
 ;

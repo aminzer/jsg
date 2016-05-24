@@ -15,7 +15,7 @@ function MachineGun(opts, render) {
     }
 }
 
-meta.Class( MachineGun )
+new meta.Class( MachineGun )
 
     .extend_from( AutomaticWeapon )
 

@@ -8,7 +8,7 @@ function MachineGunner(opts, render) {
     Tommy.call(this, opts, render);
 }
 
-meta.Class( MachineGunner )
+new meta.Class( MachineGunner )
 
     .extend_from( Tommy )
 ;

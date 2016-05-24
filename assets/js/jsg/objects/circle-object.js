@@ -4,7 +4,7 @@ function CircleObject(opts) {
     this._radius = meta.common.first_defined( opts.radius, 0 );
 }
 
-meta.Class( CircleObject )
+new meta.Class( CircleObject )
 
     .define_accessors([
         'radius'

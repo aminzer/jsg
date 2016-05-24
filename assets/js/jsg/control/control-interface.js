@@ -2,7 +2,7 @@ function ControlInterface(opts) {
     opts = opts || {};
 }
 
-meta.Class( ControlInterface )
+new meta.Class( ControlInterface )
 
     .define_methods({
         handleKeyDown: function (keyCode) {

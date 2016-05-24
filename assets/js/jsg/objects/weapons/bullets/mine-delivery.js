@@ -11,7 +11,7 @@ function MineDelivery(opts, render) {
     AcceleratingBullet.call(this, opts, render);
 }
 
-meta.Class( MineDelivery )
+new meta.Class( MineDelivery )
 
     .extend_from( AcceleratingBullet )
 

@@ -8,7 +8,7 @@ function GuyWithPanzerschreck(opts, render) {
     Tommy.call(this, opts, render);
 }
 
-meta.Class( GuyWithPanzerschreck )
+new meta.Class( GuyWithPanzerschreck )
 
     .extend_from( Tommy )
 ;

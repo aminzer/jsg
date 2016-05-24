@@ -15,7 +15,7 @@ function Mortar(opts, render) {
     }
 }
 
-meta.Class( Mortar )
+new meta.Class( Mortar )
 
     .extend_from( Weapon )
 

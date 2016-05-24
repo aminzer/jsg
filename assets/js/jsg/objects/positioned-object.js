@@ -9,7 +9,7 @@ function PositionedObject(opts) {
     this._naturalAngle = meta.common.first_defined( opts.naturalAngle, 0 );
 }
 
-meta.Class( PositionedObject )
+new meta.Class( PositionedObject )
 
     .extend_from( BaseObject )
 

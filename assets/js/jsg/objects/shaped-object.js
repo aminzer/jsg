@@ -6,7 +6,7 @@ function ShapedObject(opts) {
     this._shapes = [];
 }
 
-meta.Class( ShapedObject )
+new meta.Class( ShapedObject )
 
     .extend_from( PositionedObject )
 

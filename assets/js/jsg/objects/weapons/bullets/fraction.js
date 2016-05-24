@@ -8,7 +8,7 @@ function Fraction(opts, render) {
     Bullet.call(this, opts, render);
 }
 
-meta.Class( Fraction )
+new meta.Class( Fraction )
 
     .extend_from( Bullet )
 

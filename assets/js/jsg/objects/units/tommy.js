@@ -11,7 +11,7 @@ function Tommy(opts, render) {
     }
 }
 
-meta.Class( Tommy )
+new meta.Class( Tommy )
 
     .extend_from( CircleUnit )
 

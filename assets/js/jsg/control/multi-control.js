@@ -2,7 +2,7 @@ function MultiController(opts) {
     this._controls = opts.controls;
 }
 
-meta.Class( MultiController )
+new meta.Class( MultiController )
 
     .define_methods({
         handleKeyDown: function (keyCode) {

@@ -9,7 +9,7 @@ function ExplosiveBullet(opts, render) {
     Bullet.call(this, opts, render);
 }
 
-meta.Class( ExplosiveBullet )
+new meta.Class( ExplosiveBullet )
 
     .extend_from( Bullet )
 

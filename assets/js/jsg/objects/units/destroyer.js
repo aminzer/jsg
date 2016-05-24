@@ -16,7 +16,7 @@ function Destroyer(opts, render) {
     }
 }
 
-meta.Class( Destroyer )
+new meta.Class( Destroyer )
 
     .extend_from( CircleUnit )
 
