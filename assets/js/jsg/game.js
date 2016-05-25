@@ -50,7 +50,7 @@ function Game(opts) {
 
     function initSound() {
         if (Config.sound.on) {
-            SoundStorage.registerSoundBank();
+            SoundManager.registerSoundBank();
         }
     }
 

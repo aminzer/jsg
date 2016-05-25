@@ -11,4 +11,11 @@ new meta.Class( Sound )
         'id',
         'src'
     ])
+
+    .define_method('toCreatejsSound', function () {
+        return {
+            id: this._id,
+            src: this._src
+        };
+    })
 ;

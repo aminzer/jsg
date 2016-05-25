@@ -1,0 +1,8 @@
+{
+  "basePath": "assets/sounds/",
+  "sounds": [
+    "weapon/shot1.mp3",
+    "weapon/shot2.mp3",
+    "weapon/shot3.mp3"
+  ]
+}
