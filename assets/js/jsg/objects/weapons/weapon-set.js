@@ -50,10 +50,22 @@ new meta.Class( WeaponSet)
         }
     })
 
-    .define_static_method({
+    .define_static_methods({
         oneGun: function (weapon) {
             return new WeaponSet({
                 weapons: [weapon]
+            })
+        },
+
+        full: function () {
+            return new WeaponSet({
+                weapons: [
+                    new GrandfathersGun({}, false),
+                    new AutomaticGun({}, false),
+                    new MachineGun({}, false),
+                    new RocketLauncher({}, false),
+                    new Mortar({}, false)
+                ]
             })
         }
     })
