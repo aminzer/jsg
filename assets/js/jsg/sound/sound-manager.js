@@ -1,47 +1,55 @@
 var SoundManager = function () {
-    var JSON_FILE_PATH = 'assets/js/jsg/sound/sounds.json';
-    var soundMap = {};
+    var self = {};
 
-    return {
-        registerSoundBank: function() {
-            $.ajax({
-                dataType: 'json',
-                url: JSON_FILE_PATH,
-                success: function (receivedJson) {
-                    var sounds = [];
-                    receivedJson.sounds.forEach(function (src) {
-                        sounds.push(new Sound({
-                            id: src.split('.')[0],
-                            src: src
-                        }));
-                    });
+    var JSON_FILE_PATH = 'assets/js/jsg/sound/sound-registry.json';
+    var _soundMap = null;
+    var _soundOn = false;
 
-                    createjs.Sound.registerSounds(sounds.map(function (sound) {
-                        return sound.toCreatejsSound();
-                    }), receivedJson.basePath);
+    self.registerSoundBank = function() {
+        $.ajax({
+            dataType: 'json',
+            url: JSON_FILE_PATH,
+            success: function (receivedJson) {
+                var sounds = [];
+                receivedJson.sounds.forEach(function (src) {
+                    sounds.push(new Sound({
+                        id: src.split('.')[0],
+                        src: src
+                    }));
+                });
 
-                    sounds.forEach(function (sound) {
-                        soundMap[sound.id] = sound;
-                    })
-                },
-                error: function () {
-                    console.error('Sound registry file wasn\'t found at ' + JSON_FILE_PATH);
-                }
-            });
-        },
+                createjs.Sound.registerSounds(sounds.map(function (sound) {
+                    return sound.toCreatejsSound();
+                }), receivedJson.basePath);
 
-        getSound: function(soundId) {
-            return soundMap[soundId];
-        },
-
-        hasSound: function (soundId) {
-            return typeof soundMap[soundId] != 'undefined';
-        },
-
-        play: function(soundId) {
-            if (Config.sound) {
-                createjs.Sound.play(soundId);
+                _soundMap = {};
+                sounds.forEach(function (sound) {
+                    _soundMap[sound.id] = sound;
+                });
+            },
+            error: function () {
+                console.error('Sound registry file wasn\'t found at ' + JSON_FILE_PATH);
             }
+        });
+    };
+
+    self.enableSound = function () {
+        _soundOn = true;
+    };
+
+    self.disableSound = function () {
+        _soundOn = false;
+    };
+
+    self.isSoundEnabled = function () {
+        return _soundOn;
+    };
+
+    self.play = function(soundId) {
+        if (_soundOn) {
+            createjs.Sound.play(soundId);
         }
     };
+
+    return self;
 }();
