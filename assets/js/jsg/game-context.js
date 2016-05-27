@@ -1,10 +1,7 @@
 function GameContext(opts) {
     opts = opts || {};
 
-    var canvasId = opts.canvasId || "canvas";
-
-    this._canvas = document.getElementById(canvasId);
-    this._stage = new createjs.Stage(canvasId);
+    this._stage = new createjs.Stage(Canvas.id);
 
     this._bullets = opts.bullets || [];
     this._units = opts.units || [];
@@ -12,14 +9,6 @@ function GameContext(opts) {
     this._effects = opts.effects || [];
     this._enemyFactory = opts.enemyFactory || null;
 }
-
-GameContext.prototype.canvas = function() {
-    return this._canvas;
-};
-
-GameContext.prototype.setCanvas = function(canvas) {
-    this._canvas = canvas;
-};
 
 GameContext.prototype.stage = function() {
     return this._stage;

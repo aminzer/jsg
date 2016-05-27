@@ -1,8 +1,10 @@
 var Canvas = function() {
-    var self = {
-        _width: 0,
-        _height: 0
-    };
+    var self = {};
+
+    var _width = 0;
+    var _height = 0;
+
+    var $node = null;
 
     Object.defineProperties(self, {
         virtualWidth: {
@@ -18,40 +20,61 @@ var Canvas = function() {
         },
 
         width: {
-            get: function () {
-                return self._width;
-            }
+            get: function () { return _width }
         },
 
         height: {
-            get: function () {
-                return self._height;
-            }
+            get: function () { return _height }
+        },
+
+        $node: {
+            get: function () { return $node }
+        },
+
+        htmlElement: {
+            get: function () { return $node ? $node.get(0) : null }
+        },
+
+        id: {
+            get: function () { return $node ? $node.attr('id') : null }
         }
     });
 
-    self.setAndValidateSize = function(opts) {
-        self._width = opts.width;
-        self._height = opts.height;
+    self.initialize = function (opts) {
+        opts = opts || {};
+
+        _width = opts.width || $(document.body).width();
+        _height = opts.height || $(document.body).height();
 
         if (self.width / self.virtualWidth < self.height / self.virtualHeight) {
-            self._height = self.width * self.virtualHeight / self.virtualWidth;
+            _height = self.width * self.virtualHeight / self.virtualWidth;
         } else {
-            self._width = self.height * self.virtualWidth / self.virtualHeight;
+            _width = self.height * self.virtualWidth / self.virtualHeight;
         }
 
-        if (opts.canvasElem) {
-            opts.canvasElem.width = self.width;
-            opts.canvasElem.height = self.height;
-        }
+        return self;
+    };
+
+    self.render = function (opts) {
+        opts = opts || {};
+
+        $node = $('<canvas></canvas>').attr({
+            id: opts.canvasId || 'stage-canvas',
+            width: self.width,
+            height: self.height
+        });
+
+        if (opts.$parent) opts.$parent.append($node);
+
+        return $node;
     };
 
     self.Scale = {
-        convertToReal: function(virtualSizeOfObject) {
+        convertToReal: function (virtualSizeOfObject) {
             return virtualSizeOfObject * self.width / self.virtualWidth;
         },
 
-        convertToVirtual: function(realSizeOfObject) {
+        convertToVirtual: function (realSizeOfObject) {
             return realSizeOfObject * self.virtualWidth / self.width;
         }
     };

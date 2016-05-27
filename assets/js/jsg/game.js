@@ -41,8 +41,8 @@ function Game(opts) {
         _.stage().addEventListener("stagemousemove", handleMouseMove);
         _.stage().addEventListener("stagemousedown", handleMouseDown);
         _.stage().addEventListener("stagemouseup", handleMouseUp);
-        _.canvas().addEventListener("wheel", handleMouseWheel);
-        _.canvas().oncontextmenu = handleRightButtonClick;
+        Canvas.htmlElement.addEventListener("wheel", handleMouseWheel);
+        Canvas.htmlElement.oncontextmenu = handleRightButtonClick;
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
         $(document).bind("player_dead", handlePlayersDeath);
@@ -55,7 +55,7 @@ function Game(opts) {
         }
     }
 
-    function handleTick(event) {
+    function handleTick() {
 
         // 1. check if ticker isn't paused
         if (createjs.Ticker.paused == true) {

@@ -4,11 +4,9 @@
     <title> JSG </title>
     <meta charset="utf-8">
 
-    <link href="vendor/bootstrap-3.3.5-dist/themes/cosmo-bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="assets/stylesheets/style.css" rel="stylesheet" type="text/css">
 
     <script src="vendor/jquery-2.1.4.min.js" defer></script>
-    <script src="vendor/bootstrap-3.3.5-dist/bootstrap.min.js" defer></script>
     <script src="vendor/easeljs-0.8.2.min.js" defer></script>
     <script src="vendor/soundjs-0.6.2.min.js" defer></script>
 
@@ -86,8 +84,6 @@
     <script src="assets/js/jsg/ai.js" defer></script>
     <script src="assets/js/jsg/game-context.js" defer></script>
     <script src="assets/js/jsg/game.js" defer></script>
-    <script src="assets/js/jsg/player-panel.js" defer></script>
-    <script src="assets/js/jsg/progress-bar.js" defer></script>
     <script src="assets/js/jsg/canvas.js" defer></script>
 
     <script src="assets/js/jsg/sound/sound.js" defer></script>
@@ -96,22 +92,23 @@
     <script src="assets/js/jsg/levels/empty.js" defer></script>
     <script src="assets/js/jsg/levels/simple.js" defer></script>
     <script src="assets/js/jsg/levels/defence.js" defer></script>
+
+    <script src="assets/js/widgets/progress-bar.js" defer></script>
+    <script src="assets/js/widgets/player-panel.js" defer></script>
 </head>
 
 <body onload="onLoad();">
-
-    <div id="player-panel"></div>
-
-    <canvas id="canvas" height="900" width="1600"></canvas>
-
     <script>
 
         function onLoad() {
-            Canvas.setAndValidateSize({
-                width: window.innerWidth,
-                height: window.innerHeight - parseInt(getComputedStyle(document.getElementById("player-panel"), '').height),
-                canvasElem: document.getElementById("canvas")
+            Canvas.initialize({
+                width: $(document.body).width(),
+                height: $(document.body).height()
+            }).render({
+                $parent: $(document.body)
             });
+
+            // TODO add player panels
 
             window._ = new GameContext();
 
@@ -121,9 +118,9 @@
                 playersCount: RequestParams.get('playersCount')
             });
 
-            var playerPanel = PlayerPanel();
-            playerPanel.setPlayers(_.players());
-            playerPanel.construct();
+//            var playerPanel = PlayerPanel();
+//            playerPanel.setPlayers(_.players());
+//            playerPanel.construct();
 
             game.start();
         }

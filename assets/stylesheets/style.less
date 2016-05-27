@@ -1,31 +1,52 @@
-body {
-  @hp-panel-height: 14px;
-  @kills-panel-size: 1px;
-  @player-panel-height: @hp-panel-height;
+html {
+  width: 100%;
+  height: 100%;
+  position: relative;
 
-  margin: 0;
-  padding: 0;
-  background-color: #555;
+  body {
+    @hp-panel-height: 14px;
+    @player-panel-height: @hp-panel-height;
 
-  img {
-    display: block;
-  }
-
-  #player-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: @player-panel-height;
     width: 100%;
-    background-color: white;
-    outline: 1px solid #999;
-  }
-
-  #canvas {
-    display: block;
-    margin: @player-panel-height auto 0 auto;
+    height: 100%;
+    margin: 0;
     padding: 0;
-    background-color: #fff;
-    cursor: url("../images/transparent-1px.png"), none;
+    background-color: #444444;
+
+    img {
+      display: block;
+    }
+
+    #stage-canvas {
+      display: block;
+      margin: 0 auto 0 auto;
+      padding: 0;
+      background-color: #fff;
+      cursor: url("../images/transparent-1px.png"), none;
+    }
+
+    .player-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: @player-panel-height;
+      width: 100%;
+      background-color: white;
+    }
+
+    .progress-bar {
+
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 14px;
+      outline: 1px solid #333;
+
+      &__progress {
+        height: 100%;
+        background-color: #3fb618;
+      }
+    }
+
   }
 }
