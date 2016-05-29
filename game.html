@@ -101,26 +101,37 @@
     <script>
 
         function onLoad() {
-            Canvas.initialize({
+            var levelId = RequestParams.get('levelId', 1);
+            var playerCount = Math.min(RequestParams.get('playerCount', 1), 2);
+
+            var playerPanels = [];
+
+            for (var i = 0; i < playerCount; i++) {     // TODO render it after
+                var playerPanel = new PlayerPanel();
+                playerPanels.push(playerPanel);
+                playerPanel.render({
+                    $parent: $(document.body)
+                });
+            }
+
+            Canvas.initialize({                         // todo decrease canvas height on playerCount * plPanelHeight
                 width: $(document.body).width(),
                 height: $(document.body).height()
             }).render({
                 $parent: $(document.body)
             });
 
-            // TODO add player panels
-
             window._ = new GameContext();
 
             var game = Game();
             game.chooseLevel({
-                level: RequestParams.get('level'),
-                playersCount: RequestParams.get('playersCount')
+                levelId: levelId,
+                playerCount: playerCount
             });
 
-//            var playerPanel = PlayerPanel();
-//            playerPanel.setPlayers(_.players());
-//            playerPanel.construct();
+            playerPanels.forEach(function (playerPanel, i) {
+                playerPanel.setPlayerId(_.players()[i] ? _.players()[i].id : null);
+            });
 
             game.start();
         }

@@ -18,8 +18,8 @@ function Game(opts) {
 
     self.chooseLevel = function(opts) {
         LevelResolver.resolve({
-            level: LevelStorage.get(opts.level || 1),
-            playersCount: opts.playersCount || 1
+            level: LevelStorage.get(opts.levelId || 1),
+            playerCount: opts.playerCount || 1
         });
         initControls();
     };

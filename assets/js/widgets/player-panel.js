@@ -1,8 +1,7 @@
 function PlayerPanel(opts) {
     opts = opts || {};
 
-    // TODO set players id after (or pointer on unit object)
-    var _playerId = opts.playerId || null;
+    var _playerId = null;
     var _hpBar = null;
 
     var $node;
@@ -19,13 +18,15 @@ function PlayerPanel(opts) {
     });
 
     this.render = render;
+    this.setPlayerId = setPlayerId;
 
-    function render() {
+    function render(opts) {
+        opts = opts || {};
+
         _hpBar = new ProgressBar();
 
         $node = $('<div></div>')
             .attr({
-                id: 'player-panel-' + _playerId,
                 class: 'player-panel'
             })
             .append(_hpBar.render());
@@ -41,5 +42,9 @@ function PlayerPanel(opts) {
                 _hpBar.setProgress(hp / maxHp);
             }
         });
+    }
+
+    function setPlayerId(playerId) {
+        _playerId = playerId;
     }
 }

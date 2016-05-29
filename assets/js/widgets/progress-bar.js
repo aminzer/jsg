@@ -6,17 +6,6 @@ function ProgressBar(opts) {
     var $node = null;
     var $progressNode = null;
 
-    var _setProgressNodeWidth;
-    if (typeof opts.animationDelay == 'undefined' || opts.animationDelay) {
-        _setProgressNodeWidth = function () {
-            $progressNode.animate({width: toPercents()}, opts.animationDelay || 100);
-        };
-    } else {
-        _setProgressNodeWidth = function () {
-            $progressNode.css('width', toPercents());
-        };
-    }
-
     Object.defineProperties(this, {
         $node: {
             get: function () {
@@ -44,7 +33,7 @@ function ProgressBar(opts) {
     function setProgress(progress) {
         if (_progress != progress) {
             _progress = progress;
-            _setProgressNodeWidth();
+            $progressNode.css('width', toPercents());  // TODO fix animation (jquery is not fine. it become shit, when setProgress calls interval is less, than animation time)
         }
     }
 

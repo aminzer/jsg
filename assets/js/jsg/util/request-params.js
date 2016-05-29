@@ -31,9 +31,10 @@ var RequestParams = (function() {
             return params.hasOwnProperty(key);
         },
 
-        get: function(key) {
+        get: function(key, defaultValue) {
+            defaultValue = defaultValue || null;
             parseURI();
-            return this.contains(key) ? params[key] : null;
+            return this.contains(key) ? params[key] : defaultValue;
         }
     }
 })();

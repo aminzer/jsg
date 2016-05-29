@@ -25,10 +25,10 @@ var LevelResolver = function() {
     return {
         resolve: function(opts) {
             var level = opts.level;
-            var playersCount = opts.playersCount || 1;
+            var playerCount = opts.playerCount || 1;
 
             var playerDefs = getPlayersDefinitions(level);
-            for (var i = 0; i < playersCount; i++) {
+            for (var i = 0; i < playerCount; i++) {
                 var playerDef = playerDefs[i] || {$constructor: DefaultHero2};
                 var constructor = playerDef.$constructor || (i === 0 ? DefaultHero : DefaultHero2);
                 var player = new constructor(
