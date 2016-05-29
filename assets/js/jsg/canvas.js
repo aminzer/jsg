@@ -28,7 +28,10 @@ var Canvas = function() {
         },
 
         $node: {
-            get: function () { return $node }
+            get: function () {
+                if (!$node) render();
+                return $node;
+            }
         },
 
         htmlElement: {
@@ -55,19 +58,7 @@ var Canvas = function() {
         return self;
     };
 
-    self.render = function (opts) {
-        opts = opts || {};
-
-        $node = $('<canvas></canvas>').attr({
-            id: opts.canvasId || 'stage-canvas',
-            width: self.width,
-            height: self.height
-        });
-
-        if (opts.$parent) opts.$parent.append($node);
-
-        return $node;
-    };
+    self.render = render;
 
     self.Scale = {
         convertToReal: function (virtualSizeOfObject) {
@@ -78,6 +69,20 @@ var Canvas = function() {
             return realSizeOfObject * self.virtualWidth / self.width;
         }
     };
+
+    function render(renderOpts) {
+        renderOpts = renderOpts || {};
+
+        $node = $('<canvas></canvas>').attr({
+            id: renderOpts.canvasId || 'stage-canvas',
+            width: self.width,
+            height: self.height
+        });
+
+        if (renderOpts.$parent) renderOpts.$parent.append($node);
+
+        return $node;
+    }
 
     return self;
 }();

@@ -8,6 +8,7 @@ var PlayerPanelHolder = function PlayerPanelHolder() {
     Object.defineProperties(self, {
         $node: {
             get: function () {
+                if (!$node) render();
                 return $node;
             }
         }
@@ -25,18 +26,7 @@ var PlayerPanelHolder = function PlayerPanelHolder() {
         return self;
     };
 
-    self.render = function (opts) {
-        opts = opts || {};
-
-        $node = $('<div class="player-panel-holder"></div>');
-        _playerPanels.forEach(function (playerPanel) {
-            $node.append(playerPanel.render());
-        });
-
-        if (opts.$parent) opts.$parent.append($node);
-
-        return $node;
-    };
+    self.render = render;
 
     self.bindToPlayers = function () {
         _playerPanels.forEach(function (playerPanel, i) {
@@ -49,6 +39,19 @@ var PlayerPanelHolder = function PlayerPanelHolder() {
     self.getHeight = function () {
         return $node.height();
     };
+
+    function render(opts) {
+        opts = opts || {};
+
+        $node = $('<div class="player-panel-holder"></div>');
+        _playerPanels.forEach(function (playerPanel) {
+            $node.append(playerPanel.render());
+        });
+
+        if (opts.$parent) opts.$parent.append($node);
+
+        return $node;
+    }
 
     return self;
 }();
