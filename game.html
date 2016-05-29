@@ -95,6 +95,7 @@
 
     <script src="assets/js/widgets/progress-bar.js" defer></script>
     <script src="assets/js/widgets/player-panel.js" defer></script>
+    <script src="assets/js/widgets/player-panel-holder.js" defer></script>
 </head>
 
 <body onload="onLoad();">
@@ -104,19 +105,15 @@
             var levelId = RequestParams.get('levelId', 1);
             var playerCount = Math.min(RequestParams.get('playerCount', 1), 2);
 
-            var playerPanels = [];
+            PlayerPanelHolder.initialize({
+                playerCount: playerCount
+            }).render({
+                $parent: $(document.body)
+            });
 
-            for (var i = 0; i < playerCount; i++) {     // TODO render it after
-                var playerPanel = new PlayerPanel();
-                playerPanels.push(playerPanel);
-                playerPanel.render({
-                    $parent: $(document.body)
-                });
-            }
-
-            Canvas.initialize({                         // todo decrease canvas height on playerCount * plPanelHeight
+            Canvas.initialize({
                 width: $(document.body).width(),
-                height: $(document.body).height()
+                height: $(document.body).height() - PlayerPanelHolder.getHeight()
             }).render({
                 $parent: $(document.body)
             });
@@ -129,9 +126,7 @@
                 playerCount: playerCount
             });
 
-            playerPanels.forEach(function (playerPanel, i) {
-                playerPanel.setPlayerId(_.players()[i] ? _.players()[i].id : null);
-            });
+            PlayerPanelHolder.bindToPlayers();
 
             game.start();
         }

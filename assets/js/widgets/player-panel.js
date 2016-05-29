@@ -6,8 +6,6 @@ function PlayerPanel(opts) {
 
     var $node;
 
-    initHandlers();
-
     Object.defineProperties(this, {
         $node: {
             get: function () {
@@ -20,10 +18,12 @@ function PlayerPanel(opts) {
     this.render = render;
     this.setPlayerId = setPlayerId;
 
-    function render(opts) {
-        opts = opts || {};
+    function render(renderOpts) {
+        renderOpts = renderOpts || {};
 
-        _hpBar = new ProgressBar();
+        _hpBar = new ProgressBar({
+            color: opts.color || null
+        });
 
         $node = $('<div></div>')
             .attr({
@@ -31,9 +31,14 @@ function PlayerPanel(opts) {
             })
             .append(_hpBar.render());
 
-        if (opts.$parent) opts.$parent.append($node);
+        if (renderOpts.$parent) renderOpts.$parent.append($node);
 
         return $node;
+    }
+
+    function setPlayerId(playerId) {
+        _playerId = playerId;
+        initHandlers();
     }
 
     function initHandlers() {
@@ -42,9 +47,5 @@ function PlayerPanel(opts) {
                 _hpBar.setProgress(hp / maxHp);
             }
         });
-    }
-
-    function setPlayerId(playerId) {
-        _playerId = playerId;
     }
 }

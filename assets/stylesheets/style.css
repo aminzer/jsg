@@ -21,9 +21,6 @@ html body #stage-canvas {
   cursor: url("../images/transparent-1px.png"), none;
 }
 html body .player-panel {
-  position: absolute;
-  top: 0;
-  left: 0;
   height: 14px;
   width: 100%;
   background-color: white;
