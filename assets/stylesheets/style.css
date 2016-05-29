@@ -21,18 +21,22 @@ html body #stage-canvas {
   cursor: url("../images/transparent-1px.png"), none;
 }
 html body .player-panel {
-  height: 14px;
   width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #333333;
   background-color: white;
 }
 html body .progress-bar {
   position: relative;
   display: block;
+  box-sizing: border-box;
   width: 100%;
   height: 14px;
-  outline: 1px solid #333;
+  border: 1px solid #333333;
 }
 html body .progress-bar__progress {
+  box-sizing: border-box;
   height: 100%;
+  border-right: 1px solid #333333;
   background-color: #3fb618;
 }

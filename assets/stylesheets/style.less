@@ -4,8 +4,8 @@ html {
   position: relative;
 
   body {
-    @hp-panel-height: 14px;
-    @player-panel-height: @hp-panel-height;
+    @dark-gray: #333;
+    @progress-bar-height: 14px;
 
     width: 100%;
     height: 100%;
@@ -26,24 +26,26 @@ html {
     }
 
     .player-panel {
-      height: @player-panel-height;
       width: 100%;
+      box-sizing: border-box;
+      border-bottom: 1px solid @dark-gray;
       background-color: white;
     }
 
     .progress-bar {
-
       position: relative;
       display: block;
+      box-sizing: border-box;
       width: 100%;
-      height: 14px;
-      outline: 1px solid #333;
+      height: @progress-bar-height;
+      border: 1px solid @dark-gray;
 
       &__progress {
+        box-sizing: border-box;
         height: 100%;
+        border-right: 1px solid @dark-gray;
         background-color: #3fb618;
       }
     }
-
   }
 }

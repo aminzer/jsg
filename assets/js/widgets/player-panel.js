@@ -22,6 +22,7 @@ function PlayerPanel(opts) {
         renderOpts = renderOpts || {};
 
         _hpBar = new ProgressBar({
+            noBorder: true,
             color: opts.color || null
         });
 

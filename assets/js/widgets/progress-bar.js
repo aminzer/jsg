@@ -23,7 +23,9 @@ function ProgressBar(opts) {
             'width': toPercents(),
             'background-color': opts.color
         });
-        $node = $('<div class="progress-bar"></div>').append($progressNode);
+        $node = $('<div class="progress-bar"></div>')
+            .css('border', opts.noBorder ? 'none' : '')
+            .append($progressNode);
 
         if (opts.$parent) opts.$parent.append($node);
 
