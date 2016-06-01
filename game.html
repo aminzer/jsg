@@ -77,8 +77,6 @@
     <script src="assets/js/jsg/control/universal-control.js" defer></script>
     <script src="assets/js/jsg/control/multi-control.js" defer></script>
 
-    <script src="assets/js/jsg/level-storage.js" defer></script>
-    <script src="assets/js/jsg/level-resolver.js" defer></script>
     <script src="assets/js/jsg/enemy-factory.js" defer></script>
     <script src="assets/js/jsg/ai.js" defer></script>
     <script src="assets/js/jsg/game-context.js" defer></script>
@@ -87,9 +85,12 @@
     <script src="assets/js/jsg/sound/sound.js" defer></script>
     <script src="assets/js/jsg/sound/sound-manager.js" defer></script>
 
-    <script src="assets/js/jsg/levels/empty.js" defer></script>
-    <script src="assets/js/jsg/levels/simple.js" defer></script>
-    <script src="assets/js/jsg/levels/defence.js" defer></script>
+    <script src="assets/js/jsg/levels/level-storage.js" defer></script>
+    <script src="assets/js/jsg/levels/level-resolver.js" defer></script>
+    <script src="assets/js/jsg/levels/definitions/level-definition.js" defer></script>
+    <script src="assets/js/jsg/levels/definitions/level-definition-1.js" defer></script>
+    <script src="assets/js/jsg/levels/definitions/level-definition-2.js" defer></script>
+    <script src="assets/js/jsg/levels/definitions/level-definition-3.js" defer></script>
 
     <script src="assets/js/widgets/progress-bar.js" defer></script>
     <script src="assets/js/widgets/player-panel.js" defer></script>
@@ -117,6 +118,7 @@
                 $parent: $(document.body)
             });
 
+            LevelStorage.initialize();
             window._ = new GameContext();
 
             var game = Game();
