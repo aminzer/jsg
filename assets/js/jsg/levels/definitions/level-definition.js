@@ -1,7 +1,7 @@
 function LevelDefinition(opts) {
     opts = opts || {};
 
-    this._id = opts.id || null;
+    this._id = opts.id || createjs.UID.get();
     this._name = opts.name || 'Unknown Level';
     this._description = opts.description || '';
 }
