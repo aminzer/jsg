@@ -26,7 +26,7 @@ function Game(opts) {
 
     self.start = function() {
         createjs.Ticker.addEventListener("tick", handleTick);
-        _ai = new AI();
+        _ai = new DefaultAI();
     };
 
     self.pause = function() {
