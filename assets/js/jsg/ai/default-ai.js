@@ -15,7 +15,7 @@ new meta.Class( DefaultAI )
         resolve: function () {
             var target = this._getTargets()[0];
 
-            _.units().forEach(function (unit) {
+            _.units.forEach(function (unit) {
                 if (this._isControllable(unit)) {
                     unit.aimAt(target.x, target.y);
 
@@ -48,7 +48,7 @@ new meta.Class( DefaultAI )
         },
 
         _canShoot: function (shooter, target) {
-            return _.units().every(function (unit) {
+            return _.units.every(function (unit) {
                 if (unit === shooter || unit === target) {
                     return true;
                 }

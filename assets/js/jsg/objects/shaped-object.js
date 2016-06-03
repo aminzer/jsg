@@ -27,7 +27,7 @@ new meta.Class( ShapedObject )
                 });
             } else {
                 this._shapes.push(shape);
-                _.stage().addChild(shape);
+                _.stage.addChild(shape);
             }
         },
 
@@ -41,7 +41,7 @@ new meta.Class( ShapedObject )
 
         destroyShapes: function () {
             this._shapes.forEach(function (shape) {
-                _.stage().removeChild(shape);
+                _.stage.removeChild(shape);
             });
             this._shapes = [];
         }

@@ -104,6 +104,10 @@ new meta.Class( Unit )
 
         isAlive: function () {
             return this._hp > 0;
+        },
+
+        isDead: function () {
+            return !this.isAlive();
         }
     })
 

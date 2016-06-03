@@ -15,7 +15,6 @@ var LevelResolver = function() {
             );
             player.objectType = OBJECT_TYPE.PLAYER;
             player.aimAt(Number.MAX_VALUE * cos_d(player.angle), Number.MAX_VALUE * sin_d(player.angle));
-            _.addUnit(player);
             _.addPlayer(player);
         }
 
@@ -35,7 +34,7 @@ var LevelResolver = function() {
             var enemyFactory = new levelDef.enemyFactory.$constructor(
                 getObjectOpts(levelDef.enemyFactory)
             );
-            _.setEnemyFactory(enemyFactory);
+            _.enemyFactory = enemyFactory;
             enemyFactory.startGenerating();
         }
     };

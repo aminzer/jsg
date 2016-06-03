@@ -1,7 +1,7 @@
 function Control(opts) {
     opts = opts || {};
 
-    this._controlledObject = opts.controlledObject || _.players()[0];
+    this._controlledObject = opts.controlledObject || _.players[0];
     this._cursor = opts.cursor || new Cursor();
 
     this._keyMap = opts.keyMap || CONTROLS.DEFAULT;

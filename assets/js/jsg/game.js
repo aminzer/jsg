@@ -38,14 +38,14 @@ function Game(opts) {
     };
 
     function initHandlers() {
-        _.stage().addEventListener("stagemousemove", handleMouseMove);
-        _.stage().addEventListener("stagemousedown", handleMouseDown);
-        _.stage().addEventListener("stagemouseup", handleMouseUp);
+        _.stage.addEventListener("stagemousemove", handleMouseMove);
+        _.stage.addEventListener("stagemousedown", handleMouseDown);
+        _.stage.addEventListener("stagemouseup", handleMouseUp);
         Canvas.htmlElement.addEventListener("wheel", handleMouseWheel);
         Canvas.htmlElement.oncontextmenu = handleRightButtonClick;
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
-        $(document).bind("player_dead", handlePlayersDeath);
+        $(document).bind("player_death", handlePlayersDeath);
     }
 
     function initSound() {
@@ -67,20 +67,17 @@ function Game(opts) {
         _ai.resolve();
 
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
-        for (var i = 0; i < _.units().length; i++) {
-            if (_.units()[i].move() == false) {     // lifeTime ended
-                _.units()[i].destroyShapes();
-                _.units().splice(i, 1);
-                i--;  // because of splice
+        _.units.forEach(function (unit, i) {
+            if (unit.move() == false) {
+                destroyUnit(i);
             }
-        }
-        for (i = 0; i < _.bullets().length; i++) {
-            if (_.bullets()[i].move() == false){     // lifeTime ended
+        });
+        _.bullets.forEach(function (bullet, i) {
+            if (bullet.move() == false) {
                 destroyBullet(i);
-                i--;  // because of splice
             }
-        }
-        _.effects().forEach(function (effect) {
+        });
+        _.effects.forEach(function (effect) {
             if (effect.isActive()) {
                 effect.makeInfluence()
             }
@@ -89,17 +86,17 @@ function Game(opts) {
         handleTargetHits();
 
         // 4. updating shapes related to Game Model Objects
-        _.units().forEach(function (unit) { unit.updateShapes() });
-        _.bullets().forEach(function (bullet) { bullet.updateShapes() });
-        _.effects().forEach(function (effect) { effect.updateShapes() });
+        _.units.forEach(function (unit) { unit.updateShapes() });
+        _.bullets.forEach(function (bullet) { bullet.updateShapes() });
+        _.effects.forEach(function (effect) { effect.updateShapes() });
 
         // 5. trigger player events
-        _.players().forEach(function(player) {
+        _.players.forEach(function(player) {
             $(document).trigger('player_hp_change', [player.id, player.hp, player.maxHp]);
         });
 
         // 6. updating stage (redraw)
-        _.stage().update();
+        _.stage.update();
     }
 
     function handleKeyDown(e) {
@@ -145,35 +142,26 @@ function Game(opts) {
         return false;
     }
 
-    function handleRightButtonClick(e) {
+    function handleRightButtonClick() {
         return false;
     }
 
-    function handleTargetHits() {
-        // TODO check standard method     easel.js : Shape.hitTest(x,y)
-
-        for (var i = 0; i < _.units().length; i++) {
-            var unit = _.units()[i];
-            for (var j = 0; j < _.bullets().length; j++) {
-                var bullet = _.bullets()[j];
+    function handleTargetHits() {                      // TODO check standard method     easel.js : Shape.hitTest(x,y)
+        _.units.forEach(function (unit, unitIndex) {
+            _.bullets.forEach(function (bullet, bulletIndex) {
                 if (unit.isPointInside(bullet.x, bullet.y)) {
-                    unit.takeDamage(bullet.damage);     // unit takes damage
-                    destroyBullet(j);
-                    j--;  // because of splice
+                    unit.takeDamage(bullet.damage);
+                    destroyBullet(bulletIndex);
                 }
-            }
+            });
 
-            if (unit.isAlive() === false) {        // unit is dead
-                if (unit.objectType == OBJECT_TYPE.ENEMY) {
-                    $(document).trigger("enemy_died");
-                } else if (unit.objectType == OBJECT_TYPE.PLAYER) {
-                    $(document).trigger("player_dead");
+            if (unit.isDead()) {
+                if (unit.objectType == OBJECT_TYPE.PLAYER) {
+                    $(document).trigger("player_death");
                 }
-                unit.destroyShapes();
-                _.units().splice(i, 1);
-                i--;  // because of splice
+                destroyUnit(unitIndex);
             }
-        }
+        });
     }
 
     function handlePlayersDeath(e) {
@@ -182,15 +170,21 @@ function Game(opts) {
     }
 
     function destroyBullet(index) {
-        _.bullets()[index].die();          // last action
-        _.bullets()[index].destroyShapes();    // erase from stage
-        _.bullets().splice(index, 1);          // delete from _.bullets() array
+        var bullet = _.bullets[index];
+        bullet.die();
+        bullet.destroyShapes();
+        _.bullets.splice(index, 1);
+    }
+
+    function destroyUnit(index) {
+        _.units[index].destroyShapes();
+        _.units.splice(index, 1);
     }
 
     function pauseGame() {
         if (_gameState.running) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            _.enemyFactory() && _.enemyFactory().stopGenerating();
+            _.enemyFactory && _.enemyFactory.stopGenerating();
             _gameState.running = false;
         }
     }
@@ -198,17 +192,17 @@ function Game(opts) {
     function resumeGame() {
         if (!_gameState.running) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            _.enemyFactory() && _.enemyFactory().startGenerating();
+            _.enemyFactory && _.enemyFactory.startGenerating();
             _gameState.running = true;
         }
     }
 
     function initControls() {
-        switch (_.players().length) {
+        switch (_.players.length) {
             case 1:
                 _control = new UniversalControl({
                     keyMap: CONTROLS.DEFAULT,
-                    controlledObject: _.players()[0]
+                    controlledObject: _.players[0]
                 });
                 break;
             case 2:
@@ -216,14 +210,14 @@ function Game(opts) {
                     controls: [
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER1,
-                            controlledObject: _.players()[0],
+                            controlledObject: _.players[0],
                             cursor: new Cursor({
                                 color: "rgba(0,100,0,0.2)"
                             })
                         }),
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER2,
-                            controlledObject: _.players()[1],
+                            controlledObject: _.players[1],
                             color: "rgba(0,0,255,0.1)"
                         })
                     ]

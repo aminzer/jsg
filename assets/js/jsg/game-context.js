@@ -10,66 +10,41 @@ function GameContext(opts) {
     this._enemyFactory = opts.enemyFactory || null;
 }
 
-GameContext.prototype.stage = function() {
-    return this._stage;
-};
+new meta.Class( GameContext )
 
-GameContext.prototype.setStage = function(stage) {
-    this._stage = stage;
-};
+    .define_accessors([
+        'stage',
+        'bullets',
+        'units',
+        'effects',
+        'enemyFactory'
+    ])
 
-GameContext.prototype.bullets = function() {
-    return this._bullets;
-};
+    .define_accessors('players', {
+        set: function (players) {
+            this._players = players;
+            players.forEach(function (player) {
+                this.addUnit(player);
+            })
+        }
+    })
 
-GameContext.prototype.setBullets = function(bullets) {
-    this._bullets = bullets;
-};
+    .define_methods({
+        addBullet: function (bullet) {
+            this._bullets.push(bullet);
+        },
 
-GameContext.prototype.addBullet = function(bullet) {
-    this._bullets.push(bullet);
-};
+        addUnit: function (unit) {
+            this._units.push(unit);
+        },
 
-GameContext.prototype.units = function() {
-    return this._units;
-};
+        addPlayer: function (player) {
+            this.addUnit(player);
+            this._players.push(player);
+        },
 
-GameContext.prototype.setUnits = function(units) {
-    this._units = units;
-};
-
-GameContext.prototype.addUnit = function(unit) {
-    this._units.push(unit);
-};
-
-GameContext.prototype.players = function() {
-    return this._players;
-};
-
-GameContext.prototype.setPlayers = function(players) {
-    this._players = players;
-};
-
-GameContext.prototype.addPlayer = function(player) {
-    this._players.push(player);
-};
-
-GameContext.prototype.effects = function() {
-    return this._effects;
-};
-
-GameContext.prototype.setEffects = function(effects) {
-    this._effects = effects;
-};
-
-GameContext.prototype.addEffect = function(effect) {
-    this._effects.push(effect);
-};
-
-GameContext.prototype.enemyFactory = function() {
-    return this._enemyFactory;
-};
-
-GameContext.prototype.setEnemyFactory = function(enemyFactory) {
-    this._enemyFactory = enemyFactory;
-};
+        addEffect: function (effect) {
+            this._effects.push(effect);
+        }
+    })
+;
