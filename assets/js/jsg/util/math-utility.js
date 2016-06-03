@@ -9,7 +9,7 @@ var MathUtility = {
      * @param degreeAngle
      * @returns {number}
      */
-    degToRad: function(degreeAngle) {
+    degToRad: function (degreeAngle) {
         return Math.PI / 180 * degreeAngle;
     },
 
@@ -18,7 +18,7 @@ var MathUtility = {
      * @param radianAngle
      * @returns {number}
      */
-    radToDeg: function(radianAngle) {
+    radToDeg: function (radianAngle) {
         return 180 / Math.PI * radianAngle;
     },
 
@@ -27,7 +27,7 @@ var MathUtility = {
      * @param degreeAngle
      * @returns {number}
      */
-    normalizeAngle: function(degreeAngle) {
+    normalizeAngle: function (degreeAngle) {
         while (degreeAngle > 180) {
             degreeAngle -= 360;
         }
@@ -46,7 +46,7 @@ var MathUtility = {
      * @param angle2
      * @returns {number} number in range [0, 180)
      */
-    absoluteAngleDifference: function(angle1, angle2) {
+    absoluteAngleDifference: function (angle1, angle2) {
         var delta = angle1 - angle2;
 
         while (delta < 0) {
@@ -70,7 +70,7 @@ var MathUtility = {
      * @param finishAngle
      * @returns {boolean}
      */
-    isClockwiseDirection: function(startAngle, finishAngle) {
+    isClockwiseDirection: function (startAngle, finishAngle) {
         return this.normalizeAngle(finishAngle - startAngle) > 0;
     },
 
@@ -82,7 +82,7 @@ var MathUtility = {
      * @param y1 - last ordinate
      * @return number (distance in px)
      */
-    getDistance: function(x0, y0, x1, y1) {
+    getDistance: function (x0, y0, x1, y1) {
         return Math.sqrt(Math.pow(x1 - x0, 2) + Math.pow(y1 - y0, 2));
     },
 
@@ -94,7 +94,7 @@ var MathUtility = {
      * @param y1 - last ordinate
      * @return number (angle in degrees)
      */
-    getLinesAngle: function(x0, y0, x1, y1) {
+    getLinesAngle: function (x0, y0, x1, y1) {
         if (x0 == x1 && y0 == y1) {
             return 0;
         }
@@ -115,7 +115,7 @@ var MathUtility = {
      * @param circleRadius
      * @returns {boolean}
      */
-    isInCircle: function(x, y, circleX, circleY, circleRadius) {
+    isInCircle: function (x, y, circleX, circleY, circleRadius) {
         return (circleX-x)*(circleX-x) + (circleY-y) * (circleY-y) <= circleRadius * circleRadius;
     },
 
@@ -126,7 +126,7 @@ var MathUtility = {
      * @param bound2
      * @returns {boolean}
      */
-    isBetween: function(x, bound1, bound2) {
+    isBetween: function (x, bound1, bound2) {
         return (bound1 <= x && x <= bound2) || (bound2 <= x && x <= bound1);
     },
 
@@ -140,7 +140,7 @@ var MathUtility = {
      * @param circleRadius
      * @returns {boolean}
      */
-    isRayPassThroughCircle : function(x, y, angle, circleX, circleY, circleRadius) {
+    isRayPassThroughCircle : function (x, y, angle, circleX, circleY, circleRadius) {
         if (this.getDistance(x, y, circleX, circleY) == 0) {
             return true;
         }
@@ -160,7 +160,7 @@ var MathUtility = {
         return Math.abs(angle - basicAngle) <= deltaAngle;
     },
 
-    turnPointRelative: function(pointX, pointY, relativePointX, relativePointY, angle) {
+    turnPointRelative: function (pointX, pointY, relativePointX, relativePointY, angle) {
         var res = {};
         res.x = relativePointX + (pointX - relativePointX) * cos_d(angle) - (pointY - relativePointY) * sin_d(angle);
         res.y = relativePointY + (pointX - relativePointX) * sin_d(angle) + (pointY - relativePointY) * cos_d(angle);
@@ -173,7 +173,7 @@ var MathUtility = {
      * @param barrierAngle (deg)
      * @returns angle (deg)
      */
-    getReflectAngle: function(rayAngle, barrierAngle) {
+    getReflectAngle: function (rayAngle, barrierAngle) {
         // TODO implement
     }
 };

@@ -21,7 +21,7 @@ new meta.Class( MineDelivery )
         },
 
         die: function () {
-            _.bullets.push(new Mine({
+            gctx.bullets.push(new Mine({
                 x: this.x,
                 y: this.y
             }));

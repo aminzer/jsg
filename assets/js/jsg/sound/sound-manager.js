@@ -5,7 +5,7 @@ var SoundManager = function () {
     var _soundMap = null;
     var _soundOn = false;
 
-    self.registerSoundBank = function() {
+    self.registerSoundBank = function () {
         $.ajax({
             dataType: 'json',
             url: JSON_FILE_PATH,
@@ -45,7 +45,7 @@ var SoundManager = function () {
         return _soundOn;
     };
 
-    self.play = function(soundId) {
+    self.play = function (soundId) {
         if (_soundOn) {
             createjs.Sound.play(soundId);
         }

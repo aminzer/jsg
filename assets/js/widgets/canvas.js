@@ -1,4 +1,4 @@
-var Canvas = function() {
+var Canvas = function () {
     var self = {};
 
     var _width = 0;

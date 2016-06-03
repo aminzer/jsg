@@ -13,7 +13,7 @@ new meta.Class( FakeAI )
         },
 
         _getTargets: function () {
-            return _.players;
+            return gctx.players;
         }
     })
 ;

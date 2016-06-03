@@ -18,7 +18,7 @@ new meta.Class( WeaponSet)
     ])
 
     .define_methods({
-        chooseWeapon: function(index) {
+        chooseWeapon: function (index) {
             this._weaponIndex = index;
 
             if (this._weaponIndex < 0) {
@@ -45,7 +45,7 @@ new meta.Class( WeaponSet)
             this.chooseWeapon(this._weaponIndex - 1);
         },
 
-        addWeapon: function(weapon) {
+        addWeapon: function (weapon) {
             this._weapons.push(weapon);
         }
     })

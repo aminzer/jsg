@@ -43,7 +43,7 @@ function PlayerPanel(opts) {
     }
 
     function initHandlers() {
-        $(document).bind("player_hp_change", function(e, playerId, hp, maxHp) {
+        $(document).bind("player_hp_change", function (e, playerId, hp, maxHp) {
             if (_playerId == playerId) {
                 _hpBar.setProgress(hp / maxHp);
             }

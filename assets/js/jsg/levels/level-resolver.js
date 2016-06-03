@@ -1,9 +1,9 @@
-var LevelResolver = function() {
+var LevelResolver = function () {
     var self = {};
 
     var SPECIAL_OPTION_PREFIX = '$';
 
-    self.resolve = function(opts) {
+    self.resolve = function (opts) {
         var levelDef = opts.levelDefinition;
 
         for (var i = 0; i < (opts.playerCount || 1); i++) {
@@ -15,17 +15,17 @@ var LevelResolver = function() {
             );
             player.objectType = OBJECT_TYPE.PLAYER;
             player.aimAt(Number.MAX_VALUE * cos_d(player.angle), Number.MAX_VALUE * sin_d(player.angle));
-            _.addPlayer(player);
+            gctx.addPlayer(player);
         }
 
         (levelDef.enemies || []).forEach(function (enemyDef) {
-            _.addUnit(new enemyDef.$constructor(
+            gctx.addUnit(new enemyDef.$constructor(
                 getObjectOpts(enemyDef)
             ));
         });
 
         (levelDef.effects || []).forEach(function (effectDef) {
-            _.addEffect(new effectDef.$constructor(
+            gctx.addEffect(new effectDef.$constructor(
                 getObjectOpts(effectDef)
             ));
         });
@@ -34,7 +34,7 @@ var LevelResolver = function() {
             var enemyFactory = new levelDef.enemyFactory.$constructor(
                 getObjectOpts(levelDef.enemyFactory)
             );
-            _.enemyFactory = enemyFactory;
+            gctx.enemyFactory = enemyFactory;
             enemyFactory.startGenerating();
         }
     };

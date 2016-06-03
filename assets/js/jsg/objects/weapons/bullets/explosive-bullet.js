@@ -43,7 +43,7 @@ new meta.Class( ExplosiveBullet )
                     var childBullet = new this._childBulletConstructor(
                         this.getChildBulletOpts(angle)
                     );
-                    _.addBullet(childBullet);
+                    gctx.addBullet(childBullet);
                 }
             }
         }

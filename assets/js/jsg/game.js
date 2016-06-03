@@ -16,7 +16,7 @@ function Game(opts) {
         initSound();
     }
 
-    self.chooseLevel = function(opts) {
+    self.chooseLevel = function (opts) {
         LevelResolver.resolve({
             levelDefinition: LevelStorage.get(opts.levelId || 1),
             playerCount: opts.playerCount || 1
@@ -24,23 +24,23 @@ function Game(opts) {
         initControls();
     };
 
-    self.start = function() {
+    self.start = function () {
         createjs.Ticker.addEventListener("tick", handleTick);
         _ai = new DefaultAI();
     };
 
-    self.pause = function() {
+    self.pause = function () {
         pauseGame();
     };
 
-    self.resume = function() {
+    self.resume = function () {
         resumeGame();
     };
 
     function initHandlers() {
-        _.stage.addEventListener("stagemousemove", handleMouseMove);
-        _.stage.addEventListener("stagemousedown", handleMouseDown);
-        _.stage.addEventListener("stagemouseup", handleMouseUp);
+        gctx.stage.addEventListener("stagemousemove", handleMouseMove);
+        gctx.stage.addEventListener("stagemousedown", handleMouseDown);
+        gctx.stage.addEventListener("stagemouseup", handleMouseUp);
         Canvas.htmlElement.addEventListener("wheel", handleMouseWheel);
         Canvas.htmlElement.oncontextmenu = handleRightButtonClick;
         document.addEventListener("keydown", handleKeyDown);
@@ -67,17 +67,17 @@ function Game(opts) {
         _ai.resolve();
 
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
-        _.units.forEach(function (unit, i) {
+        gctx.units.forEach(function (unit, i) {
             if (unit.move() == false) {
                 destroyUnit(i);
             }
         });
-        _.bullets.forEach(function (bullet, i) {
+        gctx.bullets.forEach(function (bullet, i) {
             if (bullet.move() == false) {
                 destroyBullet(i);
             }
         });
-        _.effects.forEach(function (effect) {
+        gctx.effects.forEach(function (effect) {
             if (effect.isActive()) {
                 effect.makeInfluence()
             }
@@ -86,17 +86,17 @@ function Game(opts) {
         handleTargetHits();
 
         // 4. updating shapes related to Game Model Objects
-        _.units.forEach(function (unit) { unit.updateShapes() });
-        _.bullets.forEach(function (bullet) { bullet.updateShapes() });
-        _.effects.forEach(function (effect) { effect.updateShapes() });
+        gctx.units.forEach(function (unit) { unit.updateShapes() });
+        gctx.bullets.forEach(function (bullet) { bullet.updateShapes() });
+        gctx.effects.forEach(function (effect) { effect.updateShapes() });
 
         // 5. trigger player events
-        _.players.forEach(function(player) {
+        gctx.players.forEach(function (player) {
             $(document).trigger('player_hp_change', [player.id, player.hp, player.maxHp]);
         });
 
         // 6. updating stage (redraw)
-        _.stage.update();
+        gctx.stage.update();
     }
 
     function handleKeyDown(e) {
@@ -147,8 +147,8 @@ function Game(opts) {
     }
 
     function handleTargetHits() {                      // TODO check standard method     easel.js : Shape.hitTest(x,y)
-        _.units.forEach(function (unit, unitIndex) {
-            _.bullets.forEach(function (bullet, bulletIndex) {
+        gctx.units.forEach(function (unit, unitIndex) {
+            gctx.bullets.forEach(function (bullet, bulletIndex) {
                 if (unit.isPointInside(bullet.x, bullet.y)) {
                     unit.takeDamage(bullet.damage);
                     destroyBullet(bulletIndex);
@@ -170,21 +170,21 @@ function Game(opts) {
     }
 
     function destroyBullet(index) {
-        var bullet = _.bullets[index];
+        var bullet = gctx.bullets[index];
         bullet.die();
         bullet.destroyShapes();
-        _.bullets.splice(index, 1);
+        gctx.bullets.splice(index, 1);
     }
 
     function destroyUnit(index) {
-        _.units[index].destroyShapes();
-        _.units.splice(index, 1);
+        gctx.units[index].destroyShapes();
+        gctx.units.splice(index, 1);
     }
 
     function pauseGame() {
         if (_gameState.running) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            _.enemyFactory && _.enemyFactory.stopGenerating();
+            gctx.enemyFactory && gctx.enemyFactory.stopGenerating();
             _gameState.running = false;
         }
     }
@@ -192,17 +192,17 @@ function Game(opts) {
     function resumeGame() {
         if (!_gameState.running) {
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            _.enemyFactory && _.enemyFactory.startGenerating();
+            gctx.enemyFactory && gctx.enemyFactory.startGenerating();
             _gameState.running = true;
         }
     }
 
     function initControls() {
-        switch (_.players.length) {
+        switch (gctx.players.length) {
             case 1:
                 _control = new UniversalControl({
                     keyMap: CONTROLS.DEFAULT,
-                    controlledObject: _.players[0]
+                    controlledObject: gctx.players[0]
                 });
                 break;
             case 2:
@@ -210,14 +210,14 @@ function Game(opts) {
                     controls: [
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER1,
-                            controlledObject: _.players[0],
+                            controlledObject: gctx.players[0],
                             cursor: new Cursor({
                                 color: "rgba(0,100,0,0.2)"
                             })
                         }),
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER2,
-                            controlledObject: _.players[1],
+                            controlledObject: gctx.players[1],
                             color: "rgba(0,0,255,0.1)"
                         })
                     ]

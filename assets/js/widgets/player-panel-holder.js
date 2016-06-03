@@ -30,8 +30,8 @@ var PlayerPanelHolder = function PlayerPanelHolder() {
 
     self.bindToPlayers = function () {
         _playerPanels.forEach(function (playerPanel, i) {
-            if (_.players[i]) {
-                playerPanel.setPlayerId(_.players[i].id);
+            if (gctx.players[i]) {
+                playerPanel.setPlayerId(gctx.players[i].id);
             }
         });
     };

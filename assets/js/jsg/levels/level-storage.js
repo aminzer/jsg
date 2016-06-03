@@ -1,4 +1,4 @@
-var LevelStorage = function() {
+var LevelStorage = function () {
     var self = {};
 
     var _storage = {};

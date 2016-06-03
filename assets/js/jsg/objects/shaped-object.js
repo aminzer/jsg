@@ -15,7 +15,7 @@ new meta.Class( ShapedObject )
             /* override it to define initial look of object */
         },
 
-        isPointInside: function(pointX, pointY) {
+        isPointInside: function (pointX, pointY) {
             /* override it to determine, if point is inside current object */
             return false;
         },
@@ -27,7 +27,7 @@ new meta.Class( ShapedObject )
                 });
             } else {
                 this._shapes.push(shape);
-                _.stage.addChild(shape);
+                gctx.stage.addChild(shape);
             }
         },
 
@@ -41,7 +41,7 @@ new meta.Class( ShapedObject )
 
         destroyShapes: function () {
             this._shapes.forEach(function (shape) {
-                _.stage.removeChild(shape);
+                gctx.stage.removeChild(shape);
             });
             this._shapes = [];
         }

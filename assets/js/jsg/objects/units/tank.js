@@ -46,7 +46,7 @@ new meta.Class( Tank )
 //
 //    self.setMaxHp(UNIT.TANK.HP);
 //
-//    self.isPointInside = function(pointX, pointY) {
+//    self.isPointInside = function (pointX, pointY) {
 //        var relativeX = (pointX - self.x) * cos_d(self.angle) + (pointY - self.y) * sin_d(self.angle);
 //        var relativeY = -(pointX - self.x) * sin_d(self.angle) + (pointY - self.y) * cos_d(self.angle);
 //        return (Math.abs(relativeX) <= self._width / 2) && (Math.abs(relativeY) <= self._height / 2);
@@ -57,7 +57,7 @@ new meta.Class( Tank )
 //        bullets: self._bullets
 //    }, false);
 //
-//    self.draw = function() {
+//    self.draw = function () {
 //        Painter.roundRectangle(self, self._width, self._height - 44, self._width / 2, self._height / 2 - 22, 5, "#474924");
 //
 //        Painter.offsetRoundRectangle(self, 0, self._height / 2 - 10, self._width - 10, 20, self._width / 2 - 5, 10, 5, "#444");
@@ -81,14 +81,14 @@ new meta.Class( Tank )
 //        self.draw();
 //    }
 //
-//    self.aimAt = function(targetX, targetY) {
+//    self.aimAt = function (targetX, targetY) {
 //        if (self._movingAngle !== NO_MOVEMENT) {
 //            self.angle = self._movingAngle;
 //        }
 //        self._weapon.aimAt(targetX, targetY, self.x, self.y, self.angle);
 //    };
 //
-//    self.startMoving = function(angle) {
+//    self.startMoving = function (angle) {
 //        if (_tracksTimer == null) {
 //            _tracksTimer = setInterval(_moveTracks, 200);
 //        }
@@ -104,7 +104,7 @@ new meta.Class( Tank )
 //
 //        if (_turnTimer == null) {
 //            self._movingAngle = self.angle;
-//            _turnTimer = setInterval(function() {
+//            _turnTimer = setInterval(function () {
 //                var sign = MathUtility.isClockwiseDirection(self.angle, _neededDirection) ? 1 : -1;
 //                self._movingAngle += self._speed / 1.5 * sign;
 //
@@ -116,7 +116,7 @@ new meta.Class( Tank )
 //        }
 //    };
 //
-//    self.stopMoving = function() {
+//    self.stopMoving = function () {
 //        self._movingAngle = NO_MOVEMENT;
 //        clearInterval(_turnTimer);
 //        _turnTimer = null;
@@ -124,7 +124,7 @@ new meta.Class( Tank )
 //        _tracksTimer = null;
 //    };
 //
-//  //  self.startShooting = function() {};
+//  //  self.startShooting = function () {};
 //
 //
 //

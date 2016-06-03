@@ -31,7 +31,7 @@ new meta.Class( Weapon )
     ])
 
     .define_accessors('hardness', {
-        set: function(hardness) {
+        set: function (hardness) {
             this._state = this._hardness = hardness;
         }
     })
@@ -41,7 +41,7 @@ new meta.Class( Weapon )
             return 60000 / this._shootingDelay;
         },
 
-        set: function(rateOfFire) {
+        set: function (rateOfFire) {
             this._shootingDelay = 60000 / rateOfFire;
         }
     })
@@ -64,7 +64,7 @@ new meta.Class( Weapon )
                 bullet.y = this.y + this._frontLength * sin_d(this.angle);
                 bullet.angle = this.angle + (1 - this.accuracy) * (this._maxSector * random() - this._maxSector / 2);
                 this.harmWeapon();
-                _.addBullet(bullet);
+                gctx.addBullet(bullet);
             }
             return bullet;
         },
@@ -97,7 +97,7 @@ new meta.Class( Weapon )
             this._state = this._hardness;
         },
 
-        aimAt: function(targetX, targetY, unitX, unitY, unitAngle) {
+        aimAt: function (targetX, targetY, unitX, unitY, unitAngle) {
             this.angle = MathUtility.getLinesAngle(
                 unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle),
                 unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle),
