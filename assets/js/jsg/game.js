@@ -37,6 +37,10 @@ function Game(opts) {
         resumeGame();
     };
 
+    self.isPaused = function () {
+        return !_gameState.running;
+    };
+
     function initHandlers() {
         gctx.stage.addEventListener("stagemousemove", handleMouseMove);
         gctx.stage.addEventListener("stagemousedown", handleMouseDown);
@@ -101,21 +105,6 @@ function Game(opts) {
 
     function handleKeyDown(e) {
         _control.handleKeyDown(e.keyCode);
-        handleCommonKeys(e.keyCode);
-    }
-
-    function handleCommonKeys(keyCode) {
-        if (keyCode === CONTROLS.COMMON.LOG) {
-            console.log(gctx);
-        }
-
-        if (keyCode === CONTROLS.COMMON.PAUSE) {
-            if (_gameState.running) {
-                pauseGame();
-            } else {
-                resumeGame();
-            }
-        }
     }
 
     function handleKeyUp(e) {

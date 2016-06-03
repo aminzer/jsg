@@ -132,6 +132,12 @@
 
             PlayerPanelHolder.bindToPlayers();
 
+            document.addEventListener("keydown", function (e) {
+                if (e.keyCode === CONTROLS.COMMON.MENU) {
+                    game.isPaused() ? game.resume() : game.pause();
+                }
+            });
+
             game.start();
         }
 

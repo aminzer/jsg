@@ -1,8 +1,7 @@
 var CONTROLS = {
 
     COMMON: {
-        PAUSE: KEY.ESC,
-        LOG: KEY.MINUS
+        MENU: KEY.ESC
     },
 
     DEFAULT : {
