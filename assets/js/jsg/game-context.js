@@ -1,5 +1,5 @@
 function GameContext(opts) {
-    opts = opts || {};                              // TODO fix incorrect behaviour for froEach loops
+    opts = opts || {};
 
     this._stage = new createjs.Stage(Canvas.id);
 
