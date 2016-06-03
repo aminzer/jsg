@@ -15,17 +15,17 @@ var LevelResolver = function () {
             );
             player.objectType = OBJECT_TYPE.PLAYER;
             player.aimAt(Number.MAX_VALUE * cos_d(player.angle), Number.MAX_VALUE * sin_d(player.angle));
-            gctx.addPlayer(player);
+            gctx.players.add(player);
         }
 
         (levelDef.enemies || []).forEach(function (enemyDef) {
-            gctx.addUnit(new enemyDef.$constructor(
+            gctx.units.add(new enemyDef.$constructor(
                 getObjectOpts(enemyDef)
             ));
         });
 
         (levelDef.effects || []).forEach(function (effectDef) {
-            gctx.addEffect(new effectDef.$constructor(
+            gctx.effects.add(new effectDef.$constructor(
                 getObjectOpts(effectDef)
             ));
         });

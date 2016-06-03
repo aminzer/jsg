@@ -34,7 +34,7 @@ new meta.Class( WindEffect )
         },
 
         makeInfluence: function () {
-            gctx.bullets.forEach(function (bullet) {
+            gctx.bullets.each(function (bullet) {
                 if (this.isPointInside(bullet.x, bullet.y)) {
                     var delta = 5;
                     if (Math.abs( MathUtility.normalizeAngle(bullet.angle - this.angle) ) < delta) {

@@ -14,7 +14,7 @@ new meta.Class( UnitFactory )
             this._creationTimer = setInterval(function () {
                 var constructor = this._getConstructor.call(this);
                 var constructorOpts = this._getConstructorOpts.call(this, constructor);
-                gctx.addUnit(new constructor(constructorOpts));
+                gctx.units.add(new constructor(constructorOpts));
             }.bind(this), this._generatingDelay);
         },
 

@@ -23,7 +23,7 @@ new meta.Class( BulletReflectEffect )
         },
 
         makeInfluence: function () {
-            gctx.bullets.forEach(function (bullet) {
+            gctx.bullets.each(function (bullet) {
                 if (this.isPointInside(bullet.x, bullet.y)) {
                     var normalAngle = MathUtility.getLinesAngle(bullet.x, bullet.y, this.x, this.y);
                     bullet.angle = 180 - bullet.angle + 2 * normalAngle;

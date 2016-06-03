@@ -13,9 +13,9 @@ new meta.Class( DefaultAI )
 
     .define_methods({
         resolve: function () {
-            var target = this._getTargets()[0];
+            var target = this._getTargets().to_arr()[0];
 
-            gctx.units.forEach(function (unit) {
+            gctx.units.each(function (unit) {
                 if (this._isControllable(unit)) {
                     unit.aimAt(target.x, target.y);
 

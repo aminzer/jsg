@@ -67,31 +67,31 @@ function Game(opts) {
         _ai.resolve();
 
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
-        gctx.units.forEach(function (unit, i) {
-            if (unit.move() == false) {
-                destroyUnit(i);
+        gctx.units.each(function (unit) {
+            if (!unit.move()) {
+                destroyUnit(unit);
             }
         });
-        gctx.bullets.forEach(function (bullet, i) {
+        gctx.bullets.each(function (bullet) {
             if (bullet.move() == false) {
-                destroyBullet(i);
+                destroyBullet(bullet);
             }
         });
-        gctx.effects.forEach(function (effect) {
+        gctx.effects.each(function (effect) {
             if (effect.isActive()) {
-                effect.makeInfluence()
+                effect.makeInfluence();
             }
         });
 
         handleTargetHits();
 
         // 4. updating shapes related to Game Model Objects
-        gctx.units.forEach(function (unit) { unit.updateShapes() });
-        gctx.bullets.forEach(function (bullet) { bullet.updateShapes() });
-        gctx.effects.forEach(function (effect) { effect.updateShapes() });
+        gctx.units.each(function (unit) { unit.updateShapes() });
+        gctx.bullets.each(function (bullet) { bullet.updateShapes() });
+        gctx.effects.each(function (effect) { effect.updateShapes() });
 
         // 5. trigger player events
-        gctx.players.forEach(function (player) {
+        gctx.players.each(function (player) {
             $(document).trigger('player_hp_change', [player.id, player.hp, player.maxHp]);
         });
 
@@ -147,11 +147,11 @@ function Game(opts) {
     }
 
     function handleTargetHits() {                      // TODO check standard method     easel.js : Shape.hitTest(x,y)
-        gctx.units.forEach(function (unit, unitIndex) {
-            gctx.bullets.forEach(function (bullet, bulletIndex) {
+        gctx.units.each(function (unit) {
+            gctx.bullets.each(function (bullet) {
                 if (unit.isPointInside(bullet.x, bullet.y)) {
                     unit.takeDamage(bullet.damage);
-                    destroyBullet(bulletIndex);
+                    destroyBullet(bullet);
                 }
             });
 
@@ -159,7 +159,7 @@ function Game(opts) {
                 if (unit.objectType == OBJECT_TYPE.PLAYER) {
                     $(document).trigger("player_death");
                 }
-                destroyUnit(unitIndex);
+                destroyUnit(unit);
             }
         });
     }
@@ -169,16 +169,15 @@ function Game(opts) {
         location.reload();
     }
 
-    function destroyBullet(index) {
-        var bullet = gctx.bullets[index];
+    function destroyBullet(bullet) {
         bullet.die();
         bullet.destroyShapes();
-        gctx.bullets.splice(index, 1);
+        gctx.bullets.remove(bullet.id);
     }
 
-    function destroyUnit(index) {
-        gctx.units[index].destroyShapes();
-        gctx.units.splice(index, 1);
+    function destroyUnit(unit) {                    // TODO move into definite class
+        gctx.units.get([unit.id]).destroyShapes();
+        gctx.units.remove(unit.id);
     }
 
     function pauseGame() {
@@ -198,11 +197,11 @@ function Game(opts) {
     }
 
     function initControls() {
-        switch (gctx.players.length) {
+        switch (gctx.players.size()) {
             case 1:
                 _control = new UniversalControl({
                     keyMap: CONTROLS.DEFAULT,
-                    controlledObject: gctx.players[0]
+                    controlledObject: gctx.players.to_arr()[0]
                 });
                 break;
             case 2:
@@ -210,14 +209,14 @@ function Game(opts) {
                     controls: [
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER1,
-                            controlledObject: gctx.players[0],
+                            controlledObject: gctx.players.to_arr()[0],
                             cursor: new Cursor({
                                 color: "rgba(0,100,0,0.2)"
                             })
                         }),
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER2,
-                            controlledObject: gctx.players[1],
+                            controlledObject: gctx.players.to_arr()[1],
                             color: "rgba(0,0,255,0.1)"
                         })
                     ]

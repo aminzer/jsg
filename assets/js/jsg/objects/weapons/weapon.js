@@ -64,7 +64,7 @@ new meta.Class( Weapon )
                 bullet.y = this.y + this._frontLength * sin_d(this.angle);
                 bullet.angle = this.angle + (1 - this.accuracy) * (this._maxSector * random() - this._maxSector / 2);
                 this.harmWeapon();
-                gctx.addBullet(bullet);
+                gctx.bullets.add(bullet);
             }
             return bullet;
         },
