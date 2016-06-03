@@ -156,17 +156,19 @@ function Game(opts) {
             });
 
             if (unit.isDead()) {
-                if (unit.objectType == OBJECT_TYPE.PLAYER) {
-                    $(document).trigger("player_death");
-                }
                 destroyUnit(unit);
+                if (unit.objectType == OBJECT_TYPE.PLAYER) {
+                    $(document).trigger("player_death", [unit.id]);
+                }
             }
         });
     }
 
     function handlePlayersDeath(e) {
-        alert("it's over");
-        location.reload();
+        if (gctx.players.size() == 0) {
+            alert("it's over");
+            location.reload();
+        }
     }
 
     function destroyBullet(bullet) {

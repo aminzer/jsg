@@ -48,5 +48,10 @@ function PlayerPanel(opts) {
                 _hpBar.setProgress(hp / maxHp);
             }
         });
+        $(document).bind("player_death", function (e, playerId) {
+            if (_playerId == playerId) {
+                _hpBar.setProgress(0);
+            }
+        });
     }
 }
