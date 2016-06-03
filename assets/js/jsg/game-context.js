@@ -27,23 +27,4 @@ new meta.Class( GameContext )
         'players',
         'effects'
     ])
-
-    .define_methods({
-        addBullet: function (bullet) {
-            this._bullets.push(bullet);
-        },
-
-        addUnit: function (unit) {
-            this._units.push(unit);
-        },
-
-        addPlayer: function (player) {
-            this.addUnit(player);
-            this._players.push(player);
-        },
-
-        addEffect: function (effect) {
-            this._effects.push(effect);
-        }
-    })
 ;
