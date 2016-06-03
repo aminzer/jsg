@@ -37,7 +37,7 @@ new meta.Class( ExplosiveBullet )
             };
         },
 
-        die: function () {
+        afterDie: function () {
             if (this._explosionCount > 0) {
                 for (var angle = this.angle - this._sector / 2; angle <= this.angle + this._sector / 2; angle += this._sector / (this._childCount - 1)) {
                     var childBullet = new this._childBulletConstructor(

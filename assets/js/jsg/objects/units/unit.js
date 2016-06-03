@@ -108,6 +108,11 @@ new meta.Class( Unit )
 
         isDead: function () {
             return !this.isAlive();
+        },
+
+        die: function () {
+            this.destroyShapes();
+            gctx.units.remove(this.id);
         }
     })
 

@@ -20,7 +20,7 @@ new meta.Class( MineDelivery )
             Painter.circle(this, 4, "#588DAD");
         },
 
-        die: function () {
+        afterDie: function () {
             gctx.bullets.add(new Mine({
                 x: this.x,
                 y: this.y

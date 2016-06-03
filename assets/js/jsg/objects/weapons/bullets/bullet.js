@@ -38,10 +38,16 @@ new meta.Class( Bullet )
         },
 
         die: function () {
+            this.destroyShapes();
+            gctx.bullets.remove(this.id);
+            this.afterDie();
         },
 
         reduceLifetime: function () {
             return --this._lifetime;
+        },
+
+        afterDie: function () {
         }
     })
 

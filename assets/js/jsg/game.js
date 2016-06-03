@@ -69,12 +69,12 @@ function Game(opts) {
         // 3. recounting logical parameters of Game Model Objects (uncontrolled)
         gctx.units.each(function (unit) {
             if (!unit.move()) {
-                destroyUnit(unit);
+                unit.die();
             }
         });
         gctx.bullets.each(function (bullet) {
-            if (bullet.move() == false) {
-                destroyBullet(bullet);
+            if (!bullet.move()) {
+                bullet.die();
             }
         });
         gctx.effects.each(function (effect) {
@@ -106,7 +106,7 @@ function Game(opts) {
 
     function handleCommonKeys(keyCode) {
         if (keyCode === CONTROLS.COMMON.LOG) {
-            console.log(_);
+            console.log(gctx);
         }
 
         if (keyCode === CONTROLS.COMMON.PAUSE) {
@@ -151,12 +151,12 @@ function Game(opts) {
             gctx.bullets.each(function (bullet) {
                 if (unit.isPointInside(bullet.x, bullet.y)) {
                     unit.takeDamage(bullet.damage);
-                    destroyBullet(bullet);
+                    bullet.die();
                 }
             });
 
             if (unit.isDead()) {
-                destroyUnit(unit);
+                unit.die();
                 if (unit.objectType == OBJECT_TYPE.PLAYER) {
                     $(document).trigger("player_death", [unit.id]);
                 }
@@ -169,17 +169,6 @@ function Game(opts) {
             alert("it's over");
             location.reload();
         }
-    }
-
-    function destroyBullet(bullet) {
-        bullet.die();
-        bullet.destroyShapes();
-        gctx.bullets.remove(bullet.id);
-    }
-
-    function destroyUnit(unit) {                    // TODO move into definite class
-        gctx.units.get([unit.id]).destroyShapes();
-        gctx.units.remove(unit.id);
     }
 
     function pauseGame() {
