@@ -1,14 +1,14 @@
 var SoundManager = function () {
     var self = {};
 
-    var JSON_FILE_PATH = 'assets/js/jsg/sound/sound-registry.json';
+    var SOUND_REGISTRY_FILE_PATH = 'assets/sounds/sound-registry.json';
     var _soundMap = null;
     var _soundOn = false;
 
     self.registerSoundBank = function () {
         $.ajax({
             dataType: 'json',
-            url: JSON_FILE_PATH,
+            url: SOUND_REGISTRY_FILE_PATH,
             success: function (receivedJson) {
                 var sounds = [];
                 receivedJson.sounds.forEach(function (src) {
@@ -28,7 +28,7 @@ var SoundManager = function () {
                 });
             },
             error: function () {
-                console.error('Sound registry file wasn\'t found at ' + JSON_FILE_PATH);
+                console.error('Sound registry file wasn\'t found at ' + SOUND_REGISTRY_FILE_PATH);
             }
         });
     };
