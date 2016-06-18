@@ -1,7 +1,8 @@
 function LevelDefinition_2() {
     LevelDefinition.call(this, {
         id: 2,
-        name: 'Too easy'
+        name: 'Too easy',
+        description: 'Warm-up level to taste real blood'
     })
 }
 

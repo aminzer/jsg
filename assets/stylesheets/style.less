@@ -2,6 +2,8 @@ html {
   width: 100%;
   height: 100%;
   position: relative;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 3vh;
 
   body {
     @dark-gray: #333;
@@ -45,6 +47,50 @@ html {
         height: 100%;
         border-right: 1px solid @dark-gray;
         background-color: #3fb618;
+      }
+    }
+
+    #game-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+
+      .modal {
+        position: absolute;
+        top: 25%;
+        left: 25%;
+        width: 50%;
+        height: 50%;
+        box-sizing: border-box;
+        border-radius: 0.7em;
+        padding: 1em;
+        background-color: #fff;
+
+        .title {
+          text-align: center;
+        }
+
+        .select {
+          padding: 0 0.5em;
+          font-size: 0.8em;
+          cursor: pointer;
+        }
+
+        #level-description {
+          padding: 1em 0 0 0;
+          font-size: 0.8em;
+          color: #444;
+        }
+
+        #start-button {
+          float: right;
+          padding: 0.1em 1.5em;
+          font-size: 1em;
+          cursor: pointer;
+        }
       }
     }
   }

@@ -4,20 +4,18 @@
     <title> JSG </title>
     <meta charset="utf-8">
 
-    <link href="vendor/bootstrap-3.3.5-dist/themes/cosmo-bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/stylesheets/style.css" rel="stylesheet" type="text/css">
 
     <script src="vendor/jquery-2.1.4.min.js" defer></script>
-    <script src="vendor/bootstrap-3.3.5-dist/bootstrap.min.js" defer></script>
     <script src="vendor/easeljs-0.8.2.min.js" defer></script>
     <script src="vendor/soundjs-0.6.2.min.js" defer></script>
 
     <script src="lib/meta.js" defer></script>
+    <script src="lib/request.js" defer></script>
     <script src="lib/random-access-array.js" defer></script>
 
     <script src="assets/js/jsg/util/math-utility.js" defer></script>
-    <script src="assets/js/jsg/util/uid.js" defer></script>
     <script src="assets/js/jsg/util/painter.js" defer></script>
-    <script src="assets/js/jsg/util/request-params.js" defer></script>
 
     <script src="assets/js/jsg/config/private/physics.js" defer></script>
     <script src="assets/js/jsg/config/private/scan-codes.js" defer></script>
@@ -67,6 +65,8 @@
     <script src="assets/js/jsg/objects/units/destroyer.js" defer></script>
     <script src="assets/js/jsg/objects/units/default-hero.js" defer></script>
     <script src="assets/js/jsg/objects/units/default-hero-2.js" defer></script>
+    <script src="assets/js/jsg/objects/units/factories/unit-factory.js" defer></script>
+    <script src="assets/js/jsg/objects/units/factories/enemy-factory.js" defer></script>
 
     <script src="assets/js/jsg/objects/effects/effect.js" defer></script>
     <script src="assets/js/jsg/objects/effects/bullet-reflect-effect.js" defer></script>
@@ -79,79 +79,80 @@
     <script src="assets/js/jsg/control/universal-control.js" defer></script>
     <script src="assets/js/jsg/control/multi-control.js" defer></script>
 
-    <script src="assets/js/jsg/level-storage.js" defer></script>
-    <script src="assets/js/jsg/level-resolver.js" defer></script>
-    <script src="assets/js/jsg/enemy-factory.js" defer></script>
-    <script src="assets/js/jsg/ai.js" defer></script>
+    <script src="assets/js/jsg/ai/fake-ai.js" defer></script>
+    <script src="assets/js/jsg/ai/default-ai.js" defer></script>
+
     <script src="assets/js/jsg/game-context.js" defer></script>
     <script src="assets/js/jsg/game.js" defer></script>
-    <script src="assets/js/jsg/player-panel.js" defer></script>
-    <script src="assets/js/jsg/progress-bar.js" defer></script>
-    <script src="assets/js/jsg/canvas.js" defer></script>
 
     <script src="assets/js/jsg/sound/sound.js" defer></script>
     <script src="assets/js/jsg/sound/sound-manager.js" defer></script>
 
-    <script src="assets/js/jsg/levels/empty.js" defer></script>
-    <script src="assets/js/jsg/levels/simple.js" defer></script>
-    <script src="assets/js/jsg/levels/defence.js" defer></script>
+    <script src="assets/js/jsg/levels/level-storage.js" defer></script>
+    <script src="assets/js/jsg/levels/level-resolver.js" defer></script>
+    <script src="assets/js/jsg/levels/definitions/level-definition.js" defer></script>
+    <script src="assets/js/jsg/levels/definitions/level-definition-1.js" defer></script>
+    <script src="assets/js/jsg/levels/definitions/level-definition-2.js" defer></script>
+    <script src="assets/js/jsg/levels/definitions/level-definition-3.js" defer></script>
+
+    <script src="assets/js/widgets/progress-bar.js" defer></script>
+    <script src="assets/js/widgets/player-panel.js" defer></script>
+    <script src="assets/js/widgets/player-panel-holder.js" defer></script>
+    <script src="assets/js/widgets/canvas.js" defer></script>
+    <script src="assets/js/widgets/menu.js" defer></script>
 </head>
 
-<body onload="fillLevels();">
+<body onload="onLoad();">
+    <script>
 
-<div class="container">
+        function onLoad() {
+            var levelId = Request.getParam('levelId', 1);
+            var playerCount = Math.min(Request.getParam('playerCount', 1), 2);
 
-    <br>
+            PlayerPanelHolder.initialize({
+                playerCount: playerCount
+            }).render({
+                $parent: $(document.body)
+            });
 
-    <div class="well bs-component">
-        <form action="game.html" method="get" class="form-horizontal">
-            <fieldset>
-                <legend> JSG </legend>
-                <div class="form-group">
-                    <label for="level-select" class="col-lg-2 control-label"> Level </label>
-                    <div class="col-lg-10">
-                        <select class="form-control" id="level-select" name="level"> </select>
-                        <br>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="players-count-select" class="col-lg-2 control-label"> Player Count </label>
-                    <div class="col-lg-10">
-                        <select class="form-control" id="players-count-select" name="playersCount">
-                            <option>1</option>
-                            <option>2</option>
-                        </select>
-                        <br>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <button type="submit" class="btn btn-primary"> Start </button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
+            Canvas.initialize({
+                width: $(document.body).width(),
+                height: $(document.body).height() - PlayerPanelHolder.getHeight()
+            }).render({
+                $parent: $(document.body)
+            });
 
-    <hr>
-</div>
+            LevelStorage.initialize();
 
-<script>
+            Menu.initialize().render();
+            Menu.hide();
 
-    function fillLevels() {
-        var levelSelectElem = $('#level-select');
-        var levels = LevelStorage.getAll();
-        for (var levelName in levels) {
-            if (levels.hasOwnProperty(levelName)) {
-                var optionElem = $('<option/>');
-                optionElem.val(levelName);
-                optionElem.html(levels[levelName].name);
-                levelSelectElem.append(optionElem);
-            }
+            window.gctx = new GameContext();
+
+            var game = Game();
+            game.chooseLevel({
+                levelId: levelId,
+                playerCount: playerCount
+            });
+
+            PlayerPanelHolder.bindToPlayers();
+
+            document.addEventListener("keydown", function (e) {
+                if (e.keyCode === CONTROLS.COMMON.MENU) {
+                    if (game.isPaused()) {
+                        game.resume();
+                        Menu.hide();
+                    } else {
+                        game.pause();
+                        Menu.show();
+                    }
+                }
+            });
+
+            game.start();
         }
-    }
 
-</script>
+    </script>
 
 </body>
 </html>

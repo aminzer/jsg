@@ -1,7 +1,8 @@
 function LevelDefinition_3() {
     LevelDefinition.call(this, {
         id: 3,
-        name: 'Defence'
+        name: 'Defence',
+        description: 'Use features of the level to stay alive despite the strength of your enemies'
     })
 }
 
