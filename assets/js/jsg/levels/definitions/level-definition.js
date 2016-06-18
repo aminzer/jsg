@@ -10,7 +10,8 @@ new meta.Class( LevelDefinition )
 
     .define_accessors([
         'id',
-        'name'
+        'name',
+        'description'
     ])
 
     .define_readers({
