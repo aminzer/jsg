@@ -110,12 +110,18 @@ var Game = function () {
         );
     }
 
-    function handleMouseDown() {
-        _control.handleMouseDown();
+    function handleMouseDown(e) {
+        _control.handleMouseDown(
+            Canvas.Scale.convertToVirtual(e.stageX),
+            Canvas.Scale.convertToVirtual(e.stageY)
+        );
     }
 
-    function handleMouseUp() {
-        _control.handleMouseUp();
+    function handleMouseUp(e) {
+        _control.handleMouseUp(
+            Canvas.Scale.convertToVirtual(e.stageX),
+            Canvas.Scale.convertToVirtual(e.stageY)
+        );
     }
 
     function handleMouseWheel(e) {
