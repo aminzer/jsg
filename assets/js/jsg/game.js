@@ -1,20 +1,17 @@
-function Game(opts) {
+var Game = function () {
     var self = {};
 
-    var _gameState = {
-        running: true
-    };
+    var _isRunning = false;
 
     var _ai = null;
     var _control = null;
 
-    init();
-
-    function init() {
+    self.initialize = function () {
         createjs.Ticker.framerate = Config.FPS;
         initHandlers();
         initSound();
-    }
+        return self;
+    };
 
     self.chooseLevel = function (opts) {
         LevelResolver.resolve({
@@ -27,18 +24,27 @@ function Game(opts) {
     self.start = function () {
         createjs.Ticker.addEventListener("tick", handleTick);
         _ai = new DefaultAI();
+        _isRunning = true;
     };
 
     self.pause = function () {
-        pauseGame();
+        if (!_isRunning) return;
+
+        createjs.Ticker.paused = !createjs.Ticker.paused;
+        gctx.enemyFactory && gctx.enemyFactory.stopGenerating();
+        _isRunning = false;
     };
 
     self.resume = function () {
-        resumeGame();
+        if (_isRunning) return;
+
+        createjs.Ticker.paused = !createjs.Ticker.paused;
+        gctx.enemyFactory && gctx.enemyFactory.startGenerating();
+        _isRunning = true;
     };
 
     self.isPaused = function () {
-        return !_gameState.running;
+        return !_isRunning;
     };
 
     function initHandlers() {
@@ -53,39 +59,25 @@ function Game(opts) {
     }
 
     function initSound() {
-        if (Config.sound.on) {
-            SoundManager.registerSoundBank();
-            SoundManager.enableSound();
-        }
+        if (!Config.sound.on) return;
+
+        SoundManager.registerSoundBank();
+        SoundManager.enableSound();
     }
 
     function handleTick() {
 
         // 1. check if ticker isn't paused
-        if (createjs.Ticker.paused == true) {
-            return;
-        }
+        if (createjs.Ticker.paused) return;
 
         // 2. controlling objects (player and AI)
         _control.handleRender();
         _ai.resolve();
 
-        // 3. recounting logical parameters of Game Model Objects (uncontrolled)
-        gctx.units.each(function (unit) {
-            if (!unit.move()) {
-                unit.die();
-            }
-        });
-        gctx.bullets.each(function (bullet) {
-            if (!bullet.move()) {
-                bullet.die();
-            }
-        });
-        gctx.effects.each(function (effect) {
-            if (effect.isActive()) {
-                effect.makeInfluence();
-            }
-        });
+        // 3. recounting logical parameters of Game Model Objects (physics impact, uncontrolled)
+        gctx.units.each(function (unit) { !unit.move() && unit.die() });
+        gctx.bullets.each(function (bullet) { !bullet.move() && bullet.die() });
+        gctx.effects.each(function (effect) { effect.isActive() && effect.makeInfluence() });
 
         handleTargetHits();
 
@@ -160,22 +152,6 @@ function Game(opts) {
         }
     }
 
-    function pauseGame() {
-        if (_gameState.running) {
-            createjs.Ticker.paused = !createjs.Ticker.paused;
-            gctx.enemyFactory && gctx.enemyFactory.stopGenerating();
-            _gameState.running = false;
-        }
-    }
-
-    function resumeGame() {
-        if (!_gameState.running) {
-            createjs.Ticker.paused = !createjs.Ticker.paused;
-            gctx.enemyFactory && gctx.enemyFactory.startGenerating();
-            _gameState.running = true;
-        }
-    }
-
     function initControls() {
         switch (gctx.players.size()) {
             case 1:
@@ -208,4 +184,4 @@ function Game(opts) {
     }
 
     return self;
-}
+}();

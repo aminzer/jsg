@@ -82,8 +82,8 @@
     <script src="assets/js/jsg/ai/fake-ai.js" defer></script>
     <script src="assets/js/jsg/ai/default-ai.js" defer></script>
 
-    <script src="assets/js/jsg/game-context.js" defer></script>
-    <script src="assets/js/jsg/game.js" defer></script>
+    <script src="assets/js/jsg/Game-context.js" defer></script>
+    <script src="assets/js/jsg/Game.js" defer></script>
 
     <script src="assets/js/jsg/sound/sound.js" defer></script>
     <script src="assets/js/jsg/sound/sound-manager.js" defer></script>
@@ -129,8 +129,7 @@
 
             window.gctx = new GameContext();
 
-            var game = Game();
-            game.chooseLevel({
+            Game.initialize().chooseLevel({
                 levelId: levelId,
                 playerCount: playerCount
             });
@@ -139,17 +138,17 @@
 
             document.addEventListener("keydown", function (e) {
                 if (e.keyCode === CONTROLS.COMMON.MENU) {
-                    if (game.isPaused()) {
-                        game.resume();
+                    if (Game.isPaused()) {
+                        Game.resume();
                         Menu.hide();
                     } else {
-                        game.pause();
+                        Game.pause();
                         Menu.show();
                     }
                 }
             });
 
-            game.start();
+            Game.start();
         }
 
     </script>
