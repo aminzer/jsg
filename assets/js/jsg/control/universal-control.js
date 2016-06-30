@@ -57,34 +57,16 @@ new meta.Class( UniversalControl )
 
     .define_methods({
         _correctCursorPosition: function () {
-            if (this._isMouseOn()) {
-                return;
-            }
-            var dx = 0,
-                dy = 0;
+            if (this._isMouseOn()) return;
 
-            if (this.isPressed('CURSOR.RIGHT')) {
-                dx++;
-            }
-            if (this.isPressed('CURSOR.LEFT')) {
-                dx--;
-            }
-            if (this.isPressed('CURSOR.DOWN')) {
-                dy++;
-            }
-            if (this.isPressed('CURSOR.UP')) {
-                dy--;
-            }
-            if (dx == 0 && dy == 0) {
+            var dx = this.isPressed('CURSOR.RIGHT') - this.isPressed('CURSOR.LEFT'),
+                dy = this.isPressed('CURSOR.DOWN') - this.isPressed('CURSOR.UP');
+
+            if (dx || dy) {
+                this.cursor.startMoving( MathUtility.getLinesAngle(0, 0, dx, dy) );
+            } else {
                 this.cursor.stopMoving();
-                return;
             }
-
-            var angle = 180 / Math.PI * Math.acos( dx / Math.sqrt(dx*dx + dy*dy) );
-            if (dy < 0) {
-                angle = -angle;
-            }
-            this.cursor.startMoving(angle);
         },
 
         _handleWeaponChanges: function () {

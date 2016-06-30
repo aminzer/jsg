@@ -54,31 +54,14 @@ new meta.Class( MouseBasedControl )
         },
 
         _correctPlayerDirection: function () {
-            var dx = 0,
-                dy = 0;
+            var dx = this.isPressed('MOVE.RIGHT') - this.isPressed('MOVE.LEFT'),
+                dy = this.isPressed('MOVE.DOWN') - this.isPressed('MOVE.UP');
 
-            if (this.isPressed('MOVE.RIGHT')) {
-                dx++;
-            }
-            if (this.isPressed('MOVE.LEFT')) {
-                dx--;
-            }
-            if (this.isPressed('MOVE.DOWN')) {
-                dy++;
-            }
-            if (this.isPressed('MOVE.UP')) {
-                dy--;
-            }
-            if (dx == 0 && dy == 0) {
+            if (dx || dy) {
+                this._controlledObject.startMoving( MathUtility.getLinesAngle(0, 0, dx, dy) );
+            } else {
                 this._controlledObject.stopMoving();
-                return;
             }
-
-            var angle = 180 / Math.PI * Math.acos( dx / Math.sqrt(dx*dx + dy*dy) );
-            if (dy < 0) {
-                angle = -angle;
-            }
-            this._controlledObject.startMoving(angle);
         }
     })
 ;
