@@ -2,8 +2,6 @@ function MouseBasedControl(opts) {
     opts = opts || {};
 
     Control.call(this, opts);
-
-    this._pressedKeys = {};
 }
 
 new meta.Class( MouseBasedControl )
@@ -12,25 +10,25 @@ new meta.Class( MouseBasedControl )
 
     .define_methods({
         handleKeyDown: function (keyCode) {
-            this._pressedKeys[keyCode] = true;
+            this.markKeyAsPressed(keyCode);
             this._correctPlayerDirection();
 
             if (this.isPressed('HUCK.FIX_WEAPON')) {
-                this._controlledObject.weapon.fix();
+                this.controlledObject.weapon.fix();
             }
         },
 
         handleKeyUp: function (keyCode) {
-            this._pressedKeys[keyCode] = false;
+            this.markKeyAsReleased(keyCode);
             this._correctPlayerDirection();
         },
 
         handleMouseDown: function (targetX, targetY) {
-            this._controlledObject.startShooting();
+            this.controlledObject.startShooting();
         },
 
         handleMouseUp: function (targetX, targetY) {
-            this._controlledObject.stopShooting();
+            this.controlledObject.stopShooting();
         },
 
         handleMouseMove: function (targetX, targetY) {
@@ -42,15 +40,15 @@ new meta.Class( MouseBasedControl )
 
         handleMouseWheel: function (delta) {
             if (delta > 0) {
-                this._controlledObject.chooseNextWeapon();
+                this.controlledObject.chooseNextWeapon();
             } else {
-                this._controlledObject.choosePrevWeapon();
+                this.controlledObject.choosePrevWeapon();
             }
         },
 
         handleRender: function () {
             this.cursor.updateShapes();
-            this._controlledObject.aimAt(this.cursor.x, this.cursor.y);
+            this.controlledObject.aimAt(this.cursor.x, this.cursor.y);
         },
 
         _correctPlayerDirection: function () {
@@ -58,9 +56,9 @@ new meta.Class( MouseBasedControl )
                 dy = this.isPressed('MOVE.DOWN') - this.isPressed('MOVE.UP');
 
             if (dx || dy) {
-                this._controlledObject.startMoving( MathUtility.getLinesAngle(0, 0, dx, dy) );
+                this.controlledObject.startMoving( MathUtility.getLinesAngle(0, 0, dx, dy) );
             } else {
-                this._controlledObject.stopMoving();
+                this.controlledObject.stopMoving();
             }
         }
     })

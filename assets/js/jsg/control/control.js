@@ -4,8 +4,10 @@ function Control(opts) {
     this._controlledObject = opts.controlledObject || gctx.players.to_arr()[0];
     this._cursor = opts.cursor || new Cursor();
 
-    this._keyMap = opts.keyMap || CONTROLS.DEFAULT;
-    this._properties = {};    // quick analog of _keyMap
+    this._properties = {};
+    this._pressedKeys = {};
+
+    this.initialize(opts.keyMap || CONTROLS.DEFAULT);
 }
 
 new meta.Class( Control )
@@ -14,32 +16,39 @@ new meta.Class( Control )
     
     .define_accessors([
         'controlledObject',
-        'cursor',
-        'keyMap'
+        'cursor'
     ])
+
+    .define_method('initialize', function _initializeProperties(keyMap, basePath) {
+        basePath = basePath || '';
+        Object.keys(keyMap).forEach(function (k) {
+            if (meta.common.is_object(keyMap[k])) {
+                _initializeProperties.call(this, keyMap[k], basePath + k + '.')
+            } else {
+                this._properties[basePath + k] = keyMap[k];
+            }
+        }, this);
+    })
     
     .define_methods({
+        markKeyAsPressed: function (key) {
+            this._pressedKeys[this._keyCode(key)] = true;
+        },
+
+        markKeyAsReleased: function (key) {
+            this._pressedKeys[this._keyCode(key)] = false;
+        },
+
         isPressed: function (key) {
-            return this._pressedKeys[this.getProperty(key)] === true;
+            return this._pressedKeys[this._keyCode(key)] === true;
         },
 
         getProperty: function (keyString, defaultValue) {
-            if (this._properties.hasOwnProperty(keyString)) {
-                return this._properties[keyString];
-            }
+            return meta.common.first_defined(this._properties[keyString], defaultValue, -1);
+        },
 
-            defaultValue = typeof defaultValue === 'undefined' ? -1 : defaultValue;
-            var res = this.keyMap;
-            var keys = keyString.split('.');
-            for (var i = 0; i < keys.length; i++) {
-                if (!res.hasOwnProperty(keys[i]) || res[keys[i]] === null) {
-                    res = defaultValue;
-                    break;
-                }
-                res = res[keys[i]];
-            }
-            this._properties[keyString] = res;
-            return res;
+        _keyCode: function (keyCodeOrString) {
+            return typeof keyCodeOrString == 'string' ? this.getProperty(keyCodeOrString) : keyCodeOrString;
         }
     })
 ;
