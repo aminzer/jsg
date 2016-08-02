@@ -72,18 +72,18 @@ new meta.Class( UniversalControl )
         _handleWeaponChanges: function () {
             if (!this._isMouseOn()) {
                 if (this.isPressed('WEAPON.SHOOT')) {
-                    this.controlledObject.startShooting();
+                    this.controlledUnit.startShooting();
                 } else {
-                    this.controlledObject.stopShooting();
+                    this.controlledUnit.stopShooting();
                 }
             }
 
             if (this.isPressed('WEAPON.NEXT_WEAPON')) {
-                this.controlledObject.chooseNextWeapon();
+                this.controlledUnit.chooseNextWeapon();
             }
 
             if (this.isPressed('WEAPON.PREV_WEAPON')) {
-                this.controlledObject.choosePrevWeapon();
+                this.controlledUnit.choosePrevWeapon();
             }
         },
 

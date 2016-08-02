@@ -1,7 +1,7 @@
 function Control(opts) {
     opts = opts || {};
 
-    this._controlledObject = opts.controlledObject || gctx.players.to_arr()[0];
+    this._controlledUnitId = opts.controlledUnitId || gctx.players.to_arr()[0].id;
     this._cursor = opts.cursor || new Cursor();
 
     this._properties = {};
@@ -13,11 +13,13 @@ function Control(opts) {
 new meta.Class( Control )
 
     .extend_from( ControlInterface )
-    
-    .define_accessors([
-        'controlledObject',
-        'cursor'
-    ])
+
+    .define_readers({
+        'cursor': 'default',
+        'controlledUnit': function () {
+            return gctx.units.get(this._controlledUnitId) || FakeUnit.instance();
+        }
+    })
 
     .define_method('initialize', function _initializeProperties(keyMap, basePath) {
         basePath = basePath || '';

@@ -161,24 +161,21 @@ var Game = function () {
     function initControls() {
         switch (gctx.players.size()) {
             case 1:
-                _control = new UniversalControl({
-                    keyMap: CONTROLS.DEFAULT,
-                    controlledObject: gctx.players.to_arr()[0]
-                });
+                _control = new UniversalControl();
                 break;
             case 2:
                 _control = new MultiController({
                     controls: [
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER1,
-                            controlledObject: gctx.players.to_arr()[0],
+                            controlledUnitId: gctx.players.to_arr()[0].id,
                             cursor: new Cursor({
                                 color: "rgba(0,100,0,0.2)"
                             })
                         }),
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER2,
-                            controlledObject: gctx.players.to_arr()[1],
+                            controlledUnitId: gctx.players.to_arr()[1].id,
                             color: "rgba(0,0,255,0.1)"
                         })
                     ]

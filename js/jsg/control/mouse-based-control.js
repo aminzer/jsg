@@ -14,7 +14,7 @@ new meta.Class( MouseBasedControl )
             this._correctPlayerDirection();
 
             if (this.isPressed('HUCK.FIX_WEAPON')) {
-                this.controlledObject.weapon.fix();
+                this.controlledUnit.hasWeapon() && this.controlledUnit.weapon.fix();
             }
         },
 
@@ -24,11 +24,11 @@ new meta.Class( MouseBasedControl )
         },
 
         handleMouseDown: function (targetX, targetY) {
-            this.controlledObject.startShooting();
+            this.controlledUnit.startShooting();
         },
 
         handleMouseUp: function (targetX, targetY) {
-            this.controlledObject.stopShooting();
+            this.controlledUnit.stopShooting();
         },
 
         handleMouseMove: function (targetX, targetY) {
@@ -40,15 +40,15 @@ new meta.Class( MouseBasedControl )
 
         handleMouseWheel: function (delta) {
             if (delta > 0) {
-                this.controlledObject.chooseNextWeapon();
+                this.controlledUnit.chooseNextWeapon();
             } else {
-                this.controlledObject.choosePrevWeapon();
+                this.controlledUnit.choosePrevWeapon();
             }
         },
 
         handleRender: function () {
             this.cursor.updateShapes();
-            this.controlledObject.aimAt(this.cursor.x, this.cursor.y);
+            this.controlledUnit.aimAt(this.cursor.x, this.cursor.y);
         },
 
         _correctPlayerDirection: function () {
@@ -56,9 +56,9 @@ new meta.Class( MouseBasedControl )
                 dy = this.isPressed('MOVE.DOWN') - this.isPressed('MOVE.UP');
 
             if (dx || dy) {
-                this.controlledObject.startMoving( MathUtility.getLinesAngle(0, 0, dx, dy) );
+                this.controlledUnit.startMoving( MathUtility.getLinesAngle(0, 0, dx, dy) );
             } else {
-                this.controlledObject.stopMoving();
+                this.controlledUnit.stopMoving();
             }
         }
     })
