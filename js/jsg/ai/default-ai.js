@@ -13,7 +13,7 @@ new meta.Class( DefaultAI )
 
     .define_methods({
         resolve: function () {
-            var target = this._getTargets().to_arr()[0];
+            var target = this._getTargets().get_by_index(0);
 
             if (!target) return;
 

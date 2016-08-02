@@ -1,7 +1,7 @@
 function Control(opts) {
     opts = opts || {};
 
-    this._controlledUnitId = opts.controlledUnitId || gctx.players.to_arr()[0].id;
+    this._controlledUnitId = opts.controlledUnitId || gctx.players.get_by_index(0).id;
     this._cursor = opts.cursor || new Cursor();
 
     this._properties = {};

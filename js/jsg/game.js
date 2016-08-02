@@ -168,14 +168,14 @@ var Game = function () {
                     controls: [
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER1,
-                            controlledUnitId: gctx.players.to_arr()[0].id,
+                            controlledUnitId: gctx.players.get_by_index(0).id,
                             cursor: new Cursor({
                                 color: "rgba(0,100,0,0.2)"
                             })
                         }),
                         new UniversalControl({
                             keyMap: CONTROLS.PLAYER2,
-                            controlledUnitId: gctx.players.to_arr()[1].id,
+                            controlledUnitId: gctx.players.get_by_index(1).id,
                             color: "rgba(0,0,255,0.1)"
                         })
                     ]
