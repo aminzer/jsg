@@ -1,7 +1,7 @@
 var Painter = function () {
 
     function scale(size) {
-        return Canvas.Scale.convertToReal(size);
+        return Canvas.Scale.toReal(size);
     }
 
     return {

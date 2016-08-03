@@ -33,8 +33,8 @@ new meta.Class( ShapedObject )
 
         updateShapes: function () {
             this._shapes.forEach(function (shape) {
-                shape.x = Canvas.Scale.convertToReal(this.x);
-                shape.y = Canvas.Scale.convertToReal(this.y);
+                shape.x = Canvas.Scale.toReal(this.x);
+                shape.y = Canvas.Scale.toReal(this.y);
                 shape.rotation = this.angle;         // TODO accept delta = natural angle
             }, this);
         },

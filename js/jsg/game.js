@@ -105,22 +105,22 @@ var Game = function () {
 
     function handleMouseMove(e) {
         _control.handleMouseMove(
-            Canvas.Scale.convertToVirtual(e.stageX),
-            Canvas.Scale.convertToVirtual(e.stageY)
+            Canvas.Scale.toVirtual(e.stageX),
+            Canvas.Scale.toVirtual(e.stageY)
         );
     }
 
     function handleMouseDown(e) {
         _control.handleMouseDown(
-            Canvas.Scale.convertToVirtual(e.stageX),
-            Canvas.Scale.convertToVirtual(e.stageY)
+            Canvas.Scale.toVirtual(e.stageX),
+            Canvas.Scale.toVirtual(e.stageY)
         );
     }
 
     function handleMouseUp(e) {
         _control.handleMouseUp(
-            Canvas.Scale.convertToVirtual(e.stageX),
-            Canvas.Scale.convertToVirtual(e.stageY)
+            Canvas.Scale.toVirtual(e.stageX),
+            Canvas.Scale.toVirtual(e.stageY)
         );
     }
 
