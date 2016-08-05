@@ -21,9 +21,15 @@ new meta.Class( RocketLauncher )
 
     .define_method({
         render: function () {
-            Painter.rectangle(this, this.frontLength + 30, 8, 30, 4, "#244482");
-            Painter.offsetRectangle(this, 21, 0, 8, 10, 0, 5, "#bbb");
-            Painter.offsetRectangle(this, -27, 0, 12, 4, 0, 2, "#999");
+            Painter.renderShape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#244482')
+                    .drawRect(-30, -4, this.frontLength + 30, 8)
+
+                    .beginFill('#bbb')
+                    .drawRect(21, -5, 8, 10)
+                    .drawRect(-27, -2, 12, 4);
+            });
         }
     })
 ;
