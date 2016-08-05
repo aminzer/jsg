@@ -61,13 +61,9 @@ var Canvas = function () {
     self.render = render;
 
     self.Scale = {
-        toReal: function (virtualSizeOfObject) {
-            return virtualSizeOfObject * self.width / self.virtualWidth;
-        },
-
-        toVirtual: function (realSizeOfObject) {
-            return realSizeOfObject * self.virtualWidth / self.width;
-        }
+        ratio: function () { return self.width / self.virtualWidth },
+        toReal: function (virtualSize) { return virtualSize * this.ratio() },
+        toVirtual: function (realSize) { return realSize / this.ratio() }
     };
 
     function render(renderOpts) {
