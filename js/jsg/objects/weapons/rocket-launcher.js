@@ -21,7 +21,7 @@ new meta.Class( RocketLauncher )
 
     .define_method({
         render: function () {
-            Painter.renderShape(this, function (shape) {
+            Painter.shape(this, function (shape) {
                 shape.graphics
                     .beginFill('#244482')
                     .drawRect(-30, -4, this.frontLength + 30, 8)

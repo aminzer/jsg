@@ -21,10 +21,16 @@ new meta.Class( Destroyer )
     .extend_from( CircleUnit )
 
     .define_methods({
-        render: function () {
-            Painter.circle(this, this.radius, "#c22");
-            Painter.rectangle(this, 10, 2 * (this.radius - 1), 5, this.radius - 1, "#fd1");
-            Painter.rectangle(this, 26, 8, 13, -1, "#fd1");
+        render: function () {            
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#c22')
+                    .drawCircle(0, 0, this.radius)
+                    
+                    .beginFill('#fd1')
+                    .drawRect(-5, -this.radius + 1, 10, 2 * (this.radius - 1))
+                    .drawRect(-13, 1, 26, 8)
+            });
 
             if (this.weapon != null) {
                 this.weapon.render();

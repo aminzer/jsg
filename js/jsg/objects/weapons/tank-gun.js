@@ -23,9 +23,12 @@ new meta.Class( TankGun )
 
     .define_method({
         render: function () {
-            Painter.rectangle(this, this.frontLength + 30, 14, 30, 7, "#381D11");
-            Painter.roundRectangle(this, 70, 50, 35, 25, 15, "#27130D");
-            Painter.offsetRoundRectangle(this, this.frontLength, 0, 10, 16, 5, 8, 2, "#21100F");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#381D11').drawRect(-30, -7, this.frontLength + 30, 14)
+                    .beginFill('#27130D').drawRoundRect(-35, -25, 70, 50, 15)
+                    .beginFill('#27130D').drawRoundRect(this.frontLength - 5, -8, 10, 16, 2)
+            });
         }
     })
 ;

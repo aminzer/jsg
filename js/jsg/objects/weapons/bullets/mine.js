@@ -15,8 +15,11 @@ new meta.Class( Mine )
 
     .define_methods({
         render: function () {
-            Painter.circle(this, 6, "#588DAD");
-            Painter.circle(this, 3, "#f00");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#588DAD').drawCircle(0, 0, 6)
+                    .beginFill('#f00').drawCircle(0, 0, 3);
+            });
         },
 
         getChildBulletOpts: function (angle) {

@@ -17,11 +17,19 @@ new meta.Class( Rocket )
 
     .define_methods({
         render: function () {
-            Painter.rectangle(this, 40, 6, 40, 3, "#999");
-            Painter.roundRectangle(this, 20, 8, 20, 4, 3, "#333");
-            Painter.rectangle(this, 2, 8, 40, 4, "#f00");
-            Painter.rectangle(this, 2, 8, 6, 4, "#f00");
-            Painter.rectangle(this, 2, 8, 13, 4, "#f00");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#999')
+                    .drawRect(-40, -3, 40, 6)
+                    
+                    .beginFill('#333')
+                    .drawRoundRect(-20, -4, 20, 8, 3)
+                    
+                    .beginFill('#f00')
+                    .drawRect(-40, -4, 2, 8)
+                    .drawRect(-6, -4, 2, 8)
+                    .drawRect(-13, -4, 2, 8)
+            });
         }
     })
 ;

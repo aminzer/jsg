@@ -14,9 +14,12 @@ new meta.Class( AutomaticGun )
 
     .define_method({
         render: function () {
-            Painter.rectangle(this, this.frontLength + 15, 5, 15, 2.5, "#555");
-            Painter.rectangle(this, 10, 5, -7, 0, "#691C1C");
-            Painter.rectangle(this, this.frontLength, 2, 10, 1, "#ddd");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#555555').drawRect(-15, -2.5, this.frontLength + 15, 5)
+                    .beginFill('#691C1C').drawRect(7, 0, 10, 5)
+                    .beginFill('#DDDDDD').drawRect(-10, -1, this.frontLength, 2);
+            });
         }
     })
 ;

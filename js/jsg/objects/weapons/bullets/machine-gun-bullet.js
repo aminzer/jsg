@@ -14,8 +14,11 @@ new meta.Class( MachineGunBullet )
 
     .define_methods({
         render: function () {
-            Painter.circle(this, 2, "#000");
-            Painter.circle(this, 1, "#600");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#000').drawCircle(0, 0, 2)
+                    .beginFill('#600').drawCircle(0, 0, 1);
+            });
         }
     })
 ;

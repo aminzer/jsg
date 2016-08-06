@@ -21,9 +21,15 @@ new meta.Class( Mortar )
 
     .define_method({
         render: function () {
-            Painter.roundRectangle(this, this.frontLength + 30, 10, 30, 5, 5, "#306337");
-            Painter.offsetRectangle(this, 23, 0, 8, 12, 0, 6, "#B0BA3C");
-            Painter.offsetRectangle(this, -27, 0, 12, 4, 0, 2, "#B0BA3C");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#306337')
+                    .drawRoundRect(-30, -5, this.frontLength + 30, 10, 5)
+
+                    .beginFill('#B0BA3C')
+                    .drawRect(23, -6, 8, 12)
+                    .drawRect(-27, -2, 12, 4)
+            })
         }
     })
 ;

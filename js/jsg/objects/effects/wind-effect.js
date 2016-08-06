@@ -19,18 +19,20 @@ new meta.Class( WindEffect )
 
     .define_methods({
         render: function () {
-            var radius = this.radius;
+            var rad = function (scale) { return this.radius * scale }.bind(this);
 
-            Painter.circle(this, rad(1), "rgba(0, 50, 255, 0.2)");
-            Painter.rectangle(this, rad(7/6), 2, rad(1/3), 1, "rgba(0, 50, 255, 0.1)");
-            Painter.rectangle(this, rad(1/2), 2, -rad(0.17), rad(1/2), "rgba(0, 50, 255, 0.1)");
-            Painter.rectangle(this, rad(1/2), 2, -rad(0.17), -rad(1/2), "rgba(0, 50, 255, 0.1)");
-            Painter.rectangle(this, rad(5/6), 2, rad(0.05), rad(1/4), "rgba(0, 50, 255, 0.1)");
-            Painter.rectangle(this, rad(5/6), 2, rad(0.05), -rad(1/4), "rgba(0, 50, 255, 0.1)");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('rgba(0,50,255,0.2)')
+                    .drawCircle(0, 0, rad(1))
 
-            function rad(scale) {
-                return radius * scale;
-            }
+                    .beginFill('rgba(0, 50, 255, 0.1)')
+                    .drawRect(-rad(1/3), -1, rad(7/6), 2)
+                    .drawRect(rad(0.17), -rad(1/2), rad(1/2), 2)
+                    .drawRect(rad(0.17), rad(1/2), rad(1/2), 2)
+                    .drawRect(-rad(0.05), -rad(1/4), rad(5/6), 2)
+                    .drawRect(-rad(0.05), rad(1/4), rad(5/6), 2)
+            });
         },
 
         makeInfluence: function () {

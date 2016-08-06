@@ -14,8 +14,11 @@ new meta.Class( GrandfathersGun )
 
     .define_method({
         render: function () {
-            Painter.rectangle(this, this.frontLength + 15, 5, 15, 2.5, "#444");
-            Painter.rectangle(this, this.frontLength, 2, 10, 1, "#999");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#444').drawRect(-15, -2.5, this.frontLength + 15, 5)
+                    .beginFill('#999').drawRect(-10, -1, this.frontLength, 2);
+            });
         }
     })
 ;

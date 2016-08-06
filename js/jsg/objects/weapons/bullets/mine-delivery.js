@@ -17,7 +17,7 @@ new meta.Class( MineDelivery )
 
     .define_methods({
         render: function () {
-            Painter.circle(this, 4, "#588DAD");
+            Painter.circle(this, 4, '#588DAD');
         },
 
         afterDie: function () {

@@ -3,7 +3,7 @@ function Cursor(opts, render) {
 
     MovingObject.call(this, opts);
 
-    this._color = meta.common.first_defined( opts.color, "rgba(0,0,255,0.1)" );
+    this._color = meta.common.first_defined( opts.color, 'rgba(0,0,255,0.1)' );
 
     if (render !== false) {
         this.render();
@@ -20,17 +20,23 @@ new meta.Class( Cursor )
 
     .define_methods({
         render: function () {
-            Painter.rectangle(this, 9, 4, 12, 2, "#fff");
-            Painter.rectangle(this, 9, 4, -3, 2, "#fff");
-            Painter.rectangle(this, 4, 9, 2, 12, "#fff");
-            Painter.rectangle(this, 4, 9, 2, -3, "#fff");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#fff')
+                    .drawRect(-12, -2, 9, 4)
+                    .drawRect(3, -2, 9, 4)
+                    .drawRect(-2, -12, 4, 9)
+                    .drawRect(-2, 3, 4, 9)
 
-            Painter.rectangle(this, 7, 2, 11, 1, "#000");
-            Painter.rectangle(this, 7, 2, -4, 1, "#000");
-            Painter.rectangle(this, 2, 7, 1, 11, "#000");
-            Painter.rectangle(this, 2, 7, 1, -4, "#000");
+                    .beginFill('#000')
+                    .drawRect(-11, -1, 7, 2)
+                    .drawRect(4, -1, 7, 2)
+                    .drawRect(-1, -11, 2, 7)
+                    .drawRect(-1, 4, 2, 7)
 
-            Painter.circle(this, 10, this.color);
+                    .beginFill(this.color)
+                    .drawCircle(0, 0, 10);
+            });
         }
     })
 ;

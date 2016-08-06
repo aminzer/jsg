@@ -17,8 +17,11 @@ new meta.Class( Tommy )
 
     .define_method({
         render: function () {
-            Painter.circle(this, this.radius, this._mainColor);
-            Painter.rectangle(this, 10, 2 * (this.radius - 1), 5, this.radius - 1, this._extraColor);
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill(this._mainColor).drawCircle(0, 0, this.radius)
+                    .beginFill(this._extraColor).drawRect(-5, -this.radius + 1, 10, 2 * (this.radius - 1))
+            });
 
             if (this.hasWeapon()) {
                 this.weapon.render();

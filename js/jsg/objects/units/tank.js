@@ -18,7 +18,7 @@ new meta.Class( Tank )
 
     .define_method({
         render: function () {
-            Painter.rectangle(this, this.length, this.width, this.length / 2, this.width / 2, "#474924");
+            Painter.rect(this, this.length, this.width, "#474924");
             Painter.circle(this, 3, "red");
 
             if (this.weapon != null) {

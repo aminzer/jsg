@@ -14,7 +14,7 @@ new meta.Class( Fraction )
 
     .define_methods({
         render: function () {
-            Painter.rectangle(this, 3, 3, 1.5, 1.5, "#f00");
+            Painter.rect(this, 3, 3, '#f00');
         }
     })
 ;

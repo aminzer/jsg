@@ -21,10 +21,18 @@ new meta.Class( MachineGun )
 
     .define_method({
         render: function () {
-            Painter.rectangle(this, this.frontLength + 20, 4, 20, 2, "#8A8A8A");
-            Painter.rectangle(this, 20, 10, 10, 4, "#444");
-            Painter.rectangle(this, 7, 8, 20, 4, "#444");
-            Painter.rectangle(this, 10, 4, -30, 2, "#222");
+            Painter.shape(this, function (shape) {
+                shape.graphics
+                    .beginFill('#8A8A8A')
+                    .drawRect(-20, -2, this.frontLength + 20, 4)
+
+                    .beginFill('#444')
+                    .drawRect(-10, -4, 20, 10)
+                    .drawRect(-20, -4, 7, 8)
+
+                    .beginFill('#222')
+                    .drawRect(30, -2, 10, 4)
+            });
         }
     })
 ;
