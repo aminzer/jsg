@@ -153,8 +153,10 @@ var Game = function () {
 
     function handlePlayersDeath(e) {
         if (gctx.players.size() == 0) {
-            alert("it's over");
-            location.reload();
+            setTimeout(function () {
+                alert("it's over");
+                location.reload();
+            }, 2000);
         }
     }
 

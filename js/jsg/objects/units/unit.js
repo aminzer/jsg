@@ -11,6 +11,7 @@ function Unit(opts) {
 
     this._weaponSet = meta.common.first_defined( opts.weaponSet || new WeaponSet() );
     this.chooseWeapon(0);
+    this.aimAt();
 }
 
 new meta.Class( Unit )
@@ -74,6 +75,9 @@ new meta.Class( Unit )
         },
 
         aimAt: function (targetX, targetY) {
+            targetX = targetX || Number.MAX_VALUE * cos_d(this.angle);
+            targetY = targetY || Number.MAX_VALUE * sin_d(this.angle);
+
             this.angle = MathUtility.getLinesAngle(this.x, this.y, targetX, targetY);
             if (this.hasWeapon()) {
                 this.weapon.aimAt(targetX, targetY, this.x, this.y, this.angle);

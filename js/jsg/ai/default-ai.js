@@ -15,10 +15,17 @@ new meta.Class( DefaultAI )
         resolve: function () {
             var target = this._getTargets().get_by_index(0);
 
-            if (!target) return;
+            if (!target) {
+                gctx.units.each(function (unit) {
+                    if (!this._isControllable(unit)) return;
+                    
+                    unit.stopShooting();
+                    unit.stopMoving();
+                }, this);
+            } else {
+                gctx.units.each(function (unit) {
+                    if (!this._isControllable(unit)) return;
 
-            gctx.units.each(function (unit) {
-                if (this._isControllable(unit)) {
                     unit.aimAt(target.x, target.y);
 
                     var shootingAllowed = this._canShoot.call(this, unit, target);
@@ -43,10 +50,10 @@ new meta.Class( DefaultAI )
                             }
                         }
                     }
-                }
-            }, this);
+                }, this);
 
-            this._actionChanged = true;
+                this._actionChanged = true;
+            }
         },
 
         _canShoot: function (shooter, target) {
