@@ -5,7 +5,6 @@ var OBJECT_TYPE = {
     NEUTRAL:    parseInt("0000003", 16)
 };
 
-var PI = Math.PI;
-var sin_d = function (x) { return Math.sin(PI / 180 * x) };
-var cos_d = function (x) { return Math.cos(PI / 180 * x) };
+var sin_d = function (x) { return Math.sin(Math.PI / 180 * x) };
+var cos_d = function (x) { return Math.cos(Math.PI / 180 * x) };
 var random = Math.random;

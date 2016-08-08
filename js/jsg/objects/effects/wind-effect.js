@@ -1,10 +1,13 @@
 function WindEffect(opts, render) {
     opts = new meta.Hash( opts ).merge({
-        radius: 100
+        radius: 100,
+        intensity: 5
     }).to_obj();
 
     CircleObject.call(this, opts);
     Effect.call(this, opts);
+
+    this._intensity = opts['intensity'];
 
     if (render !== false) {
         this.render();
@@ -16,6 +19,10 @@ new meta.Class( WindEffect )
     .extend_from( Effect )
 
     .add_mixin( CircleObject )
+
+    .define_accessors([
+        'intensity'
+    ])
 
     .define_methods({
         render: function () {
@@ -38,14 +45,14 @@ new meta.Class( WindEffect )
         makeInfluence: function () {
             gctx.bullets.each(function (bullet) {
                 if (this.isPointInside(bullet.x, bullet.y)) {
-                    var delta = 5;
-                    if (Math.abs( MathUtility.normalizeAngle(bullet.angle - this.angle) ) < delta) {
+                    if (Math.abs( MathUtility.normalizeAngle(bullet.angle - this.angle) ) < this.intensity) {
                         bullet.angle = this.angle;
                     } else {
-                        if (!MathUtility.isClockwiseDirection(bullet.angle, this.angle)) {
-                            delta = -delta;
+                        if (MathUtility.isClockwiseDirection(bullet.angle, this.angle)) {
+                            bullet.angle += this.intensity;
+                        } else {
+                            bullet.angle -= this.intensity;
                         }
-                        bullet.angle += delta;
                     }
                 }
             }, this);
