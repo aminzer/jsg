@@ -116,7 +116,7 @@ new meta.Class( Unit )
 
         die: function () {
             this.destroyShapes();
-            gctx.units.remove(this.id);
+            gctx.players.remove(this.id);
         }
     })
 
