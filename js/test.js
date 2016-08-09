@@ -6,6 +6,7 @@ define(function (require, exports, module) {
         RandomAccessArray  = require('random-access-array'),
         Canvas             = require('widgets/canvas'),
         Menu               = require('widgets/menu'),
+        ProgressBar        = require('widgets/progress-bar'),
         end;
 
     console.log($.find);
@@ -23,6 +24,8 @@ define(function (require, exports, module) {
 
     Menu.initialize().render();
     Menu.hide();
+
+    new ProgressBar().render({$parent: $('body')});
 
     module.exports = function () {
         console.log('I was loaded through requirejs!)')
