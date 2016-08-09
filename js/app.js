@@ -14,16 +14,16 @@ requirejs.config({
     },
 
     paths: {
+        'widgets': '../widgets',
+        
         'jquery': '../../vendor/jquery-2.1.4.min',
         'createjs': '../../vendor/createjs.min',
-        'meta': '../../lib/meta'
+        'meta': '../../lib/meta',
+        'request': '../../lib/request',
+        'random-access-array': '../../lib/random-access-array'
     }
 });
 
-require(['createjs', '../test'], function(createjs, test) {
-    // console.log(jquery);
-
-    // test();
+require(['../test'], function(test) {
     test();
-    console.log(createjs.Stage)
 });

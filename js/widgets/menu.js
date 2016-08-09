@@ -1,6 +1,18 @@
-var Menu = function () {
-    var self = {};
+define(function (require, exports, module) {
+    var $       = require('jquery'),
+        Request = require('request');
 
+    var LevelStorage = LevelStorageStub = {  // TODO !!!!! remove stub, require LevelStorage
+        getAll: function () {
+            return [];
+        },
+        get:function () {
+            return {name: 'name'}
+        }
+    };
+    
+    var Menu = {};
+    
     var $node = null;
 
     var _template =
@@ -20,7 +32,7 @@ var Menu = function () {
         '  </div>' +
         '</div>';
 
-    Object.defineProperties(self, {
+    Object.defineProperties(Menu, {
         $node: {
             get: function () {
                 if (!$node) render();
@@ -29,17 +41,17 @@ var Menu = function () {
         }
     });
 
-    self.initialize = function () {
-        return self;
+    Menu.initialize = function () {
+        return Menu;
     };
 
-    self.render = render;
+    Menu.render = render;
 
-    self.show = function () {
+    Menu.show = function () {
         $node.css('display', '');
     };
 
-    self.hide = function () {
+    Menu.hide = function () {
         $node.css('display', 'none');
     };
 
@@ -91,5 +103,5 @@ var Menu = function () {
         return +$('#player-count-select').find(":selected").val();
     }
 
-    return self;
-}();
+    module.exports = Menu;
+});

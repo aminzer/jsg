@@ -1,12 +1,13 @@
-var Canvas = function () {
-    var self = {};
+define(function (require, exports, module) {
+    var $ = require('jquery');
+
+    var Canvas = {};
 
     var _width = 0;
     var _height = 0;
-
     var $node = null;
 
-    Object.defineProperties(self, {
+    Object.defineProperties(Canvas, {
         virtualWidth: {
             value: 1600,
             writable: false,
@@ -43,25 +44,25 @@ var Canvas = function () {
         }
     });
 
-    self.initialize = function (opts) {
+    Canvas.initialize = function (opts) {
         opts = opts || {};
 
         _width = opts.width || $(document.body).width();
         _height = opts.height || $(document.body).height();
 
-        if (self.width / self.virtualWidth < self.height / self.virtualHeight) {
-            _height = self.width * self.virtualHeight / self.virtualWidth;
+        if (Canvas.width / Canvas.virtualWidth < Canvas.height / Canvas.virtualHeight) {
+            _height = Canvas.width * Canvas.virtualHeight / Canvas.virtualWidth;
         } else {
-            _width = self.height * self.virtualWidth / self.virtualHeight;
+            _width = Canvas.height * Canvas.virtualWidth / Canvas.virtualHeight;
         }
 
-        return self;
+        return Canvas;
     };
 
-    self.render = render;
+    Canvas.render = render;
 
-    self.Scale = {
-        ratio: function () { return self.width / self.virtualWidth },
+    Canvas.Scale = {
+        ratio: function () { return Canvas.width / Canvas.virtualWidth },
         toReal: function (virtualSize) { return virtualSize * this.ratio() },
         toVirtual: function (realSize) { return realSize / this.ratio() }
     };
@@ -71,8 +72,8 @@ var Canvas = function () {
 
         $node = $('<canvas></canvas>').attr({
             id: renderOpts.canvasId || 'stage-canvas',
-            width: self.width,
-            height: self.height
+            width: Canvas.width,
+            height: Canvas.height
         });
 
         if (renderOpts.$parent) renderOpts.$parent.append($node);
@@ -80,5 +81,5 @@ var Canvas = function () {
         return $node;
     }
 
-    return self;
-}();
+    module.exports = Canvas;
+});
