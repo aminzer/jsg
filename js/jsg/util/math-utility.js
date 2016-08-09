@@ -5,6 +5,15 @@
 var MathUtility = {
 
     /**
+     * get sign of number (-1 for negative x; 1 for positive; 0 for 0)
+     * @param x
+     * @returns {number}
+     */
+    sign: function(x) {
+        return (x == 0) ? 0 : (x > 0 ? 1 : -1);
+    },
+
+    /**
      * converts angle in degrees to angle in radians
      * @param degreeAngle
      * @returns {number}
@@ -28,14 +37,8 @@ var MathUtility = {
      * @returns {number}
      */
     normalizeAngle: function (degreeAngle) {
-        while (degreeAngle > 180) {
-            degreeAngle -= 360;
-        }
-
-        while (degreeAngle <= -180) {
-            degreeAngle += 360;
-        }
-
+        while (degreeAngle > 180) degreeAngle -= 360;
+        while (degreeAngle <= -180) degreeAngle += 360;
         return degreeAngle;
     },
 
@@ -47,21 +50,7 @@ var MathUtility = {
      * @returns {number} number in range [0, 180)
      */
     absoluteAngleDifference: function (angle1, angle2) {
-        var delta = angle1 - angle2;
-
-        while (delta < 0) {
-            delta += 360;
-        }
-
-        while (delta >= 360) {
-            delta -= 360;
-        }
-
-        if (delta >= 180) {
-            delta = 360 - delta;
-        }
-
-        return delta;
+        return Math.abs(this.normalizeAngle(angle1 - angle2));
     },
 
     /**
@@ -116,7 +105,7 @@ var MathUtility = {
      * @returns {boolean}
      */
     isInCircle: function (x, y, circleX, circleY, circleRadius) {
-        return (circleX-x)*(circleX-x) + (circleY-y) * (circleY-y) <= circleRadius * circleRadius;
+        return this.getDistance(x, y, circleX, circleY) <= circleRadius;
     },
 
     /**
@@ -161,10 +150,10 @@ var MathUtility = {
     },
 
     turnPointRelative: function (pointX, pointY, relativePointX, relativePointY, angle) {
-        var res = {};
-        res.x = relativePointX + (pointX - relativePointX) * cos_d(angle) - (pointY - relativePointY) * sin_d(angle);
-        res.y = relativePointY + (pointX - relativePointX) * sin_d(angle) + (pointY - relativePointY) * cos_d(angle);
-        return res;
+        return {
+            x: relativePointX + (pointX - relativePointX) * cos_d(angle) - (pointY - relativePointY) * sin_d(angle),
+            y: relativePointY + (pointX - relativePointX) * sin_d(angle) + (pointY - relativePointY) * cos_d(angle)
+        }
     },
 
     /**
