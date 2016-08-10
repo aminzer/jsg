@@ -20,7 +20,8 @@ requirejs.config({
         'createjs': '../../vendor/createjs.min',
         'meta': '../../lib/meta',
         'request': '../../lib/request',
-        'random-access-array': '../../lib/random-access-array'
+        'random-access-array': '../../lib/random-access-array',
+        'math-util': '../../lib/math-util'
     }
 });
 
