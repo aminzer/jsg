@@ -58,7 +58,7 @@ require([
     Menu.initialize().render();
     Menu.hide();
 
-    window.gctx = GameContext.instance();
+    GameContext.initialize();
 
     Game.initialize().chooseLevel({
         levelId: levelId,

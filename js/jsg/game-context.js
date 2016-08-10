@@ -35,11 +35,15 @@ define(function (require, exports, module) {
     
         .define_static_method({         // TODO make static properties
             instance: function () {
-                return GameContext._instance || (GameContext._instance = new GameContext());
+                return this._instance || (this._instance = new this());
             },
             
             setInstance: function(newInstance) {
-                GameContext._instance = newInstance;
+                this._instance = newInstance;
+            },
+            
+            initialize: function() {
+                return this.instance();
             }
         })
     ;
