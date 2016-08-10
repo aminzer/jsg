@@ -1,57 +1,64 @@
-function PlayerPanel(opts) {
-    opts = opts || {};
+define(function (require, exports, module) {
+    var $           = require('jquery'),
+        ProgressBar = require('widgets/progress-bar');
+    
+    function PlayerPanel(opts) {
+        opts = opts || {};
 
-    var _playerId = null;
-    var _hpBar = null;
+        var _playerId = null;
+        var _hpBar = null;
 
-    var $node;
+        var $node;
 
-    Object.defineProperties(this, {
-        $node: {
-            get: function () {
-                if (!$node) render();
-                return $node;
+        Object.defineProperties(this, {
+            $node: {
+                get: function () {
+                    if (!$node) render();
+                    return $node;
+                }
             }
+        });
+
+        this.render = render;
+        this.setPlayerId = setPlayerId;
+
+        function render(renderOpts) {
+            renderOpts = renderOpts || {};
+
+            _hpBar = new ProgressBar({
+                noBorder: true,
+                color: opts.color || null
+            });
+
+            $node = $('<div></div>')
+                .attr({
+                    class: 'player-panel'
+                })
+                .append(_hpBar.render());
+
+            if (renderOpts.$parent) renderOpts.$parent.append($node);
+
+            return $node;
         }
-    });
 
-    this.render = render;
-    this.setPlayerId = setPlayerId;
+        function setPlayerId(playerId) {
+            _playerId = playerId;
+            initHandlers();
+        }
 
-    function render(renderOpts) {
-        renderOpts = renderOpts || {};
-
-        _hpBar = new ProgressBar({
-            noBorder: true,
-            color: opts.color || null
-        });
-
-        $node = $('<div></div>')
-            .attr({
-                class: 'player-panel'
-            })
-            .append(_hpBar.render());
-
-        if (renderOpts.$parent) renderOpts.$parent.append($node);
-
-        return $node;
+        function initHandlers() {
+            $(document).bind("player_hp_change", function (e, playerId, hp, maxHp) {
+                if (_playerId == playerId) {
+                    _hpBar.setProgress(hp / maxHp);
+                }
+            });
+            $(document).bind("player_death", function (e, playerId) {
+                if (_playerId == playerId) {
+                    _hpBar.setProgress(0);
+                }
+            });
+        }
     }
 
-    function setPlayerId(playerId) {
-        _playerId = playerId;
-        initHandlers();
-    }
-
-    function initHandlers() {
-        $(document).bind("player_hp_change", function (e, playerId, hp, maxHp) {
-            if (_playerId == playerId) {
-                _hpBar.setProgress(hp / maxHp);
-            }
-        });
-        $(document).bind("player_death", function (e, playerId) {
-            if (_playerId == playerId) {
-                _hpBar.setProgress(0);
-            }
-        });
-    }
-}
+    module.exports = PlayerPanel;
+});

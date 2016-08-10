@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var $       = require('jquery'),
         Request = require('request');
 
-    var LevelStorage = LevelStorageStub = {  // TODO !!!!! remove stub, require LevelStorage
+    var LevelStorage = LevelStorageStub = {  // TODO-migration: remove stub, require LevelStorage
         getAll: function () {
             return [];
         },
