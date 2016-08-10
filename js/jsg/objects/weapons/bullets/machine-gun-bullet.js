@@ -1,24 +1,33 @@
-function MachineGunBullet(opts, render) {
-    opts = new meta.Hash(opts).merge({
-        damage: BULLET.MACHINE_GUN.DAMAGE,
-        speed: BULLET.MACHINE_GUN.SPEED,
-        lifetime: BULLET.MACHINE_GUN.LIFETIME
-    }).to_obj();
+define(function (require, exports, module) {
+    var meta         = require('meta'),
+        BULLET       = require('const/physics/bullet'),
+        Bullet       = require('objects/weapons/bullets/bullet'),
+        Painter      = require('util/painter');
 
-    Bullet.call(this, opts, render);
-}
+    function MachineGunBullet(opts, render) {
+        opts = new meta.Hash(opts).merge({
+            damage: BULLET.MACHINE_GUN.DAMAGE,
+            speed: BULLET.MACHINE_GUN.SPEED,
+            lifetime: BULLET.MACHINE_GUN.LIFETIME
+        }).to_obj();
 
-new meta.Class( MachineGunBullet )
+        Bullet.call(this, opts, render);
+    }
 
-    .extend_from( Bullet )
+    new meta.Class( MachineGunBullet )
 
-    .define_methods({
-        render: function () {
-            Painter.shape(this, function (shape) {
-                shape.graphics
-                    .beginFill('#000').drawCircle(0, 0, 2)
-                    .beginFill('#600').drawCircle(0, 0, 1);
-            });
-        }
-    })
-;
+        .extend_from( Bullet )
+
+        .define_methods({
+            render: function () {
+                Painter.shape(this, function (shape) {
+                    shape.graphics
+                        .beginFill('#000').drawCircle(0, 0, 2)
+                        .beginFill('#600').drawCircle(0, 0, 1);
+                });
+            }
+        })
+    ;
+
+    module.exports = MachineGunBullet;
+});

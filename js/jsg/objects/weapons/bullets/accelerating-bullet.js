@@ -1,34 +1,42 @@
-function AcceleratingBullet(opts, render) {
-    opts = opts || {};
+define(function (require, exports, module) {
+    var meta   = require('meta'),
+        Bullet = require('objects/weapons/bullets/bullet'),
+        BULLET = require('const/physics/bullet');
 
-    this._acceleration = meta.common.first_defined( opts.acceleration, BULLET.DEFAULT.ACCELERATION);
-    this._beginAccelerationLifetime = meta.common.first_defined( opts.beginAccelerationLifetime, BULLET.DEFAULT.BEGIN_ACCELERATION_LIFETIME);
-    this._endAccelerationLifetime = meta.common.first_defined( opts.endAccelerationLifetime, BULLET.DEFAULT.END_ACCELERATION_LIFETIME);
+    function AcceleratingBullet(opts, render) {
+        opts = opts || {};
 
-    Bullet.call(this, opts, render);
-}
+        this._acceleration = meta.common.first_defined( opts.acceleration, BULLET.DEFAULT.ACCELERATION);
+        this._beginAccelerationLifetime = meta.common.first_defined( opts.beginAccelerationLifetime, BULLET.DEFAULT.BEGIN_ACCELERATION_LIFETIME);
+        this._endAccelerationLifetime = meta.common.first_defined( opts.endAccelerationLifetime, BULLET.DEFAULT.END_ACCELERATION_LIFETIME);
 
-new meta.Class( AcceleratingBullet )
-    
-    .extend_from( Bullet )
+        Bullet.call(this, opts, render);
+    }
 
-    .define_accessors([
-        'acceleration',
-        'beginAccelerationLifetime',
-        'endAccelerationLifetime'
-    ])
+    new meta.Class( AcceleratingBullet )
 
-    .define_methods({
-        move: function () {
-            this.moveX(this.speed * cos_d(this.angle));
-            this.moveY(this.speed * sin_d(this.angle));
-            this.reduceLifetime();
+        .extend_from( Bullet )
 
-            if (this.lifetime < this._beginAccelerationLifetime && this.lifetime > this._endAccelerationLifetime) {
-                this.increaseSpeed(this._acceleration);
+        .define_accessors([
+            'acceleration',
+            'beginAccelerationLifetime',
+            'endAccelerationLifetime'
+        ])
+
+        .define_methods({
+            move: function () {
+                this.moveX(this.speed * cos_d(this.angle));
+                this.moveY(this.speed * sin_d(this.angle));
+                this.reduceLifetime();
+
+                if (this.lifetime < this._beginAccelerationLifetime && this.lifetime > this._endAccelerationLifetime) {
+                    this.increaseSpeed(this._acceleration);
+                }
+
+                return this.lifetime > 0;
             }
-
-            return this.lifetime > 0;
-        }
-    })
-;
+        })
+    ;
+    
+    module.exports = AcceleratingBullet;
+});
