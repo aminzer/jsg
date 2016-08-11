@@ -1,4 +1,4 @@
-function LevelDefinition_1() {
+function LevelDefinition1() {
     LevelDefinition.call(this, {
         id: 1,
         name: 'Training Room',
@@ -6,7 +6,7 @@ function LevelDefinition_1() {
     })
 }
 
-new meta.Class( LevelDefinition_1 )
+new meta.Class( LevelDefinition1 )
 
     .extend_from( LevelDefinition )
 

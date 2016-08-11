@@ -5,9 +5,9 @@ var LevelStorage = function () {
 
     self.initialize = function () {
         var levelDefinitions = [
-            new LevelDefinition_1(),
-            new LevelDefinition_2(),
-            new LevelDefinition_3()
+            new LevelDefinition1(),
+            new LevelDefinition2(),
+            new LevelDefinition3()
         ];
 
         levelDefinitions.forEach(function (levelDefinition) {
