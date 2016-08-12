@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var meta         = require('meta'),
-        MathUtility  = require('math-util'),
+        M            = require('math-util'),
         OBJECT_TYPE  = require('const/object-type'),
         UNIT         = require('const/physics/unit'),
         MovingObject = require('objects/moving-object'),
@@ -84,10 +84,10 @@ define(function (require, exports, module) {
             },
     
             aimAt: function (targetX, targetY) {
-                targetX = targetX || Number.MAX_VALUE * cos_d(this.angle);
-                targetY = targetY || Number.MAX_VALUE * sin_d(this.angle);
+                targetX = targetX || Number.MAX_VALUE * M.cos_d(this.angle);
+                targetY = targetY || Number.MAX_VALUE * M.sin_d(this.angle);
     
-                this.angle = MathUtility.getLinesAngle(this.x, this.y, targetX, targetY);
+                this.angle = M.getLinesAngle(this.x, this.y, targetX, targetY);
                 if (this.hasWeapon()) {
                     this.weapon.aimAt(targetX, targetY, this.x, this.y, this.angle);
                 }

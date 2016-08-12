@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var meta         = require('meta'),
-        MathUtility  = require('math-util'),
+        M            = require('math-util'),
         CircleObject = require('objects/circle-object'),
         Effect       = require('objects/effects/effect'),
         Painter      = require('util/painter'),
@@ -33,7 +33,7 @@ define(function (require, exports, module) {
             makeInfluence: function () {
                 GameContext.instance().bullets.each(function (bullet) {
                     if (this.isPointInside(bullet.x, bullet.y)) {
-                        var normalAngle = MathUtility.getLinesAngle(bullet.x, bullet.y, this.x, this.y);
+                        var normalAngle = M.getLinesAngle(bullet.x, bullet.y, this.x, this.y);
                         bullet.angle = 180 - bullet.angle + 2 * normalAngle;
                         bullet.move();
                     }

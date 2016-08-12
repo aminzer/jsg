@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var meta         = require('meta'),
-        MathUtility  = require('math-util'),
+        M            = require('math-util'),
         UNIT         = require('const/physics/unit'),
         WEAPON       = require('const/physics/weapon'),
         MovingObject = require('objects/moving-object'),
@@ -69,9 +69,9 @@ define(function (require, exports, module) {
             shoot: function () {
                 var bullet = this._charger.getNextBullet();
                 if (bullet !== null) {
-                    bullet.x = this.x + this._frontLength * cos_d(this.angle);
-                    bullet.y = this.y + this._frontLength * sin_d(this.angle);
-                    bullet.angle = this.angle + (1 - this.accuracy) * (this._maxSector * random() - this._maxSector / 2);
+                    bullet.x = this.x + this._frontLength * M.cos_d(this.angle);
+                    bullet.y = this.y + this._frontLength * M.sin_d(this.angle);
+                    bullet.angle = this.angle + (1 - this.accuracy) * (this._maxSector * Math.random() - this._maxSector / 2);
                     this.harmWeapon();
                     GameContext.instance().bullets.add(bullet);
                 }
@@ -107,15 +107,15 @@ define(function (require, exports, module) {
             },
     
             aimAt: function (targetX, targetY, unitX, unitY, unitAngle) {
-                this.angle = MathUtility.getLinesAngle(
-                    unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle),
-                    unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle),
+                this.angle = M.getLinesAngle(
+                    unitX - this._offsetY * M.sin_d(unitAngle) + this._offsetX * M.cos_d(unitAngle),
+                    unitY + this._offsetY * M.cos_d(unitAngle) + this._offsetX * M.sin_d(unitAngle),
                     targetX,
                     targetY
                 );
     
-                this.x = unitX - this._offsetY * sin_d(unitAngle) + this._offsetX * cos_d(unitAngle);
-                this.y = unitY + this._offsetY * cos_d(unitAngle) + this._offsetX * sin_d(unitAngle);
+                this.x = unitX - this._offsetY * M.sin_d(unitAngle) + this._offsetX * M.cos_d(unitAngle);
+                this.y = unitY + this._offsetY * M.cos_d(unitAngle) + this._offsetX * M.sin_d(unitAngle);
             }
         })
     

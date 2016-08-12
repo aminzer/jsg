@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var meta              = require('meta'),
-        MathUtility       = require('math-util'),
+        M                 = require('math-util'),
         WEAPON            = require('const/physics/weapon'),
         MouseBasedControl = require('control/mouse-based-control');
 
@@ -69,7 +69,7 @@ define(function (require, exports, module) {
                     dy = this.isPressed('CURSOR.DOWN') - this.isPressed('CURSOR.UP');
     
                 if (dx || dy) {
-                    this.cursor.startMoving( MathUtility.getLinesAngle(0, 0, dx, dy) );
+                    this.cursor.startMoving( M.getLinesAngle(0, 0, dx, dy) );
                 } else {
                     this.cursor.stopMoving();
                 }

@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var meta        = require('meta'),
-        MathUtility = require('math-util'),
+        M           = require('math-util'),
         UNIT        = require('const/physics/unit'),
         SquareUnit  = require('objects/units/square-unit'),
         Unit        = require('objects/units/unit'),

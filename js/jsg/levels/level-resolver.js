@@ -3,6 +3,7 @@ define(function (require, exports, module) {
         OBJECT_TYPE  = require('const/object-type'),
         DefaultHero2 = require('objects/units/default-hero-2'),
         DefaultHero  = require('objects/units/default-hero'),
+        M            = require('math-util'),
         GameContext  = require('game-context');
 
     var LevelResolver = function () {
@@ -21,7 +22,7 @@ define(function (require, exports, module) {
                     getObjectOpts(playerDef)
                 );
                 player.objectType = OBJECT_TYPE.PLAYER;
-                player.aimAt(Number.MAX_VALUE * cos_d(player.angle), Number.MAX_VALUE * sin_d(player.angle));
+                player.aimAt(Number.MAX_VALUE * M.cos_d(player.angle), Number.MAX_VALUE * M.sin_d(player.angle));
                 GameContext.instance().players.add(player);
             }
     

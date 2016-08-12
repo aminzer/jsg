@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
-    var meta = require('meta');
+    var meta = require('meta'),
+        M    = require('math-util');
 
     function SquareObject(opts) {
         opts = opts || {};
@@ -17,8 +18,8 @@ define(function (require, exports, module) {
 
         .define_method({
             isPointInside: function (pointX, pointY) {
-                var relativeX = (pointX - this.x) * cos_d(this.angle) + (pointY - this.y) * sin_d(this.angle);
-                var relativeY = -(pointX - this.x) * sin_d(this.angle) + (pointY - this.y) * cos_d(this.angle);
+                var relativeX = (pointX - this.x) * M.cos_d(this.angle) + (pointY - this.y) * M.sin_d(this.angle);
+                var relativeY = -(pointX - this.x) * M.sin_d(this.angle) + (pointY - this.y) * M.cos_d(this.angle);
                 return (Math.abs(relativeX) <= this._length / 2) && (Math.abs(relativeY) <= this._width / 2);
             }
         })

@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var meta        = require('meta'),
-        MathUtility = require('math-util'),
+        M           = require('math-util'),
         Control     = require('control/control');
 
     function MouseBasedControl(opts) {
@@ -61,7 +61,7 @@ define(function (require, exports, module) {
                     dy = this.isPressed('MOVE.DOWN') - this.isPressed('MOVE.UP');
     
                 if (dx || dy) {
-                    this.controlledUnit.startMoving( MathUtility.getLinesAngle(0, 0, dx, dy) );
+                    this.controlledUnit.startMoving( M.getLinesAngle(0, 0, dx, dy) );
                 } else {
                     this.controlledUnit.stopMoving();
                 }

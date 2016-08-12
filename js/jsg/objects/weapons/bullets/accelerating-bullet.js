@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
     var meta   = require('meta'),
         Bullet = require('objects/weapons/bullets/bullet'),
+        M      = require('math-util'),
         BULLET = require('const/physics/bullet');
 
     function AcceleratingBullet(opts, render) {
@@ -25,8 +26,8 @@ define(function (require, exports, module) {
 
         .define_methods({
             move: function () {
-                this.moveX(this.speed * cos_d(this.angle));
-                this.moveY(this.speed * sin_d(this.angle));
+                this.moveX(this.speed * M.cos_d(this.angle));
+                this.moveY(this.speed * M.sin_d(this.angle));
                 this.reduceLifetime();
 
                 if (this.lifetime < this._beginAccelerationLifetime && this.lifetime > this._endAccelerationLifetime) {

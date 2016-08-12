@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
     var meta        = require('meta'),
-        MathUtility = require('math-util'),
+        M           = require('math-util'),
         FakeAI      = require('ai/fake-ai'),
         GameContext = require('game-context');
 
@@ -41,14 +41,14 @@ define(function (require, exports, module) {
                         }
     
                         if (this._actionChanged == false) {    // random behaviour
-                            if (random() > 0.5) {
+                            if (Math.random() > 0.5) {
                                 unit.stopShooting();
-                                unit.startMoving(MathUtility.getLinesAngle(
+                                unit.startMoving(M.getLinesAngle(
                                         unit.x,
                                         unit.y,
                                         target.x,
                                         target.y
-                                    ) + random() * 90 - 45);
+                                    ) + Math.random() * 90 - 45);
                             } else {
                                 unit.stopMoving();
                                 if (shootingAllowed) {
@@ -75,7 +75,7 @@ define(function (require, exports, module) {
                 if (!meta.common.is_defined(target.radius)) {  // TODO fix for square units and composite weapons
                     return false;
                 }
-                return MathUtility.isRayPassThroughCircle(      // TODO check if weapon exist
+                return M.isRayPassThroughCircle(      // TODO check if weapon exist
                     shooter.weapon.x,
                     shooter.weapon.y,
                     shooter.weapon.angle,

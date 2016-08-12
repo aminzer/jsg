@@ -1,8 +1,7 @@
 define(function (require, exports, module) {
     var meta         = require('meta'),
         ShapedObject = require('objects/shaped-object'),
-        Canvas       = require('widgets/canvas'),
-        GameContext  = require('game-context');
+        M            = require('math-util');
     
     function MovingObject(opts) {
         opts = opts || {};
@@ -24,10 +23,10 @@ define(function (require, exports, module) {
         ])
 
         .define_reader('xSpeed', function () {
-            return this._speed * cos_d(this._movementAngle);
+            return this._speed * M.cos_d(this._movementAngle);
         })
         .define_reader('ySpeed', function () {
-            return this._speed * sin_d(this._movementAngle);
+            return this._speed * M.sin_d(this._movementAngle);
         })
 
         .define_methods({
@@ -48,8 +47,8 @@ define(function (require, exports, module) {
 
             move: function () {
                 if (this.isMoving()) {
-                    this.moveX(this._speed * cos_d(this._movementAngle));
-                    this.moveY(this._speed * sin_d(this._movementAngle));
+                    this.moveX(this._speed * M.cos_d(this._movementAngle));
+                    this.moveY(this._speed * M.sin_d(this._movementAngle));
                 }
                 return true;
             },

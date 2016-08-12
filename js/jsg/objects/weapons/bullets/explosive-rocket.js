@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         ExplosiveBullet    = require('objects/weapons/bullets/explosive-bullet'),
         Rocket             = require('objects/weapons/bullets/rocket'),
         Fraction           = require('objects/weapons/bullets/fraction'),
-        Painter            = require('util/painter');
+        M                  = require('math-util');
 
     function ExplosiveRocket(opts, render) {
         opts = new meta.Hash(opts).merge({
@@ -31,11 +31,11 @@ define(function (require, exports, module) {
         .define_methods({
             getChildBulletOpts: function (angle) {
                 return {
-                    x: this.x - 30 * cos_d(this.angle),   // rocket explode in it's tail
-                    y: this.y - 30 * sin_d(this.angle),
+                    x: this.x - 30 * M.cos_d(this.angle),   // rocket explode in it's tail
+                    y: this.y - 30 * M.sin_d(this.angle),
                     angle: angle,
                     damage: BULLET.EXPLOSIVE_ROCKET.FRACTION_DAMAGE,
-                    speed: 10 + random() * 5,
+                    speed: 10 + Math.random() * 5,
                     lifetime: BULLET.EXPLOSIVE_ROCKET.FRACTION_LIFETIME
                 }
             }

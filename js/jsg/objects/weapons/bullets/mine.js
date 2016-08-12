@@ -3,7 +3,8 @@ define(function (require, exports, module) {
         BULLET          = require('const/physics/bullet'),
         ExplosiveBullet = require('objects/weapons/bullets/explosive-bullet'),
         Fraction        = require('objects/weapons/bullets/fraction'),
-        Painter         = require('util/painter');
+        Painter         = require('util/painter'),
+        M               = require('math-util');
 
     function Mine(opts, render) {
         opts = new meta.Hash(opts).merge({
@@ -31,11 +32,11 @@ define(function (require, exports, module) {
 
             getChildBulletOpts: function (angle) {
                 return {
-                    x: this.x + 10 * cos_d(angle),
-                    y: this.y + 10 * sin_d(angle),
+                    x: this.x + 10 * M.cos_d(angle),
+                    y: this.y + 10 * M.sin_d(angle),
                     angle: angle,
                     damage: BULLET.MINE.FRACTION_DAMAGE,
-                    speed: 10 + random() * 5,
+                    speed: 10 + Math.random() * 5,
                     lifetime: BULLET.MINE.FRACTION_LIFETIME
                 }
             },
