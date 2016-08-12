@@ -1,16 +1,25 @@
-function SquareUnit(opts) {
-    opts = new meta.Hash( opts).merge({
-        length: 2 * UNIT.DEFAULT.RADIUS,
-        width: 2 * UNIT.DEFAULT.RADIUS
-    }).to_obj();
+define(function (require, exports, module) {
+    var meta         = require('meta'),
+        UNIT         = require('const/physics/unit'),
+        SquareObject = require('objects/square-object'),
+        Unit         = require('objects/units/unit');
 
-    SquareObject.call(this, opts);
-    Unit.call(this, opts);
-}
+    function SquareUnit(opts) {
+        opts = new meta.Hash( opts).merge({
+            length: 2 * UNIT.DEFAULT.RADIUS,
+            width: 2 * UNIT.DEFAULT.RADIUS
+        }).to_obj();
+    
+        SquareObject.call(this, opts);
+        Unit.call(this, opts);
+    }
+    
+    new meta.Class( SquareUnit )
+    
+        .extend_from( Unit )
+    
+        .add_mixin( SquareObject )
+    ;
 
-new meta.Class( SquareUnit )
-
-    .extend_from( Unit )
-
-    .add_mixin( SquareObject )
-;
+    module.exports = SquareUnit;
+});

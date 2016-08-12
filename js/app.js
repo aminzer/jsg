@@ -29,14 +29,20 @@ require([
     'request',
     'widgets/player-panel-holder',
     'widgets/canvas',
+    'levels/level-storage',
     'widgets/menu',
-    'game-context'
+    'game-context',
+    'game',
+    'config/controls'
 ], function(
     Request,
     PlayerPanelHolder,
     Canvas,
+    LevelStorage,
     Menu,
-    GameContext
+    GameContext,
+    Game,
+    CONTROLS
 ) {
     var levelId = Request.getParam('levelId', 1);
     var playerCount = Math.min(Request.getParam('playerCount', 1), 2);
@@ -54,7 +60,7 @@ require([
         $parent: $(document.body)
     });
 
-    // LevelStorage.initialize();  // TODO-migration
+    LevelStorage.initialize();
 
     Menu.initialize().render();
     Menu.hide();

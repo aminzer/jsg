@@ -2,7 +2,8 @@ define(function (require, exports, module) {
     var meta         = require('meta'),
         MovingObject = require('objects/moving-object'),
         BULLET       = require('const/physics/bullet'),
-        Painter      = require('util/painter');
+        Painter      = require('util/painter'),
+        gctx         = require('game-context').instance();
     
     function Bullet(opts, render) {
         opts = opts || {};

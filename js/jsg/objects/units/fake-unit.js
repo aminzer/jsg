@@ -1,11 +1,18 @@
-function FakeUnit() { Unit.call(this) }
+define(function (require, exports, module) {
+    var meta = require('meta'),
+        Unit = require('objects/units/unit');
 
-new meta.Class( FakeUnit )
+    function FakeUnit() { Unit.call(this) }
+    
+    new meta.Class( FakeUnit )
+    
+        .extend_from( Unit )
+    
+        .define_static_method('instance', function () {
+            FakeUnit._instance || (FakeUnit._instance = new FakeUnit());
+            return FakeUnit._instance;
+        })
+    ;
 
-    .extend_from( Unit )
-
-    .define_static_method('instance', function () {
-        FakeUnit._instance || (FakeUnit._instance = new FakeUnit());
-        return FakeUnit._instance;
-    })
-;
+    module.exports = FakeUnit;
+});

@@ -1,15 +1,7 @@
 define(function (require, exports, module) {
-    var $       = require('jquery'),
-        Request = require('request');
-
-    var LevelStorage = LevelStorageStub = {  // TODO-migration: remove stub, require LevelStorage
-        getAll: function () {
-            return [];
-        },
-        get:function () {
-            return {name: 'name'}
-        }
-    };
+    var $            = require('jquery'),
+        Request      = require('request'),
+        LevelStorage = require('levels/level-storage');
     
     var Menu = {};
     
