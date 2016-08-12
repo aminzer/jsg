@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
     var $           = require('jquery'),
-        PlayerPanel = require('widgets/player-panel');
+        PlayerPanel = require('widgets/player-panel'),
+        gctx        = require('game-context').instance();
 
     var PlayerPanelHolder = function () {
         var self = {};
