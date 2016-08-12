@@ -125,7 +125,7 @@ define(function (require, exports, module) {
     
             die: function () {
                 this.destroyShapes();
-                GameContext.instance().players.remove(this.id);
+                GameContext.instance().units.remove(this.id);
             }
         })
     
