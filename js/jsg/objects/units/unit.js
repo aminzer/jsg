@@ -112,7 +112,7 @@ define(function (require, exports, module) {
             },
     
             takeDamage: function (damage) {
-                // this._hp -= damage;
+                this._hp -= damage;
             },
     
             isAlive: function () {
