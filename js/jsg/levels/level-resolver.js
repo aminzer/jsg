@@ -3,7 +3,7 @@ define(function (require, exports, module) {
         OBJECT_TYPE  = require('const/object-type'),
         DefaultHero2 = require('objects/units/default-hero-2'),
         DefaultHero  = require('objects/units/default-hero'),
-        gctx         = require('game-context').instance();
+        GameContext  = require('game-context');
 
     var LevelResolver = function () {
         var self = {};
@@ -22,17 +22,17 @@ define(function (require, exports, module) {
                 );
                 player.objectType = OBJECT_TYPE.PLAYER;
                 player.aimAt(Number.MAX_VALUE * cos_d(player.angle), Number.MAX_VALUE * sin_d(player.angle));
-                gctx.players.add(player);
+                GameContext.instance().players.add(player);
             }
     
             (levelDef.enemies || []).forEach(function (enemyDef) {
-                gctx.units.add(new enemyDef.$constructor(
+                GameContext.instance().units.add(new enemyDef.$constructor(
                     getObjectOpts(enemyDef)
                 ));
             });
     
             (levelDef.effects || []).forEach(function (effectDef) {
-                gctx.effects.add(new effectDef.$constructor(
+                GameContext.instance().effects.add(new effectDef.$constructor(
                     getObjectOpts(effectDef)
                 ));
             });
@@ -41,7 +41,7 @@ define(function (require, exports, module) {
                 var enemyFactory = new levelDef.enemyFactory.$constructor(
                     getObjectOpts(levelDef.enemyFactory)
                 );
-                gctx.enemyFactory = enemyFactory;
+                GameContext.instance().enemyFactory = enemyFactory;
                 enemyFactory.startGenerating();
             }
         };

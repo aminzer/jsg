@@ -4,12 +4,12 @@ define(function (require, exports, module) {
         ControlInterface = require('control/control-interface'),
         Cursor           = require('control/cursor'),
         FakeUnit         = require('objects/units/fake-unit'),
-        gctx             = require('game-context').instance();
+        GameContext      = require('game-context');
 
     function Control(opts) {
         opts = opts || {};
     
-        this._controlledUnitId = opts.controlledUnitId || gctx.players.get_by_index(0).id;
+        this._controlledUnitId = opts.controlledUnitId || GameContext.instance().players.get_by_index(0).id;
         this._cursor = opts.cursor || new Cursor();
     
         this._properties = {};
@@ -25,7 +25,7 @@ define(function (require, exports, module) {
         .define_readers({
             'cursor': 'default',
             'controlledUnit': function () {
-                return gctx.units.get(this._controlledUnitId) || FakeUnit.instance();
+                return GameContext.instance().units.get(this._controlledUnitId) || FakeUnit.instance();
             }
         })
     

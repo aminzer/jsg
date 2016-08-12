@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var meta         = require('meta'),
         ShapedObject = require('objects/shaped-object'),
         Canvas       = require('widgets/canvas'),
-        gctx         = require('game-context').instance();
+        GameContext  = require('game-context');
     
     function MovingObject(opts) {
         opts = opts || {};

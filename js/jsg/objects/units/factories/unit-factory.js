@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var meta          = require('meta'),
         Canvas        = require('widgets/canvas'),
         ENEMY_FACTORY = require('const/physics/enemy-factory'),
-        gctx          = require('game-context').instance();
+        GameContext   = require('game-context');
 
     function UnitFactory(opts) {
         opts = opts || {};
@@ -20,7 +20,7 @@ define(function (require, exports, module) {
                 this._creationTimer = setInterval(function () {
                     var constructor = this._getConstructor.call(this);
                     var constructorOpts = this._getConstructorOpts.call(this, constructor);
-                    gctx.units.add(new constructor(constructorOpts));
+                    GameContext.instance().units.add(new constructor(constructorOpts));
                 }.bind(this), this._generatingDelay);
             },
     

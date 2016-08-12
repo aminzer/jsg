@@ -4,7 +4,7 @@ define(function (require, exports, module) {
         CircleObject = require('objects/circle-object'),
         Effect       = require('objects/effects/effect'),
         Painter      = require('util/painter'),
-        gctx         = require('game-context').instance();
+        GameContext  = require('game-context');
 
     function BulletReflectEffect(opts, render) {
         opts = new meta.Hash( opts ).merge({
@@ -31,7 +31,7 @@ define(function (require, exports, module) {
             },
     
             makeInfluence: function () {
-                gctx.bullets.each(function (bullet) {
+                GameContext.instance().bullets.each(function (bullet) {
                     if (this.isPointInside(bullet.x, bullet.y)) {
                         var normalAngle = MathUtility.getLinesAngle(bullet.x, bullet.y, this.x, this.y);
                         bullet.angle = 180 - bullet.angle + 2 * normalAngle;

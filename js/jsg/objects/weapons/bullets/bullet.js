@@ -3,7 +3,7 @@ define(function (require, exports, module) {
         MovingObject = require('objects/moving-object'),
         BULLET       = require('const/physics/bullet'),
         Painter      = require('util/painter'),
-        gctx         = require('game-context').instance();
+        GameContext  = require('game-context');
     
     function Bullet(opts, render) {
         opts = opts || {};
@@ -46,7 +46,7 @@ define(function (require, exports, module) {
 
             die: function () {
                 this.destroyShapes();
-                gctx.bullets.remove(this.id);
+                GameContext.instance().bullets.remove(this.id);
                 this.afterDie();
             },
 

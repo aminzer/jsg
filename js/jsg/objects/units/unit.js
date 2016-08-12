@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         UNIT         = require('const/physics/unit'),
         MovingObject = require('objects/moving-object'),
         WeaponSet    = require('objects/weapons/weapon-set'),
-        gctx         = require('game-context').instance();
+        GameContext  = require('game-context');
 
     function Unit(opts) {
         opts = new meta.Hash( opts ).merge({
@@ -125,7 +125,7 @@ define(function (require, exports, module) {
     
             die: function () {
                 this.destroyShapes();
-                gctx.players.remove(this.id);
+                GameContext.instance().players.remove(this.id);
             }
         })
     

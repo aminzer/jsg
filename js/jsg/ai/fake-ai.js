@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var meta        = require('meta'),
         OBJECT_TYPE = require('const/object-type'),
-        gctx        = require('game-context').instance();
+        GameContext = require('game-context');
 
     function FakeAI() { }
     
@@ -18,7 +18,7 @@ define(function (require, exports, module) {
             },
     
             _getTargets: function () {
-                return gctx.players;
+                return GameContext.instance().players;
             }
         })
     ;

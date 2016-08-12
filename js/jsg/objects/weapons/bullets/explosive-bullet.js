@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var meta         = require('meta'),
         Bullet       = require('objects/weapons/bullets/bullet'),
         Painter      = require('util/painter'),
-        gctx         = require('game-context').instance();
+        GameContext  = require('game-context');
     
     function ExplosiveBullet(opts, render) {
         opts = opts || {};
@@ -49,7 +49,7 @@ define(function (require, exports, module) {
                         var childBullet = new this._childBulletConstructor(
                             this.getChildBulletOpts(angle)
                         );
-                        gctx.bullets.add(childBullet);
+                        GameContext.instance().bullets.add(childBullet);
                     }
                 }
             }

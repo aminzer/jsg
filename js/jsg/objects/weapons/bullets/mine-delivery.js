@@ -4,7 +4,7 @@ define(function (require, exports, module) {
         AcceleratingBullet = require('objects/weapons/bullets/accelerating-bullet'),
         Mine               = require('objects/weapons/bullets/mine'),
         Painter            = require('util/painter'),
-        gctx               = require('game-context').instance();
+        GameContext        = require('game-context');
 
     function MineDelivery(opts, render) {
         opts = new meta.Hash(opts).merge({
@@ -29,7 +29,7 @@ define(function (require, exports, module) {
             },
 
             afterDie: function () {
-                gctx.bullets.add(new Mine({
+                GameContext.instance().bullets.add(new Mine({
                     x: this.x,
                     y: this.y
                 }));

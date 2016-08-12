@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var meta        = require('meta'),
         MathUtility = require('math-util'),
         FakeAI      = require('ai/fake-ai'),
-        gctx        = require('game-context').instance();
+        GameContext = require('game-context');
 
     function DefaultAI() {
         FakeAI.call(this);
@@ -22,14 +22,14 @@ define(function (require, exports, module) {
                 var target = this._getTargets().get_by_index(0);
     
                 if (!target) {
-                    gctx.units.each(function (unit) {
+                    GameContext.instance().units.each(function (unit) {
                         if (!this._isControllable(unit)) return;
                         
                         unit.stopShooting();
                         unit.stopMoving();
                     }, this);
                 } else {
-                    gctx.units.each(function (unit) {
+                    GameContext.instance().units.each(function (unit) {
                         if (!this._isControllable(unit)) return;
     
                         unit.aimAt(target.x, target.y);
@@ -63,7 +63,7 @@ define(function (require, exports, module) {
             },
     
             _canShoot: function (shooter, target) {
-                return gctx.units.every(function (unit) {
+                return GameContext.instance().units.every(function (unit) {
                     if (unit === shooter || unit === target) {
                         return true;
                     }

@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         WEAPON       = require('const/physics/weapon'),
         MovingObject = require('objects/moving-object'),
         Charger      = require('objects/weapons/chargers/charger'),
-        gctx         = require('game-context').instance();
+        GameContext  = require('game-context');
 
     function Weapon(opts) {
         opts = opts || {};
@@ -73,7 +73,7 @@ define(function (require, exports, module) {
                     bullet.y = this.y + this._frontLength * sin_d(this.angle);
                     bullet.angle = this.angle + (1 - this.accuracy) * (this._maxSector * random() - this._maxSector / 2);
                     this.harmWeapon();
-                    gctx.bullets.add(bullet);
+                    GameContext.instance().bullets.add(bullet);
                 }
                 return bullet;
             },

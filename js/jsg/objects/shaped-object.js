@@ -2,7 +2,7 @@ define(function (require, exports, module) {
     var meta             = require('meta'),
         PositionedObject = require('objects/positioned-object'),
         Canvas           = require('widgets/canvas'),
-        gctx             = require('game-context').instance();      // TODO-migration !! make gctx func (lazy context instance creating)
+        GameContext      = require('game-context');
     
     function ShapedObject(opts) {
         opts = opts || {};
@@ -33,7 +33,7 @@ define(function (require, exports, module) {
                     });
                 } else {
                     this._shapes.push(shape);
-                    gctx.stage.addChild(shape);
+                    GameContext.instance().stage.addChild(shape);
                 }
             },
 
@@ -47,7 +47,7 @@ define(function (require, exports, module) {
 
             destroyShapes: function () {
                 this._shapes.forEach(function (shape) {
-                    gctx.stage.removeChild(shape);
+                    GameContext.instance().stage.removeChild(shape);
                 });
                 this._shapes = [];
             }

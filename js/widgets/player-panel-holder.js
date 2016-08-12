@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var $           = require('jquery'),
         PlayerPanel = require('widgets/player-panel'),
-        gctx        = require('game-context').instance();
+        GameContext = require('game-context');
 
     var PlayerPanelHolder = function () {
         var self = {};
@@ -35,8 +35,8 @@ define(function (require, exports, module) {
 
         self.bindToPlayers = function () {
             _playerPanels.forEach(function (playerPanel, i) {
-                if (gctx.players.get_by_index(i)) {
-                    playerPanel.setPlayerId(gctx.players.get_by_index(i).id);
+                if (GameContext.instance().players.get_by_index(i)) {
+                    playerPanel.setPlayerId(GameContext.instance().players.get_by_index(i).id);
                 }
             });
         };

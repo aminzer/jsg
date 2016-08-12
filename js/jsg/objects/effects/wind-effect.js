@@ -4,7 +4,7 @@ define(function (require, exports, module) {
         CircleObject = require('objects/circle-object'),
         Effect       = require('objects/effects/effect'),
         Painter      = require('util/painter'),
-        gctx         = require('game-context').instance();
+        GameContext  = require('game-context');
 
     function WindEffect(opts, render) {
         opts = new meta.Hash( opts ).merge({
@@ -51,7 +51,7 @@ define(function (require, exports, module) {
             },
     
             makeInfluence: function () {
-                gctx.bullets.each(function (bullet) {
+                GameContext.instance().bullets.each(function (bullet) {
                     if (this.isPointInside(bullet.x, bullet.y)) {
                         if (Math.abs( MathUtility.normalizeAngle(bullet.angle - this.angle) ) < this.intensity) {
                             bullet.angle = this.angle;
