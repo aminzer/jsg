@@ -8,16 +8,15 @@ require(['../../js/requirejs-config'], function () {
             }
         },
         paths: {
-            'qunit': '../../test/vendor/qunit-2.0.1'
+            'qunit': '../../test/vendor/qunit-2.0.1',
+            'tests': '../../test/js/tests'
         }
     });
 
-    require(['qunit'], function (QUnit) {
+    require(['qunit', 'tests/meta'], function (QUnit, TestMeta) {
         console.log(QUnit);
 
-        QUnit.test( 'simple test', function( assert ) {
-            assert.ok( !!'true' == true, 'Passed!' );
-        });
+        TestMeta.register();
 
         QUnit.load();
         QUnit.start();
