@@ -98,6 +98,56 @@ define(function (require, exports, module) {
         assert.equal( om.reduce(function (res, obj) { return res + obj.name }, ''), sourceObjects.reduce(function (res, obj) { return res + obj.name }, '') );
     });
 
+    test.addCase('mirrors', function( assert ) {
+        var om0 = new meta.ObjectMap();
+        var om1 = new meta.ObjectMap();
+        var om2 = new meta.ObjectMap();
+
+        om0.add_mirror_for_adding(om1);
+        om0.add_mirror_for_adding(om2);
+        om1.add_mirror_for_adding(om0);
+
+        om0.add({id: 4});
+
+        assert.ok( om0.contains(4) );
+        assert.ok( om1.contains(4) );
+        assert.ok( om2.contains(4) );
+
+        om1.add({id: 5});
+
+        assert.ok( om0.contains(5) );
+        assert.ok( om1.contains(5) );
+        assert.ok( om2.contains(5) );
+
+        om2.add({id: 6});
+
+        assert.notOk( om0.contains(6) );
+        assert.notOk( om1.contains(6) );
+        assert.ok( om2.contains(6) );
+
+        om0.add_mirror_for_removing(om1);
+        om1.add_mirror_for_removing(om2);
+
+        om0.remove(4);
+
+        assert.notOk( om0.contains(4) );
+        assert.notOk( om1.contains(4) );
+        assert.notOk( om2.contains(4) );
+
+        om1.remove(5);
+
+        assert.ok( om0.contains(5) );
+        assert.notOk( om1.contains(5) );
+        assert.notOk( om2.contains(5) );
+
+        om2.add_mirror_for_removing(om0);
+        om1.remove(5);
+
+        assert.notOk( om0.contains(5) );
+        assert.notOk( om1.contains(5) );
+        assert.notOk( om2.contains(5) );
+    });
+
     function arraysEqual(arr0, arr1) {
         if (!Array.isArray(arr0) || !Array.isArray(arr1) || arr0.length !== arr1.length) return false;
         for (var i = 0; i < arr0.length; i++) {
