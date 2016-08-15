@@ -79,6 +79,25 @@ define(function (require, exports, module) {
         assert.ok( om.contains(3) );
     });
 
+    test.addCase('iteration methods', function( assert ) {
+        var om = new meta.ObjectMap({objects: sourceObjects});
+
+        var aggregated = '';
+        om.each(function (obj) { aggregated += obj.name; });
+
+        assert.equal( aggregated, sourceObjects.reduce(function (res, obj) { return res + obj.name }, '') );
+
+        assert.ok( arraysEqual(om.map(function (obj) { return obj.name }), sourceObjects.map(function (obj) { return obj.name })) );
+
+        assert.ok( om.every(function (obj) { return obj.name.length > 2 }) );
+        assert.notOk( om.every(function (obj) { return obj.name.length > 3 }) );
+
+        assert.ok( om.some(function (obj) { return obj.name.length > 3 }) );
+        assert.notOk( om.some(function (obj) { return obj.name.length > 10 }) );
+
+        assert.equal( om.reduce(function (res, obj) { return res + obj.name }, ''), sourceObjects.reduce(function (res, obj) { return res + obj.name }, '') );
+    });
+
     function arraysEqual(arr0, arr1) {
         if (!Array.isArray(arr0) || !Array.isArray(arr1) || arr0.length !== arr1.length) return false;
         for (var i = 0; i < arr0.length; i++) {
