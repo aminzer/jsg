@@ -2,13 +2,13 @@ define(function (require, exports, module) {
     var Test  = require('tests/test'),
         meta  = require('meta');
 
-    var test = new Test('meta');
+    var test = new Test('meta.common');
 
-    test.addCase('common', function( assert ) {
+    test.addCase(function( assert ) {
         assert.ok( typeof meta.common == 'object' );
     });
 
-    test.addCase('common', 'first_defined', function( assert ) {
+    test.addCase('first_defined', function( assert ) {
         assert.ok( typeof meta.common.first_defined == 'function' );
         assert.equal( meta.common.first_defined(), null );
         assert.equal( meta.common.first_defined(null), null );
@@ -20,7 +20,7 @@ define(function (require, exports, module) {
         assert.equal( meta.common.first_defined(1, undefined, undefined), 1 );
     });
 
-    test.addCase('common', 'has_method', function( assert ) {
+    test.addCase('has_method', function( assert ) {
         assert.ok( typeof meta.common.has_method == 'function' );
         assert.throws( meta.common.has_method() );
         assert.throws( meta.common.has_method({}) );
@@ -48,7 +48,7 @@ define(function (require, exports, module) {
 
     var mustBe, isAsExpected;
     typeCheckers.forEach(function (typeChecker) {
-        test.addCase('common', typeChecker, function( assert ) {
+        test.addCase(typeChecker, function( assert ) {
             correctTypeDetectionResults.forEach(function (correctResult) {
                 mustBe = !!~correctResult.belongs_to.indexOf(typeChecker.substr(3));
                 isAsExpected = meta.common[typeChecker](correctResult.target) === mustBe;

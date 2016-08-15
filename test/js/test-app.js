@@ -13,8 +13,9 @@ require(['../../js/requirejs-config'], function () {
         }
     });
 
-    require(['qunit', 'tests/meta'], function (QUnit, TestMeta) {
-        TestMeta.register();
+    require(['qunit', 'tests/meta-common', 'tests/meta-object-map'], function (QUnit, TestMetaCommon, TestMetaObjectMap) {
+        TestMetaCommon.register();
+        TestMetaObjectMap.register();
 
         QUnit.load();
         QUnit.start();
