@@ -33,7 +33,7 @@ define(function (require, exports, module) {
             'effects'
         ])
     
-        .define_static_method({         // TODO make static properties
+        .define_static_method({
             instance: function () {
                 return this._instance || (this._instance = new this());
             },
