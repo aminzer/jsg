@@ -14,9 +14,9 @@ define(function (require, exports, module) {
         this._effects = new meta.ObjectMap();
         this._enemyFactory = opts.enemyFactory || null;
 
-        this._players.set_mirror_for_adding(this._units);
-        this._players.set_mirror_for_removing(this._units);
-        this._units.set_mirror_for_removing(this._players);
+        this._players.add_mirror_for_adding(this._units);
+        this._players.add_mirror_for_removing(this._units);
+        this._units.add_mirror_for_removing(this._players);
     }
 
     new meta.Class( GameContext )
