@@ -14,8 +14,6 @@ require(['../../js/requirejs-config'], function () {
     });
 
     require(['qunit', 'tests/meta'], function (QUnit, TestMeta) {
-        console.log(QUnit);
-
         TestMeta.register();
 
         QUnit.load();

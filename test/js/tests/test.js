@@ -15,7 +15,6 @@ define(['qunit'], function (QUnit) {
 
     Test.prototype.addCase = function (/* args.. */) {
         this._cases.push(new Case(arguments));
-        console.log(this._cases[0].getScopeString())
     };
     
     Test.prototype.register = function () {
