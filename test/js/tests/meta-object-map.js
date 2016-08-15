@@ -55,6 +55,30 @@ define(function (require, exports, module) {
         assert.notOk( om.get_by_index(4) );
     });
 
+    test.addCase('ID field', function( assert ) {
+        var om = new meta.ObjectMap({
+            id_field: 'real_id',
+            objects: [
+                {id: 1, real_id: 2},
+                {id: 2, real_id: 3}
+            ]
+        });
+
+        assert.notOk( om.contains(1) );
+        assert.ok( om.contains(2) );
+        assert.equal( om.get(2).id, 1 );
+        
+        om.add({id: 3, real_id: 4});
+
+        assert.ok( om.contains(4) );
+        assert.equal( om.get(4).id, 3 );
+
+        om.remove(2);
+
+        assert.notOk( om.contains(2) );
+        assert.ok( om.contains(3) );
+    });
+
     function arraysEqual(arr0, arr1) {
         if (!Array.isArray(arr0) || !Array.isArray(arr1) || arr0.length !== arr1.length) return false;
         for (var i = 0; i < arr0.length; i++) {
