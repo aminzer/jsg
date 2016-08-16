@@ -3,29 +3,37 @@ define(function (require, exports, module) {
 
     var Canvas = {};
 
-    var _width = 0;
-    var _height = 0;
+    var _realWidth = 0;
+    var _realHeight = 0;
     var $node = null;
 
     Object.defineProperties(Canvas, {
-        virtualWidth: {
+        width: {
             value: 1600,
             writable: false,
             configurable: false
         },
 
-        virtualHeight: {
+        height: {
             value: 900,
             writable: false,
             configurable: false
         },
 
-        width: {
-            get: function () { return _width }
+        w: {
+            get: function () { return this.width }
         },
 
-        height: {
-            get: function () { return _height }
+        h: {
+            get: function () { return this.height }
+        },
+
+        realWidth: {
+            get: function () { return _realWidth }
+        },
+
+        realHeight: {
+            get: function () { return _realHeight }
         },
 
         $node: {
@@ -47,13 +55,13 @@ define(function (require, exports, module) {
     Canvas.initialize = function (opts) {
         opts = opts || {};
 
-        _width = opts.width || $(document.body).width();
-        _height = opts.height || $(document.body).height();
+        _realWidth = opts.width || $(document.body).width();
+        _realHeight = opts.height || $(document.body).height();
 
-        if (Canvas.width / Canvas.virtualWidth < Canvas.height / Canvas.virtualHeight) {
-            _height = Canvas.width * Canvas.virtualHeight / Canvas.virtualWidth;
+        if (Canvas.realWidth / Canvas.width < Canvas.realHeight / Canvas.height) {
+            _realHeight = Canvas.realWidth * Canvas.height / Canvas.width;
         } else {
-            _width = Canvas.height * Canvas.virtualWidth / Canvas.virtualHeight;
+            _realWidth = Canvas.realHeight * Canvas.width / Canvas.height;
         }
 
         return Canvas;
@@ -62,7 +70,7 @@ define(function (require, exports, module) {
     Canvas.render = render;
 
     Canvas.Scale = {
-        ratio: function () { return Canvas.width / Canvas.virtualWidth },
+        ratio: function () { return Canvas.realWidth / Canvas.width },
         toReal: function (virtualSize) { return virtualSize * this.ratio() },
         toVirtual: function (realSize) { return realSize / this.ratio() }
     };
@@ -72,8 +80,8 @@ define(function (require, exports, module) {
 
         $node = $('<canvas></canvas>').attr({
             id: renderOpts.canvasId || 'stage-canvas',
-            width: Canvas.width,
-            height: Canvas.height
+            width: Canvas.realWidth,
+            height: Canvas.realHeight
         });
 
         if (renderOpts.$parent) renderOpts.$parent.append($node);

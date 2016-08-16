@@ -45,8 +45,8 @@ define(function (require, exports, module) {
     
             _getConstructorOpts: function (constructor) {
                 return {
-                    x: Canvas.virtualWidth * (Math.random() / 2 + 0.5),
-                    y: Canvas.virtualHeight * (Math.random() / 2 + 0.5)
+                    x: Canvas.w * (Math.random() / 2 + 0.5),
+                    y: Canvas.h * (Math.random() / 2 + 0.5)
                 };
             }
         })
