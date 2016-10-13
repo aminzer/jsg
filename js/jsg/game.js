@@ -97,6 +97,7 @@ define(function (require, exports, module) {
             GameContext.instance().effects.each(function (effect) { effect.isActive() && effect.makeInfluence() });
     
             handleTargetHits();
+            preventCanvasBorderCrossing();
     
             // 4. updating shapes related to Game Model Objects
             GameContext.instance().units.each(function (unit) { unit.updateShapes() });
@@ -165,6 +166,15 @@ define(function (require, exports, module) {
                         $(document).trigger("player_death", [unit.id]);
                     }
                 }
+            });
+        }
+
+        function preventCanvasBorderCrossing() {
+            GameContext.instance().units.each(function (unit) {
+                if (unit.x < 0) unit.x = 0;
+                if (unit.y < 0) unit.y = 0;
+                if (unit.x > Canvas.w) unit.x = Canvas.w;
+                if (unit.y > Canvas.h) unit.y = Canvas.h;
             });
         }
     
