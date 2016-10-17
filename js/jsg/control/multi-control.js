@@ -4,53 +4,25 @@ define(function (require, exports, module) {
     function MultiControl(opts) {
         this._controls = opts.controls;
     }
-    
-    new meta.Class( MultiControl )
-    
-        .define_methods({
-            handleKeyDown: function (keyCode) {
-                this._controls.forEach(function (control) {
-                    control.handleKeyDown(keyCode);
-                });
-            },
-    
-            handleKeyUp: function (keyCode) {
-                this._controls.forEach(function (control) {
-                    control.handleKeyUp(keyCode);
-                });
-            },
-    
-            handleMouseDown: function (targetX, targetY) {
-                this._controls.forEach(function (control) {
-                    control.handleMouseDown(targetX, targetY);
-                });
-            },
-    
-            handleMouseUp: function (targetX, targetY) {
-                this._controls.forEach(function (control) {
-                    control.handleMouseUp(targetX, targetY);
-                });
-            },
-    
-            handleMouseMove: function (targetX, targetY) {
-                this._controls.forEach(function (control) {
-                    control.handleMouseMove(targetX, targetY);
-                });
-            },
-    
-            handleMouseWheel: function (delta) {
-                this._controls.forEach(function (control) {
-                    control.handleMouseWheel(delta);
-                });
-            },
-    
-            handleRender: function () {
-                this._controls.forEach(function (control) {
-                    control.handleRender();
-                });
-            }
-        })
-    ;
+
+    var MultiControl_MetaClass = new meta.Class( MultiControl );
+
+    [
+        'handleKeyDown',
+        'handleKeyUp',
+        'handleMouseDown',
+        'handleMouseUp',
+        'handleMouseMove',
+        'handleMouseWheel',
+        'handleRender'
+    ].forEach(function (method) {
+        this.define_method(method, function (/*...args*/) {
+            var args = arguments;
+            this._controls.forEach(function (control) {
+                control[method].apply(control, args);
+            });
+        });
+    }, MultiControl_MetaClass);
 
     module.exports = MultiControl;
 });
