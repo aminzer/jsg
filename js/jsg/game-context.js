@@ -32,18 +32,19 @@ define(function (require, exports, module) {
             'players',
             'effects'
         ])
-    
-        .define_static_method({
-            instance: function () {
-                return this._instance || (this._instance = new this());
+
+        .define_static_property('instance', {
+            get: function () {
+                return this._instance || (this._instance = new GameContext());
             },
-            
-            setInstance: function(newInstance) {
+            set: function (newInstance) {
                 this._instance = newInstance;
-            },
-            
+            }
+        })
+
+        .define_static_method({
             initialize: function() {
-                return this.instance();
+                return this.instance;
             }
         })
     ;

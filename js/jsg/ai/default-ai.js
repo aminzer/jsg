@@ -22,14 +22,14 @@ define(function (require, exports, module) {
                 var target = this._getTargets().get_by_index(0);
     
                 if (!target) {
-                    GameContext.instance().units.each(function (unit) {
+                    GameContext.instance.units.each(function (unit) {
                         if (!this._isControllable(unit)) return;
                         
                         unit.stopShooting();
                         unit.stopMoving();
                     }, this);
                 } else {
-                    GameContext.instance().units.each(function (unit) {
+                    GameContext.instance.units.each(function (unit) {
                         if (!this._isControllable(unit)) return;
     
                         unit.aimAt(target.x, target.y);
@@ -63,7 +63,7 @@ define(function (require, exports, module) {
             },
     
             _canShoot: function (shooter, target) {
-                return GameContext.instance().units.every(function (unit) {
+                return GameContext.instance.units.every(function (unit) {
                     if (unit === shooter || unit === target) {
                         return true;
                     }

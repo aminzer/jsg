@@ -35,8 +35,8 @@ define(function (require, exports, module) {
 
         self.bindToPlayers = function () {
             _playerPanels.forEach(function (playerPanel, i) {
-                if (GameContext.instance().players.get_by_index(i)) {
-                    playerPanel.setPlayerId(GameContext.instance().players.get_by_index(i).id);
+                if (GameContext.instance.players.get_by_index(i)) {
+                    playerPanel.setPlayerId(GameContext.instance.players.get_by_index(i).id);
                 }
             });
         };

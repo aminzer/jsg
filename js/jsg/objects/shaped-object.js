@@ -33,7 +33,7 @@ define(function (require, exports, module) {
                     });
                 } else {
                     this._shapes.push(shape);
-                    GameContext.instance().stage.addChild(shape);
+                    GameContext.instance.stage.addChild(shape);
                 }
             },
 
@@ -47,7 +47,7 @@ define(function (require, exports, module) {
 
             destroyShapes: function () {
                 this._shapes.forEach(function (shape) {
-                    GameContext.instance().stage.removeChild(shape);
+                    GameContext.instance.stage.removeChild(shape);
                 });
                 this._shapes = [];
             }

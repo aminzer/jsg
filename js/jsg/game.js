@@ -48,7 +48,7 @@ define(function (require, exports, module) {
             if (!_isRunning) return;
     
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            GameContext.instance().enemyFactory && GameContext.instance().enemyFactory.stopGenerating();
+            GameContext.instance.enemyFactory && GameContext.instance.enemyFactory.stopGenerating();
             _isRunning = false;
         };
     
@@ -56,7 +56,7 @@ define(function (require, exports, module) {
             if (_isRunning) return;
     
             createjs.Ticker.paused = !createjs.Ticker.paused;
-            GameContext.instance().enemyFactory && GameContext.instance().enemyFactory.startGenerating();
+            GameContext.instance.enemyFactory && GameContext.instance.enemyFactory.startGenerating();
             _isRunning = true;
         };
     
@@ -65,9 +65,9 @@ define(function (require, exports, module) {
         };
     
         function initHandlers() {
-            GameContext.instance().stage.addEventListener("stagemousemove", handleMouseMove);
-            GameContext.instance().stage.addEventListener("stagemousedown", handleMouseDown);
-            GameContext.instance().stage.addEventListener("stagemouseup", handleMouseUp);
+            GameContext.instance.stage.addEventListener("stagemousemove", handleMouseMove);
+            GameContext.instance.stage.addEventListener("stagemousedown", handleMouseDown);
+            GameContext.instance.stage.addEventListener("stagemouseup", handleMouseUp);
             Canvas.htmlElement.addEventListener("wheel", handleMouseWheel);
             Canvas.htmlElement.oncontextmenu = handleRightButtonClick;
             document.addEventListener("keydown", handleKeyDown);
@@ -92,25 +92,25 @@ define(function (require, exports, module) {
             _ai.resolve();
     
             // 3. recounting logical parameters of Game Model Objects (physics impact, uncontrolled)
-            GameContext.instance().units.each(function (unit) { !unit.move() && unit.die() });
-            GameContext.instance().bullets.each(function (bullet) { !bullet.move() && bullet.die() });
-            GameContext.instance().effects.each(function (effect) { effect.isActive() && effect.makeInfluence() });
+            GameContext.instance.units.each(function (unit) { !unit.move() && unit.die() });
+            GameContext.instance.bullets.each(function (bullet) { !bullet.move() && bullet.die() });
+            GameContext.instance.effects.each(function (effect) { effect.isActive() && effect.makeInfluence() });
     
             handleTargetHits();
             preventCanvasBorderCrossing();
     
             // 4. updating shapes related to Game Model Objects
-            GameContext.instance().units.each(function (unit) { unit.updateShapes() });
-            GameContext.instance().bullets.each(function (bullet) { bullet.updateShapes() });
-            GameContext.instance().effects.each(function (effect) { effect.updateShapes() });
+            GameContext.instance.units.each(function (unit) { unit.updateShapes() });
+            GameContext.instance.bullets.each(function (bullet) { bullet.updateShapes() });
+            GameContext.instance.effects.each(function (effect) { effect.updateShapes() });
     
             // 5. trigger player events
-            GameContext.instance().players.each(function (player) {
+            GameContext.instance.players.each(function (player) {
                 $(document).trigger('player_hp_change', [player.id, player.hp, player.maxHp]);
             });
     
             // 6. updating stage (redraw)
-            GameContext.instance().stage.update();
+            GameContext.instance.stage.update();
         }
     
         function handleKeyDown(e) {
@@ -152,8 +152,8 @@ define(function (require, exports, module) {
         }
     
         function handleTargetHits() {                      // TODO check standard method     easel.js : Shape.hitTest(x,y)
-            GameContext.instance().units.each(function (unit) {
-                GameContext.instance().bullets.each(function (bullet) {
+            GameContext.instance.units.each(function (unit) {
+                GameContext.instance.bullets.each(function (bullet) {
                     if (unit.isPointInside(bullet.x, bullet.y)) {
                         unit.takeDamage(bullet.damage);
                         bullet.die();
@@ -170,7 +170,7 @@ define(function (require, exports, module) {
         }
 
         function preventCanvasBorderCrossing() {
-            GameContext.instance().units.each(function (unit) {
+            GameContext.instance.units.each(function (unit) {
                 if (unit.x < 0) unit.x = 0;
                 if (unit.y < 0) unit.y = 0;
                 if (unit.x > Canvas.w) unit.x = Canvas.w;
@@ -179,7 +179,7 @@ define(function (require, exports, module) {
         }
     
         function handlePlayersDeath(e) {
-            if (GameContext.instance().players.size() == 0) {
+            if (GameContext.instance.players.size() == 0) {
                 setTimeout(function () {
                     alert("it's over");
                     location.reload();
@@ -188,7 +188,7 @@ define(function (require, exports, module) {
         }
     
         function initControls() {
-            switch (GameContext.instance().players.size()) {
+            switch (GameContext.instance.players.size()) {
                 case 1:
                     _control = new UniversalControl();
                     break;
@@ -197,14 +197,14 @@ define(function (require, exports, module) {
                         controls: [
                             new UniversalControl({
                                 keyMap: CONTROLS.PLAYER1,
-                                controlledUnitId: GameContext.instance().players.get_by_index(0).id,
+                                controlledUnitId: GameContext.instance.players.get_by_index(0).id,
                                 cursor: new Cursor({
                                     color: "rgba(0,100,0,0.2)"
                                 })
                             }),
                             new UniversalControl({
                                 keyMap: CONTROLS.PLAYER2,
-                                controlledUnitId: GameContext.instance().players.get_by_index(1).id,
+                                controlledUnitId: GameContext.instance.players.get_by_index(1).id,
                                 color: "rgba(0,0,255,0.1)"
                             })
                         ]

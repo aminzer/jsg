@@ -73,7 +73,7 @@ define(function (require, exports, module) {
                     bullet.y = this.y + this._frontLength * M.sin_d(this.angle);
                     bullet.angle = this.angle + (1 - this.accuracy) * (this._maxSector * Math.random() - this._maxSector / 2);
                     this.harmWeapon();
-                    GameContext.instance().bullets.add(bullet);
+                    GameContext.instance.bullets.add(bullet);
                 }
                 return bullet;
             },

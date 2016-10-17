@@ -23,17 +23,17 @@ define(function (require, exports, module) {
                 );
                 player.objectType = OBJECT_TYPE.PLAYER;
                 player.aimAt(Number.MAX_VALUE * M.cos_d(player.angle), Number.MAX_VALUE * M.sin_d(player.angle));
-                GameContext.instance().players.add(player);
+                GameContext.instance.players.add(player);
             }
     
             (levelDef.enemies || []).forEach(function (enemyDef) {
-                GameContext.instance().units.add(new enemyDef.$constructor(
+                GameContext.instance.units.add(new enemyDef.$constructor(
                     getObjectOpts(enemyDef)
                 ));
             });
     
             (levelDef.effects || []).forEach(function (effectDef) {
-                GameContext.instance().effects.add(new effectDef.$constructor(
+                GameContext.instance.effects.add(new effectDef.$constructor(
                     getObjectOpts(effectDef)
                 ));
             });
@@ -42,7 +42,7 @@ define(function (require, exports, module) {
                 var enemyFactory = new levelDef.enemyFactory.$constructor(
                     getObjectOpts(levelDef.enemyFactory)
                 );
-                GameContext.instance().enemyFactory = enemyFactory;
+                GameContext.instance.enemyFactory = enemyFactory;
                 enemyFactory.startGenerating();
             }
         };

@@ -49,7 +49,7 @@ define(function (require, exports, module) {
                         var childBullet = new this._childBulletConstructor(
                             this.getChildBulletOpts(angle)
                         );
-                        GameContext.instance().bullets.add(childBullet);
+                        GameContext.instance.bullets.add(childBullet);
                     }
                 }
             }

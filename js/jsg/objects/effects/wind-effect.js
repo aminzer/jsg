@@ -51,7 +51,7 @@ define(function (require, exports, module) {
             },
     
             makeInfluence: function () {
-                GameContext.instance().bullets.each(function (bullet) {
+                GameContext.instance.bullets.each(function (bullet) {
                     if (this.isPointInside(bullet.x, bullet.y)) {
                         if (Math.abs( M.normalizeAngle(bullet.angle - this.angle) ) < this.intensity) {
                             bullet.angle = this.angle;

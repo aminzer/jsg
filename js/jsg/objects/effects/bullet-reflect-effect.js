@@ -31,7 +31,7 @@ define(function (require, exports, module) {
             },
     
             makeInfluence: function () {
-                GameContext.instance().bullets.each(function (bullet) {
+                GameContext.instance.bullets.each(function (bullet) {
                     if (this.isPointInside(bullet.x, bullet.y)) {
                         var normalAngle = M.getLinesAngle(bullet.x, bullet.y, this.x, this.y);
                         bullet.angle = 180 - bullet.angle + 2 * normalAngle;

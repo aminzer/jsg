@@ -18,7 +18,7 @@ define(function (require, exports, module) {
             },
     
             _getTargets: function () {
-                return GameContext.instance().players;
+                return GameContext.instance.players;
             }
         })
     ;

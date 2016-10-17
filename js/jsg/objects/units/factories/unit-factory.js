@@ -20,7 +20,7 @@ define(function (require, exports, module) {
                 this._creationTimer = setInterval(function () {
                     var constructor = this._getConstructor.call(this);
                     var constructorOpts = this._getConstructorOpts.call(this, constructor);
-                    GameContext.instance().units.add(new constructor(constructorOpts));
+                    GameContext.instance.units.add(new constructor(constructorOpts));
                 }.bind(this), this._generatingDelay);
             },
     

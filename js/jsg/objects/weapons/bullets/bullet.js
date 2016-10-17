@@ -46,7 +46,7 @@ define(function (require, exports, module) {
 
             die: function () {
                 this.destroyShapes();
-                GameContext.instance().bullets.remove(this.id);
+                GameContext.instance.bullets.remove(this.id);
                 this.afterDie();
             },
 

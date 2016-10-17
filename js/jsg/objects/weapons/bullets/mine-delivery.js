@@ -29,7 +29,7 @@ define(function (require, exports, module) {
             },
 
             afterDie: function () {
-                GameContext.instance().bullets.add(new Mine({
+                GameContext.instance.bullets.add(new Mine({
                     x: this.x,
                     y: this.y
                 }));
