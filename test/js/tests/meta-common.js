@@ -10,14 +10,14 @@ define(function (require, exports, module) {
 
     test.addCase('first_defined', function( assert ) {
         assert.ok( typeof meta.common.first_defined == 'function' );
-        assert.equal( meta.common.first_defined(), null );
-        assert.equal( meta.common.first_defined(null), null );
-        assert.equal( meta.common.first_defined(null, 2), null );
-        assert.equal( meta.common.first_defined(1, 2), 1 );
-        assert.equal( meta.common.first_defined(undefined, 2), 2 );
-        assert.equal( meta.common.first_defined(undefined, undefined, 3), 3 );
-        assert.equal( meta.common.first_defined(1, 2, 3), 1 );
-        assert.equal( meta.common.first_defined(1, undefined, undefined), 1 );
+        assert.strictEqual( meta.common.first_defined(), undefined );
+        assert.strictEqual( meta.common.first_defined(null), null );
+        assert.strictEqual( meta.common.first_defined(null, 1), null );
+        assert.strictEqual( meta.common.first_defined(1, 2), 1 );
+        assert.strictEqual( meta.common.first_defined(undefined, 1), 1 );
+        assert.strictEqual( meta.common.first_defined(undefined, undefined, 1), 1 );
+        assert.strictEqual( meta.common.first_defined(1, 2, 3), 1 );
+        assert.strictEqual( meta.common.first_defined(1, undefined, undefined), 1 );
     });
 
     test.addCase('has_method', function( assert ) {
