@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         Painter      = require('util/painter');
 
     function MachineGunBullet(opts, render) {
-        opts = new meta.Hash(opts).merge({
+        opts = new meta.Hash(opts).add_defaults({
             damage: BULLET.MACHINE_GUN.DAMAGE,
             speed: BULLET.MACHINE_GUN.SPEED,
             lifetime: BULLET.MACHINE_GUN.LIFETIME

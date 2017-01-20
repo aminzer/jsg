@@ -7,7 +7,7 @@ define(function (require, exports, module) {
         GameContext  = require('game-context');
 
     function WindEffect(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             radius: 100,
             intensity: 5
         }).to_obj();

@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         Painter            = require('util/painter');
 
     function Rocket(opts, render) {
-        opts = new meta.Hash(opts).merge({
+        opts = new meta.Hash(opts).add_defaults({
             damage: BULLET.ROCKET.DAMAGE,
             speed: BULLET.ROCKET.START_SPEED,
             lifetime: BULLET.ROCKET.LIFETIME,

@@ -9,7 +9,7 @@ define(function (require, exports, module) {
         Painter     = require('util/painter');
 
     function Tank(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             length: 80,
             width: 20,
             weaponSet: WeaponSet.oneGun(new TankGun({}, false))

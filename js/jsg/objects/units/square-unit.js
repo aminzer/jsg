@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         Unit         = require('objects/units/unit');
 
     function SquareUnit(opts) {
-        opts = new meta.Hash( opts).merge({
+        opts = new meta.Hash( opts).add_defaults({
             length: 2 * UNIT.DEFAULT.RADIUS,
             width: 2 * UNIT.DEFAULT.RADIUS
         }).to_obj();

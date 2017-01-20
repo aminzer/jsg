@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         WeaponSet    = require('objects/weapons/weapon-set');
 
     function FootSoldier(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             weaponSet: WeaponSet.oneGun(new AutomaticGun({}, false)),
             mainColor: '#559',
             extraColor: '#199EE0'

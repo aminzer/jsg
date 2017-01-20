@@ -6,7 +6,7 @@ define(function (require, exports, module) {
         Painter         = require('util/painter');
 
     function TankGun(opts, render) {
-        opts = new meta.Hash(opts).merge({
+        opts = new meta.Hash(opts).add_defaults({
             maxSector: WEAPON.TANK_GUN.MAX_SECTOR,
             frontLength: WEAPON.TANK_GUN.FRONT_LENGTH,
             hardness: WEAPON.TANK_GUN.HARDNESS,

@@ -4,7 +4,7 @@ define(function (require, exports, module) {
         Tommy  = require('objects/units/tommy');
 
     function DefaultHero(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             speed: PLAYER.SPEED,
             maxHp: PLAYER.HP,
             mainColor: '#73B500',

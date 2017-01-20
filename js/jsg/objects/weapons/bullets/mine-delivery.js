@@ -7,7 +7,7 @@ define(function (require, exports, module) {
         GameContext        = require('game-context');
 
     function MineDelivery(opts, render) {
-        opts = new meta.Hash(opts).merge({
+        opts = new meta.Hash(opts).add_defaults({
             damage: BULLET.MINE_DELIVERY.DAMAGE,
             speed: BULLET.MINE_DELIVERY.START_SPEED,
             lifetime: BULLET.MINE_DELIVERY.LIFETIME,

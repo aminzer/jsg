@@ -6,7 +6,7 @@ define(function (require, exports, module) {
         Painter      = require('util/painter');
 
     function Mortar(opts, render) {
-        opts = new meta.Hash(opts).merge({
+        opts = new meta.Hash(opts).add_defaults({
             maxSector: WEAPON.ROCKET_LAUNCHER.MAX_SECTOR,
             frontLength: WEAPON.ROCKET_LAUNCHER.FRONT_LENGTH,
             hardness: WEAPON.ROCKET_LAUNCHER.HARDNESS,

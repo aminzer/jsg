@@ -3,7 +3,7 @@ define(function (require, exports, module) {
         DefaultHero = require('objects/units/default-hero');
 
     function DefaultHero2(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             mainColor: '#FF860D',
             extraColor: '#75420E'
         }).to_obj();

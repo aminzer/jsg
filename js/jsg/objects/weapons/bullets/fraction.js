@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         Painter      = require('util/painter');
     
     function Fraction(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             damage: BULLET.DEFAULT.DAMAGE,
             speed: BULLET.DEFAULT.SPEED,
             lifetime: BULLET.DEFAULT.LIFETIME

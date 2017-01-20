@@ -9,7 +9,7 @@ define(function (require, exports, module) {
         Painter         = require('util/painter');
 
     function Destroyer(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             radius: UNIT.DESTROYER.RADIUS,
             maxHp: UNIT.DESTROYER.HP,
             weaponSet: WeaponSet.oneGun(new CompositeWeapon({

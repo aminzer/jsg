@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         WeaponSet       = require('objects/weapons/weapon-set');
 
     function Recruit(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             weaponSet: WeaponSet.oneGun(new GrandfathersGun({}, false)),
             mainColor: '#199EE0',
             extraColor: '#559'

@@ -8,7 +8,7 @@ define(function (require, exports, module) {
         Recruit              = require('objects/units/recruit');
 
     function EnemyFactory(opts) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             enemyConstructors: new RandomAccessArray([
                 {element: Recruit, weight: 10},
                 {element: FootSoldier, weight: 5},

@@ -6,7 +6,7 @@ define(function (require, exports, module) {
         Painter          = require('util/painter');
 
     function MachineGun(opts, render) {
-        opts = new meta.Hash(opts).merge({
+        opts = new meta.Hash(opts).add_defaults({
             maxSector: WEAPON.MACHINE_GUN.MAX_SECTOR,
             frontLength: WEAPON.MACHINE_GUN.FRONT_LENGTH,
             hardness: WEAPON.MACHINE_GUN.HARDNESS,

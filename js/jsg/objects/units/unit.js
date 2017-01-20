@@ -8,7 +8,7 @@ define(function (require, exports, module) {
         GameContext  = require('game-context');
 
     function Unit(opts) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             objectType: OBJECT_TYPE.ENEMY,
             speed: UNIT.DEFAULT.SPEED
         }).to_obj();

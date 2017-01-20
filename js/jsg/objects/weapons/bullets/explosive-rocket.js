@@ -8,7 +8,7 @@ define(function (require, exports, module) {
         M                  = require('math-util');
 
     function ExplosiveRocket(opts, render) {
-        opts = new meta.Hash(opts).merge({
+        opts = new meta.Hash(opts).add_defaults({
             damage: BULLET.EXPLOSIVE_ROCKET.DAMAGE,
             speed: BULLET.EXPLOSIVE_ROCKET.START_SPEED,
             lifetime: BULLET.EXPLOSIVE_ROCKET.LIFETIME,

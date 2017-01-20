@@ -7,7 +7,7 @@ define(function (require, exports, module) {
         M               = require('math-util');
 
     function Mine(opts, render) {
-        opts = new meta.Hash(opts).merge({
+        opts = new meta.Hash(opts).add_defaults({
             speed: 0,
             childBulletConstructor: Fraction,
             childCount: BULLET.MINE.FRACTION_COUNT,

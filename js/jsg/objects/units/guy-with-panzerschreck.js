@@ -5,7 +5,7 @@ define(function (require, exports, module) {
         WeaponSet      = require('objects/weapons/weapon-set');
 
     function GuyWithPanzerschreck(opts, render) {
-        opts = new meta.Hash( opts ).merge({
+        opts = new meta.Hash( opts ).add_defaults({
             weaponSet: WeaponSet.oneGun(new RocketLauncher({}, false)),
             mainColor: '#8D91E3',
             extraColor: '#34378A'
