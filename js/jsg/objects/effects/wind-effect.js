@@ -15,7 +15,7 @@ define(function (require, exports, module) {
         CircleObject.call(this, opts);
         Effect.call(this, opts);
     
-        this._intensity = opts['intensity'];
+        this._intensity = opts.intensity;
     
         if (render !== false) {
             this.render();
@@ -52,15 +52,15 @@ define(function (require, exports, module) {
     
             makeInfluence: function () {
                 GameContext.instance.bullets.each(function (bullet) {
-                    if (this.isPointInside(bullet.x, bullet.y)) {
-                        if (Math.abs( M.normalizeAngle(bullet.angle - this.angle) ) < this.intensity) {
-                            bullet.angle = this.angle;
+                    if (!this.isPointInside(bullet.x, bullet.y)) return;
+
+                    if (Math.abs( M.normalizeAngle(bullet.angle - this.angle) ) < this.intensity) {
+                        bullet.angle = this.angle;
+                    } else {
+                        if (M.isClockwiseDirection(bullet.angle, this.angle)) {
+                            bullet.angle += this.intensity;
                         } else {
-                            if (M.isClockwiseDirection(bullet.angle, this.angle)) {
-                                bullet.angle += this.intensity;
-                            } else {
-                                bullet.angle -= this.intensity;
-                            }
+                            bullet.angle -= this.intensity;
                         }
                     }
                 }, this);
