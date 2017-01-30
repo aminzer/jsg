@@ -115,5 +115,64 @@ define(function (require, exports, module) {
         assert.propEqual( h.to_obj(), {x: 1, y: 3, z: 4});
     });
 
+    test.addCase('add (static method)', function (assert) {
+        assert.propEqual( Hash.add({}, 'key', 'value'), {'key': 'value'} );
+    });
+
+    test.addCase('add : preventing overwriting (static method)', function (assert) {
+        assert.propEqual( Hash.add({'key': 'first_value'}, 'key', 'second_value'), {'key': 'first_value'} );
+    });
+
+    test.addCase('add : explicit overwriting (static method)', function (assert) {
+        assert.propEqual( Hash.add({'key': 'first_value'}, 'key', 'second_value', true), {'key': 'second_value'} );
+    });
+
+    test.addCase('set (static method)', function (assert) {
+        assert.propEqual( Hash.set({}, 'key', 'value'), {'key': 'value'} );
+    });
+
+    test.addCase('set : overwriting (static method)', function (assert) {
+        assert.propEqual( Hash.set({'key': 'first_value'}, 'key', 'second_value'), {'key': 'second_value'} );
+    });
+
+    test.addCase('add_defaults (static method)', function (assert) {
+        var object = {
+                x: 1,
+                y: 2
+            },
+            defaults = {
+                y: 3,
+                z: 4
+            };
+
+        assert.propEqual( Hash.add_defaults(object, defaults), {x: 1, y: 2, z: 4} );
+    });
+
+    test.addCase('add_defaults : explicit overwriting (static method)', function (assert) {
+        var object = {
+                x: 1,
+                y: 2
+            },
+            defaults = {
+                y: 3,
+                z: 4
+            };
+
+        assert.propEqual( Hash.add_defaults(object, defaults, true), {x: 1, y: 3, z: 4} );
+    });
+
+    test.addCase('merge (static method)', function (assert) {
+        var object = {
+                x: 1,
+                y: 2
+            },
+            defaults = {
+                y: 3,
+                z: 4
+            };
+
+        assert.propEqual( Hash.merge(object, defaults), {x: 1, y: 3, z: 4} );
+    });
+
     module.exports = test;
 });
