@@ -205,7 +205,9 @@ define(function (require, exports, module) {
                             new UniversalControl({
                                 keyMap: CONTROLS.PLAYER2,
                                 controlledUnitId: GameContext.instance.players.get_by_index(1).id,
-                                color: "rgba(0,0,255,0.1)"
+                                cursor: new Cursor({
+                                    color: "rgba(255,134,13,0.3)"
+                                })
                             })
                         ]
                     });
